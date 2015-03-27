@@ -1,0 +1,37 @@
+bg:
+  app_name: "Ests"
+
+  menu: "Меню"
+  profile: "Профил"
+  settings: "Настройки"
+  logout: "Изход"
+  about: "Относно"
+  help: "Помощ"
+  copyright_text: "<a href='http://ests.kom/'>Ests</a> by Sergey Petrov"
+  language_english: "Английски"
+  language_bulgarian: "Български"
+  sign_up: "Регистрация"
+
+  title_login: "Логин"
+  welcome_login: "Добре дошли в Ests"
+  login: "Логин"
+  email: "Имейл"
+  password: "Парола"
+  remember_me: "Запомни ме"
+  please_signin: "Моля, влезте в системата."
+  login_success: "Успешен вход"
+  login_error_empty: "Потребитеслкото име и паролата не може да са празни!"
+  login_error_nouser: "Такъв потребител не съществува!"
+
+  dashboard: "Табло"
+
+  title_edit_user: "Редактиране на потребител"
+  edit_user_header: "Промяна на профила"
+  button_save_changes: "Запази промените"
+  password_confirm: "Потвърди паролата"
+  gravatar_change: "промени"
+
+  first_name: "Име"
+  last_name: "Фамилия"
+  position: "Позиция"
+  technology: "Технология"
