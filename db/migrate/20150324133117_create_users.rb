@@ -5,8 +5,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string :password
       t.string :first_name
       t.string :last_name
-      t.references :position, index: true, foreign_key: true
-      t.references :technology, index: true, foreign_key: true
+      t.string :remember_token
+      t.integer :technology_id
+      t.integer :position_id
 
       t.timestamps null: false
     end

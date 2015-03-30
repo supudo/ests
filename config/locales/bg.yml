@@ -23,6 +23,9 @@ bg:
   login_error_empty: "Потребитеслкото име и паролата не може да са празни!"
   login_error_nouser: "Такъв потребител не съществува!"
 
+  profile_updated: "Профилът е променен."
+  user_destroyed: "Потребителя е унищожен."
+
   dashboard: "Табло"
 
   title_edit_user: "Редактиране на потребител"

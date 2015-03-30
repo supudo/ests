@@ -9,7 +9,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
+    @technology = Technology.all
+    @position = Position.all
+    render 'edit'
   end
 
   def new
@@ -20,12 +22,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.technology = Technology.find_by(id: params[:technology])
-    @user.position = Position.find_by(id: params[:position])
     if @user.save
       sign_in @user
-      flash[:success] = "Welcome to the Ests!"
-      redirect_to @login
+      flash[:success] = t('welcome_login')
+      redirect_to :dashboard
     else
       @technology = Technology.all
       @position = Position.all
@@ -34,11 +34,13 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @technology = Technology.all
+    @position = Position.all
   end
 
   def update
     if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated"
+      flash[:success] = t('profile_updated')
       redirect_to @user
     else
       render 'edit'
@@ -47,28 +49,14 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "User destroyed."
+    flash[:success] = t('user_destroyed')
     redirect_to users_url
-  end
-
-  def following
-    @title = "Following"
-    @user = User.find(params[:id])
-    @users = @user.followed_users.paginate(page: params[:page])
-    render 'show_follow'
-  end
-
-  def followers
-    @title = "Followers"
-    @user = User.find(params[:id])
-    @users = @user.followers.paginate(page: params[:page])
-    render 'show_follow'
   end
 
   private
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :password)
+      params.require(:user).permit(:first_name, :last_name, :username, :password, :technology_id, :position_id)
     end
 
     # Before filters

@@ -11,17 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150327111949) do
+ActiveRecord::Schema.define(version: 20150324133117) do
 
   create_table "positions", force: :cascade do |t|
     t.string   "title",      limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-  end
-
-  create_table "positions_users", id: false, force: :cascade do |t|
-    t.integer "user_id",     limit: 4, null: false
-    t.integer "position_id", limit: 4, null: false
   end
 
   create_table "technologies", force: :cascade do |t|
@@ -30,24 +25,16 @@ ActiveRecord::Schema.define(version: 20150327111949) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "technologies_users", id: false, force: :cascade do |t|
-    t.integer "user_id",       limit: 4, null: false
-    t.integer "technology_id", limit: 4, null: false
-  end
-
   create_table "users", force: :cascade do |t|
-    t.string   "username",        limit: 255
-    t.string   "password",        limit: 255
-    t.string   "first_name",      limit: 255
-    t.string   "last_name",       limit: 255
-    t.integer  "position_id",     limit: 4
-    t.integer  "technology_id",   limit: 4
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.string   "remember_token",  limit: 255
+    t.string   "username",       limit: 255
+    t.string   "password",       limit: 255
+    t.string   "first_name",     limit: 255
+    t.string   "last_name",      limit: 255
+    t.string   "remember_token", limit: 255
+    t.integer  "technology_id",  limit: 4
+    t.integer  "position_id",    limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
-
-  add_index "users", ["position_id"], name: "index_users_on_position_id", using: :btree
-  add_index "users", ["technology_id"], name: "index_users_on_technology_id", using: :btree
 
 end

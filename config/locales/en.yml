@@ -23,6 +23,9 @@ en:
   login_error_empty: "Username and Password cannot be empty!"
   login_error_nouser: "User does not exist!"
 
+  profile_updated: "Profile updated"
+  user_destroyed: "User destroyed."
+
   dashboard: "Dashboard"
 
   title_edit_user: "Edit user"

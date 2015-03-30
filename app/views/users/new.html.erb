@@ -30,19 +30,19 @@
                         </div>
 
                         <div class="form-group">
-                          <select class="form-control" name="user[technology]">
+                          <select class="form-control" name="user[technology_id]" id="user_technology_id">
                             <option value="-1" selected disabled><%= t('technology') %></option>
                             <% @technology.each do |tech| %>
-                              <option value="<%= tech.id %>"><%= tech.title %></option>
+                            <option value="<%= tech.id %>"><%= tech.title %></option>
                             <% end %>
                           </select>
                         </div>
 
                         <div class="form-group">
-                          <select class="form-control" name="user[position]">
+                          <select class="form-control" name="user[position_id]" id="user_position_id">
                             <option value="-1" selected disabled><%= t('position') %></option>
                             <% @position.each do |pos| %>
-                              <option value="<%= pos.id %>"><%= pos.title %></option>
+                            <option value="<%= pos.id %>"><%= pos.title %></option>
                             <% end %>
                           </select>
                         </div>
