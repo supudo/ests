@@ -11,13 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324133117) do
+ActiveRecord::Schema.define(version: 20150331080243) do
+
+  create_table "clients", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "positions", force: :cascade do |t|
     t.string   "title",      limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "title",      limit: 255, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "projects", ["title"], name: "index_projects_on_title", using: :btree
 
   create_table "technologies", force: :cascade do |t|
     t.string   "title",      limit: 255
