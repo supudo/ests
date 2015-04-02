@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @technology = Technology.all
     @position = Position.all
+    @client = Client.all
     render 'edit'
   end
 
@@ -18,6 +19,7 @@ class UsersController < ApplicationController
     @user = User.new
     @technology = Technology.all
     @position = Position.all
+    @client = Client.all
   end
 
   def create
@@ -29,6 +31,7 @@ class UsersController < ApplicationController
     else
       @technology = Technology.all
       @position = Position.all
+      @client = Client.all
       render 'new'
     end
   end
@@ -36,6 +39,7 @@ class UsersController < ApplicationController
   def edit
     @technology = Technology.all
     @position = Position.all
+    @client = Client.all
   end
 
   def update
@@ -43,6 +47,9 @@ class UsersController < ApplicationController
       flash[:success] = t('profile_updated')
       redirect_to @user
     else
+      @technology = Technology.all
+      @position = Position.all
+      @client = Client.all
       render 'edit'
     end
   end
@@ -56,7 +63,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :username, :password, :technology_id, :position_id)
+      params.require(:user).permit(:first_name, :last_name, :username, :password, :password_confirmation, :technology_id, :position_id, :client_id)
     end
 
     # Before filters

@@ -8,7 +8,7 @@ class LoginController < ApplicationController
       flash[:danger] = t('login_error_empty')
       render "index"
     else
-      user = User.find_by(username: params[:session][:username].strip.downcase, password: params[:session][:password].strip.downcase)
+      user = User.find_by(username: params[:session][:username].strip.downcase)
       if user && user.authenticate(params[:session][:password])
         sign_in user
         redirect_to :dashboard

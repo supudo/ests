@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 
   resources :users
+  resources :rates
+  resources :projects
+  resources :estimates
+  resources :clients
+  resources :permissions
 
   get 'about/new'
   get 'help/new'
