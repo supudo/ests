@@ -25,6 +25,7 @@ en:
 
   profile_updated: "Profile updated"
   user_destroyed: "User destroyed."
+  delete_user_confirm: "Are you sure?"
 
   dashboard: "Dashboard"
 
@@ -34,6 +35,9 @@ en:
   password_confirm: "Confirm password"
   gravatar_change: "change"
 
+  id: "ID"
+  name: "Full name"
+  username: "Username"
   first_name: "First name"
   last_name: "Last name"
   position: "Position"
@@ -47,6 +51,7 @@ en:
   rate: "Rate"
   rates: "Rates"
 
+  users: "Users"
   create_user: "Create User"
 
   permissions: "Permissions"
@@ -76,3 +81,9 @@ en:
   perm_create_estimate: "Estimates - Create"
   perm_modify_estimate: "Estimates - Modify"
   perm_delete_estimate: "Estimates - Delete"
+
+  breadcrumbs:
+    dashboard: "Dashboard"
+    users_index: "Users"
+    users_edit: "Edit"
+    users_new: "New"

@@ -31,8 +31,8 @@
             <li><a href="http://resmanager.stanga.net">ResManager</a></li>
             <li><a href="http://redmine.stanga.net">Redmine</a></li>
             <li class="divider"></li>
-            <li><a href="/?locale=en"><%= t('language_english') %></a></li>
-            <li><a href="/?locale=bg"><%= t('language_bulgarian') %></a></li>
+            <li><%= link_to t('language_english'), url_for( :locale => 'en' ) %></li>
+            <li><%= link_to t('language_bulgarian'), url_for( :locale => 'bg' ) %></li>
           </ul>
         </li>
       </ul>

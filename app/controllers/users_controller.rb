@@ -1,13 +1,18 @@
 class UsersController < ApplicationController
   before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user, only: :destroy
 
+  
   def index
     @users = User.paginate(page: params[:page])
+    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+    add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
   end
 
   def show
+    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+    add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
+    add_breadcrumb I18n.t('breadcrumbs.users_edit')
     @user = User.find(params[:id])
     @technology = Technology.all
     @position = Position.all
@@ -16,6 +21,9 @@ class UsersController < ApplicationController
   end
 
   def new
+    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+    add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
+    add_breadcrumb I18n.t('breadcrumbs.users_new')
     @user = User.new
     @technology = Technology.all
     @position = Position.all
@@ -71,10 +79,6 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_url) unless current_user?(@user)
-    end
-
-    def admin_user
-      redirect_to(root_url) unless current_user.admin?
     end
 
 end

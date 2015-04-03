@@ -25,6 +25,7 @@ bg:
 
   profile_updated: "Профилът е променен."
   user_destroyed: "Потребителя е унищожен."
+  delete_user_confirm: "Сигурни ли сте?"
 
   dashboard: "Табло"
 
@@ -34,6 +35,9 @@ bg:
   password_confirm: "Потвърди паролата"
   gravatar_change: "промени"
 
+  id: "ID"
+  name: "Име"
+  username: "Потребителско име"
   first_name: "Име"
   last_name: "Фамилия"
   position: "Позиция"
@@ -47,6 +51,7 @@ bg:
   rate: "Рейт"
   rates: "Рейтове"
 
+  users: "Потребители"
   create_user: "Създай потребител"
 
   permissions: "Привилегии"
@@ -76,3 +81,10 @@ bg:
   perm_create_estimate: "Оценки - Създаване"
   perm_modify_estimate: "Оценки - Редактиране"
   perm_delete_estimate: "Оценки - Изтриване"
+
+  breadcrumbs:
+    dashboard: "Табло"
+    users_index: "Потребители"
+    users_edit: "Редактиране"
+    users_new: "Създаване"
+

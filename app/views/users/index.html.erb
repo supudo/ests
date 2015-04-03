@@ -11,28 +11,27 @@
   <table class="table">
     <thead>
       <tr>
-        <th>ID</th>
+        <th><%= t('id') %></th>
+        <th><%= t('position') %></th>
+        <th><%= t('username') %></th>
+        <th><%= t('name') %></th>
         <th>&nbsp;</th>
-        <th>Position</th>
-        <th>Username</th>
-        <th>Name</th>
       </tr>
     </thead>
     <tbody>
       <% @users.each do |user| %>
       <tr>
         <th scope="row" class="vert-align"><%= user.id %></th>
-        <td width="1%" nowrap>
-          <button type="button" class="btn btn-default btn-lg">
-            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-          </button>
-          <button type="button" class="btn btn-default btn-lg">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-          </button>
-        </td>
         <td class="vert-align"><%= Position.find_by(:id => user.position_id).title %></td>
         <td class="vert-align"><%= link_to user.username, user %></td>
         <td class="vert-align"><%= user.first_name %> <%= user.last_name %></td>
+        <td width="1%" nowrap>
+          <% if user.id != current_user.id %>
+          <%= button_to user, method: :delete, data: { confirm: t('delete_user_confirm') }, class: "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          <% end %>
+          <% end %>
+        </td>
       </tr>
       <% end %>
     </tbody>

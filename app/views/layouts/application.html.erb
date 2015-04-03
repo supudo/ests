@@ -10,12 +10,23 @@
   <body>
     <%= render 'layouts/header' %>
     <div class="container">
+
+      <% if signed_in? %>
+      <ul class="breadcrumb">
+        <%= render_breadcrumbs :separator => '<span class="divider">/</span>' %>
+      </ul>
+      <% end %>
+
       <% flash.each do |key, value| %>
         <div class="alert alert-<%= key %>"><%= value %></div>
       <% end %>
+
       <%= yield %>
+
       <%= render 'layouts/footer' %>
+
       <%= debug(params) if Rails.env.development? %>
+
     </div>
   </body>
 </html>
