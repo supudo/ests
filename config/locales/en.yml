@@ -25,7 +25,7 @@ en:
 
   profile_updated: "Profile updated"
   user_destroyed: "User destroyed."
-  delete_user_confirm: "Are you sure?"
+  delete_confirm: "Are you sure?"
 
   dashboard: "Dashboard"
 
@@ -54,6 +54,14 @@ en:
   users: "Users"
   create_user: "Create User"
   user_created_successfully: "User created."
+
+  create_client: "Create Client"
+  client: "Client"
+  url: "URL"
+  phone: "Phone"
+  client_created_successfully: "Client created."
+  client_updated_successfully: "Client updated."
+  client_destroyed: "Client destroyed."
 
   permissions: "Permissions"
   perm_login: "Login"
@@ -88,3 +96,6 @@ en:
     users_index: "Users"
     users_edit: "Edit"
     users_new: "New"
+    clients_index: "Clients"
+    clients_edit: "Edit"
+    clients_new: "New"

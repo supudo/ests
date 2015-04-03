@@ -25,7 +25,7 @@ bg:
 
   profile_updated: "Профилът е променен."
   user_destroyed: "Потребителя е унищожен."
-  delete_user_confirm: "Сигурни ли сте?"
+  delete_confirm: "Сигурни ли сте?"
 
   dashboard: "Табло"
 
@@ -54,6 +54,14 @@ bg:
   users: "Потребители"
   create_user: "Създай потребител"
   user_created_successfully: "Потребителят е създаден."
+
+  create_client: "Създай Клиент"
+  client: "Клиент"
+  url: "URL"
+  phone: "Телефон"
+  client_created_successfully: "Клиентът е създаден."
+  client_updated_successfully: "Клиентът е променен."
+  client_destroyed: "Клиентът е изтрит."
 
   permissions: "Привилегии"
   perm_login: "Логин"
@@ -88,4 +96,7 @@ bg:
     users_index: "Потребители"
     users_edit: "Редактиране"
     users_new: "Създаване"
+    clients_index: "Клиенти"
+    clients_edit: "Редактиране"
+    clients_new: "Създаване"
 
