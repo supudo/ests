@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
     @ams = User.where(:is_am => '1')
     @pdms = User.where(:is_pdm => '1')
     @users = User.all
-    @technologies = Technology.all
+    @technologies = Technology.order("title ASC")
     render 'edit'
   end
 
@@ -31,7 +31,7 @@ class ProjectsController < ApplicationController
     @ams = User.where(:is_am => '1')
     @pdms = User.where(:is_pdm => '1')
     @users = User.all
-    @technologies = Technology.all
+    @technologies = Technology.order("title ASC")
   end
 
   def create

@@ -47,22 +47,14 @@
                         </div>
 
                         <div class="form-group">
-                            <%= f.collection_select :position_id, @position, :id, :title, {}, {:class => 'form-control'} %>
-                        </div>
-
-                        <div class="form-group">
                             <div class="checkbox">
-                                <label>
-                                    <%= f.check_box :is_am %> <%= t('is_account_manager') %>
-                                </label>
+                                <label><%= f.check_box :is_am %> <%= t('is_account_manager') %></label>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="checkbox">
-                                <label>
-                                    <%= f.check_box :is_pdm %> <%= t('is_production_manager') %>
-                                </label>
+                                <label><%= f.check_box :is_pdm %> <%= t('is_production_manager') %></label>
                             </div>
                         </div>
 

@@ -80,6 +80,7 @@ en:
   production_manager: "PdM"
   project_owner: "PO"
   technologies: "Technologies"
+  internal_project: "Internal Project"
 
   permissions: "Permissions"
   perm_login: "Login"

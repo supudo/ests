@@ -28,6 +28,9 @@ Position.create(:title => 'TPM')
 Position.create(:title => 'PM')
 Position.create(:title => 'Team Leader')
 Position.create(:title => 'Developer')
+Position.create(:title => 'QA')
+Position.create(:title => 'Designer')
+Position.create(:title => 'CP')
 
 Client.delete_all
 Client.create(:id => 1, :title => 'Ests', :email => 'ests@ests.com', :url => 'http://www.ests.com/', :phone => '+3591234567890')

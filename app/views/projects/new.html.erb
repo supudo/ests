@@ -59,10 +59,22 @@
                         </div>
 
                         <div class="form-group">
-                          <%= t('technologies') %>
-                          <% @technologies.each do |item| %>
-                          <%= item.title %><br />
-                          <% end %>
+                          <div class="checkbox">
+                            <label><%= f.check_box :internal_yn %> <%= t('internal_project') %></label>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="panel panel-default">
+                            <div class="panel-body">
+                              <strong><%= t('technologies') %></strong>
+                              <% @technologies.each do |item| %>
+                              <div class="checkbox">
+                                <label><%= check_box_tag 'technology_ids[]', item.id %> <%= item.title %></label>
+                              </div>
+                              <% end %>
+                            </div>
+                          </div>
                         </div>
 
                         <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>

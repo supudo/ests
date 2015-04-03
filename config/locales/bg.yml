@@ -80,6 +80,7 @@ bg:
   production_manager: "PdM"
   project_owner: "PO"
   technologies: "Технологии"
+  internal_project: "Вътрешен проект"
 
   permissions: "Привилегии"
   perm_login: "Логин"

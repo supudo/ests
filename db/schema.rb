@@ -63,7 +63,9 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "positions", force: :cascade do |t|
-    t.string "title", limit: 255, null: false
+    t.string  "title",  limit: 255,             null: false
+    t.integer "is_am",  limit: 1,   default: 0, null: false
+    t.integer "is_pdm", limit: 1,   default: 0, null: false
   end
 
   add_index "positions", ["title"], name: "title", unique: true, using: :btree
@@ -141,15 +143,17 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "technologies", ["title"], name: "title", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",        limit: 150, null: false
-    t.string   "password_digest", limit: 255, null: false
-    t.string   "first_name",      limit: 150, null: false
-    t.string   "last_name",       limit: 150, null: false
-    t.string   "remember_token",  limit: 255, null: false
-    t.integer  "technology_id",   limit: 4,   null: false
-    t.integer  "position_id",     limit: 4,   null: false
-    t.integer  "client_id",       limit: 4,   null: false
-    t.datetime "last_modified",               null: false
+    t.string   "username",        limit: 150,             null: false
+    t.string   "password_digest", limit: 255,             null: false
+    t.string   "first_name",      limit: 150,             null: false
+    t.string   "last_name",       limit: 150,             null: false
+    t.string   "remember_token",  limit: 255,             null: false
+    t.integer  "technology_id",   limit: 4,               null: false
+    t.integer  "position_id",     limit: 4,               null: false
+    t.integer  "client_id",       limit: 4,               null: false
+    t.integer  "is_pdm",          limit: 1,   default: 0, null: false
+    t.integer  "is_am",           limit: 1,   default: 0, null: false
+    t.datetime "last_modified",                           null: false
   end
 
   add_index "users", ["client_id"], name: "client_id", using: :btree

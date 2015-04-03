@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :signed_in_user
   
   def index
-    @users = User.paginate(page: params[:page], :per_page => 10)
+    @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
   end
@@ -12,9 +12,9 @@ class UsersController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
     add_breadcrumb I18n.t('breadcrumbs.edit')
     @user = User.find(params[:id])
-    @technology = Technology.all
-    @position = Position.all
-    @client = Client.all
+    @technology = Technology.order("title ASC")
+    @position = Position.order("title ASC")
+    @client = Client.order("title ASC")
     render 'edit'
   end
 
@@ -23,9 +23,9 @@ class UsersController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
     add_breadcrumb I18n.t('breadcrumbs.new')
     @user = User.new
-    @technology = Technology.all
-    @position = Position.all
-    @client = Client.all
+    @technology = Technology.order("title ASC")
+    @position = Position.order("title ASC")
+    @client = Client.order("title ASC")
   end
 
   def create
@@ -52,9 +52,9 @@ class UsersController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
     add_breadcrumb I18n.t('breadcrumbs.edit')
     @user = User.find_by_id(params[:id])
-    @technology = Technology.all
-    @position = Position.all
-    @client = Client.all
+    @technology = Technology.order("title ASC")
+    @position = Position.order("title ASC")
+    @client = Client.order("title ASC")
   end
 
   def update
