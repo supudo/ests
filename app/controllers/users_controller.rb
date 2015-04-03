@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def show
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
-    add_breadcrumb I18n.t('breadcrumbs.users_edit')
+    add_breadcrumb I18n.t('breadcrumbs.edit')
     @user = User.find(params[:id])
     @technology = Technology.all
     @position = Position.all
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   def new
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
-    add_breadcrumb I18n.t('breadcrumbs.users_new')
+    add_breadcrumb I18n.t('breadcrumbs.new')
     @user = User.new
     @technology = Technology.all
     @position = Position.all
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   def edit
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
-    add_breadcrumb I18n.t('breadcrumbs.users_edit')
+    add_breadcrumb I18n.t('breadcrumbs.edit')
     @user = User.find_by_id(params[:id])
     @technology = Technology.all
     @position = Position.all
@@ -79,7 +79,8 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :username, :password, :password_confirmation, :technology_id, :position_id, :client_id)
+      params.require(:user).permit(:first_name, :last_name, :username, :password, :password_confirmation,
+        :technology_id, :position_id, :client_id, :is_am, :is_pdm)
     end
 
     def self.permission

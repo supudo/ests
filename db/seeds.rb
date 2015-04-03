@@ -22,6 +22,7 @@ Position.create(:title => 'CFO')
 Position.create(:title => 'CTO')
 Position.create(:title => 'DO')
 Position.create(:title => 'DT')
+Position.create(:title => 'AM')
 Position.create(:title => 'PdM')
 Position.create(:title => 'TPM')
 Position.create(:title => 'PM')
@@ -30,6 +31,19 @@ Position.create(:title => 'Developer')
 
 Client.delete_all
 Client.create(:id => 1, :title => 'Ests', :email => 'ests@ests.com', :url => 'http://www.ests.com/', :phone => '+3591234567890')
+
+ProjectStatus.delete_all
+ProjectStatus.create(:id => 1, :title => 'Undefined')
+ProjectStatus.create(:id => 2, :title => 'Communication')
+ProjectStatus.create(:id => 3, :title => 'Completed')
+ProjectStatus.create(:id => 4, :title => 'Ongoing')
+ProjectStatus.create(:id => 5, :title => 'Review')
+ProjectStatus.create(:id => 6, :title => 'Waiting')
+ProjectStatus.create(:id => 7, :title => 'Archived')
+ProjectStatus.create(:id => 8, :title => 'Guarantee')
+ProjectStatus.create(:id => 9, :title => 'Upcomming')
+ProjectStatus.create(:id => 10, :title => 'Scheduled')
+ProjectStatus.create(:id => 10, :title => 'Rejected')
 
 Permission.delete_all
 Permission.create(:title => 'login')

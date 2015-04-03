@@ -14,6 +14,8 @@ en:
   language_bulgarian: "Bulgarian"
   sign_up: "Sign Up"
 
+  dashes: "-----"
+
   title_login: "Login"
   welcome_login: "Welcome to Ests"
   login: "Login"
@@ -44,6 +46,9 @@ en:
   last_name: "Last name"
   position: "Position"
   technology: "Technology"
+  is_account_manager: "Is Account Manager?"
+  is_production_manager: "Is Production Manager?"
+
   client: "Client"
   clients: "Clients"
   project: "Project"
@@ -64,6 +69,17 @@ en:
   client_created_successfully: "Client created."
   client_updated_successfully: "Client updated."
   client_destroyed: "Client destroyed."
+
+  project_created_successfully: "Project created."
+  project_updated_successfully: "Project updated."
+  project_destroyed: "Project destroyed."
+
+  title: "Title"
+  status: "Status"
+  account_manager: "AM"
+  production_manager: "PdM"
+  project_owner: "PO"
+  technologies: "Technologies"
 
   permissions: "Permissions"
   perm_login: "Login"
@@ -95,9 +111,8 @@ en:
 
   breadcrumbs:
     dashboard: "Dashboard"
+    edit: "Edit"
+    new: "New"
     users_index: "Users"
-    users_edit: "Edit"
-    users_new: "New"
     clients_index: "Clients"
-    clients_edit: "Edit"
-    clients_new: "New"
+    projects_index: "Projects"

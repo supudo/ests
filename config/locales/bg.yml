@@ -14,6 +14,8 @@ bg:
   language_bulgarian: "Български"
   sign_up: "Регистрация"
 
+  dashes: "-----"
+
   title_login: "Логин"
   welcome_login: "Добре дошли в Ests"
   login: "Логин"
@@ -44,6 +46,9 @@ bg:
   last_name: "Фамилия"
   position: "Позиция"
   technology: "Технология"
+  is_account_manager: "Мениджър Акаунт?"
+  is_production_manager: "Мениджър Продукция?"
+
   client: "Клиент"
   clients: "Клиенти"
   project: "Проект"
@@ -64,6 +69,17 @@ bg:
   client_created_successfully: "Клиентът е създаден."
   client_updated_successfully: "Клиентът е променен."
   client_destroyed: "Клиентът е изтрит."
+
+  project_created_successfully: "Проектът е създаден."
+  project_updated_successfully: "Проектът е променен."
+  project_destroyed: "Проектът е изтрит."
+
+  title: "Име"
+  status: "Статус"
+  account_manager: "AM"
+  production_manager: "PdM"
+  project_owner: "PO"
+  technologies: "Технологии"
 
   permissions: "Привилегии"
   perm_login: "Логин"

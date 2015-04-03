@@ -2,7 +2,7 @@ class ClientsController < ApplicationController
   before_action :signed_in_user
 
   def index
-    @clients = Client.paginate(page: params[:page], :per_page => 10)
+    @clients = Client.order("title ASC").paginate(page: params[:page], :per_page => 10)
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.clients_index'), clients_path
   end
@@ -10,7 +10,7 @@ class ClientsController < ApplicationController
   def show
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.clients_index'), clients_path
-    add_breadcrumb I18n.t('breadcrumbs.clients_edit')
+    add_breadcrumb I18n.t('breadcrumbs.edit')
     @client = Client.find(params[:id])
     render 'edit'
   end
@@ -18,14 +18,14 @@ class ClientsController < ApplicationController
   def new
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.clients_index'), clients_path
-    add_breadcrumb I18n.t('breadcrumbs.clients_new')
+    add_breadcrumb I18n.t('breadcrumbs.new')
     @client = Client.new
   end
 
   def create
     @client = Client.new(client_params)
     if @client.save
-      flash[:success] = t('client_updated_successfully')
+      flash[:success] = t('client_created_successfully')
       redirect_to :clients
     else
       render 'new'
@@ -35,7 +35,7 @@ class ClientsController < ApplicationController
   def update
     @client = Client.find_by_id(params[:id])
     if @client.update_attributes(client_params)
-      flash[:success] = t('profile_updated')
+      flash[:success] = t('client_updated_successfully')
       redirect_to :clients
     else
       render 'edit'

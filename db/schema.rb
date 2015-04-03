@@ -56,9 +56,10 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "estimates_lines", ["technology_id"], name: "technology_id", using: :btree
 
   create_table "permissions", force: :cascade do |t|
-    t.string "title",         limit: 255, null: false
-    t.string "subject_class", limit: 50,  null: false
-    t.string "action",        limit: 50,  null: false
+    t.string "subject_class", limit: 50,    null: false
+    t.string "action",        limit: 50,    null: false
+    t.string "name",          limit: 255,   null: false
+    t.text   "description",   limit: 65535, null: false
   end
 
   create_table "positions", force: :cascade do |t|
@@ -67,22 +68,27 @@ ActiveRecord::Schema.define(version: 0) do
 
   add_index "positions", ["title"], name: "title", unique: true, using: :btree
 
+  create_table "project_statuses", force: :cascade do |t|
+    t.string "title", limit: 50, null: false
+  end
+
   create_table "projects", force: :cascade do |t|
-    t.string   "title",                      limit: 255,                 null: false
-    t.integer  "client_id",                  limit: 4,                   null: false
-    t.integer  "project_status_id",          limit: 4,                   null: false
-    t.integer  "account_manager_user_id",    limit: 4,                   null: false
-    t.integer  "production_manager_user_id", limit: 4,                   null: false
-    t.integer  "project_owner_user_id",      limit: 4,                   null: false
+    t.string   "title",                      limit: 255,                   null: false
+    t.integer  "client_id",                  limit: 4,                     null: false
+    t.integer  "project_status_id",          limit: 4,                     null: false
+    t.integer  "account_manager_user_id",    limit: 4,                     null: false
+    t.integer  "production_manager_user_id", limit: 4,                     null: false
+    t.integer  "project_owner_user_id",      limit: 4,                     null: false
     t.datetime "start_date_scheduled"
     t.datetime "start_date_actual"
     t.datetime "end_date_scheduled"
     t.datetime "end_date_actual"
-    t.boolean  "internal_yn",                limit: 1,   default: false, null: false
-    t.integer  "created_user_id",            limit: 4,                   null: false
-    t.datetime "created_date",                                           null: false
-    t.integer  "modified_user_id",           limit: 4,                   null: false
-    t.datetime "modified_date",                                          null: false
+    t.boolean  "internal_yn",                limit: 1,     default: false, null: false
+    t.text     "rejection_reasons",          limit: 65535,                 null: false
+    t.integer  "created_user_id",            limit: 4,                     null: false
+    t.datetime "created_date",                                             null: false
+    t.integer  "modified_user_id",           limit: 4,                     null: false
+    t.datetime "modified_date",                                            null: false
   end
 
   add_index "projects", ["account_manager_user_id"], name: "account_manager_user_id", using: :btree
@@ -111,9 +117,13 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "projects_requests", ["modified_user_id"], name: "modified_user_id", using: :btree
   add_index "projects_requests", ["project_id"], name: "project_id", using: :btree
 
-  create_table "projects_statuses", force: :cascade do |t|
-    t.string "title", limit: 50, null: false
+  create_table "projects_technologies", force: :cascade do |t|
+    t.integer "project_id",    limit: 4, null: false
+    t.integer "technology_id", limit: 4, null: false
   end
+
+  add_index "projects_technologies", ["project_id"], name: "project_id", using: :btree
+  add_index "projects_technologies", ["technology_id"], name: "technology_id", using: :btree
 
   create_table "rates", force: :cascade do |t|
     t.string "title",      limit: 255, null: false
@@ -156,7 +166,7 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "users_permissions", ["user_id"], name: "user_id", using: :btree
 
   add_foreign_key "projects", "clients", name: "fk_projects_clients"
-  add_foreign_key "projects", "projects_statuses", column: "project_status_id", name: "fk_projects_projects_statuses"
+  add_foreign_key "projects", "project_statuses", name: "fk_projects_projects_statuses"
   add_foreign_key "projects", "users", column: "account_manager_user_id", name: "fk_projects_account_manager"
   add_foreign_key "projects", "users", column: "production_manager_user_id", name: "fk_projects_production_manager"
   add_foreign_key "projects", "users", column: "project_owner_user_id", name: "fk_projects_project_owner"

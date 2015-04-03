@@ -1,0 +1,75 @@
+<% provide(:title, t('new')) %>
+<h1><%= t('new') %></h1>
+
+<div class="row">
+    <div class="span6 offset3">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-default">
+                <div class="panel-body">
+                    <%= form_for(@project) do |f| %>
+                    <%= render 'shared/error_messages', object: f.object %>
+                    <fieldset>
+                        <div class="form-group">
+                            <%= f.text_field :title, class: 'form-control', placeholder: t('title'), autofocus: true %>
+                        </div>
+
+                        <div class="form-group">
+                          <select class="form-control" name="user[project_status_id]" id="project_status_id">
+                            <option value="-1" selected disabled><%= t('status') %></option>
+                            <% @project_statuses.each do |item| %>
+                            <option value="<%= item.id %>"><%= item.title %></option>
+                            <% end %>
+                          </select>
+                        </div>
+
+                        <div class="form-group">
+                          <select class="form-control" name="user[project_client_id]" id="project_client_id">
+                            <option value="-1" selected disabled><%= t('client') %></option>
+                            <% @clients.each do |item| %>
+                            <option value="<%= item.id %>"><%= item.title %></option>
+                            <% end %>
+                          </select>
+                        </div>
+
+                        <div class="form-group">
+                          <select class="form-control" name="user[account_manager_user_id]" id="account_manager_user_id">
+                            <option value="-1" selected disabled><%= t('account_manager') %></option>
+                            <% @ams.each do |item| %>
+                            <option value="<%= item.id %>"><%= item.first_name %> <%= item.last_name %></option>
+                            <% end %>
+                          </select>
+                        </div>
+
+                        <div class="form-group">
+                          <select class="form-control" name="user[production_manager_user_id]" id="production_manager_user_id">
+                            <option value="-1" selected disabled><%= t('production_manager') %></option>
+                            <% @pdms.each do |item| %>
+                            <option value="<%= item.id %>"><%= item.first_name %> <%= item.last_name %></option>
+                            <% end %>
+                          </select>
+                        </div>
+
+                        <div class="form-group">
+                          <select class="form-control" name="user[project_owner_user_id]" id="project_owner_user_id">
+                            <option value="-1" selected disabled><%= t('project_owner') %></option>
+                            <% @users.each do |item| %>
+                            <option value="<%= item.id %>"><%= item.first_name %> <%= item.last_name %></option>
+                            <% end %>
+                          </select>
+                        </div>
+
+                        <div class="form-group">
+                          <%= t('technologies') %>
+                          <% @technologies.each do |item| %>
+                          <%= item.title %><br />
+                          <% end %>
+                        </div>
+
+                        <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
+                    </fieldset>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

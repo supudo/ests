@@ -1,2 +1,45 @@
 <% provide(:title, t('projects')) %>
 <h1><%= t('projects') %></h1>
+
+<div class="panel">
+  <button type="button" class="btn btn-default" aria-label="Left Align">
+    <%= link_to t('create_project'), new_project_path, :class => "btn" %>
+  </button>
+</div>
+
+<div class="panel panel-default">
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= t('id') %></th>
+        <th><%= t('client') %></th>
+        <th><%= t('title') %></th>
+        <th><%= t('status') %></th>
+        <th><%= t('account_manager') %></th>
+        <th><%= t('production_manager') %></th>
+        <th><%= t('project_owner') %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @projects.each do |project| %>
+      <tr>
+        <th scope="row" class="vert-align"><%= project.id %></th>
+        <th class="vert-align"><%= Client.find_by(:id => project.client_id).title %></th>
+        <td class="vert-align"><%= link_to project.title, project %></td>
+        <th class="vert-align"><%= ProjectStatus.find_by(:id => project.project_status_id).title %></th>
+        <th class="vert-align"><%= Users.find_by(:id => project.account_manager_user_id).title %></th>
+        <th class="vert-align"><%= Users.find_by(:id => project.production_manager_user_id).title %></th>
+        <th class="vert-align"><%= Users.find_by(:id => project.project_owner_user_id).title %></th>
+        <td width="1%" nowrap>
+          <%= button_to project, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= will_paginate @projects, :renderer => BootstrapPagination::Rails %>
