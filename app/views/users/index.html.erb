@@ -31,7 +31,7 @@
           </button>
         </td>
         <td class="vert-align"><%= Position.find_by(:id => user.position_id).title %></td>
-        <td class="vert-align"><%= link_to user.username, edit_user_path(user) %></td>
+        <td class="vert-align"><%= link_to user.username, user %></td>
         <td class="vert-align"><%= user.first_name %> <%= user.last_name %></td>
       </tr>
       <% end %>

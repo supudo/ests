@@ -1,5 +1,10 @@
-<% provide(:title, t('title_edit_user')) %>
+<% if @user.id == current_user.id %>
+<% provide(:title, t('edit_user_header')) %>
 <h1><%= t('edit_user_header') %></h1>
+<% else %>
+<% provide(:title, t('title_edit_user')) %>
+<h1><%= t('title_edit_user') %></h1>
+<% end %>
 
 <div class="row">
     <div class="span6 offset3">
