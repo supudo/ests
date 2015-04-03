@@ -53,6 +53,7 @@ bg:
 
   users: "Потребители"
   create_user: "Създай потребител"
+  user_created_successfully: "Потребителят е създаден."
 
   permissions: "Привилегии"
   perm_login: "Логин"

@@ -4,7 +4,11 @@
   <nav class="navbar-inner">
     <div class="container">
       <div class="navbar-header">
+        <% if signed_in? %>
+        <%= link_to t('app_name'), :dashboard, class: 'navbar-brand' %>
+        <% else %>
         <a class="navbar-brand" href="/"><%= t('app_name') %></a>
+        <% end %>
       </div>
 
       <ul class="nav navbar-nav navbar-right">

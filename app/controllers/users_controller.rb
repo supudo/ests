@@ -33,9 +33,14 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      sign_in @user
-      flash[:success] = t('welcome_login')
-      redirect_to :dashboard
+      if signed_in?
+        flash[:success] = t('user_created_successfully')
+        redirect_to :users
+      else
+        flash[:success] = t('welcome_login')
+        sign_in @user
+        redirect_to :dashboard
+      end
     else
       @technology = Technology.all
       @position = Position.all
@@ -45,6 +50,9 @@ class UsersController < ApplicationController
   end
 
   def edit
+    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+    add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
+    add_breadcrumb I18n.t('breadcrumbs.users_edit')
     @technology = Technology.all
     @position = Position.all
     @client = Client.all

@@ -1,5 +1,10 @@
+<% if signed_in? %>
+<% provide(:title, t('create_user')) %>
+<h1><%= t('create_user') %></h1>
+<% else %>
 <% provide(:title, t('sign_up')) %>
 <h1><%= t('sign_up') %></h1>
+<% end %>
 
 <div class="row">
     <div class="span6 offset3">

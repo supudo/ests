@@ -53,6 +53,7 @@ en:
 
   users: "Users"
   create_user: "Create User"
+  user_created_successfully: "User created."
 
   permissions: "Permissions"
   perm_login: "Login"
