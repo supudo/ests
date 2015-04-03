@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :signed_in_user
   
   def index
     @users = User.paginate(page: params[:page], :per_page => 10)
@@ -52,15 +51,17 @@ class UsersController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
     add_breadcrumb I18n.t('breadcrumbs.users_edit')
+    @user = User.find_by_id(params[:id])
     @technology = Technology.all
     @position = Position.all
     @client = Client.all
   end
 
   def update
+    @user = User.find_by_id(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = t('profile_updated')
-      redirect_to @user
+      redirect_to :users
     else
       @technology = Technology.all
       @position = Position.all
@@ -79,13 +80,6 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:first_name, :last_name, :username, :password, :password_confirmation, :technology_id, :position_id, :client_id)
-    end
-
-    # Before filters
-
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
     end
 
 end
