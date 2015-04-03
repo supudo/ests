@@ -1,6 +1,8 @@
 en:
   app_name: "Ests"
 
+  access_denied_msg: "Access denied. You are not authorized to access the requested page."
+
   menu: "Menu"
   profile: "Profile"
   settings: "Settings"

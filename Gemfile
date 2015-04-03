@@ -43,6 +43,10 @@ gem 'sprockets', '~> 2.12.3'
 # Navigation breadcrumbs
 gem 'breadcrumbs_on_rails', '~> 2.3.0'
 
+# Permissions & Roles
+gem 'devise'
+gem 'cancan'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

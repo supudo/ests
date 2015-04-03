@@ -56,7 +56,9 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "estimates_lines", ["technology_id"], name: "technology_id", using: :btree
 
   create_table "permissions", force: :cascade do |t|
-    t.string "title", limit: 255, null: false
+    t.string "title",         limit: 255, null: false
+    t.string "subject_class", limit: 50,  null: false
+    t.string "action",        limit: 50,  null: false
   end
 
   create_table "positions", force: :cascade do |t|
@@ -116,6 +118,10 @@ ActiveRecord::Schema.define(version: 0) do
   create_table "rates", force: :cascade do |t|
     t.string "title",      limit: 255, null: false
     t.float  "rate_price", limit: 24,  null: false
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "title", limit: 255, null: false
   end
 
   create_table "technologies", force: :cascade do |t|

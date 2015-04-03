@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   has_many :positions
   has_many :technologies
   has_many :clients
+  has_many :permissions
+  belongs_to :role
 
   before_save { self.username = username.to_s.downcase }
   before_create :create_remember_token

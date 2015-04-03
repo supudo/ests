@@ -82,4 +82,8 @@ class UsersController < ApplicationController
       params.require(:user).permit(:first_name, :last_name, :username, :password, :password_confirmation, :technology_id, :position_id, :client_id)
     end
 
+    def self.permission
+      return "Users"
+    end
+
 end

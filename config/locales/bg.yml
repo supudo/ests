@@ -1,6 +1,8 @@
 bg:
   app_name: "Ests"
 
+  access_denied_msg: "Отказан достъп. Нямата права да отворите тази страница."
+
   menu: "Меню"
   profile: "Профил"
   settings: "Настройки"
