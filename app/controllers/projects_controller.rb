@@ -12,12 +12,14 @@ class ProjectsController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.projects_index'), projects_path
     add_breadcrumb I18n.t('breadcrumbs.edit')
     @project = Project.find(params[:id])
-    @clients = Client.all
-    @project_statuses = ProjectStatus.all
-    @ams = User.where(:is_am => '1')
-    @pdms = User.where(:is_pdm => '1')
-    @users = User.all
+    @clients = Client.order("title ASC")
+    @project_statuses = ProjectStatus.order("title ASC")
+    @ams = User.where(:is_am => '1').order("first_name ASC, last_name ASC")
+    @pdms = User.where(:is_pdm => '1').order("first_name ASC, last_name ASC")
+    @users = User.order("first_name ASC, last_name ASC")
     @technologies = Technology.order("title ASC")
+    @project_comment = ProjectsComment.where(:project_id => @project.id).order("modified_date DESC").first
+    @project_request = ProjectsRequest.where(:project_id => @project.id).order("modified_date DESC").first
     render 'edit'
   end
 
@@ -26,17 +28,32 @@ class ProjectsController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.projects_index'), projects_path
     add_breadcrumb I18n.t('breadcrumbs.new')
     @project = Project.new
-    @clients = Client.all
-    @project_statuses = ProjectStatus.all
-    @ams = User.where(:is_am => '1')
-    @pdms = User.where(:is_pdm => '1')
-    @users = User.all
+    @clients = Client.order("title ASC")
+    @project_statuses = ProjectStatus.order("title ASC")
+    @ams = User.where(:is_am => '1').order("first_name ASC, last_name ASC")
+    @pdms = User.where(:is_pdm => '1').order("first_name ASC, last_name ASC")
+    @users = User.order("first_name ASC, last_name ASC")
     @technologies = Technology.order("title ASC")
   end
 
   def create
     @project = Project.new(project_params)
+    @project.created_user_id = @current_user.id
+    @project.created_date = DateTime.now
+    @project.modified_user_id = @current_user.id
+    @project.modified_date = DateTime.now
     if @project.save
+      @project_comment = ProjectsComment.new(:project_id => @project.id,
+        :comment => params[:comment],
+        :modified_date => Time.now,
+        :modified_user_id => @current_user.id)
+      @project_comment.save
+
+      @project_request = ProjectsRequest.new(:project_id => @project.id,
+        :request => params[:request],
+        :modified_date => Time.now,
+        :modified_user_id => @current_user.id)
+      @project_request.save
       flash[:success] = t('project_created_successfully')
       redirect_to :projects
     else
@@ -46,7 +63,23 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find_by_id(params[:id])
+    @project.created_user_id = @current_user.id
+    @project.created_date = DateTime.now
+    @project.modified_user_id = @current_user.id
+    @project.modified_date = DateTime.now
     if @project.update_attributes(project_params)
+      @project_comment = ProjectsComment.new(:project_id => params[:id],
+        :comment => params[:comment],
+        :modified_date => Time.now,
+        :modified_user_id => @current_user.id)
+      @project_comment.save
+
+      @project_request = ProjectsRequest.new(:project_id => params[:id],
+        :request => params[:request],
+        :modified_date => Time.now,
+        :modified_user_id => @current_user.id)
+      @project_request.save
+
       flash[:success] = t('project_updated_successfully')
       redirect_to :projects
     else
@@ -56,6 +89,9 @@ class ProjectsController < ApplicationController
 
   def destroy
     Project.find(params[:id]).destroy
+    ProjectComment.find(:project_id => params[:id]).destroy
+    ProjectRequest.find(:project_id => params[:id]).destroy
+    ProjectTechnology.find(:project_id => params[:id]).destroy
     flash[:success] = t('project_destroyed')
     redirect_to :projects
   end
@@ -65,8 +101,7 @@ class ProjectsController < ApplicationController
     def project_params
       params.require(:project).permit(:title, :client_id, :project_status_id,  :account_manager_user_id,
           :production_manager_user_id, :project_owner_user_id, :start_date_scheduled, :start_date_actual,
-          :end_date_scheduled, :end_date_actual, :internal_yn, :created_user_id, :created_date,
-          :modified_user_id, :modified_date, :rejection_reasons)
+          :end_date_scheduled, :end_date_actual, :internal_yn, :rejection_reasons)
     end
 
 end

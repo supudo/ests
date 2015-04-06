@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.datetime "end_date_actual"
     t.boolean  "internal_yn",                limit: 1,     default: false, null: false
     t.text     "rejection_reasons",          limit: 65535,                 null: false
+    t.integer  "comment",                    limit: 4
+    t.string   "request",                    limit: 255
     t.integer  "created_user_id",            limit: 4,                     null: false
     t.datetime "created_date",                                             null: false
     t.integer  "modified_user_id",           limit: 4,                     null: false

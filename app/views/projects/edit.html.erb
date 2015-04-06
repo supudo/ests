@@ -1,5 +1,5 @@
-<% provide(:title, t('new')) %>
-<h1><%= t('new') %></h1>
+<% provide(:title, t('edit')) %>
+<h1><%= t('edit') %></h1>
 
 <div class="row">
     <div class="span6 offset3">
@@ -14,48 +14,23 @@
                         </div>
 
                         <div class="form-group">
-                          <select class="form-control" name="project[project_status_id]" id="project_status_id">
-                            <option value="-1" selected disabled><%= t('status') %></option>
-                            <% @project_statuses.each do |item| %>
-                            <option value="<%= item.id %>"><%= item.title %></option>
-                            <% end %>
-                          </select>
+                          <%= f.collection_select :project_status_id, @project_statuses, :id, :title, {}, {:class => 'form-control'} %>
                         </div>
 
                         <div class="form-group">
-                          <select class="form-control" name="project[client_id]" id="project_client_id">
-                            <option value="-1" selected disabled><%= t('client') %></option>
-                            <% @clients.each do |item| %>
-                            <option value="<%= item.id %>"><%= item.title %></option>
-                            <% end %>
-                          </select>
+                          <%= f.collection_select :client_id, @clients, :id, :title, {}, {:class => 'form-control'} %>
                         </div>
 
                         <div class="form-group">
-                          <select class="form-control" name="project[account_manager_user_id]" id="account_manager_user_id">
-                            <option value="-1" selected disabled><%= t('account_manager') %></option>
-                            <% @ams.each do |item| %>
-                            <option value="<%= item.id %>"><%= item.first_name %> <%= item.last_name %></option>
-                            <% end %>
-                          </select>
+                          <%= f.collection_select :account_manager_user_id, @ams, :id, :full_name, {}, {:class => 'form-control'} %>
                         </div>
 
                         <div class="form-group">
-                          <select class="form-control" name="project[production_manager_user_id]" id="production_manager_user_id">
-                            <option value="-1" selected disabled><%= t('production_manager') %></option>
-                            <% @pdms.each do |item| %>
-                            <option value="<%= item.id %>"><%= item.first_name %> <%= item.last_name %></option>
-                            <% end %>
-                          </select>
+                          <%= f.collection_select :production_manager_user_id, @ams, :id, :full_name, {}, {:class => 'form-control'} %>
                         </div>
 
                         <div class="form-group">
-                          <select class="form-control" name="project[project_owner_user_id]" id="project_owner_user_id">
-                            <option value="-1" selected disabled><%= t('project_owner') %></option>
-                            <% @users.each do |item| %>
-                            <option value="<%= item.id %>"><%= item.first_name %> <%= item.last_name %></option>
-                            <% end %>
-                          </select>
+                          <%= f.collection_select :project_owner_user_id, @users, :id, :full_name, {}, {:class => 'form-control'} %>
                         </div>
 
                         <div class="form-group">
@@ -78,11 +53,11 @@
                         </div>
 
                         <div class="form-group">
-                          <%= f.text_area :comment, class: 'form-control', rows: '5', placeholder: t('comment') %>
+                          <%= text_area_tag 'comment', @project_comment.comment.to_s, class: 'form-control', rows: '5', placeholder: t('comment')  %>
                         </div>
 
                         <div class="form-group">
-                          <%= f.text_area :request, class: 'form-control', rows: '5', placeholder: t('request') %>
+                          <%= text_area_tag 'request', @project_request.request.to_s, class: 'form-control', rows: '5', placeholder: t('comment')  %>
                         </div>
 
                         <div class="form-group">
