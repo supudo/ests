@@ -92,6 +92,13 @@ en:
   end_date_scheduled: "End Date - Scheduled"
   end_date_actual: "End Date - Actual"
   rejection_reasons: "Reasons for rejection"
+  comments_history: "History of Comments"
+  requests_history: "History of Requests"
+  comment: "Comment"
+  request: "Request"
+  modified_date: "Last Modify"
+  details: "Details"
+  history: "History"
 
   permissions: "Permissions"
   perm_login: "Login"

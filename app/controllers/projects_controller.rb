@@ -54,6 +54,12 @@ class ProjectsController < ApplicationController
         :modified_date => Time.now,
         :modified_user_id => @current_user.id)
       @project_request.save
+
+      ProjectsTechnology.destroy_all(:project_id => params[:id])
+      params[:project][:technology_ids].each do |tech_id|
+        ProjectsTechnology.create(:project_id => @project.id, :technology_id => tech_id)
+      end
+
       flash[:success] = t('project_created_successfully')
       redirect_to :projects
     else
@@ -68,17 +74,28 @@ class ProjectsController < ApplicationController
     @project.modified_user_id = @current_user.id
     @project.modified_date = DateTime.now
     if @project.update_attributes(project_params)
-      @project_comment = ProjectsComment.new(:project_id => params[:id],
-        :comment => params[:comment],
-        :modified_date => Time.now,
-        :modified_user_id => @current_user.id)
-      @project_comment.save
+      @pc = ProjectsComment.find_by(:project_id => params[:id], :comment => params[:comment])
+      if @pc.nil?
+        @project_comment = ProjectsComment.new(:project_id => params[:id],
+          :comment => params[:comment],
+          :modified_date => Time.now,
+          :modified_user_id => @current_user.id)
+        @project_comment.save
+      end
 
-      @project_request = ProjectsRequest.new(:project_id => params[:id],
-        :request => params[:request],
-        :modified_date => Time.now,
-        :modified_user_id => @current_user.id)
-      @project_request.save
+      @pr = ProjectsRequest.find_by(:project_id => params[:id], :request => params[:request])
+      if @pr.nil?
+        @project_request = ProjectsRequest.new(:project_id => params[:id],
+          :request => params[:request],
+          :modified_date => Time.now,
+          :modified_user_id => @current_user.id)
+        @project_request.save
+      end
+
+      ProjectsTechnology.destroy_all(:project_id => params[:id])
+      params[:project][:technology_ids].each do |tech_id|
+        ProjectsTechnology.create(:project_id => params[:id], :technology_id => tech_id)
+      end
 
       flash[:success] = t('project_updated_successfully')
       redirect_to :projects
@@ -89,9 +106,6 @@ class ProjectsController < ApplicationController
 
   def destroy
     Project.find(params[:id]).destroy
-    ProjectComment.find(:project_id => params[:id]).destroy
-    ProjectRequest.find(:project_id => params[:id]).destroy
-    ProjectTechnology.find(:project_id => params[:id]).destroy
     flash[:success] = t('project_destroyed')
     redirect_to :projects
   end

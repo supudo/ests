@@ -22,8 +22,8 @@
     <tbody>
       <% @users.each do |user| %>
       <tr>
-        <th scope="row" class="vert-align"><%= user.id %></th>
-        <th class="vert-align"><%= Client.find_by(:id => user.client_id).title %></th>
+        <td scope="row" class="vert-align"><%= user.id %></td>
+        <td class="vert-align"><%= Client.find_by(:id => user.client_id).title %></td>
         <td class="vert-align"><%= Position.find_by(:id => user.position_id).title %></td>
         <td class="vert-align"><%= link_to user.username, user %></td>
         <td class="vert-align"><%= user.first_name %> <%= user.last_name %></td>

@@ -1,96 +1,105 @@
 <% provide(:title, t('edit')) %>
 <h1><%= t('edit') %></h1>
 
+<%= form_for(@project) do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
 <div class="row">
-    <div class="span6 offset3">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="login-panel panel panel-default">
-                <div class="panel-body">
-                    <%= form_for(@project) do |f| %>
-                    <%= render 'shared/error_messages', object: f.object %>
-                    <fieldset>
-                        <div class="form-group">
-                            <%= f.text_field :title, class: 'form-control', placeholder: t('title'), autofocus: true %>
-                        </div>
-
-                        <div class="form-group">
-                          <%= f.collection_select :project_status_id, @project_statuses, :id, :title, {}, {:class => 'form-control'} %>
-                        </div>
-
-                        <div class="form-group">
-                          <%= f.collection_select :client_id, @clients, :id, :title, {}, {:class => 'form-control'} %>
-                        </div>
-
-                        <div class="form-group">
-                          <%= f.collection_select :account_manager_user_id, @ams, :id, :full_name, {}, {:class => 'form-control'} %>
-                        </div>
-
-                        <div class="form-group">
-                          <%= f.collection_select :production_manager_user_id, @ams, :id, :full_name, {}, {:class => 'form-control'} %>
-                        </div>
-
-                        <div class="form-group">
-                          <%= f.collection_select :project_owner_user_id, @users, :id, :full_name, {}, {:class => 'form-control'} %>
-                        </div>
-
-                        <div class="form-group">
-                          <div class="checkbox">
-                            <label><%= f.check_box :internal_yn %> <%= t('internal_project') %></label>
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                          <div class="panel panel-default">
-                            <div class="panel-body">
-                              <strong><%= t('technologies') %></strong>
-                              <% @technologies.each do |item| %>
-                              <div class="checkbox">
-                                <label><%= check_box_tag 'technology_ids[]', item.id %> <%= item.title %></label>
-                              </div>
-                              <% end %>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                          <%= text_area_tag 'comment', @project_comment.comment.to_s, class: 'form-control', rows: '5', placeholder: t('comment')  %>
-                        </div>
-
-                        <div class="form-group">
-                          <%= text_area_tag 'request', @project_request.request.to_s, class: 'form-control', rows: '5', placeholder: t('comment')  %>
-                        </div>
-
-                        <div class="form-group">
-                          <%= f.text_area :rejection_reasons, class: 'form-control', rows: '5', placeholder: t('rejection_reasons') %>
-                        </div>
-
-                        <div class="panel panel-default">
-                          <div class="panel-heading"><%= t('start_date') %></div>
-                          <div class="panel-body">
-                            <label for="comment"><%= t('scheduled') %></label> 
-                            <%= f.date_field :start_date_scheduled, class: 'form-control' %>
-                            <br />
-                            <label for="comment"><%= t('actual') %></label> 
-                            <%= f.date_field :start_date_actual, class: 'form-control' %>
-                          </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                          <div class="panel-heading"><%= t('end_date') %></div>
-                          <div class="panel-body">
-                            <label for="comment"><%= t('scheduled') %></label> 
-                            <%= f.date_field :end_date_scheduled, class: 'form-control' %>
-                            <br />
-                            <label for="comment"><%= t('actual') %></label> 
-                            <%= f.date_field :end_date_actual, class: 'form-control' %>
-                          </div>
-                        </div>
-
-                        <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
-                    </fieldset>
-                    <% end %>
-                </div>
+  <div class="span6 offset3">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong><%= t('details') %></strong></div>
+        <div class="panel-body">
+          <fieldset>
+            <div class="form-group">
+              <%= f.text_field :title, class: 'form-control', placeholder: t('title'), autofocus: true %>
             </div>
+            <div class="form-group">
+              <%= f.collection_select :project_status_id, @project_statuses, :id, :title, {}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
+              <%= f.collection_select :client_id, @clients, :id, :title, {}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
+              <%= f.collection_select :account_manager_user_id, @ams, :id, :full_name, {}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
+              <%= f.collection_select :production_manager_user_id, @pdms, :id, :full_name, {}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
+              <%= f.collection_select :project_owner_user_id, @users, :id, :full_name, {}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
+              <div class="checkbox">
+                <label><%= f.check_box :internal_yn %> <%= t('internal_project') %></label>
+              </div>
+            </div>
+          </fieldset>
         </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong><%= t('comment') %></strong> - <%= link_to t('history'), commenthistory_path %></div>
+        <div class="panel-body">
+          <fieldset>
+            <div class="form-group">
+              <%= text_area_tag 'comment', @project_comment.comment.to_s, class: 'form-control', rows: '5', placeholder: t('comment')  %>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong><%= t('request') %></strong> - <%= link_to t('history'), requesthistory_path %></div>
+        <div class="panel-body">
+          <fieldset>
+            <div class="form-group">
+              <%= text_area_tag 'request', @project_request.request.to_s, class: 'form-control', rows: '5', placeholder: t('request')  %>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong><%= t('rejection_reasons') %></strong></div>
+        <div class="panel-body">
+          <fieldset>
+            <div class="form-group">
+              <%= f.text_area :rejection_reasons, class: 'form-control', rows: '5', placeholder: t('rejection_reasons') %>
+            </div>
+          </fieldset>
+        </div>
+      </div>
     </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong><%= t('technologies') %></strong></div>
+        <div class="panel-body">
+          <% @technologies.each do |item| %>
+          <div class="checkbox">
+            <label><%= check_box_tag :technology_ids, item.id, @project.technologies.include?(item), :name => 'project[technology_ids][]' %> <%= item.title %></label>
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong><%= t('start_date') %></strong></div>
+        <div class="panel-body">
+          <%= t('scheduled') %>
+          <%= f.date_field :start_date_scheduled, class: 'form-control' %>
+          <br />
+          <%= t('actual') %>
+          <%= f.date_field :start_date_actual, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong><%= t('end_date') %></strong></div>
+        <div class="panel-body">
+          <%= t('scheduled') %>
+          <%= f.date_field :end_date_scheduled, class: 'form-control' %>
+          <br />
+          <%= t('actual') %>
+          <%= f.date_field :end_date_actual, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
+<% end %>

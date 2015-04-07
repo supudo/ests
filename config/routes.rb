@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :estimates
   resources :clients
   resources :permissions
+  resources :commenthistory
+  resources :requesthistory
 
   get 'about/new'
   get 'help/new'

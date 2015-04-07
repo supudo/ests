@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RatesControllerTest < ActionController::TestCase
+class CommentHistoryControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

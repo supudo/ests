@@ -1,0 +1,29 @@
+<% provide(:title, t('comments_history')) %>
+<h1><%= t('comments_history') %></h1>
+
+<div class="panel panel-default">
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= t('id') %></th>
+        <th><%= t('comment') %></th>
+        <th><%= t('name') %></th>
+        <th><%= t('modified_date') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @comments.each do |comment| %>
+      <tr>
+        <td scope="row" class="vert-align"><%= comment.id %></td>
+        <td class="vert-align"><%= comment.comment %></td>
+        <td class="vert-align">
+          <%= User.find_by(:id => comment.modified_user_id).first_name %> <%= User.find_by(:id => comment.modified_user_id).last_name %>
+        </td>
+        <td class="vert-align"><%= comment.modified_date.strftime("%d %B, %Y @ %H:%M") %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= will_paginate @comments, :renderer => BootstrapPagination::Rails %>

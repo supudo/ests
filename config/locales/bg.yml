@@ -92,6 +92,13 @@ bg:
   end_date_scheduled: "Крайна Дата - Планувана"
   end_date_actual: "Крайна Дата - Реална"
   rejection_reasons: "Причини на отказ"
+  comments_history: "История на Коментарите"
+  requests_history: "История на Исканията"
+  comment: "Коментар"
+  request: "Искане"
+  modified_date: "Последна Модификация"
+  details: "Детайли"
+  history: "История"
 
   permissions: "Привилегии"
   perm_login: "Логин"
@@ -123,10 +130,8 @@ bg:
 
   breadcrumbs:
     dashboard: "Табло"
+    edit: "Редактирнае"
+    new: "Нов"
     users_index: "Потребители"
-    users_edit: "Редактиране"
-    users_new: "Създаване"
     clients_index: "Клиенти"
-    clients_edit: "Редактиране"
-    clients_new: "Създаване"
-
+    projects_index: "Проекти"

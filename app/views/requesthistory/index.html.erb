@@ -1,0 +1,29 @@
+<% provide(:title, t('requests_history')) %>
+<h1><%= t('requests_history') %></h1>
+
+<div class="panel panel-default">
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= t('id') %></th>
+        <th><%= t('request') %></th>
+        <th><%= t('name') %></th>
+        <th><%= t('modified_date') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @requests.each do |request| %>
+      <tr>
+        <td scope="row" class="vert-align"><%= request.id %></td>
+        <td class="vert-align"><%= request.request %></td>
+        <td class="vert-align">
+          <%= User.find_by(:id => request.modified_user_id).first_name %> <%= User.find_by(:id => request.modified_user_id).last_name %>
+        </td>
+        <td class="vert-align"><%= request.modified_date.strftime("%d %B, %Y @ %H:%M") %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= will_paginate @requests, :renderer => BootstrapPagination::Rails %>
