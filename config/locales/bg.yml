@@ -38,6 +38,7 @@ bg:
   button_save_changes: "Запази промените"
   password_confirm: "Потвърди паролата"
   gravatar_change: "промени"
+  user_already_exists: "Такъв потребител вече съществува."
 
   id: "ID"
   name: "Име"
@@ -69,6 +70,7 @@ bg:
   client_created_successfully: "Клиентът е създаден."
   client_updated_successfully: "Клиентът е променен."
   client_destroyed: "Клиентът е изтрит."
+  client_already_exists: "Такъв клиент вече съществува."
 
   project_created_successfully: "Проектът е създаден."
   project_updated_successfully: "Проектът е променен."
@@ -99,6 +101,14 @@ bg:
   modified_date: "Последна Модификация"
   details: "Детайли"
   history: "История"
+  project_already_exists: "Такъв проект вече съществува."
+
+  estimate_destroyed: "Оценката е изтрита."
+  create_estimate: "Създай Оценка"
+  estimate_owner: "Собственик"
+  estimate_created_successfully: "Оценката е създадена."
+  estimate_updated_successfully: "Оценката е променена."
+  estimate_already_exists: "Такава оценка вече съществува."
 
   permissions: "Привилегии"
   perm_login: "Логин"
@@ -135,3 +145,4 @@ bg:
     users_index: "Потребители"
     clients_index: "Клиенти"
     projects_index: "Проекти"
+    estimates_index: "Оценки"

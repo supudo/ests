@@ -14,24 +14,22 @@
               <%= f.text_field :title, class: 'form-control', placeholder: t('title'), autofocus: true %>
             </div>
             <div class="form-group">
-              <%= f.collection_select :project_status_id, @project_statuses, :id, :title, {}, {:class => 'form-control'} %>
+              <%= f.collection_select :project_status_id, @project_statuses, :id, :title, {:include_blank => t('status')}, {:class => 'form-control'} %>
             </div>
             <div class="form-group">
-              <%= f.collection_select :client_id, @clients, :id, :title, {}, {:class => 'form-control'} %>
+              <%= f.collection_select :client_id, @clients, :id, :title, {:include_blank => t('dashes') + ' ' + t('client')}, {:class => 'form-control'} %>
             </div>
             <div class="form-group">
-              <%= f.collection_select :account_manager_user_id, @ams, :id, :full_name, {}, {:class => 'form-control'} %>
+              <%= f.collection_select :account_manager_user_id, @ams, :id, :full_name, {:include_blank => t('dashes') + ' ' + t('account_manager')}, {:class => 'form-control'} %>
             </div>
             <div class="form-group">
-              <%= f.collection_select :production_manager_user_id, @pdms, :id, :full_name, {}, {:class => 'form-control'} %>
+              <%= f.collection_select :production_manager_user_id, @pdms, :id, :full_name, {:include_blank => t('dashes') + ' ' + t('production_manager')}, {:class => 'form-control'} %>
             </div>
             <div class="form-group">
-              <%= f.collection_select :project_owner_user_id, @users, :id, :full_name, {}, {:class => 'form-control'} %>
+              <%= f.collection_select :project_owner_user_id, @users, :id, :full_name, {:include_blank => t('dashes') + ' ' + t('project_owner')}, {:class => 'form-control'} %>
             </div>
             <div class="form-group">
-              <div class="checkbox">
-                <label><%= f.check_box :internal_yn %> <%= t('internal_project') %></label>
-              </div>
+              <div class="checkbox"><label><%= f.check_box :internal_yn %> <%= t('internal_project') %></label></div>
             </div>
           </fieldset>
         </div>

@@ -28,12 +28,8 @@
         <td class="vert-align"><%= Client.find_by(:id => project.client_id).title %></td>
         <td class="vert-align"><%= link_to project.title, project %></td>
         <td class="vert-align"><%= ProjectStatus.find_by(:id => project.project_status_id).title %></td>
-        <td class="vert-align">
-          <a href="mailto:<%= User.find_by(:id => project.account_manager_user_id).username %>"><%= User.find_by(:id => project.account_manager_user_id).first_name %> <%= User.find_by(:id => project.account_manager_user_id).last_name %></a>
-        </td>
-        <td class="vert-align">
-          <a href="mailto:<%= User.find_by(:id => project.production_manager_user_id).username %>"><%= User.find_by(:id => project.production_manager_user_id).first_name %> <%= User.find_by(:id => project.production_manager_user_id).last_name %></a>
-        </td>
+        <td class="vert-align"><a href="mailto:<%= project.account_manager_email %>"><%= project.account_manager_name %></a></td>
+        <td class="vert-align"><a href="mailto:<%= project.production_manager_email %>"><%= project.production_manager_name %></a></td>
         <td class="vert-align">
           <a href="mailto:<%= User.find_by(:id => project.project_owner_user_id).username %>"><%= User.find_by(:id => project.project_owner_user_id).first_name %> <%= User.find_by(:id => project.project_owner_user_id).last_name %></a>
         </td>

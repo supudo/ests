@@ -38,6 +38,7 @@ en:
   button_save_changes: "Save changes"
   password_confirm: "Confirm password"
   gravatar_change: "change"
+  user_already_exists: "User already exists."
 
   id: "ID"
   name: "Full name"
@@ -69,6 +70,7 @@ en:
   client_created_successfully: "Client created."
   client_updated_successfully: "Client updated."
   client_destroyed: "Client destroyed."
+  client_already_exists: "Client already exists."
 
   project_created_successfully: "Project created."
   project_updated_successfully: "Project updated."
@@ -99,6 +101,14 @@ en:
   modified_date: "Last Modify"
   details: "Details"
   history: "History"
+  project_already_exists: "Project already exists."
+
+  estimate_destroyed: "Estimate destroyed."
+  create_estimate: "Create Estimate"
+  estimate_owner: "Owner"
+  estimate_created_successfully: "Estimate created."
+  estimate_updated_successfully: "Estimate updated."
+  estimate_already_exists: "Estimate already exists."
 
   permissions: "Permissions"
   perm_login: "Login"
@@ -135,3 +145,4 @@ en:
     users_index: "Users"
     clients_index: "Clients"
     projects_index: "Projects"
+    estimates_index: "Estimates"

@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string   "title",            limit: 255, null: false
     t.integer  "client_id",        limit: 4,   null: false
     t.integer  "project_id",       limit: 4,   null: false
+    t.integer  "owner_user_id",    limit: 4,   null: false
     t.integer  "created_user_id",  limit: 4,   null: false
     t.datetime "created_date",                 null: false
     t.integer  "modified_user_id", limit: 4,   null: false
@@ -37,6 +38,7 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   add_index "estimates", ["client_id"], name: "client_id", using: :btree
+  add_index "estimates", ["owner_user_id"], name: "owner_user_id", using: :btree
   add_index "estimates", ["project_id"], name: "project_id", using: :btree
 
   create_table "estimates_lines", force: :cascade do |t|
@@ -87,8 +89,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.datetime "end_date_actual"
     t.boolean  "internal_yn",                limit: 1,     default: false, null: false
     t.text     "rejection_reasons",          limit: 65535,                 null: false
-    t.integer  "comment",                    limit: 4
-    t.string   "request",                    limit: 255
     t.integer  "created_user_id",            limit: 4,                     null: false
     t.datetime "created_date",                                             null: false
     t.integer  "modified_user_id",           limit: 4,                     null: false
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 0) do
 
   create_table "projects_requests", force: :cascade do |t|
     t.integer  "project_id",       limit: 4,     null: false
-    t.text     "request",          limit: 65535, null: false
+    t.text     "request",          limit: 65535
     t.integer  "modified_user_id", limit: 4,     null: false
     t.datetime "modified_date",                  null: false
   end
@@ -128,11 +128,6 @@ ActiveRecord::Schema.define(version: 0) do
 
   add_index "projects_technologies", ["project_id"], name: "project_id", using: :btree
   add_index "projects_technologies", ["technology_id"], name: "technology_id", using: :btree
-
-  create_table "rates", force: :cascade do |t|
-    t.string "title",      limit: 255, null: false
-    t.float  "rate_price", limit: 24,  null: false
-  end
 
   create_table "roles", force: :cascade do |t|
     t.string "title", limit: 255, null: false

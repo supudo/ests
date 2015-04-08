@@ -23,12 +23,17 @@ class ClientsController < ApplicationController
   end
 
   def create
-    @client = Client.new(client_params)
-    if @client.save
-      flash[:success] = t('client_created_successfully')
-      redirect_to :clients
+    if Client.exists?(:title => client_params[:title])
+        flash[:success] = t('client_already_exists')
+        redirect_to :new_client
     else
-      render 'new'
+      @client = Client.new(client_params)
+      if @client.save
+        flash[:success] = t('client_created_successfully')
+        redirect_to :clients
+      else
+        render 'new'
+      end
     end
   end
 

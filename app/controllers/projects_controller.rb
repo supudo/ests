@@ -37,40 +37,43 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(project_params)
-    @project.created_user_id = @current_user.id
-    @project.created_date = DateTime.now
-    @project.modified_user_id = @current_user.id
-    @project.modified_date = DateTime.now
-    if @project.save
-      @project_comment = ProjectsComment.new(:project_id => @project.id,
-        :comment => params[:comment],
-        :modified_date => Time.now,
-        :modified_user_id => @current_user.id)
-      @project_comment.save
-
-      @project_request = ProjectsRequest.new(:project_id => @project.id,
-        :request => params[:request],
-        :modified_date => Time.now,
-        :modified_user_id => @current_user.id)
-      @project_request.save
-
-      ProjectsTechnology.destroy_all(:project_id => params[:id])
-      params[:project][:technology_ids].each do |tech_id|
-        ProjectsTechnology.create(:project_id => @project.id, :technology_id => tech_id)
-      end
-
-      flash[:success] = t('project_created_successfully')
-      redirect_to :projects
+    if Project.exists?(:title => project_params[:title])
+        flash[:success] = t('project_already_exists')
+        redirect_to :new_project
     else
-      render 'new'
+      @project = Project.new(project_params)
+      @project.created_user_id = @current_user.id
+      @project.created_date = DateTime.now
+      @project.modified_user_id = @current_user.id
+      @project.modified_date = DateTime.now
+      if @project.save
+        @project_comment = ProjectsComment.new(:project_id => @project.id,
+          :comment => params[:comment],
+          :modified_date => Time.now,
+          :modified_user_id => @current_user.id)
+        @project_comment.save
+
+        @project_request = ProjectsRequest.new(:project_id => @project.id,
+          :request => params[:request],
+          :modified_date => Time.now,
+          :modified_user_id => @current_user.id)
+        @project_request.save
+
+        ProjectsTechnology.destroy_all(:project_id => params[:id])
+        params[:project][:technology_ids].each do |tech_id|
+          ProjectsTechnology.create(:project_id => @project.id, :technology_id => tech_id)
+        end
+
+        flash[:success] = t('project_created_successfully')
+        redirect_to :projects
+      else
+        render 'new'
+      end
     end
   end
 
   def update
     @project = Project.find_by_id(params[:id])
-    @project.created_user_id = @current_user.id
-    @project.created_date = DateTime.now
     @project.modified_user_id = @current_user.id
     @project.modified_date = DateTime.now
     if @project.update_attributes(project_params)

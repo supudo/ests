@@ -1,0 +1,32 @@
+<% provide(:title, t('new')) %>
+<h1><%= t('new') %></h1>
+
+<%= form_for(@estimate) do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+<div class="row">
+  <div class="span6 offset3">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong><%= t('details') %></strong></div>
+        <div class="panel-body">
+          <fieldset>
+            <div class="form-group">
+              <%= f.text_field :title, class: 'form-control', placeholder: t('title'), autofocus: true %>
+            </div>
+            <div class="form-group">
+              <%= f.collection_select :client_id, @clients, :id, :title, {}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
+              <%= f.collection_select :project_id, @projects, :id, :title, {}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
+              <%= f.collection_select :owner_user_id, @users, :id, :full_name, {}, {:class => 'form-control'} %>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
+<% end %>

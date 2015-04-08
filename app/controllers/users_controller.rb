@@ -29,21 +29,26 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
-      if signed_in?
-        flash[:success] = t('user_created_successfully')
-        redirect_to :users
-      else
-        flash[:success] = t('welcome_login')
-        sign_in @user
-        redirect_to :dashboard
-      end
+    if User.exists?(:username => user_params[:username])
+        flash[:success] = t('user_already_exists')
+        redirect_to :new_user
     else
-      @technology = Technology.all
-      @position = Position.all
-      @client = Client.all
-      render 'new'
+      @user = User.new(user_params)
+      if @user.save
+        if signed_in?
+          flash[:success] = t('user_created_successfully')
+          redirect_to :users
+        else
+          flash[:success] = t('welcome_login')
+          sign_in @user
+          redirect_to :dashboard
+        end
+      else
+        @technology = Technology.all
+        @position = Position.all
+        @client = Client.all
+        render 'new'
+      end
     end
   end
 
