@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "complexity",      limit: 1,     null: false
     t.float    "hours_min",       limit: 24,    null: false
     t.float    "hours_max",       limit: 24,    null: false
-    t.integer  "rate_id",         limit: 4,     null: false
     t.integer  "created_user_id", limit: 4,     null: false
     t.datetime "created_date",                  null: false
   end
@@ -80,8 +79,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.string   "title",                      limit: 255,                   null: false
     t.integer  "client_id",                  limit: 4,                     null: false
     t.integer  "project_status_id",          limit: 4,                     null: false
-    t.integer  "account_manager_user_id",    limit: 4,                     null: false
-    t.integer  "production_manager_user_id", limit: 4,                     null: false
+    t.integer  "account_manager_user_id",    limit: 4,     default: 0,     null: false
+    t.integer  "production_manager_user_id", limit: 4,     default: 0,     null: false
     t.integer  "project_owner_user_id",      limit: 4,                     null: false
     t.datetime "start_date_scheduled"
     t.datetime "start_date_actual"
@@ -168,8 +167,6 @@ ActiveRecord::Schema.define(version: 0) do
 
   add_foreign_key "projects", "clients", name: "fk_projects_clients"
   add_foreign_key "projects", "project_statuses", name: "fk_projects_projects_statuses"
-  add_foreign_key "projects", "users", column: "account_manager_user_id", name: "fk_projects_account_manager"
-  add_foreign_key "projects", "users", column: "production_manager_user_id", name: "fk_projects_production_manager"
   add_foreign_key "projects", "users", column: "project_owner_user_id", name: "fk_projects_project_owner"
   add_foreign_key "users", "clients", name: "fk_users_clients"
   add_foreign_key "users", "positions", name: "fk_users_positions"

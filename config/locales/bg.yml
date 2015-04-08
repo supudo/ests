@@ -110,6 +110,15 @@ bg:
   estimate_updated_successfully: "Оценката е променена."
   estimate_already_exists: "Такава оценка вече съществува."
 
+  estimate_lines: "WBR Линии"
+  line: "Линия"
+  complexity: "Комплексност"
+  hours_min: "Минимум Часове"
+  hours_max: "Максимум Часове"
+  estimate_line_already_exists: "Линията вече съществува."
+  estimate_line_created_successfully: "Линията е създадена."
+  estimate_line_destroyed: "Линията е изтрита."
+
   permissions: "Привилегии"
   perm_login: "Логин"
   perm_profile: "Профил"

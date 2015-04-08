@@ -22,11 +22,94 @@
             <div class="form-group">
               <%= f.collection_select :owner_user_id, @users, :id, :full_name, {}, {:class => 'form-control'} %>
             </div>
+            <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
           </fieldset>
         </div>
       </div>
     </div>
   </div>
 </div>
-<%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
 <% end %>
+
+<br />
+
+<div class="panel panel-default">
+  <div class="panel-heading"><strong><%= t('estimate_lines') %></strong></div>
+  <div class="panel-body">
+    <%= form_for :estimate_line, :url => estimatesline_index_path do |f| %>
+    <%= f.hidden_field :estimate_id, value: params[:id] %>
+    <div class="panel panel-default">
+      <div class="panel-heading"><strong><%= t('line') %></strong></div>
+      <div class="panel-body">
+        <fieldset>
+          <div class="form-group">
+              <%= f.collection_select :technology_id, @technology, :id, :title, {:include_blank => t('dashes') + ' ' + t('technology')}, {:class => 'form-control'} %>
+          </div>
+          <div class="form-group">
+            <%= f.text_field :line, class: 'form-control', placeholder: t('line'), autofocus: true %>
+          </div>
+          <div class="form-group">
+            <%= f.select :complexity, options_for_select((1..10).step(1).to_a.map{|s| ["#{s}", s]}), {:include_blank => t('dashes') + ' ' + t('complexity')}, {:class => 'form-control'} %>
+          </div>
+          <div class="form-group">
+            <%= f.number_field :hours_min, class: 'form-control', placeholder: t('hours_min') %>
+          </div>
+          <div class="form-group">
+            <%= f.number_field :hours_max, class: 'form-control', placeholder: t('hours_max') %>
+          </div>
+          <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
+        </fieldset>
+      </div>
+    </div>
+    <% end %>
+    <div class="panel panel-default">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>#</th>
+            <th><%= t('complexity') %></th>
+            <th><%= t('line') %></th>
+            <th><%= t('hours_min') %></th>
+            <th><%= t('hours_max') %></th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @estimatesline.each do |eitem| %>
+          <tr>
+            <td width="1%" nowrap>
+              <% if eitem.line_number > 1 %>
+                <%= button_to :estimatesline, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm" do %>
+                  <%= hidden_field nil, :line_id, value: eitem.id %>
+                  <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+                <% end %>
+              <% end %>
+            </td>
+            <td width="1%" nowrap>
+              <% if eitem.line_number < @estimatesline.count %>
+                <%= button_to :estimatesline, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm" do %>
+                  <%= hidden_field nil, :line_id, value: eitem.id %>
+                  <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                <% end %>
+              <% end %>
+            </td>
+            <td class="col-md-1 vert-align" scope="row"><%= eitem.line_number %></td>
+            <td class="col-md-1 vert-align"><%= eitem.complexity %></td>
+            <td class="col-md-3 vert-align"><%= eitem.line %></td>
+            <td class="col-md-1 vert-align"><%= eitem.hours_min %></td>
+            <td class="col-md-1 vert-align"><%= eitem.hours_max %></td>
+            <td width="1%" nowrap>
+              <%= button_to :estimatesline, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm" do %>
+                <%= hidden_field nil, :line_id, value: eitem.id %>
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -110,6 +110,15 @@ en:
   estimate_updated_successfully: "Estimate updated."
   estimate_already_exists: "Estimate already exists."
 
+  estimate_lines: "WBR Lines"
+  line: "Line"
+  complexity: "Complexity"
+  hours_min: "Minimum Hours"
+  hours_max: "Maximum Hours"
+  estimate_line_already_exists: "Line already exists."
+  estimate_line_created_successfully: "Line created successfully."
+  estimate_line_destroyed: "Line was destroyed."
+
   permissions: "Permissions"
   perm_login: "Login"
   perm_profile: "Profile"
