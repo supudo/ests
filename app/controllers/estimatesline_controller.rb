@@ -25,6 +25,30 @@ class EstimateslineController < ApplicationController
     redirect_to(:back)
   end
 
+  def moveup
+    @current = EstimatesLine.find(params[:id])
+    if @current.line_number > 1
+      @above = EstimatesLine.find_by(:line_number => (@current.line_number - 1), :estimate_id => @current.estimate_id)
+      ln = @above.line_number
+      @above.line_number = @current.line_number
+      @above.save
+      @current.line_number = ln
+      @current.save
+    end
+    redirect_to(:back)
+  end
+
+  def movedown
+    @current = EstimatesLine.find(params[:id])
+    @bellow = EstimatesLine.find_by(:line_number => (@current.line_number + 1), :estimate_id => @current.estimate_id)
+    ln = @bellow.line_number
+    @bellow.line_number = @current.line_number
+    @bellow.save
+    @current.line_number = ln
+    @current.save
+    redirect_to(:back)
+  end
+
   private
 
     def estimates_line_params

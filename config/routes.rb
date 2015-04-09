@@ -3,11 +3,17 @@ Rails.application.routes.draw do
   resources :users
   resources :projects
   resources :estimates
-  resources :estimatesline
+  #resources :estimatesline
   resources :clients
   resources :permissions
   resources :commenthistory
   resources :requesthistory
+
+  resources :estimatesline do
+    member do
+      get :moveup, :movedown, :destroy, :create
+    end
+  end
 
   get 'about/new'
   get 'help/new'
