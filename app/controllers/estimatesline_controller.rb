@@ -20,22 +20,27 @@ class EstimateslineController < ApplicationController
   end
 
   def destroy
+    @current = EstimatesLine.find(params[:line_id])
+    eid = @current.estimate_id
     EstimatesLine.find(params[:line_id]).destroy
-    flash[:success] = t('estimate_line_destroyed')
-    redirect_to(:back)
+    respond_to do |format|
+      @estimatesline = EstimatesLine.where(:estimate_id => eid).order("line_number ASC")
+      format.js
+    end
   end
 
   def moveup
     @current = EstimatesLine.find(params[:id])
-    if @current.line_number > 1
-      @above = EstimatesLine.find_by(:line_number => (@current.line_number - 1), :estimate_id => @current.estimate_id)
-      ln = @above.line_number
-      @above.line_number = @current.line_number
-      @above.save
-      @current.line_number = ln
-      @current.save
+    @above = EstimatesLine.find_by(:line_number => (@current.line_number - 1), :estimate_id => @current.estimate_id)
+    ln = @above.line_number
+    @above.line_number = @current.line_number
+    @above.save
+    @current.line_number = ln
+    @current.save
+    respond_to do |format|
+      @estimatesline = EstimatesLine.where(:estimate_id => @current.estimate_id).order("line_number ASC")
+      format.js
     end
-    redirect_to(:back)
   end
 
   def movedown
@@ -46,7 +51,10 @@ class EstimateslineController < ApplicationController
     @bellow.save
     @current.line_number = ln
     @current.save
-    redirect_to(:back)
+    respond_to do |format|
+      @estimatesline = EstimatesLine.where(:estimate_id => @current.estimate_id).order("line_number ASC")
+      format.js
+    end
   end
 
   private

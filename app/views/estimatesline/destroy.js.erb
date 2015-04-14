@@ -1,0 +1,2 @@
+//$('.btn.btn-default.btn-sm').closest('tr').fadeOut();
+$('#grid-estimatelines').html("<%= escape_javascript(render :partial => 'estimatesline/lines', :locals => { :estimatesline => @estimatesline }) %>");
