@@ -108,9 +108,13 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
+    @current = Project.find(params[:id])
+    pid = @current.id
     Project.find(params[:id]).destroy
-    flash[:success] = t('project_destroyed')
-    redirect_to :projects
+    respond_to do |format|
+      @projects = Project.paginate(page: params[:page], :per_page => 10)
+      format.js
+    end
   end
 
   private

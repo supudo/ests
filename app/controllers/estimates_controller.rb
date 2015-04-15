@@ -1,4 +1,5 @@
 class EstimatesController < ApplicationController
+  helper_method :sort_column, :sort_direction
 
   def index
     @estimates = Estimate.paginate(page: params[:page], :per_page => 10)
@@ -15,7 +16,7 @@ class EstimatesController < ApplicationController
     @projects = Project.order("title ASC")
     @users = User.order("first_name ASC, last_name ASC")
     @estimate_line = EstimatesLine.new
-    @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order("line_number ASC")
+    @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order(sort_column + " " + sort_direction)#order("line_number ASC")
     @technology = Technology.order("title ASC")
     render 'edit'
   end
@@ -71,6 +72,14 @@ class EstimatesController < ApplicationController
 
     def estimate_params
       params.require(:estimate).permit(:title, :client_id, :project_id, :owner_user_id)
+    end
+  
+    def sort_column
+      EstimatesLine.column_names.include?(params[:sort]) ? params[:sort] : "line_number"
+    end
+    
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 
 end

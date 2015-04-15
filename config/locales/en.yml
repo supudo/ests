@@ -118,6 +118,7 @@ en:
   estimate_line_already_exists: "Line already exists."
   estimate_line_created_successfully: "Line created successfully."
   estimate_line_destroyed: "Line was destroyed."
+  reordering_needs_line_number: "To reorder the lines you need to sort by line number."
 
   permissions: "Permissions"
   perm_login: "Login"
