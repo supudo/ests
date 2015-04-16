@@ -32,14 +32,15 @@ class ClientsController < ApplicationController
 
   def create
     if Client.exists?(:title => client_params[:title])
-        flash[:success] = t('client_already_exists')
-        redirect_to :new_client
+      flash[:success] = t('client_already_exists')
+      redirect_to :new_client
     else
       @client = Client.new(client_params)
       if @client.save
         flash[:success] = t('client_created_successfully')
         redirect_to :clients
       else
+        flash[:error] = t('error_missing_fields')
         render 'new'
       end
     end
@@ -51,6 +52,7 @@ class ClientsController < ApplicationController
       flash[:success] = t('client_updated_successfully')
       redirect_to :clients
     else
+      flash[:error] = t('error_missing_fields')
       render 'edit'
     end
   end
@@ -63,8 +65,8 @@ class ClientsController < ApplicationController
 
   private
 
-    def client_params
-      params.require(:client).permit(:title, :email, :url, :phone)
-    end
+  def client_params
+    params.require(:client).permit(:title, :email, :url, :phone)
+  end
 
 end

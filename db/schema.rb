@@ -42,15 +42,15 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "estimates", ["project_id"], name: "project_id", using: :btree
 
   create_table "estimates_lines", force: :cascade do |t|
-    t.integer  "estimate_id",     limit: 4,     null: false
-    t.integer  "technology_id",   limit: 4,     null: false
-    t.integer  "line_number",     limit: 4,     null: false
-    t.text     "line",            limit: 65535, null: false
-    t.integer  "complexity",      limit: 1,     null: false
-    t.float    "hours_min",       limit: 24,    null: false
-    t.float    "hours_max",       limit: 24,    null: false
-    t.integer  "created_user_id", limit: 4,     null: false
-    t.datetime "created_date",                  null: false
+    t.integer  "estimate_id",     limit: 4,                 null: false
+    t.integer  "technology_id",   limit: 4,                 null: false
+    t.integer  "line_number",     limit: 4,     default: 1, null: false
+    t.text     "line",            limit: 65535,             null: false
+    t.integer  "complexity",      limit: 1,                 null: false
+    t.float    "hours_min",       limit: 24,                null: false
+    t.float    "hours_max",       limit: 24,                null: false
+    t.integer  "created_user_id", limit: 4,                 null: false
+    t.datetime "created_date",                              null: false
   end
 
   add_index "estimates_lines", ["estimate_id"], name: "estimate_id", using: :btree
@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "client_id",                  limit: 4,                     null: false
     t.integer  "project_status_id",          limit: 4,                     null: false
     t.integer  "account_manager_user_id",    limit: 4,     default: 0,     null: false
-    t.integer  "production_manager_user_id", limit: 4,     default: 0,     null: false
-    t.integer  "project_owner_user_id",      limit: 4,                     null: false
+    t.integer  "production_manager_user_id", limit: 4,     default: 0
+    t.integer  "project_owner_user_id",      limit: 4,     default: 0
     t.datetime "start_date_scheduled"
     t.datetime "start_date_actual"
     t.datetime "end_date_scheduled"
@@ -167,7 +167,7 @@ ActiveRecord::Schema.define(version: 0) do
 
   add_foreign_key "projects", "clients", name: "fk_projects_clients"
   add_foreign_key "projects", "project_statuses", name: "fk_projects_projects_statuses"
-  add_foreign_key "projects", "users", column: "project_owner_user_id", name: "fk_projects_project_owner"
+  add_foreign_key "projects", "users", column: "account_manager_user_id", name: "fk_projects_accountmanager"
   add_foreign_key "users", "clients", name: "fk_users_clients"
   add_foreign_key "users", "positions", name: "fk_users_positions"
   add_foreign_key "users", "technologies", name: "fk_users_technologies"

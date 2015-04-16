@@ -11,7 +11,6 @@
             <div class="login-panel panel panel-default">
                 <div class="panel-body">
                     <%= form_for(@user) do |f| %>
-                    <%= render 'shared/error_messages', object: f.object %>
                     <fieldset>
                         <div class="form-group">
                             <%= f.email_field :username, class: 'form-control', placeholder: t('email'), autofocus: true %>

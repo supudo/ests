@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :signed_in_user
   autocomplete :user, :searchname, :full => true
-  
+
   def index
     @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
@@ -38,8 +38,8 @@ class UsersController < ApplicationController
 
   def create
     if User.exists?(:username => user_params[:username])
-        flash[:success] = t('user_already_exists')
-        redirect_to :new_user
+      flash[:success] = t('user_already_exists')
+      redirect_to :new_user
     else
       @user = User.new(user_params)
       if @user.save
@@ -55,6 +55,7 @@ class UsersController < ApplicationController
         @technology = Technology.all
         @position = Position.all
         @client = Client.all
+        flash[:error] = t('error_missing_fields')
         render 'new'
       end
     end
@@ -79,6 +80,7 @@ class UsersController < ApplicationController
       @technology = Technology.all
       @position = Position.all
       @client = Client.all
+      flash[:error] = t('error_missing_fields')
       render 'edit'
     end
   end
@@ -91,13 +93,13 @@ class UsersController < ApplicationController
 
   private
 
-    def user_params
-      params.require(:user).permit(:first_name, :last_name, :username, :password, :password_confirmation,
-        :technology_id, :position_id, :client_id, :is_am, :is_pdm)
-    end
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :username, :password, :password_confirmation,
+                                 :technology_id, :position_id, :client_id, :is_am, :is_pdm)
+  end
 
-    def self.permission
-      return "Users"
-    end
+  def self.permission
+    return "Users"
+  end
 
 end

@@ -1,7 +1,7 @@
 class CommenthistoryController < ApplicationController
   before_action :signed_in_user
 
-  def show 
+  def show
     @project = Project.find_by_id(params[:id])
 
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path

@@ -39,7 +39,11 @@
         <div class="panel-body">
           <fieldset>
             <div class="form-group">
+              <% if @project_comment != nil %>
               <%= text_area_tag 'comment', @project_comment.comment.to_s, class: 'form-control', rows: '5', placeholder: t('comment')  %>
+              <% else %>
+              <%= text_area_tag 'comment', '', class: 'form-control', rows: '5', placeholder: t('comment')  %>
+              <% end %>
             </div>
           </fieldset>
         </div>
@@ -49,7 +53,11 @@
         <div class="panel-body">
           <fieldset>
             <div class="form-group">
+              <% if @project_request != nil %>
               <%= text_area_tag 'request', @project_request.request.to_s, class: 'form-control', rows: '5', placeholder: t('request')  %>
+              <% else %>
+              <%= text_area_tag 'request', '', class: 'form-control', rows: '5', placeholder: t('request')  %>
+              <% end %>
             </div>
           </fieldset>
         </div>

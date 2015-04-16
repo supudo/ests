@@ -40,6 +40,8 @@ bg:
   password_confirm: "Потвърди паролата"
   gravatar_change: "промени"
   user_already_exists: "Такъв потребител вече съществува."
+  error_missing_fields: "Липсват данни. Моля проверете пак."
+  error_exclamation: "Грешка!"
 
   id: "ID"
   name: "Име"

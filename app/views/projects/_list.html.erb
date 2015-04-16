@@ -21,7 +21,7 @@
         <td class="vert-align"><a href="mailto:<%= project.account_manager_email %>"><%= project.account_manager_name %></a></td>
         <td class="vert-align"><a href="mailto:<%= project.production_manager_email %>"><%= project.production_manager_name %></a></td>
         <td class="vert-align">
-          <a href="mailto:<%= User.find_by(:id => project.project_owner_user_id).username %>"><%= User.find_by(:id => project.project_owner_user_id).first_name %> <%= User.find_by(:id => project.project_owner_user_id).last_name %></a>
+          <a href="mailto:<%= project.project_owner_email %>"><%= project.project_owner_name %></a>
         </td>
         <td width="1%" nowrap>
           <%= button_to project, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true do %>

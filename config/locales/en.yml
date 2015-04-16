@@ -40,6 +40,8 @@ en:
   password_confirm: "Confirm password"
   gravatar_change: "change"
   user_already_exists: "User already exists."
+  error_missing_fields: "Fields are missing. Please check again."
+  error_exclamation: "Error!"
 
   id: "ID"
   name: "Full name"
