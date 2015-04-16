@@ -48,6 +48,9 @@ gem 'rails4-autocomplete', '~> 1.1.1'
 gem 'nifty-generators'
 gem 'jquery-ui-rails', '~> 5.0.3'
 
+# Javascript links
+gem 'js-routes', '~> 1.0.0'
+
 # Permissions & Roles
 #gem 'devise'
 #gem 'cancan'

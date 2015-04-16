@@ -46,7 +46,6 @@
               <%= f.collection_select :technology_id, @technology, :id, :title, {:include_blank => t('dashes') + ' ' + t('technology')}, {:class => 'form-control'} %>
           </div>
           <div class="form-group">
-            <%-# f.text_field :line, class: 'form-control', placeholder: t('line'), autofocus: true -%>
             <%= f.autocomplete_field :line, autocomplete_estimatesline_line_estimatesline_index_path(:format => :json), class: 'form-control', placeholder: t('line'), autofocus: true %>
           </div>
           <div class="form-group">

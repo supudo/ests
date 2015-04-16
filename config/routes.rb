@@ -16,6 +16,10 @@ Rails.application.routes.draw do
     get :autocomplete_estimatesline_line, :on => :collection
   end
 
+  resources :clients do
+    get :autocomplete_client_title, :on => :collection
+  end
+
   get 'about/new'
   get 'help/new'
   get 'about/new'
