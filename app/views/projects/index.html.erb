@@ -1,19 +1,19 @@
 <% provide(:title, t('projects')) %>
 <h1><%= t('projects') %></h1>
 
-<div class="panel">
-  <button type="button" class="btn btn-default" aria-label="Left Align">
-    <%= link_to t('create_project'), new_project_path, :class => "btn" %>
-  </button>
-</div>
-
 <div class="panel panel-default">
   <div class="panel-heading">
-    <br />
-    <div class="form-group">
-      <%= form_tag :url => projects_path do |f| %>
-        <%= autocomplete_field 'ac_search_project', '', autocomplete_project_title_projects_path(:format => :json), { class: 'form-control', autofocus: true, placeholder: t('search') } %>
-      <% end %>
+    <div class="input-group">
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-primary" aria-label="Left Align">
+          <%= link_to t('create_project'), new_project_path, :class => "btn-primary" %>
+        </button>
+      </div>
+      <div class="form-group">
+        <%= form_tag :url => projects_path do |f| %>
+          <%= autocomplete_field 'ac_search_project', '', autocomplete_project_title_projects_path(:format => :json), { class: 'form-control', autofocus: true, placeholder: t('search') } %>
+        <% end %>
+      </div>
     </div>
   </div>
   <div id="projects-list">

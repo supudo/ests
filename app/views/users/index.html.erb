@@ -1,22 +1,22 @@
 <% provide(:title, t('users')) %>
 <h1><%= t('users') %></h1>
 
-<div class="panel">
-  <button type="button" class="btn btn-default" aria-label="Left Align">
-    <%= link_to t('create_user'), new_user_path, :class => "btn" %>
-  </button>
-</div>
-
 <div class="panel panel-default">
   <div class="panel-heading">
-    <br />
-    <div class="form-group">
-      <%= form_tag :url => clients_path do |f| %>
-        <%= autocomplete_field 'ac_search_user', '', autocomplete_user_searchname_users_path(:format => :json), { class: 'form-control', autofocus: true, placeholder: t('search') } %>
-      <% end %>
+    <div class="input-group">
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-primary" aria-label="Left Align">
+          <%= link_to t('create_user'), new_user_path, :class => "btn-primary" %>
+        </button>
+      </div>
+      <div class="form-group">
+        <%= form_tag :url => clients_path do |f| %>
+          <%= autocomplete_field 'ac_search_user', '', autocomplete_user_searchname_users_path(:format => :json), { class: 'form-control', autofocus: true, placeholder: t('search') } %>
+        <% end %>
+      </div>
     </div>
   </div>
-    <%= render partial: 'users/list', locals: { users: @users } %>
+  <%= render partial: 'users/list', locals: { users: @users } %>
 </div>
 
 <%= will_paginate @users, :renderer => BootstrapPagination::Rails, :remote => true %>

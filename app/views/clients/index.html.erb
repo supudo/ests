@@ -1,19 +1,19 @@
 <% provide(:title, t('clients')) %>
 <h1><%= t('clients') %></h1>
 
-<div class="panel">
-  <button type="button" class="btn btn-default" aria-label="Left Align">
-    <%= link_to t('create_client'), new_client_path, :class => "btn" %>
-  </button>
-</div>
-
 <div class="panel panel-default">
   <div class="panel-heading">
-    <br />
-    <div class="form-group">
-      <%= form_tag :url => clients_path do |f| %>
-        <%= autocomplete_field 'ac_search_client', '', autocomplete_client_title_clients_path(:format => :json), { class: 'form-control', autofocus: true, placeholder: t('search') } %>
-      <% end %>
+    <div class="input-group">
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-primary" aria-label="Left Align">
+          <%= link_to t('create_client'), new_client_path, :class => "btn-primary" %>
+        </button>
+      </div>
+      <div class="form-group">
+        <%= form_tag :url => clients_path do |f| %>
+          <%= autocomplete_field 'ac_search_client', '', autocomplete_client_title_clients_path(:format => :json), { class: 'form-control', autofocus: true, placeholder: t('search') } %>
+        <% end %>
+      </div>
     </div>
   </div>
   <div id="clients-list">
