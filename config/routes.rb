@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :users
   resources :projects
   resources :estimates
-  #resources :estimatesline
+  resources :estimatesline
   resources :clients
   resources :permissions
   resources :commenthistory
@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     member do
       get :moveup, :movedown, :destroy, :create
     end
+    get :autocomplete_estimatesline_line, :on => :collection
   end
 
   get 'about/new'

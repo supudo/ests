@@ -43,6 +43,11 @@ gem 'sprockets', '~> 2.12.3'
 # Navigation breadcrumbs
 gem 'breadcrumbs_on_rails', '~> 2.3.0'
 
+# Autocomplete
+gem 'rails4-autocomplete', '~> 1.1.1'
+gem 'nifty-generators'
+gem 'jquery-ui-rails', '~> 5.0.3'
+
 # Permissions & Roles
 #gem 'devise'
 #gem 'cancan'

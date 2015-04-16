@@ -1,4 +1,5 @@
 class EstimatesController < ApplicationController
+  before_action :signed_in_user
   helper_method :sort_column, :sort_direction
 
   def index

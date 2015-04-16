@@ -1,4 +1,13 @@
 class EstimateslineController < ApplicationController
+  before_action :signed_in_user
+  autocomplete :estimatesline, :line, :full => true
+
+  def show
+    @estimatesline = EstimatesLine.where("line LIKE (?)", "%#{params[:term]}%").order("line ASC")
+    respond_to do |format|
+      format.json {render json: @estimatesline.map { |line| {:id => line.id, :label => line.line, :value => line.line} }}
+    end
+  end
 
   def create
     if EstimatesLine.exists?(:estimate_id => estimates_line_params[:estimate_id], :line => estimates_line_params[:line], :technology_id => estimates_line_params[:technology_id])

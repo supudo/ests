@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"line",
+				"line_number"
+			],
+			[
+				"lin",
+				"line_number"
+			],
+			[
+				"hi",
+				"hidden_field"
+			],
+			[
+				"has_",
+				"has_one〔function〕"
+			],
+			[
 				"te",
 				"technology_ids"
 			],
@@ -35,6 +51,30 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "controllers/estimatesline_controller.rb",
+			"settings":
+			{
+				"buffer_size": 2308,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/estimates/edit.html.erb",
+			"settings":
+			{
+				"buffer_size": 3115,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/sergeypetrov/Software/_Web/_ror/ests/config/routes.rb",
+			"settings":
+			{
+				"buffer_size": 657,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -44,9 +84,21 @@
 	"command_palette":
 	{
 		"height": 392.0,
-		"last_filter": "packa",
+		"last_filter": "git",
 		"selected_items":
 		[
+			[
+				"git",
+				"Git: Commit"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
 			[
 				"packa",
 				"Package Control: Install Package"
@@ -64,7 +116,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 575.0
+		"width": 593.0
 	},
 	"console":
 	{
@@ -86,37 +138,63 @@
 	"expanded_folders":
 	[
 		"/Users/sergeypetrov/Software/_Web/_ror/ests",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/controllers",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimates",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/config/locales",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/db/migrate",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/lib/tasks"
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/config",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/config/initializers",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/config/locales"
 	],
 	"file_history":
 	[
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimates/index.html.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/assets/javascripts/application.js",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/Gemfile",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimatesline/_lines.html.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/projects/_list.html.erb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/assets/stylesheets/custom.css.scss",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimates/edit.html.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/helpers/application_helper.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/controllers/estimates_controller.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/config/locales/bg.yml",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/config/locales/en.yml",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/controllers/estimatesline_controller.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/controllers/projects_controller.rb",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimates/new.html.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/projects/destroy.js.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/projects/index.html.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimates/edit.html.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimatesline/create.js.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimates/create.js.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimatesline/destroy.js.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimatesline/moveup.js.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimatesline/movedown.js.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimates/_lines.html.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimates/moveup.js.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimates/_edit.html.erb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/config/routes.rb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/controllers/estimates_line_controller.rb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/users/edit.html.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimates/_form.html.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimates_line/_form.html.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/users/index.html.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/projects/edit.html.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/projects/new.html.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/models/project.rb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/projects/_index.html.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/controllers/clients_controller.rb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/controllers/users_controller.rb",
+		"/Users/sergeypetrov/Downloads/ERM/extra/svn/Redmine.pm",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimates/index.html.erb",
+		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/estimates/new.html.erb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/layouts/_header.html.erb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/projects/_edit.html.erb",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/projects/new.html.erb",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/projects/edit.html.erb",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/users/index.html.erb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/requesthistory/index.html.erb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/commenthistory/index.html.erb",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/models/project.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/models/technology.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/models/projects_technology.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/controllers/requesthistory_controller.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/controllers/commenthistory_controller.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/controllers/comment_history_controller.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/comment_history/index.html.erb",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/projects/index.html.erb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/controllers/comments_history_controller.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/comments_history/index.html.erb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/comments_history/untitled",
@@ -126,16 +204,11 @@
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/config/initializers/time_formats.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/db/schema.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/models/user.rb",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/Gemfile",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/assets/stylesheets/application.css.sass",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/assets/javascripts/application.js",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/controllers/users_controller.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/db/seeds.rb",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/users/edit.html.erb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/users/new.html.erb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/models/position.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/.gitignore",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/controllers/clients_controller.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/clients/edit.html.erb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/clients/new.html.erb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/models/ability.rb",
@@ -152,7 +225,6 @@
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/dashboard/index.html.erb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/layouts/application.html.erb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/helpers/login_helper.rb",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/helpers/application_helper.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/helpers/users_helper.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/controllers/login_controller.rb",
 		"/Users/sergeypetrov/Software/_Web/_ror/ests/db/sql_export/ror_ests.sql",
@@ -203,24 +275,7 @@
 		"/Users/sergeypetrov/Software/_Web/_ror/sessions/app/assets/javascripts/sessions.js.coffee",
 		"/Users/sergeypetrov/Software/_Web/_ror/sessions/app/assets/javascripts/application.js",
 		"/Users/sergeypetrov/Software/_Web/_ror/sessions/app/assets/stylesheets/static_pages.css.scss",
-		"/Users/sergeypetrov/Software/_Web/_ror/sessions/app/assets/stylesheets/users.css.scss",
-		"/Users/sergeypetrov/Software/_Web/_ror/sessions/app/assets/stylesheets/sessions.css.scss",
-		"/Users/sergeypetrov/Software/_Web/_ror/sessions/app/assets/stylesheets/application.css",
-		"/Users/sergeypetrov/Software/_Web/_ror/sessions/spec/spec_helper.rb",
-		"/Users/sergeypetrov/Software/_Web/_ror/sessions/app/views/sessions/new.html.erb",
-		"/Users/sergeypetrov/Software/_Web/_ror/sessions/app/views/static_pages/show.html.erb",
-		"/Users/sergeypetrov/Software/_Web/_ror/sessions/app/views/static_pages/home.html.erb",
-		"/Users/sergeypetrov/Software/_Web/_ror/sessions_user/app/views/layouts/application.html.erb",
-		"/Users/sergeypetrov/Software/_Web/_ror/sessions_user/app/views/sessions/new.html.erb",
-		"/Users/sergeypetrov/Software/_Web/_ror/sessions_user/app/views/users/index.html.erb",
-		"/Users/sergeypetrov/Software/_Web/_ror/sessions_user/app/views/users/_user.html.erb",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests2/Gemfile",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/config/database.yml",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests2/config/database.yml",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/views/layouts/_shim.html.erb",
-		"/Users/sergeypetrov/Software/_Web/_ror/ests/app/helpers/sessions_helper.rb",
-		"/Users/sergeypetrov/Downloads/VisitorInfoTemplate/zh/IncludePrayerTimes.html",
-		"/Users/sergeypetrov/Downloads/VisitorInfoTemplate 2/zh/js/praytimes.js"
+		"/Users/sergeypetrov/Software/_Web/_ror/sessions/app/assets/stylesheets/users.css.scss"
 	],
 	"find":
 	{
@@ -241,6 +296,20 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"path",
+			"gsub",
+			"hidden_field",
+			"account",
+			"password",
+			"sha-1",
+			"sha1",
+			"digest",
+			"sha1",
+			"md5",
+			"AuthSource",
+			"read_ciphered_attribute",
+			"pass",
+			"login",
 			"current_user",
 			"project",
 			"create",
@@ -377,8 +446,102 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "controllers/estimatesline_controller.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2308,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								89,
+								89
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "views/estimates/edit.html.erb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3115,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2116,
+								2158
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 301.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/sergeypetrov/Software/_Web/_ror/ests/config/routes.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 657,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								333,
+								333
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -421,11 +584,15 @@
 	{
 		"height": 0.0
 	},
+	"output.git":
+	{
+		"height": 100.0
+	},
 	"pinned_build_system": "",
 	"project": "ests.sublime-project",
 	"replace":
 	{
-		"height": 64.0
+		"height": 42.0
 	},
 	"save_all_on_build": true,
 	"select_file":
