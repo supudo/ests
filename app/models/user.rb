@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def searchname
+    "#{first_name} #{last_name} - #{username}"
+  end
+
   private
 
     def create_remember_token

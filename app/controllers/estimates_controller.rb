@@ -9,17 +9,24 @@ class EstimatesController < ApplicationController
   end
 
   def show
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.estimates_index'), estimates_path
-    add_breadcrumb I18n.t('breadcrumbs.edit')
-    @estimate = Estimate.find(params[:id])
-    @clients = Client.order("title ASC")
-    @projects = Project.order("title ASC")
-    @users = User.order("first_name ASC, last_name ASC")
-    @estimate_line = EstimatesLine.new
-    @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order(sort_column + " " + sort_direction)#order("line_number ASC")
-    @technology = Technology.order("title ASC")
-    render 'edit'
+    if params.has_key?(:term)
+      @estimates = Estimate.where("title LIKE (?)", "%#{params[:term]}%").order("title ASC")
+      respond_to do |format|
+        format.json {render json: @estimates.map { |estimate| {:id => estimate.id, :label => estimate.title, :value => estimate.title} }}
+      end
+    else
+      add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+      add_breadcrumb I18n.t('breadcrumbs.estimates_index'), estimates_path
+      add_breadcrumb I18n.t('breadcrumbs.edit')
+      @estimate = Estimate.find(params[:id])
+      @clients = Client.order("title ASC")
+      @projects = Project.order("title ASC")
+      @users = User.order("first_name ASC, last_name ASC")
+      @estimate_line = EstimatesLine.new
+      @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order(sort_column + " " + sort_direction)#order("line_number ASC")
+      @technology = Technology.order("title ASC")
+      render 'edit'
+    end
   end
 
   def new

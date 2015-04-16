@@ -277,3 +277,7 @@ input {
 .pretty th .desc {
   background-image: url(/images/down_arrow.gif);
 }
+
+.table tbody > tr > th.vert-align, .table tbody > tr > td.vert-align {
+    vertical-align: middle;
+}

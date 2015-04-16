@@ -8,6 +8,14 @@
 </div>
 
 <div class="panel panel-default">
+  <div class="panel-heading">
+    <br />
+    <div class="form-group">
+      <%= form_tag :url => estimates_path do |f| %>
+        <%= autocomplete_field 'ac_search_estimate', '', autocomplete_estimate_title_estimates_path(:format => :json), { class: 'form-control', autofocus: true, placeholder: t('search') } %>
+      <% end %>
+    </div>
+  </div>
   <table class="table">
     <thead>
       <tr>

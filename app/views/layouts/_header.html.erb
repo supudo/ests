@@ -31,9 +31,6 @@
               <li><%= link_to t('logout'), logout_path, method: "delete" %></li>
               <li class="divider"></li>
             <% end %>
-            <li><a href="http://resmanager.stanga.net">ResManager</a></li>
-            <li><a href="http://redmine.stanga.net">Redmine</a></li>
-            <li class="divider"></li>
             <li><%= link_to t('language_english'), url_for( :locale => 'en' ) %></li>
             <li><%= link_to t('language_bulgarian'), url_for( :locale => 'bg' ) %></li>
           </ul>

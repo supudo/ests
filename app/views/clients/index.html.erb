@@ -16,36 +16,34 @@
       <% end %>
     </div>
   </div>
-  <div class="panel-body">
-    <table class="table">
-      <thead>
-        <tr>
-          <th><%= t('id') %></th>
-          <th><%= t('client') %></th>
-          <th><%= t('email') %></th>
-          <th><%= t('url') %></th>
-          <th><%= t('phone') %></th>
-          <th>&nbsp;</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @clients.each do |client| %>
-        <tr>
-          <th scope="row" class="vert-align"><%= client.id %></th>
-          <td class="vert-align"><%= link_to client.title, client %></td>
-          <td class="vert-align"><a href="mailto:<%= client.email %>"><%= client.email %></a></td>
-          <td class="vert-align"><a href="<%= client.url %>" target="_blank"><%= client.url %></a></td>
-          <td class="vert-align"><a href="tel:<%= client.phone %>"><%= client.phone %></a></td>
-          <td width="1%" nowrap>
-            <%= button_to client, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-            <% end %>
-          </td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= t('id') %></th>
+        <th><%= t('client') %></th>
+        <th><%= t('email') %></th>
+        <th><%= t('url') %></th>
+        <th><%= t('phone') %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @clients.each do |client| %>
+      <tr>
+        <th scope="row" class="vert-align"><%= client.id %></th>
+        <td class="vert-align"><%= link_to client.title, client %></td>
+        <td class="vert-align"><a href="mailto:<%= client.email %>"><%= client.email %></a></td>
+        <td class="vert-align"><a href="<%= client.url %>" target="_blank"><%= client.url %></a></td>
+        <td class="vert-align"><a href="tel:<%= client.phone %>"><%= client.phone %></a></td>
+        <td width="1%" nowrap>
+          <%= button_to client, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
 <%= will_paginate @clients, :renderer => BootstrapPagination::Rails %>

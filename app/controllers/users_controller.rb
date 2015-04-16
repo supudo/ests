@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :signed_in_user
+  autocomplete :user, :searchname, :full => true
   
   def index
     @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
@@ -8,14 +9,21 @@ class UsersController < ApplicationController
   end
 
   def show
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
-    add_breadcrumb I18n.t('breadcrumbs.edit')
-    @user = User.find(params[:id])
-    @technology = Technology.order("title ASC")
-    @position = Position.order("title ASC")
-    @client = Client.order("title ASC")
-    render 'edit'
+    if params.has_key?(:term)
+      @users = User.where("username LIKE (?) OR first_name LIKE (?) OR last_name LIKE (?)", "%#{params[:term]}%", "%#{params[:term]}%", "%#{params[:term]}%").order("first_name ASC, last_name")
+      respond_to do |format|
+        format.json {render json: @users.map { |user| {:id => user.id, :label => user.searchname, :value => user.searchname} }}
+      end
+    else
+      add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+      add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
+      add_breadcrumb I18n.t('breadcrumbs.edit')
+      @user = User.find(params[:id])
+      @technology = Technology.order("title ASC")
+      @position = Position.order("title ASC")
+      @client = Client.order("title ASC")
+      render 'edit'
+    end
   end
 
   def new

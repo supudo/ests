@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :signed_in_user
+  autocomplete :project, :title, :full => true
 
   def index
     @projects = Project.paginate(page: params[:page], :per_page => 10)
@@ -8,19 +9,26 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.projects_index'), projects_path
-    add_breadcrumb I18n.t('breadcrumbs.edit')
-    @project = Project.find(params[:id])
-    @clients = Client.order("title ASC")
-    @project_statuses = ProjectStatus.order("title ASC")
-    @ams = User.where(:is_am => '1').order("first_name ASC, last_name ASC")
-    @pdms = User.where(:is_pdm => '1').order("first_name ASC, last_name ASC")
-    @users = User.order("first_name ASC, last_name ASC")
-    @technologies = Technology.order("title ASC")
-    @project_comment = ProjectsComment.where(:project_id => @project.id).order("modified_date DESC").first
-    @project_request = ProjectsRequest.where(:project_id => @project.id).order("modified_date DESC").first
-    render 'edit'
+    if params.has_key?(:term)
+      @projects = Project.where("title LIKE (?)", "%#{params[:term]}%").order("title ASC")
+      respond_to do |format|
+        format.json {render json: @projects.map { |project| {:id => project.id, :label => project.title, :value => project.title} }}
+      end
+    else
+      add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+      add_breadcrumb I18n.t('breadcrumbs.projects_index'), projects_path
+      add_breadcrumb I18n.t('breadcrumbs.edit')
+      @project = Project.find(params[:id])
+      @clients = Client.order("title ASC")
+      @project_statuses = ProjectStatus.order("title ASC")
+      @ams = User.where(:is_am => '1').order("first_name ASC, last_name ASC")
+      @pdms = User.where(:is_pdm => '1').order("first_name ASC, last_name ASC")
+      @users = User.order("first_name ASC, last_name ASC")
+      @technologies = Technology.order("title ASC")
+      @project_comment = ProjectsComment.where(:project_id => @project.id).order("modified_date DESC").first
+      @project_request = ProjectsRequest.where(:project_id => @project.id).order("modified_date DESC").first
+      render 'edit'
+    end
   end
 
   def new
