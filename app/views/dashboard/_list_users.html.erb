@@ -1,0 +1,5 @@
+      <% @users.each do |item| %>
+      <%= link_to item.username, item %>
+      <%= t('at') %> <%= l(item.created_date) %>
+      <br />
+      <% end %>

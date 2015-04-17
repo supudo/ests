@@ -1,8 +1,68 @@
 <% provide(:title, t('dashboard')) %>
-
 <h1><%= t('dashboard') %></h1>
-<p>
 
-  ...data...<br />
-  ...charts...<br />
-</p>
+<div class="panel with-nav-tabs panel-primary">
+  <div class="panel-heading">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#tab0primary" data-toggle="tab"><span class="glyphicon glyphicon glyphicon-th-large" aria-hidden="true"></span></a></li>
+      <li><a href="#tab1primary" data-toggle="tab"><%= t('estimates') %></a></li>
+      <li><a href="#tab2primary" data-toggle="tab"><%= t('projects') %></a></li>
+      <li><a href="#tab3primary" data-toggle="tab"><%= t('clients') %></a></li>
+      <li><a href="#tab4primary" data-toggle="tab"><%= t('users') %></a></li>
+    </ul>
+  </div>
+  <div class="panel-body">
+    <div class="tab-content">
+      <div class="tab-pane fade in active" id="tab0primary">
+        ... charts ...
+      </div>
+      <div class="tab-pane fade" id="tab1primary">
+        <%= render partial: 'dashboard/list_estimates', locals: { estimates: @estimates } %>
+      </div>
+      <div class="tab-pane fade" id="tab2primary">
+        <%= render partial: 'dashboard/list_projects', locals: { projects: @projects } %>
+      </div>
+      <div class="tab-pane fade" id="tab3primary">
+        <%= render partial: 'dashboard/list_clients', locals: { clients: @clients } %>
+      </div>
+      <div class="tab-pane fade" id="tab4primary">
+        <%= render partial: 'dashboard/list_users', locals: { users: @users } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+<div class="row">
+  <div class="span6 offset3">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong>panel ...</strong></div>
+        <div class="panel-body">
+          ....
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong>panel ...</strong></div>
+        <div class="panel-body">
+          ....
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong>panel ...</strong></div>
+        <div class="panel-body">
+          ....
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong>panel ...</strong></div>
+        <div class="panel-body">
+          ....
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+-->

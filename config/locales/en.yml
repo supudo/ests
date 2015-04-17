@@ -16,6 +16,9 @@ en:
   search: "Search"
 
   dashes: "-----"
+  at: "at"
+  for: "for"
+  by: "by"
 
   title_login: "Login"
   welcome_login: "Welcome to Ests"
@@ -33,6 +36,7 @@ en:
   delete_confirm: "Are you sure?"
 
   dashboard: "Dashboard"
+  latest_arrow: "Latest ->"
 
   title_edit_user: "Edit user"
   edit_user_header: "Update your profile"
@@ -159,3 +163,12 @@ en:
     clients_index: "Clients"
     projects_index: "Projects"
     estimates_index: "Estimates"
+
+  defaults: &defaults
+    formats:
+       default: "%d %B %Y, %H:%M"
+       short: "%d.%m.%Y, %H:%M"
+  date:
+    <<: *defaults
+  time:
+    <<: *defaults

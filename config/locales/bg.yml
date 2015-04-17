@@ -16,6 +16,9 @@ bg:
   search: "Search"
 
   dashes: "-----"
+  at: "на"
+  for: "за"
+  by: "от"
 
   title_login: "Логин"
   welcome_login: "Добре дошли в Ests"
@@ -33,6 +36,7 @@ bg:
   delete_confirm: "Сигурни ли сте?"
 
   dashboard: "Табло"
+  latest_arrow: "Последни ->"
 
   title_edit_user: "Редактиране на потребител"
   edit_user_header: "Промяна на профила"
@@ -159,3 +163,14 @@ bg:
     clients_index: "Клиенти"
     projects_index: "Проекти"
     estimates_index: "Оценки"
+
+  defaults: &defaults
+    month_names:
+      [~, Януари, Февруари, Март, Април, Май, Юни, Юли, Август, Септември, Октмоври, Ноември, Декември]
+    formats:
+       default: "%d %B %Y, %H:%M"
+       short: "%d.%m.%Y, %H:%M"
+  date:
+    <<: *defaults
+  time:
+    <<: *defaults

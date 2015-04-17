@@ -1,0 +1,7 @@
+      <% @estimates.each do |item| %>
+      <strong><%= link_to item.title, item %></strong>
+      <%= t('at') %> <%= l(item.created_date) %><br />
+      (<%= t('for') %> "<%= Project.find_by(:id => item.project_id).title %>" - "<em><%= Client.find_by(:id => item.client_id).title %></em>"
+      <%= t('by') %> <a href="mailto:<%= User.find_by(:id => item.owner_user_id).username %>"><%= User.find_by(:id => item.owner_user_id).first_name %> <%= User.find_by(:id => item.owner_user_id).last_name %></a>)
+      <br />
+      <% end %>

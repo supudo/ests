@@ -11,7 +11,7 @@
         <div class="panel-body">
           <fieldset>
             <div class="form-group">
-              <%= f.text_field :title, class: 'form-control', placeholder: t('title'), autofocus: true %>
+              <%= f.text_field :title, class: 'form-control', placeholder: t('title'), autofocus: true, :value => params[:title] %>
             </div>
             <div class="form-group">
               <%= f.collection_select :project_status_id, @project_statuses, :id, :title, {:include_blank => t('dashes') + ' ' + t('status')}, {:class => 'form-control'} %>

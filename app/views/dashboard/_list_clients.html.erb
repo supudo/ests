@@ -1,0 +1,4 @@
+      <% @clients.each do |item| %>
+      <%= link_to item.title, item %> <%= t('at') %> <%= l(item.created_date) %>
+      <br />
+      <% end %>
