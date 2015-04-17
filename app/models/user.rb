@@ -32,6 +32,10 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name} - #{username}"
   end
 
+  def fullname_email
+    "#{first_name} #{last_name} (#{username})"
+  end
+
   private
 
     def create_remember_token

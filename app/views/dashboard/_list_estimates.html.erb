@@ -1,7 +1,15 @@
-      <% @estimates.each do |item| %>
-      <strong><%= link_to item.title, item %></strong>
-      <%= t('at') %> <%= l(item.created_date) %><br />
-      (<%= t('for') %> "<%= Project.find_by(:id => item.project_id).title %>" - "<em><%= Client.find_by(:id => item.client_id).title %></em>"
-      <%= t('by') %> <a href="mailto:<%= User.find_by(:id => item.owner_user_id).username %>"><%= User.find_by(:id => item.owner_user_id).first_name %> <%= User.find_by(:id => item.owner_user_id).last_name %></a>)
-      <br />
+      <% @estimates_months.each do |month, item| %>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <strong><%= month.strftime('%B, %Y') %></strong>
+        </div>
+        <div class="panel-body">
+          <% for estimate in item %>
+            <strong><%= link_to estimate.title, item %></strong>
+            <%= t('at') %> <%= l(estimate.created_date, format: :shorter) %>
+            - (<%= t('for') %> "<%= Project.find_by(:id => estimate.project_id).title %>" - "<em><%= Client.find_by(:id => estimate.client_id).title %></em>"
+            <%= t('by') %> <a href="mailto:<%= User.find_by(:id => estimate.owner_user_id).username %>"><%= User.find_by(:id => estimate.owner_user_id).first_name %> <%= User.find_by(:id => estimate.owner_user_id).last_name %></a>)
+          <% end %>
+        </div>
+      </div>
       <% end %>

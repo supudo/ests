@@ -155,6 +155,11 @@ en:
   perm_modify_estimate: "Estimates - Modify"
   perm_delete_estimate: "Estimates - Delete"
 
+  ord_st: "st2"
+  ord_nd: "nd2"
+  ord_rd: "rd2"
+  ord_th: "th2"
+
   breadcrumbs:
     dashboard: "Dashboard"
     edit: "Edit"
