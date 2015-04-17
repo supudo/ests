@@ -73,7 +73,7 @@
         <div class="panel-body">
           <% @technologies.each do |item| %>
           <div class="checkbox">
-            <label><%= check_box_tag :technology_ids, item.id, @project.technologies.include?(item), :name => 'project[technology_ids][]' %> <%= item.title %></label>
+            <label style="color: <%= item.style %>"><%= check_box_tag :technology_ids, item.id, @project.technologies.include?(item), :name => 'project[technology_ids][]' %> <%= item.title %></label>
           </div>
           <% end %>
         </div>

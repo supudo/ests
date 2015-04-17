@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 0) do
 
   create_table "technologies", force: :cascade do |t|
     t.string "title", limit: 255, null: false
+    t.string "style", limit: 25
   end
 
   add_index "technologies", ["title"], name: "title", unique: true, using: :btree
@@ -149,6 +150,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "client_id",       limit: 4,               null: false
     t.integer  "is_pdm",          limit: 1,   default: 0, null: false
     t.integer  "is_am",           limit: 1,   default: 0, null: false
+    t.datetime "created_date",                            null: false
     t.datetime "last_modified",                           null: false
   end
 

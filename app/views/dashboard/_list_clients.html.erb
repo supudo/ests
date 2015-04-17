@@ -1,14 +1,21 @@
       <% @clients_months.each do |month, item| %>
       <div class="panel panel-primary">
+
         <div class="panel-heading">
           <strong><%= month.strftime('%B, %Y') %></strong>
         </div>
+
         <div class="panel-body">
           <% for client in item %>
             <strong><%= link_to client.title, client %></strong>
             - <%= l(client.created_date, format: :shorter) %>
+            <% projects = Project.where(:client_id => client.id) %>
+            <% projects.each do |p| %>
+            <%= p == projects.first ? '- ' : '' %><%= link_to p.title, p %><%= p != projects.last ? ',' : '' %>
+            <% end %>
             <br />
           <% end %>
         </div>
+
       </div>
       <% end %>

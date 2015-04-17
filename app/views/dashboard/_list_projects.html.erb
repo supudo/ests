@@ -1,14 +1,22 @@
       <% @projects_months.each do |month, item| %>
       <div class="panel panel-primary">
+        
         <div class="panel-heading">
           <strong><%= month.strftime('%B, %Y') %></strong>
         </div>
+
         <div class="panel-body">
-          <% for project in item %>
-            <strong><%= link_to project.title, project %></strong>
-            - <%= l(project.created_date, format: :shorter) %>
-            <br />
+        <% for project in item %>
+        <div class="bs-callout bs-callout-primary">
+          <h4><strong><%= link_to project.title, project %></strong> - <%= l(project.created_date, format: :shorter) %></h4>
+          <% ptechs = ProjectsTechnology.where(:project_id => project.id) %>
+          <% ptechs.each do |tech| %>
+            <% t = Technology.find(tech.technology_id) %>
+            <span style="color: <%= t.style %>"><%= t.title %><%= tech != ptechs.last ? ',' : '' %></span>
           <% end %>
         </div>
+        <% end %>
+        </div>
+
       </div>
       <% end %>
