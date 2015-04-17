@@ -60,7 +60,10 @@ class ClientsController < ApplicationController
   def destroy
     Client.find(params[:id]).destroy
     flash[:success] = t('client_destroyed')
-    redirect_to :clients
+    respond_to do |format|
+      @clients = Client.order("title ASC").paginate(page: params[:page], :per_page => 10)
+      format.js
+    end
   end
 
   private

@@ -3,9 +3,9 @@ class EstimatesController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @estimates = Estimate.paginate(page: params[:page], :per_page => 10)
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.estimates_index'), estimates_path
+    @estimates = Estimate.paginate(page: params[:page], :per_page => 10)
   end
 
   def show
@@ -91,8 +91,11 @@ class EstimatesController < ApplicationController
 
   def destroy
     Estimate.find(params[:id]).destroy
-    flash[:success] = t('estimate_destroyed')
-    redirect_to :estimates
+    respond_to do |format|
+      @estimates = Estimate.paginate(page: params[:page], :per_page => 10)
+      flash[:success] = t('estimate_destroyed')
+      format.js
+    end
   end
 
   private

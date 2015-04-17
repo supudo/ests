@@ -3,9 +3,9 @@ class UsersController < ApplicationController
   autocomplete :user, :searchname, :full => true
 
   def index
-    @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
+    @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
   end
 
   def show
@@ -88,7 +88,10 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = t('user_destroyed')
-    redirect_to users_url
+    respond_to do |format|
+      @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
+      format.js
+    end
   end
 
   private

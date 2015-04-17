@@ -16,7 +16,9 @@
       </div>
     </div>
   </div>
-  <%= render partial: 'users/list', locals: { users: @users } %>
+  <div id="users-list">
+    <%= render partial: 'users/list', locals: { users: @users } %>
+  </div>
 </div>
 
 <%= will_paginate @users, :renderer => BootstrapPagination::Rails, :remote => true %>
