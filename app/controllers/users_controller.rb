@@ -38,6 +38,9 @@ class UsersController < ApplicationController
 
   def create
     if User.exists?(:username => user_params[:username])
+      add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+      add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
+      add_breadcrumb I18n.t('breadcrumbs.edit')
       flash[:success] = t('user_already_exists')
       redirect_to :new_user
     else
@@ -72,6 +75,9 @@ class UsersController < ApplicationController
   end
 
   def update
+    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+    add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
+    add_breadcrumb I18n.t('breadcrumbs.edit')
     @user = User.find_by_id(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = t('profile_updated')

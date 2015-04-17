@@ -82,7 +82,7 @@ class EstimatesController < ApplicationController
       @projects = Project.order("title ASC")
       @users = User.order("first_name ASC, last_name ASC")
       @estimate_line = EstimatesLine.new
-      @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order(sort_column + " " + sort_direction)#order("line_number ASC")
+      @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order(sort_column + " " + sort_direction)
       @technology = Technology.order("title ASC")
       flash[:error] = t('error_missing_fields')
       render 'new'
