@@ -3,6 +3,7 @@ class Project < ActiveRecord::Base
   has_many :projects_requests, :dependent => :destroy
   has_many :project_technologies, :dependent => :destroy, :class_name => 'ProjectsTechnology'
   has_many :technologies, :through => :project_technologies
+  has_one :client, class_name: "Client", foreign_key: "client_id"
 
   validates :title, presence: true
   validates :client_id, :numericality => { :greater_than => 0 }

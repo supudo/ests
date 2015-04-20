@@ -37,6 +37,10 @@ bg:
 
   dashboard: "Табло"
   latest_arrow: "Последни ->"
+  projects_per_clients: "Проекти за Клиенти"
+  estimates_per_clients: "Оценки за Клиенти"
+  technologies_per_projects: "Технологии за Проекти"
+  technologies_per_users: "Технологии по Потребители"
 
   title_edit_user: "Редактиране на потребител"
   edit_user_header: "Промяна на профила"

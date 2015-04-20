@@ -37,6 +37,10 @@ en:
 
   dashboard: "Dashboard"
   latest_arrow: "Latest ->"
+  projects_per_clients: "Projects for Clients"
+  estimates_per_clients: "Estimates per Clients"
+  technologies_per_projects: "Technologies per Projects"
+  technologies_per_users: "Technolgoies per Users"
 
   title_edit_user: "Edit user"
   edit_user_header: "Update your profile"

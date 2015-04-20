@@ -51,6 +51,9 @@ gem 'jquery-ui-rails', '~> 5.0.3'
 # Javascript links
 gem 'js-routes', '~> 1.0.0'
 
+# Charts
+gem 'chartkick', '~> 1.3.2'
+
 # Permissions & Roles
 #gem 'devise'
 #gem 'cancan'

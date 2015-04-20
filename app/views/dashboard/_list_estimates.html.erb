@@ -18,7 +18,8 @@
 
           <% lines = EstimatesLine.select("technology_id").where(:estimate_id => estimate.id).distinct %>
           <% lines.each do |line| %>
-          <span style="color: <%= line.technology.style %>"><%= line.technology.title %></span><%= line != lines.last ? ',' : '' %><% end %>
+          <span style="color: <%= line.technology.style %>"><%= line.technology.title %></span><%= line != lines.last ? ',' : '' %>
+          <% end %>
 
         </div>
         <% end %>
