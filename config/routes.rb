@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :users
   resources :projects
   resources :estimates
+  resources :estimatessection
   resources :estimatesline
   resources :estimatesassumption
   resources :clients

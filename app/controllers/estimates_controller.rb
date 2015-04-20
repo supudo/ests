@@ -23,7 +23,8 @@ class EstimatesController < ApplicationController
       @projects = Project.order("title ASC")
       @users = User.order("first_name ASC, last_name ASC")
       @estimate_line = EstimatesLine.new
-      @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order(sort_column + " " + sort_direction)#order("line_number ASC")
+      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
+      @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order(sort_column + " " + sort_direction)
       @estimatesassumption = EstimatesAssumption.where(:estimate_id => params[:id]).order("title ASC")
       @technology = Technology.order("title ASC")
       render 'edit'
@@ -83,6 +84,7 @@ class EstimatesController < ApplicationController
       @projects = Project.order("title ASC")
       @users = User.order("first_name ASC, last_name ASC")
       @estimate_line = EstimatesLine.new
+      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
       @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order(sort_column + " " + sort_direction)
       @technology = Technology.order("title ASC")
       flash[:error] = t('error_missing_fields')
@@ -101,16 +103,16 @@ class EstimatesController < ApplicationController
 
   private
 
-  def estimate_params
-    params.require(:estimate).permit(:title, :client_id, :project_id, :owner_user_id)
-  end
+    def estimate_params
+      params.require(:estimate).permit(:title, :client_id, :project_id, :owner_user_id)
+    end
 
-  def sort_column
-    EstimatesLine.column_names.include?(params[:sort]) ? params[:sort] : "line_number"
-  end
+    def sort_column
+      EstimatesLine.column_names.include?(params[:sort]) ? params[:sort] : "line_number"
+    end
 
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
 
 end

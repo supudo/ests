@@ -126,6 +126,7 @@ bg:
   assumption: "Предположения"
   estimate_assumption_already_exists: "Предположението вече съществува."
   estimate_assumption_created_successfully: "Оценката беше създадена суепшно."
+  is_header: "Секция?"
 
   estimate_lines: "WBR Линии"
   line: "Линия"

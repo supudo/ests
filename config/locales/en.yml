@@ -126,6 +126,7 @@ en:
   assumption: "Assumption"
   estimate_assumption_already_exists: "Assumption already exists."
   estimate_assumption_created_successfully: "Assumption created successfully."
+  is_header: "Is Header?"
 
   estimate_lines: "WBR Lines"
   line: "Line"

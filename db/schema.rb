@@ -49,19 +49,28 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "estimates_assumptions", ["estimate_id"], name: "estimate_id", using: :btree
 
   create_table "estimates_lines", force: :cascade do |t|
-    t.integer  "estimate_id",     limit: 4,                 null: false
-    t.integer  "technology_id",   limit: 4,                 null: false
-    t.integer  "line_number",     limit: 4,     default: 1, null: false
-    t.text     "line",            limit: 65535,             null: false
-    t.integer  "complexity",      limit: 1,                 null: false
-    t.float    "hours_min",       limit: 24,                null: false
-    t.float    "hours_max",       limit: 24,                null: false
-    t.integer  "created_user_id", limit: 4,                 null: false
-    t.datetime "created_date",                              null: false
+    t.integer  "estimate_id",           limit: 4,                   null: false
+    t.integer  "estimates_sections_id", limit: 4,                   null: false
+    t.integer  "technology_id",         limit: 4,     default: 0
+    t.integer  "line_number",           limit: 4,     default: 1,   null: false
+    t.text     "line",                  limit: 65535,               null: false
+    t.integer  "complexity",            limit: 1,     default: 0
+    t.float    "hours_min",             limit: 24,    default: 0.0
+    t.float    "hours_max",             limit: 24,    default: 0.0
+    t.integer  "created_user_id",       limit: 4,                   null: false
+    t.datetime "created_date",                                      null: false
   end
 
   add_index "estimates_lines", ["estimate_id"], name: "estimate_id", using: :btree
+  add_index "estimates_lines", ["estimates_sections_id"], name: "estimates_sections_id", using: :btree
   add_index "estimates_lines", ["technology_id"], name: "technology_id", using: :btree
+
+  create_table "estimates_sections", force: :cascade do |t|
+    t.integer "estimate_id", limit: 4,   null: false
+    t.string  "title",       limit: 255, null: false
+  end
+
+  add_index "estimates_sections", ["estimate_id"], name: "estimate_id", using: :btree
 
   create_table "permissions", force: :cascade do |t|
     t.string "subject_class", limit: 50,    null: false

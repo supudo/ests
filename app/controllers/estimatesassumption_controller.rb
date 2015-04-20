@@ -2,7 +2,7 @@ class EstimatesassumptionController < ApplicationController
   before_action :signed_in_user
 
   def create
-    if EstimatesAssumption.exists?(:estimate_id => estimates_assumption_params[:estimate_id], :title => estimates_assumption_params[:line])
+    if EstimatesAssumption.exists?(:estimate_id => estimates_assumption_params[:estimate_id], :title => estimates_assumption_params[:title])
       flash[:success] = t('estimate_assumption_already_exists')
       redirect_to :new_estimatesassumption
     else
