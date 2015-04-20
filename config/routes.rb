@@ -31,6 +31,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :estimatessheet do
+    member do
+      get :destroy, :create
+    end
+  end
+
   resources :clients do
     get :autocomplete_client_title, :on => :collection
   end

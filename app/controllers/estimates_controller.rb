@@ -22,6 +22,7 @@ class EstimatesController < ApplicationController
       @clients = Client.order("title ASC")
       @projects = Project.order("title ASC")
       @users = User.order("first_name ASC, last_name ASC")
+      @estimates_sheets = EstimatesSheet.where(:estimate_id => params[:id]).order("id ASC")
       @estimate_line = EstimatesLine.new
       @estimatesassumption = EstimatesAssumption.where(:estimate_id => params[:id]).order("title ASC")
       @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
@@ -51,6 +52,7 @@ class EstimatesController < ApplicationController
       @estimate.modified_user_id = current_user.id
       @estimate.modified_date = DateTime.now
       if @estimate.save
+        @estimates_sheet = EstimatesSheet.new(:title => estimate_params[:title], :estimate_id => @estimate.id)
         flash[:success] = t('estimate_created_successfully')
         redirect_to :estimates
       else

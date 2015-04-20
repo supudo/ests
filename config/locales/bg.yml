@@ -149,6 +149,9 @@ bg:
   project_status_created_successfully: "Статусът беше създаден успешно."
   technology_updated_successfully: "Технологията беше променена успешно."
   project_status_updated_successfully: "Статусът бешe променен успешно."
+  estimate_sheet: "Страница"
+  estimate_sheet_already_exists: "Такава страница вече съществува."
+  estimate_sheet_created_successfully: "Страницата е направена успешно."
 
   permissions: "Привилегии"
   perm_login: "Логин"

@@ -72,6 +72,13 @@ ActiveRecord::Schema.define(version: 0) do
 
   add_index "estimates_sections", ["estimate_id"], name: "estimate_id", using: :btree
 
+  create_table "estimates_sheets", force: :cascade do |t|
+    t.integer "estimate_id", limit: 4,   null: false
+    t.string  "title",       limit: 255, null: false
+  end
+
+  add_index "estimates_sheets", ["estimate_id"], name: "estimate_id", using: :btree
+
   create_table "permissions", force: :cascade do |t|
     t.string "subject_class", limit: 50,    null: false
     t.string "action",        limit: 50,    null: false

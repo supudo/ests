@@ -139,6 +139,9 @@ en:
   estimate_line_created_successfully: "Line created successfully."
   estimate_line_destroyed: "Line was destroyed."
   reordering_needs_line_number: "To reorder the lines you need to sort by line number."
+  estimate_sheet: "Sheet"
+  estimate_sheet_already_exists: "Estimate Sheet already exists."
+  estimate_sheet_created_successfully: "Estimates Sheet created successfully."
 
   permissions: "Permissions"
   perm_login: "Login"
