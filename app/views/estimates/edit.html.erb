@@ -48,6 +48,15 @@
   </div>
 </div>
 
+<div class="panel panel-default">
+  <div class="panel-heading"><strong><%= t('estimate_assumption') %></strong></div>
+  <div id="grid-estimateassumption">
+    <%= render partial: 'estimatesassumption/lines', locals: { estimatesassumption: @estimatesassumption } %>
+  </div>
+</div>
+
+<br />
+
 <div class="row">
   <div class="span6 offset3">
     <div class="col-md-6">
@@ -99,15 +108,6 @@
       </div>
     </div>
     <% end %>
-  </div>
-</div>
-
-<br />
-
-<div class="panel panel-default">
-  <div class="panel-heading"><strong><%= t('estimate_assumption') %></strong></div>
-  <div id="grid-estimateassumption">
-    <%= render partial: 'estimatesassumption/lines', locals: { estimatesassumption: @estimatesassumption } %>
   </div>
 </div>
 

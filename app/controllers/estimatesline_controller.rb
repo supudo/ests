@@ -11,7 +11,7 @@ class EstimateslineController < ApplicationController
   end
 
   def create
-    if EstimatesLine.exists?(:estimate_id => estimates_line_params[:estimate_id], :line => estimates_line_params[:line], :technology_id => estimates_line_params[:technology_id])
+    if EstimatesLine.exists?(:estimate_id => estimates_line_params[:estimate_id], :estimates_sections_id => estimates_line_params[:estimates_sections_id], :line => estimates_line_params[:line], :technology_id => estimates_line_params[:technology_id])
       flash[:success] = t('estimate_line_already_exists')
       render 'new'
     else

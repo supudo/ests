@@ -133,6 +133,8 @@ bg:
   complexity: "Комплексност"
   hours_min: "Минимум Часове"
   hours_max: "Максимум Часове"
+  hours: "Часове"
+  total_caps: "ОБЩО"
   estimate_line_already_exists: "Линията вече съществува."
   estimate_line_created_successfully: "Линията е създадена."
   estimate_line_destroyed: "Линията е изтрита."
