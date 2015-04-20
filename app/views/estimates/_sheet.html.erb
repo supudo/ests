@@ -3,6 +3,7 @@
     <div class="col-md-6">
       <%= form_for :estimate_section, :url => estimatessection_index_path do |f| %>
       <%= f.hidden_field :estimate_id, value: params[:id] %>
+      <%= f.hidden_field :estimates_sheet_id, value: sheet.id %>
       <div class="panel panel-default">
         <div class="panel-heading"><strong><%= t('section') %></strong></div>
         <div class="panel-body">
@@ -21,12 +22,13 @@
     <div class="col-md-6">
       <%= form_for :estimate_line, :url => estimatesline_index_path do |f| %>
       <%= f.hidden_field :estimate_id, value: params[:id] %>
+      <%= f.hidden_field :estimates_sheet_id, value: sheet.id %>
       <div class="panel panel-default">
         <div class="panel-heading"><strong><%= t('line') %></strong></div>
         <div class="panel-body">
           <fieldset>
             <div class="form-group">
-              <%= f.collection_select :estimates_sections_id, @estimatessection, :id, :title, {}, {:class => 'form-control'} %>
+              <%= f.collection_select :estimates_sections_id, @estimatessection.where(:estimates_sheet_id => sheet.id), :id, :title, {}, {:class => 'form-control'} %>
             </div>
             <div class="form-group">
               <%= f.collection_select :technology_id, @technology, :id, :title, {:include_blank => t('dashes') + ' ' + t('technology')}, {:class => 'form-control'} %>
@@ -57,6 +59,6 @@
 <div class="panel panel-default">
   <div class="panel-heading"><strong><%= t('estimate_lines') %></strong></div>
   <div id="grid-estimatesections">
-    <%= render partial: 'estimatessection/sections', locals: { estimatessection: @estimatessection.where(:estimates_sheet_id => sheet.id) } %>
+    <%= render partial: 'estimatessection/sections', locals: { estimatessection: @estimatessection, sheet: sheet } %>
   </div>
 </div>
