@@ -54,6 +54,9 @@ gem 'js-routes', '~> 1.0.0'
 # Charts
 gem 'chartkick', '~> 1.3.2'
 
+# Spreadsheets
+gem 'roo', '~> 1.13.2'
+
 # Permissions & Roles
 #gem 'devise'
 #gem 'cancan'

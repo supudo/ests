@@ -24,6 +24,7 @@ class EstimatesController < ApplicationController
       @users = User.order("first_name ASC, last_name ASC")
       @estimate_line = EstimatesLine.new
       @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order(sort_column + " " + sort_direction)#order("line_number ASC")
+      @estimatesassumption = EstimatesAssumption.where(:estimate_id => params[:id]).order("title ASC")
       @technology = Technology.order("title ASC")
       render 'edit'
     end

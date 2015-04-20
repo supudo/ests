@@ -1,33 +1,30 @@
 <% provide(:title, t('edit')) %>
 <h1><%= t('edit') %></h1>
 
-<div class="row">
-  <div class="span6 offset3">
-    <div class="col-md-6">
-      <%= form_for(@estimate, remote: true) do |f| %>
-      <div class="panel panel-default">
-        <div class="panel-heading"><strong><%= t('details') %></strong></div>
-        <div class="panel-body">
-          <fieldset>
-            <div class="form-group">
-              <%= f.text_field :title, class: 'form-control', placeholder: t('title'), autofocus: true %>
-            </div>
-            <div class="form-group">
-              <%= f.collection_select :client_id, @clients, :id, :title, {}, {:class => 'form-control'} %>
-            </div>
-            <div class="form-group">
-              <%= f.collection_select :project_id, @projects, :id, :title, {}, {:class => 'form-control'} %>
-            </div>
-            <div class="form-group">
-              <%= f.collection_select :owner_user_id, @users, :id, :full_name, {}, {:class => 'form-control'} %>
-            </div>
-            <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
-          </fieldset>
-        </div>
+<%= form_for(@estimate, remote: true) do |f| %>
+<div class="panel panel-default">
+  <div class="panel-heading"><strong><%= t('details') %></strong></div>
+  <div class="panel-body">
+    <fieldset>
+      <div class="form-group">
+        <%= f.text_field :title, class: 'form-control', placeholder: t('title'), autofocus: true %>
       </div>
-      <% end %>
-    </div>
+      <div class="form-group">
+        <%= f.collection_select :client_id, @clients, :id, :title, {}, {:class => 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <%= f.collection_select :project_id, @projects, :id, :title, {}, {:class => 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <%= f.collection_select :owner_user_id, @users, :id, :full_name, {}, {:class => 'form-control'} %>
+      </div>
+      <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
+    </fieldset>
   </div>
+</div>
+<% end %>
+
+<div class="row">
   <div class="span6 offset3">
     <div class="col-md-6">
       <%= form_for :estimate_line, :url => estimatesline_index_path do |f| %>
@@ -58,6 +55,24 @@
     </div>
     <% end %>
   </div>
+  <div class="span6 offset3">
+    <div class="col-md-6">
+      <%= form_for :estimate_assumption, :url => estimatesassumption_index_path do |f| %>
+      <%= f.hidden_field :estimate_id, value: params[:id] %>
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong><%= t('assumption') %></strong></div>
+        <div class="panel-body">
+          <fieldset>
+            <div class="form-group">
+              <%= f.text_area :title, class: 'form-control', placeholder: t('title'), autofocus: true, rows: 10 %>
+            </div>
+            <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
+          </fieldset>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 <br />
@@ -66,5 +81,14 @@
   <div class="panel-heading"><strong><%= t('estimate_lines') %></strong></div>
   <div id="grid-estimatelines">
     <%= render partial: 'estimatesline/lines', locals: { estimatesline: @estimatesline } %>
+  </div>
+</div>
+
+<br />
+
+<div class="panel panel-default">
+  <div class="panel-heading"><strong><%= t('estimate_assumption') %></strong></div>
+  <div id="grid-estimateassumption">
+    <%= render partial: 'estimatesassumption/lines', locals: { estimatesassumption: @estimatesassumption } %>
   </div>
 </div>

@@ -41,6 +41,13 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "estimates", ["owner_user_id"], name: "owner_user_id", using: :btree
   add_index "estimates", ["project_id"], name: "project_id", using: :btree
 
+  create_table "estimates_assumptions", force: :cascade do |t|
+    t.integer "estimate_id", limit: 4,   null: false
+    t.string  "title",       limit: 255, null: false
+  end
+
+  add_index "estimates_assumptions", ["estimate_id"], name: "estimate_id", using: :btree
+
   create_table "estimates_lines", force: :cascade do |t|
     t.integer  "estimate_id",     limit: 4,                 null: false
     t.integer  "technology_id",   limit: 4,                 null: false

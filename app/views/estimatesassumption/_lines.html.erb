@@ -1,0 +1,23 @@
+<table class="table table-striped pretty">
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th><%= t('title') %></th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @estimatesassumption.each do |eitem| %>
+    <tr>
+      <td class="vert-align" width="1%" scope="row"><%= eitem.id %></td>
+      <td class="vert-align"><%= eitem.title %></td>
+      <td width="1%" nowrap>
+        <%= button_to :estimatesassumption, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true  do %>
+        <%= hidden_field nil, :assumption_id, value: eitem.id %>
+        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

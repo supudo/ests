@@ -116,10 +116,16 @@ bg:
 
   estimate_destroyed: "Оценката е изтрита."
   create_estimate: "Създай Оценка"
+  import_estimate: "Импорт Оценка"
   estimate_owner: "Собственик"
   estimate_created_successfully: "Оценката е създадена."
   estimate_updated_successfully: "Оценката е променена."
   estimate_already_exists: "Такава оценка вече съществува."
+  import: "Импорт"
+  upload_file: "Качи Файл"
+  assumption: "Предположения"
+  estimate_assumption_already_exists: "Предположението вече съществува."
+  estimate_assumption_created_successfully: "Оценката беше създадена суепшно."
 
   estimate_lines: "WBR Линии"
   line: "Линия"
@@ -179,6 +185,7 @@ bg:
     estimates_index: "Оценки"
     technologies_index: "Технологии"
     project_statuses_index: "Статуси"
+    estimates_importer_index: "Импорт"
 
   defaults: &defaults
     month_names:

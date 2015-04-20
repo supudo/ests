@@ -116,10 +116,16 @@ en:
 
   estimate_destroyed: "Estimate destroyed."
   create_estimate: "Create Estimate"
+  import_estimate: "Import Estimate"
   estimate_owner: "Owner"
   estimate_created_successfully: "Estimate created."
   estimate_updated_successfully: "Estimate updated."
   estimate_already_exists: "Estimate already exists."
+  import: "Import"
+  upload_file: "Browse File"
+  assumption: "Assumption"
+  estimate_assumption_already_exists: "Assumption already exists."
+  estimate_assumption_created_successfully: "Assumption created successfully."
 
   estimate_lines: "WBR Lines"
   line: "Line"
@@ -179,6 +185,7 @@ en:
     estimates_index: "Estimates"
     technologies_index: "Technologies"
     project_statuses_index: "Statuses"
+    estimates_importer_index: "Importer"
 
   defaults: &defaults
     formats:

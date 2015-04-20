@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AssumptionTest < ActiveSupport::TestCase
+class EstimateImporterControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

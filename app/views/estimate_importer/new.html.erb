@@ -1,0 +1,26 @@
+<% provide(:title, t('import')) %>
+<h1><%= t('import') %></h1>
+
+<%= debug(@info) %>
+
+<%= form_tag import_estimate_importer_index_path, multipart: true do %>
+<div class="row">
+  <div class="span6 offset3">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong><%= t('import') %></strong></div>
+        <div class="panel-body">
+          <fieldset>
+            <div class="form-group">
+              <%= file_field_tag :imported_file, class: "filestyle", data: { :buttonText => t('upload_file') } %>
+            </div>
+            <div class="form-group">
+              <%= submit_tag t('import'), class: "btn btn-lg btn-success btn-block" %>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
