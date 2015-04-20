@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :permissions
   resources :commenthistory
   resources :requesthistory
+  resources :technologies
+  resources :project_statuses
 
   resources :estimatesline do
     member do

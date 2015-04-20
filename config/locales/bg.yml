@@ -127,6 +127,16 @@ bg:
   estimate_line_destroyed: "Линията е изтрита."
   reordering_needs_line_number: "За да променяте реда, трябва да подредите по # линия."
 
+  create_project_status: "Създай Статус"
+  create_technology: "Създай Технология"
+  projects_statuses: "Статуси на Проекти"
+  technology_already_exists: "Технологията вече съществува."
+  technology_created_successfully: "Технологията беше създадена успешно."
+  project_status_already_exists: "Статусът вече съществува."
+  project_status_created_successfully: "Статусът беше създаден успешно."
+  technology_updated_successfully: "Технологията беше променена успешно."
+  project_status_updated_successfully: "Статусът бешe променен успешно."
+
   permissions: "Привилегии"
   perm_login: "Логин"
   perm_profile: "Профил"
@@ -163,6 +173,8 @@ bg:
     clients_index: "Клиенти"
     projects_index: "Проекти"
     estimates_index: "Оценки"
+    technologies_index: "Технологии"
+    project_statuses_index: "Статуси"
 
   defaults: &defaults
     month_names:

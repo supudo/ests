@@ -165,10 +165,10 @@ class ProjectsController < ApplicationController
 
   private
 
-  def project_params
-    params.require(:project).permit(:title, :client_id, :project_status_id,  :account_manager_user_id,
-                                    :production_manager_user_id, :project_owner_user_id, :start_date_scheduled, :start_date_actual,
-                                    :end_date_scheduled, :end_date_actual, :internal_yn, :rejection_reasons)
-  end
+    def project_params
+      params.require(:project).permit(:title, :client_id, :project_status_id,  :account_manager_user_id,
+                                      :production_manager_user_id, :project_owner_user_id, :start_date_scheduled, :start_date_actual,
+                                      :end_date_scheduled, :end_date_actual, :internal_yn, :rejection_reasons)
+    end
 
 end

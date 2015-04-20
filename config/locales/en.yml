@@ -155,10 +155,15 @@ en:
   perm_modify_estimate: "Estimates - Modify"
   perm_delete_estimate: "Estimates - Delete"
 
-  ord_st: "st2"
-  ord_nd: "nd2"
-  ord_rd: "rd2"
-  ord_th: "th2"
+  create_project_status: "Create Status"
+  create_technology: "Create Technology"
+  projects_statuses: "Project Statuses"
+  technology_already_exists: "Technology already exists."
+  technology_created_successfully: "Technology created successfully."
+  project_status_already_exists: "Project Status already exists."
+  project_status_created_successfully: "Project status created successfully."
+  technology_updated_successfully: "Technology updated successfully."
+  project_status_updated_successfully: "Project status updated successfully."
 
   breadcrumbs:
     dashboard: "Dashboard"
@@ -168,6 +173,8 @@ en:
     clients_index: "Clients"
     projects_index: "Projects"
     estimates_index: "Estimates"
+    technologies_index: "Technologies"
+    project_statuses_index: "Statuses"
 
   defaults: &defaults
     formats:

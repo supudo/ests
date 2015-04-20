@@ -1,0 +1,21 @@
+<% provide(:title, t('edit')) %>
+<h1><%= t('edit') %></h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="login-panel panel panel-default">
+        <div class="panel-body">
+          <%= form_for(@technology) do |f| %>
+          <fieldset>
+            <div class="form-group">
+              <%= f.text_field :title, class: 'form-control', placeholder: t('technology'), autofocus: true %>
+            </div>
+            <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
+          </fieldset>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
