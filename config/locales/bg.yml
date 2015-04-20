@@ -19,6 +19,7 @@ bg:
   at: "на"
   for: "за"
   by: "от"
+  delete: "Изтрий"
 
   title_login: "Логин"
   welcome_login: "Добре дошли в Ests"

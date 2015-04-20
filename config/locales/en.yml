@@ -19,6 +19,7 @@ en:
   at: "at"
   for: "for"
   by: "by"
+  delete: "Delete"
 
   title_login: "Login"
   welcome_login: "Welcome to Ests"

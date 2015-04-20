@@ -16,13 +16,10 @@ class EstimatessectionController < ApplicationController
   end
 
   def destroy
-    @current = EstimatesSection.find(params[:section_id])
+    @current = EstimatesSection.find(params[:id])
     eid = @current.estimate_id
-    EstimatesSection.find(params[:section_id]).destroy
-    respond_to do |format|
-      @estimatessection = EstimatesSection.where(:estimate_id => eid).order("title ASC")
-      format.js
-    end
+    EstimatesSection.find(params[:id]).destroy
+    redirect_to(:back)
   end
 
   private
