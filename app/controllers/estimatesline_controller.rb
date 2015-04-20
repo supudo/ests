@@ -1,6 +1,7 @@
 class EstimateslineController < ApplicationController
   before_action :signed_in_user
   autocomplete :estimatesline, :line, :full => true
+  helper_method :sort_column, :sort_direction
 
   def show
     @estimatesline = EstimatesLine.where("line LIKE (?)", "%#{params[:term]}%").order("line ASC")
@@ -33,7 +34,8 @@ class EstimateslineController < ApplicationController
     eid = @current.estimate_id
     EstimatesLine.find(params[:line_id]).destroy
     respond_to do |format|
-      @estimatesline = EstimatesLine.where(:estimate_id => eid).order("line_number ASC")
+      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
+      @estimatesline = EstimatesLine.where(:estimate_id => @current.estimate_id, :estimates_sections_id => @current.estimates_sections_id).order("line_number ASC")
       format.js
     end
   end
@@ -47,7 +49,8 @@ class EstimateslineController < ApplicationController
     @current.line_number = ln
     @current.save
     respond_to do |format|
-      @estimatesline = EstimatesLine.where(:estimate_id => @current.estimate_id).order("line_number ASC")
+      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
+      @estimatesline = EstimatesLine.where(:estimate_id => @current.estimate_id, :estimates_sections_id => @current.estimates_sections_id).order("line_number ASC")
       format.js
     end
   end
@@ -61,7 +64,8 @@ class EstimateslineController < ApplicationController
     @current.line_number = ln
     @current.save
     respond_to do |format|
-      @estimatesline = EstimatesLine.where(:estimate_id => @current.estimate_id).order("line_number ASC")
+      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
+      @estimatesline = EstimatesLine.where(:estimate_id => @current.estimate_id, :estimates_sections_id => @current.estimates_sections_id).order("line_number ASC")
       format.js
     end
   end
@@ -70,6 +74,14 @@ class EstimateslineController < ApplicationController
 
     def estimates_line_params
       params.require(:estimate_line).permit(:estimate_id, :estimates_sections_id, :technology_id, :line_number, :line, :complexity, :hours_min, :hours_max)
+    end
+
+    def sort_column
+      EstimatesLine.column_names.include?(params[:sort]) ? params[:sort] : "line_number"
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 
 end

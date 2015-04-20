@@ -105,17 +105,17 @@
 <br />
 
 <div class="panel panel-default">
-  <div class="panel-heading"><strong><%= t('estimate_lines') %></strong></div>
-  <div id="grid-estimatelines">
-    <%= render partial: 'estimatesline/lines', locals: { estimatesline: @estimatesline } %>
+  <div class="panel-heading"><strong><%= t('estimate_assumption') %></strong></div>
+  <div id="grid-estimateassumption">
+    <%= render partial: 'estimatesassumption/lines', locals: { estimatesassumption: @estimatesassumption } %>
   </div>
 </div>
 
 <br />
 
 <div class="panel panel-default">
-  <div class="panel-heading"><strong><%= t('estimate_assumption') %></strong></div>
-  <div id="grid-estimateassumption">
-    <%= render partial: 'estimatesassumption/lines', locals: { estimatesassumption: @estimatesassumption } %>
+  <div class="panel-heading"><strong><%= t('estimate_lines') %></strong></div>
+  <div id="grid-estimatesections">
+    <%= render partial: 'estimatessection/sections', locals: { estimatessection: @estimatessection } %>
   </div>
 </div>
