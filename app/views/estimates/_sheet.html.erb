@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="span6 offset3">
+    <div class="col-md-6">
+      <%= form_for :estimate_section, :url => estimatessection_index_path do |f| %>
+      <%= f.hidden_field :estimate_id, value: params[:id] %>
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong><%= t('section') %></strong></div>
+        <div class="panel-body">
+          <fieldset>
+            <div class="form-group">
+              <%= f.text_area :title, class: 'form-control', placeholder: t('title'), autofocus: true, rows: 12 %>
+            </div>
+            <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
+          </fieldset>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="span6 offset3">
+    <div class="col-md-6">
+      <%= form_for :estimate_line, :url => estimatesline_index_path do |f| %>
+      <%= f.hidden_field :estimate_id, value: params[:id] %>
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong><%= t('line') %></strong></div>
+        <div class="panel-body">
+          <fieldset>
+            <div class="form-group">
+              <%= f.collection_select :estimates_sections_id, @estimatessection, :id, :title, {}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
+              <%= f.collection_select :technology_id, @technology, :id, :title, {:include_blank => t('dashes') + ' ' + t('technology')}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
+              <%= f.autocomplete_field :line, autocomplete_estimatesline_line_estimatesline_index_path(:format => :json), class: 'form-control', placeholder: t('line'), autofocus: true %>
+            </div>
+            <div class="form-group">
+              <%= f.select :complexity, options_for_select((1..10).step(1).to_a.map{|s| ["#{s}", s]}), {:include_blank => t('dashes') + ' ' + t('complexity')}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
+              <%= f.number_field :hours_min, class: 'form-control', placeholder: t('hours_min') %>
+            </div>
+            <div class="form-group">
+              <%= f.number_field :hours_max, class: 'form-control', placeholder: t('hours_max') %>
+            </div>
+            <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<br />
+
+<div class="panel panel-default">
+  <div class="panel-heading"><strong><%= t('estimate_lines') %></strong></div>
+  <div id="grid-estimatesections">
+    <%= render partial: 'estimatessection/sections', locals: { estimatessection: @estimatessection.where(:estimates_sheet_id => sheet.id) } %>
+  </div>
+</div>

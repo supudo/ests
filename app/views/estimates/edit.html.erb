@@ -83,7 +83,11 @@
   <div class="panel-body">
     <div class="tab-content">
 
-    <%= render partial: 'estimates/panel', locals: { panel: @panel } %>
+      <% @estimates_sheets.each do |sheet| %>
+      <div class="tab-pane<%= sheet == @estimates_sheets.first ? "  fade in active".html_safe : "" %>" id="sh<%= sheet.id %>">
+        <%= render partial: 'estimates/sheet', locals: { sheet: sheet } %>
+      </div>
+      <% end %>
 
     </div>
   </div>
