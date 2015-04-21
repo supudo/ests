@@ -1,7 +1,7 @@
 <br />
 <a name="anchsections"></a>
 <% @estimatessection.where(:estimates_sheet_id => sheet.id).each do |section, item| %>
-<div class="panel panel-primary">
+<div class="panel panel-primary" id="pnl_section<%= section.id %>">
 
   <div class="panel-heading">
     <div>
@@ -11,6 +11,26 @@
           <span class="btn-danger"><%= t('delete') %></span>
         <% end %>
       </div>
+
+      <div style="float: right">
+        <%= form_for :esection_technology do |f| %>
+        <div class="form-group">
+        <%=
+          f.collection_select(:tid, 
+            Technology.all.order("title ASC"), :id, :title, {},
+            {:data => { :remote => true,
+                        :url => url_for(:controller => "estimatessection", 
+                                        :action => "show",
+                                        "esection_technology[sid]" => section.id)
+                      },
+             class: 'form-control'
+            }
+          )
+        %>
+        </div>
+        <% end %>
+      </div>
+
     </div>
   </div>
 
