@@ -158,6 +158,8 @@ bg:
   position_already_exists: "Позицията вече съществува."
   position_created_successfully: "Позицията беше създадена успешно."
   position_updated_successfully: "Позицията беше променена успешно."
+  unknown_file_type: "Непознат тип файл"
+  import_ok: "Файлът беше импортнат успешно."
 
   permissions: "Привилегии"
   perm_login: "Логин"

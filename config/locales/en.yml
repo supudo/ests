@@ -148,6 +148,8 @@ en:
   position_already_exists: "Position already exists."
   position_created_successfully: "Position created successfully."
   position_updated_successfully: "Position updated successfully."
+  unknown_file_type: "Unknown file type"
+  import_ok: "File was imported successfully."
 
   permissions: "Permissions"
   perm_login: "Login"
