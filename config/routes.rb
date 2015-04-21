@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :technologies
   resources :project_statuses
   resources :estimate_importer
+  resources :positions
 
   resources :estimate_importer do
     collection { post :import }

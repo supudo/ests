@@ -144,6 +144,11 @@ en:
   estimate_sheet_already_exists: "Estimate Sheet already exists."
   estimate_sheet_created_successfully: "Estimates Sheet created successfully."
 
+  positions: "Positions"
+  position_already_exists: "Position already exists."
+  position_created_successfully: "Position created successfully."
+  position_updated_successfully: "Position updated successfully."
+
   permissions: "Permissions"
   perm_login: "Login"
   perm_profile: "Profile"
@@ -193,6 +198,7 @@ en:
     technologies_index: "Technologies"
     project_statuses_index: "Statuses"
     estimates_importer_index: "Importer"
+    positions_index: "Positions"
 
   defaults: &defaults
     formats:

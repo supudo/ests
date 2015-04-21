@@ -154,6 +154,11 @@ bg:
   estimate_sheet_already_exists: "Такава страница вече съществува."
   estimate_sheet_created_successfully: "Страницата е направена успешно."
 
+  positions: "Позиции"
+  position_already_exists: "Позицията вече съществува."
+  position_created_successfully: "Позицията беше създадена успешно."
+  position_updated_successfully: "Позицията беше променена успешно."
+
   permissions: "Привилегии"
   perm_login: "Логин"
   perm_profile: "Профил"
@@ -193,6 +198,7 @@ bg:
     technologies_index: "Технологии"
     project_statuses_index: "Статуси"
     estimates_importer_index: "Импорт"
+    positions_index: "Позиции"
 
   defaults: &defaults
     month_names:

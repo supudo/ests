@@ -1,0 +1,22 @@
+  <table class="table table-striped" style="margin-bottom: 0px;">
+    <thead>
+      <tr>
+        <th><%= t('id') %></th>
+        <th><%= t('title') %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @positions.each do |item| %>
+      <tr>
+        <td scope="row" class="vert-align"><%= item.id %></td>
+        <td class="vert-align"><%= link_to item.title, item %></td>
+        <td width="1%" nowrap>
+          <%= button_to item, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true do %>
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>

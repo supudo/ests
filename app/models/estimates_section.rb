@@ -2,6 +2,7 @@ class EstimatesSection < ActiveRecord::Base
   has_many :estimates_line
 
   validates :title, presence: true
+  validates :estimate_id, presence: true, :numericality => { :greater_than => 0 }
 
   def total_min_hours
     @lines = EstimatesLine.where(:estimates_sections_id => self.id)
