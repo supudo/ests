@@ -15,9 +15,9 @@ ActiveRecord::Schema.define(version: 0) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "title",            limit: 255,             null: false
-    t.string   "url",              limit: 255,             null: false
-    t.string   "email",            limit: 255,             null: false
-    t.string   "phone",            limit: 255,             null: false
+    t.string   "url",              limit: 255
+    t.string   "email",            limit: 255
+    t.string   "phone",            limit: 255
     t.integer  "created_user_id",  limit: 4,   default: 0, null: false
     t.datetime "created_date",                             null: false
     t.integer  "modified_user_id", limit: 4,   default: 0, null: false
@@ -66,15 +66,17 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "estimates_lines", ["technology_id"], name: "technology_id", using: :btree
 
   create_table "estimates_sections", force: :cascade do |t|
-    t.integer "estimate_id", limit: 4,   null: false
-    t.string  "title",       limit: 255, null: false
+    t.integer "estimate_id",        limit: 4,     null: false
+    t.integer "estimates_sheet_id", limit: 4,     null: false
+    t.text    "title",              limit: 65535, null: false
   end
 
   add_index "estimates_sections", ["estimate_id"], name: "estimate_id", using: :btree
+  add_index "estimates_sections", ["estimates_sheet_id"], name: "estimates_sheet_id", using: :btree
 
   create_table "estimates_sheets", force: :cascade do |t|
-    t.integer "estimate_id", limit: 4,   null: false
-    t.string  "title",       limit: 255, null: false
+    t.integer "estimate_id", limit: 4,     null: false
+    t.text    "title",       limit: 65535, null: false
   end
 
   add_index "estimates_sheets", ["estimate_id"], name: "estimate_id", using: :btree
@@ -110,7 +112,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.datetime "end_date_scheduled"
     t.datetime "end_date_actual"
     t.boolean  "internal_yn",                limit: 1,     default: false, null: false
-    t.text     "rejection_reasons",          limit: 65535,                 null: false
+    t.text     "rejection_reasons",          limit: 65535
     t.integer  "created_user_id",            limit: 4,                     null: false
     t.datetime "created_date",                                             null: false
     t.integer  "modified_user_id",           limit: 4,                     null: false
