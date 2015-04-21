@@ -47,14 +47,14 @@ class EstimateImporterController < ApplicationController
         sheet_data = {}
         sheet_data[:name] = name
 
-        sections = {}
-        section_name = ""
+        sections = []
         section_row_counter = 1
-        section_lines = {}
         while true
           if sheet.cell(section_row_counter, 1) != nil && sheet.cell(section_row_counter, 1) != ''
-            section_name = sheet.cell(section_row_counter, 1)
-            sections[section_name] = []
+            section_single = {}
+            section_single[:title] = sheet.cell(section_row_counter, 1)
+            section_single[:lines] = []
+            sections.push(section_single)
           end
 
           line = {}
@@ -62,7 +62,7 @@ class EstimateImporterController < ApplicationController
           line[:hours_min] = sheet.cell(section_row_counter, 3)
           line[:hours_max] = sheet.cell(section_row_counter, 4)
 
-          sections[section_name].push(line)
+          section_single[:lines].push(line)
 
           section_row_counter += 1
 
@@ -80,7 +80,7 @@ class EstimateImporterController < ApplicationController
     end
 
 # Database
-=begin
+#=begin
     client_id = 0
     project_id = 0
     estimate_id = 0
@@ -149,6 +149,8 @@ class EstimateImporterController < ApplicationController
       end
     end
 
+    @info[:qqqqqq] = []
+
     # Sheet
     @info[:sheets].each do |sheet|
       sheet_id = 0
@@ -165,41 +167,43 @@ class EstimateImporterController < ApplicationController
       # Sheet - Section
       sheet[:sections].each do |section|
         section_id = 0
-        if EstimatesSection.exists?(:title => section[0], :estimates_sheet_id => sheet_id, :estimate_id => estimate_id)
-          section_id = EstimatesSection.find_by(:title => section[0], :estimates_sheet_id => sheet_id, :estimate_id => estimate_id).id
+        if EstimatesSection.exists?(:title => section[:title], :estimates_sheet_id => sheet_id, :estimate_id => estimate_id)
+          section_id = EstimatesSection.find_by(:title => section[:title], :estimates_sheet_id => sheet_id, :estimate_id => estimate_id).id
         else
           esection = EstimatesSection.new()
           esection.estimate_id = estimate_id
           esection.estimates_sheet_id = sheet_id
-          esection.title = section[0]
+          esection.title = section[:title]
           esection.save
           section_id = esection.id
         end
 
         # Sheet - Section - Line
         eline_counter = 1;
-        section.each do |line|
-          unless EstimatesLine.exists?(:estimate_id => estimate_id, :estimates_sections_id => section_id, :line => line[:line])
+        eindex = 0
+        section[:lines].each do |line|
+          unless EstimatesLine.exists?(:estimate_id => estimate_id, :estimates_sections_id => section_id, :line => section[:lines][eindex][:line])
             eline = EstimatesLine.new()
             eline.estimate_id = estimate_id
             eline.estimates_sections_id = section_id
-            eline.technology_id = 0
+            eline.technology_id = Technology.first.id
             eline.line_number = eline_counter
-            eline.line = line[:line]
+            eline.line = section[:lines][eindex][:line]
             eline.complexity = 1
-            eline.hours_min = line[:hours_min]
-            eline.hours_max = line[:hours_max]
+            eline.hours_min = section[:lines][eindex][:hours_min]
+            eline.hours_max = section[:lines][eindex][:hours_max]
             eline.created_user_id = current_user.id
             eline.created_date = DateTime.now
             eline.save
             eline_counter += 1
+            eindex += 1
           end
         end
 
       end
 
     end
-=end
+#=end
     render 'new'
   end
 end
