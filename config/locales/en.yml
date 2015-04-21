@@ -20,6 +20,7 @@ en:
   for: "for"
   by: "by"
   delete: "Delete"
+  style: "Style"
 
   title_login: "Login"
   welcome_login: "Welcome to Ests"
