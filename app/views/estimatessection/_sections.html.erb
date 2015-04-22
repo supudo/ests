@@ -17,7 +17,8 @@
         <div class="form-group">
         <%=
           f.collection_select(:tid, 
-            Technology.all.order("title ASC"), :id, :title, {},
+            Technology.all.order("title ASC"), :id, :title,
+            {:include_blank => t('dashes') + ' ' + t('technology')},
             {:data => { :remote => true,
                         :url => url_for(:controller => "estimatessection", 
                                         :action => "show",
