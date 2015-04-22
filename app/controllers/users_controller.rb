@@ -5,7 +5,12 @@ class UsersController < ApplicationController
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
-    @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
+    if params[:ftid] != nil && params[:ftid] != '0'
+      @users = User.where("technology_id = ?", params[:ftid]).order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
+    else
+      @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
+    end
+    @technology = Technology.order("title ASC")
   end
 
   def show
