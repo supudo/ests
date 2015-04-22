@@ -14,6 +14,7 @@ bg:
   language_bulgarian: "Български"
   sign_up: "Регистрация"
   search: "Search"
+  close: "Затвори"
 
   dashes: "-----"
   at: "на"
@@ -139,6 +140,7 @@ bg:
   total_caps: "ОБЩО"
   estimate_line_already_exists: "Линията вече съществува."
   estimate_line_created_successfully: "Линията е създадена."
+  estimate_line_updated_successfully: "Линията е променена."
   estimate_line_destroyed: "Линията е изтрита."
   reordering_needs_line_number: "За да променяте реда, трябва да подредите по # линия."
 

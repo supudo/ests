@@ -13,7 +13,7 @@ class EstimateslineController < ApplicationController
   def create
     if EstimatesLine.exists?(:estimate_id => estimates_line_params[:estimate_id], :estimates_sections_id => estimates_line_params[:estimates_sections_id], :line => estimates_line_params[:line], :technology_id => estimates_line_params[:technology_id])
       flash[:success] = t('estimate_line_already_exists')
-      render 'new'
+      redirect_to(:back)
     else
       c = EstimatesLine.where("estimate_id = ?", estimates_line_params[:estimate_id]).count
       @estimate_line = EstimatesLine.new(estimates_line_params)
@@ -26,6 +26,16 @@ class EstimateslineController < ApplicationController
       else
         render 'new'
       end
+    end
+  end
+
+  def update
+    eline = EstimatesLine.find_by(:id => params[:estimates_line][:estimate_line_id])
+    eline.line = params[:estimates_line][:line]
+    eline.save
+    respond_to do |format|
+      @eitem_id = params[:estimates_line][:estimate_line_id]
+      format.js {}
     end
   end
 

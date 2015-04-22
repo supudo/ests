@@ -34,7 +34,6 @@
     </div>
   </div>
 
-
   <div id="grid-estimatelines<%= section.id %>">
     <% @estimatesline = EstimatesLine.where(:estimates_sections_id => section.id).order("line_number ASC") %>
     <a name="listanch"></a>
@@ -74,7 +73,56 @@
           <td class="col-md-1 vert-align" scope="row"><%= eitem.line_number %></td>
           <td class="col-md-1 vert-align"><%= eitem.complexity %></td>
           <td class="col-md-3 vert-align">
-            <%= eitem.line %>
+
+            <!-- Button trigger modal -->
+            <a data-toggle="modal" data-target="#elmodal<%= eitem.id %>">
+              <%= eitem.line %>
+            </a>
+
+            <!-- Modal -->
+            <div class="modal fade" id="elmodal<%= eitem.id %>" tabindex="-1" role="dialog" aria-labelledby="elmodal<%= eitem.id %>_title" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <%= form_for eitem, :url => url_for(:controller => 'estimatesline', :action => 'update'), :remote => true do |f| %>
+                  <%= f.hidden_field :estimate_id, value: eitem.estimate_id %>
+                  <%= f.hidden_field :estimates_sheet_id, value: sheet.id %>
+                  <%= f.hidden_field :estimate_line_id, value: eitem.id %>
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="elmodal<%= eitem.id %>_title"><%= t('line') %></h4>
+                  </div>
+                  <div class="modal-body">
+                    <fieldset>
+                      <div class="form-group">
+                        <%= f.collection_select :estimates_sections_id, @estimatessection.where(:estimates_sheet_id => sheet.id), :id, :title, {:selected => eitem.estimates_sections_id}, {:class => 'form-control'} %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.collection_select :technology_id, @technology, :id, :title, {:selected => eitem.technology_id}, {:class => 'form-control'} %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.text_field :line, class: 'form-control', placeholder: t('line'), autofocus: true, value: eitem.line %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.select :complexity, options_for_select((1..10).step(1).to_a.map{|s| ["#{s}", s]}), {:selected => eitem.complexity}, {:class => 'form-control'} %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.number_field :hours_min, class: 'form-control', placeholder: t('hours_min'), value: eitem.hours_min %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.number_field :hours_max, class: 'form-control', placeholder: t('hours_max'), value: eitem.hours_max %>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="modal-footer">
+                    <button id="closebtn_<%= eitem.id %>" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
+                    <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
+                  </div>
+                  <% end %>
+
+                </div>
+              </div>
+            </div>
+
           </td>
           <td class="col-md-1 vert-align"><%= eitem.hours_min %></td>
           <td class="col-md-1 vert-align"><%= eitem.hours_max %></td>

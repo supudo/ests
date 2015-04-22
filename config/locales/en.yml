@@ -14,6 +14,7 @@ en:
   language_bulgarian: "Bulgarian"
   sign_up: "Sign Up"
   search: "Search"
+  close: "Close"
 
   dashes: "-----"
   at: "at"
@@ -139,6 +140,7 @@ en:
   total_caps: "TOTAL"
   estimate_line_already_exists: "Line already exists."
   estimate_line_created_successfully: "Line created successfully."
+  estimate_line_updated_successfully: "Line updated successfully."
   estimate_line_destroyed: "Line was destroyed."
   reordering_needs_line_number: "To reorder the lines you need to sort by line number."
   estimate_sheet: "Sheet"
