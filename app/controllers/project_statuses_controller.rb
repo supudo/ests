@@ -3,20 +3,20 @@ class ProjectStatusesController < ApplicationController
 
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.project_statuses_index'), project_statuses_path
+    add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
     @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page], :per_page => 10)
   end
 
   def new
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.project_statuses_index'), project_statuses_path
+    add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
     add_breadcrumb I18n.t('breadcrumbs.new')
     @project_status = ProjectStatus.new
   end
 
   def show
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.project_statuses_index'), project_statuses_path
+    add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
     add_breadcrumb I18n.t('breadcrumbs.edit')
     @project_status = ProjectStatus.find(params[:id])
     render 'edit'
@@ -34,7 +34,7 @@ class ProjectStatusesController < ApplicationController
           redirect_to :collections
         else
           add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-          add_breadcrumb I18n.t('breadcrumbs.project_statuses_index'), project_statuses_path
+          add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
           add_breadcrumb I18n.t('breadcrumbs.new')
           @project_status = ProjectStatus.new
           flash[:error] = t('error_missing_fields')
@@ -52,7 +52,7 @@ class ProjectStatusesController < ApplicationController
         redirect_to :collections
       else
         add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-        add_breadcrumb I18n.t('breadcrumbs.project_statuses_index'), project_statuses_path
+        add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
         add_breadcrumb I18n.t('breadcrumbs.edit')
         @project_status = ProjectStatus.new
         flash[:error] = t('error_missing_fields')
