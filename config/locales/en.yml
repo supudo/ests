@@ -16,6 +16,8 @@ en:
   search: "Search"
   close: "Close"
 
+  collections: "Collections"
+
   dashes: "-----"
   at: "at"
   for: "for"
@@ -205,6 +207,7 @@ en:
     project_statuses_index: "Statuses"
     estimates_importer_index: "Importer"
     positions_index: "Positions"
+    collections_index: "Collections"
 
   defaults: &defaults
     formats:

@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="input-group">
+      <button type="button" class="btn btn-primary" aria-label="Left Align">
+        <%= link_to t('create_project_status'), new_project_status_path, :class => "btn-primary" %>
+      </button>
+    </div>
+  </div>
+  <div id="projects_statuses-list">
+    <%= render partial: 'project_statuses/list', locals: { project_statuses: @project_statuses } %>
+  </div>
+</div>
+
+<%= will_paginate @project_statuses, :renderer => BootstrapPagination::Rails %>

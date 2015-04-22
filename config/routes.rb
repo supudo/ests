@@ -59,6 +59,8 @@ Rails.application.routes.draw do
   get 'about/new'
   root 'login#index'
 
+  get 'collections' => 'collections#index'
+
   get 'signup' => 'users#new'
   get 'login/index'
   post 'login' => 'login#signin'

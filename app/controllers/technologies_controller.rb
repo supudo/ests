@@ -31,7 +31,7 @@ class TechnologiesController < ApplicationController
         @technology = Technology.new(technology_params)
         if @technology.save
           flash[:success] = t('technology_created_successfully')
-          redirect_to :technologies
+          redirect_to :collections
         else
           add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
           add_breadcrumb I18n.t('breadcrumbs.technologies_index'), technologies_path
@@ -49,7 +49,7 @@ class TechnologiesController < ApplicationController
       @technology = Technology.find_by_id(params[:id])
       if @technology.update_attributes(technology_params)
         flash[:success] = t('technology_updated_successfully')
-        redirect_to :technologies
+        redirect_to :collections
       else
         add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
         add_breadcrumb I18n.t('breadcrumbs.technologies_index'), technologies_path

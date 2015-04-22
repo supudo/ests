@@ -9,7 +9,7 @@
     <tbody>
       <% @project_statuses.each do |item| %>
       <tr>
-        <td scope="row" class="vert-align"><%= item.id %></td>
+        <td width="2%" scope="row" class="vert-align"><%= item.id %></td>
         <td class="vert-align"><%= link_to item.title, item %></td>
         <td width="1%" nowrap>
           <%= button_to item, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true do %>

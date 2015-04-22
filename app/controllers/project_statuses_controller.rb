@@ -31,7 +31,7 @@ class ProjectStatusesController < ApplicationController
         @project_status = ProjectStatus.new(project_statuses_params)
         if @project_status.save
           flash[:success] = t('project_status_created_successfully')
-          redirect_to :project_statuses
+          redirect_to :collections
         else
           add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
           add_breadcrumb I18n.t('breadcrumbs.project_statuses_index'), project_statuses_path
@@ -49,7 +49,7 @@ class ProjectStatusesController < ApplicationController
       @project_status = ProjectStatus.find_by_id(params[:id])
       if @project_status.update_attributes(project_statuses_params)
         flash[:success] = t('project_status_updated_successfully')
-        redirect_to :project_statuses
+        redirect_to :collections
       else
         add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
         add_breadcrumb I18n.t('breadcrumbs.project_statuses_index'), project_statuses_path

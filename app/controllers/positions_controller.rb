@@ -31,7 +31,7 @@ class PositionsController < ApplicationController
         @position = Position.new(position_params)
         if @position.save
           flash[:success] = t('position_created_successfully')
-          redirect_to :positions
+          redirect_to :collections
         else
           add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
           add_breadcrumb I18n.t('breadcrumbs.positions_index'), positions_path
@@ -49,7 +49,7 @@ class PositionsController < ApplicationController
       @position = Position.find_by_id(params[:id])
       if @position.update_attributes(position_params)
         flash[:success] = t('position_updated_successfully')
-        redirect_to :positions
+        redirect_to :collections
       else
         add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
         add_breadcrumb I18n.t('breadcrumbs.positions_index'), positions_path
