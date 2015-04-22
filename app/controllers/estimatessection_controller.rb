@@ -22,6 +22,17 @@ class EstimatessectionController < ApplicationController
     end
   end
 
+  def update
+    esection = EstimatesSection.find_by(:id => params[:estimates_section][:section_id])
+    esection.title = params[:estimates_section][:title]
+    esection.save
+    respond_to do |format|
+      @eitem_id = esection.id
+      @new_title = params[:estimates_section][:title]
+      format.js {}
+    end
+  end
+
   def destroy
     @current = EstimatesSection.find(params[:id])
     eid = @current.estimate_id

@@ -131,6 +131,7 @@ en:
   estimate_assumption_created_successfully: "Assumption created successfully."
   is_header: "Is Header?"
 
+  section: "Section"
   estimate_lines: "WBR Lines"
   line: "Line"
   complexity: "Complexity"

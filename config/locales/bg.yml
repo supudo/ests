@@ -131,6 +131,7 @@ bg:
   estimate_assumption_created_successfully: "Оценката беше създадена суепшно."
   is_header: "Секция?"
 
+  section: "Секция"
   estimate_lines: "WBR Линии"
   line: "Линия"
   complexity: "Комплексност"
