@@ -35,6 +35,8 @@ class EstimateslineController < ApplicationController
     eline.save
     respond_to do |format|
       @eitem_id = params[:estimates_line][:estimate_line_id]
+      @eitem_section_id = eline.estimates_sections_id
+      @eitem_sheet_id = EstimatesSection.find_by_id(eline.estimates_sections_id).estimates_sheet_id
       format.js {}
     end
   end

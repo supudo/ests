@@ -1,0 +1,150 @@
+<br />
+<a name="anchsections"></a>
+<% @estimatessection.where(:estimates_sheet_id => sheet.id).each do |section, item| %>
+<div class="panel panel-primary" id="pnl_section<%= section.id %>">
+
+  <div class="panel-heading">
+    <div>
+      <strong>&nbsp;<%= section.title %></strong> &nbsp;&nbsp;&nbsp;
+      <div class="btn-group" style="padding-bottom: 4px">
+        <%= button_to :estimatessection, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-danger" do %>
+          <span class="btn-danger"><%= t('delete') %></span>
+        <% end %>
+      </div>
+
+      <div style="float: right">
+        <%= form_for :esection_technology do |f| %>
+        <div class="form-group">
+        <%=
+          f.collection_select(:tid, 
+            Technology.all.order("title ASC"), :id, :title,
+            {:include_blank => t('dashes') + ' ' + t('technology')},
+            {:data => { :remote => true,
+                        :url => url_for(:controller => "estimatessection", 
+                                        :action => "show",
+                                        "esection_technology[sid]" => section.id)
+                      },
+             class: 'form-control'
+            }
+          )
+        %>
+        </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="grid-estimatelines<%= section.id %>">
+    <% @estimatesline = EstimatesLine.where(:estimates_sections_id => section.id).order("line_number ASC") %>
+    <a name="listanch"></a>
+
+    <table class="table table-striped pretty">
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+          <th><%= "#" %></th>
+          <th><%= t('complexity') %></th>
+          <th><%= t('line') %></th>
+          <th><%= t('hours_min') %></th>
+          <th><%= t('hours_max') %></th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @estimatesline.each do |eitem| %>
+        <tr>
+          <td width="1%" nowrap>
+            <% if eitem != @estimatesline.first %>
+              <%= link_to moveup_estimatesline_path(eitem), :remote => true, class: "btn btn-default btn-sm" do %>
+                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+              <% end %>
+            <% end %>
+          </td>
+          <td width="1%" nowrap>
+            <% if eitem != @estimatesline.last %>
+              <%= link_to movedown_estimatesline_path(eitem), :remote => true, class: "btn btn-default btn-sm" do %>
+                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+              <% end %>
+            <% end %>
+          </td>
+          <td class="col-md-1 vert-align" scope="row"><%= eitem.line_number %></td>
+          <td class="col-md-1 vert-align"><%= eitem.complexity %></td>
+          <td class="col-md-3 vert-align">
+
+            <!-- Button trigger modal -->
+            <a data-toggle="modal" data-target="#elmodal<%= eitem.id %>">
+              <%= eitem.line %>
+            </a>
+
+            <!-- Modal -->
+            <div class="modal fade" id="elmodal<%= eitem.id %>" tabindex="-1" role="dialog" aria-labelledby="elmodal<%= eitem.id %>_title" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <%= form_for eitem, :url => url_for(:controller => 'estimatesline', :action => 'update'), :remote => true do |f| %>
+                  <%= f.hidden_field :estimate_id, value: eitem.estimate_id %>
+                  <%= f.hidden_field :estimates_sheet_id, value: sheet.id %>
+                  <%= f.hidden_field :estimate_line_id, value: eitem.id %>
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="elmodal<%= eitem.id %>_title"><%= t('line') %></h4>
+                  </div>
+                  <div class="modal-body">
+                    <fieldset>
+                      <div class="form-group">
+                        <%= f.collection_select :estimates_sections_id, @estimatessection.where(:estimates_sheet_id => sheet.id), :id, :title, {:selected => eitem.estimates_sections_id}, {:class => 'form-control'} %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.collection_select :technology_id, @technology, :id, :title, {:selected => eitem.technology_id}, {:class => 'form-control'} %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.text_field :line, class: 'form-control', placeholder: t('line'), autofocus: true, value: eitem.line %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.select :complexity, options_for_select((1..10).step(1).to_a.map{|s| ["#{s}", s]}), {:selected => eitem.complexity}, {:class => 'form-control'} %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.number_field :hours_min, class: 'form-control', placeholder: t('hours_min'), value: eitem.hours_min %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.number_field :hours_max, class: 'form-control', placeholder: t('hours_max'), value: eitem.hours_max %>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="modal-footer">
+                    <button id="closebtn_<%= eitem.id %>" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
+                    <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
+                  </div>
+                  <% end %>
+
+                </div>
+              </div>
+            </div>
+
+          </td>
+          <td class="col-md-1 vert-align"><%= eitem.hours_min %></td>
+          <td class="col-md-1 vert-align"><%= eitem.hours_max %></td>
+          <td width="1%" nowrap>
+            <%= button_to :estimatesline, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true do %>
+            <%= hidden_field nil, :line_id, value: eitem.id %>
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+        <tr class="info">
+          <td colspan="5" align="right"><strong><%= t('total_caps') %></strong></td>
+          <td><strong><%= section.total_min_hours %></strong></td>
+          <td><strong><%= section.total_max_hours %></strong></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="8"><em><%= t('reordering_needs_line_number') %></em></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+<% end %>

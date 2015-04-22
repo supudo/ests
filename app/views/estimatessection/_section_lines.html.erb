@@ -1,45 +1,9 @@
-<br />
-<a name="anchsections"></a>
-<% @estimatessection.where(:estimates_sheet_id => sheet.id).each do |section, item| %>
-<div class="panel panel-primary" id="pnl_section<%= section.id %>">
-
-  <div class="panel-heading">
-    <div>
-      <strong>&nbsp;<%= section.title %></strong> &nbsp;&nbsp;&nbsp;
-      <div class="btn-group" style="padding-bottom: 4px">
-        <%= button_to :estimatessection, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-danger" do %>
-          <span class="btn-danger"><%= t('delete') %></span>
-        <% end %>
-      </div>
-
-      <div style="float: right">
-        <%= form_for :esection_technology do |f| %>
-        <div class="form-group">
-        <%=
-          f.collection_select(:tid, 
-            Technology.all.order("title ASC"), :id, :title,
-            {:include_blank => t('dashes') + ' ' + t('technology')},
-            {:data => { :remote => true,
-                        :url => url_for(:controller => "estimatessection", 
-                                        :action => "show",
-                                        "esection_technology[sid]" => section.id)
-                      },
-             class: 'form-control'
-            }
-          )
-        %>
-        </div>
-        <% end %>
-      </div>
-
-    </div>
-  </div>
-
-  <div id="grid-estimatelines<%= section.id %>">
-    <% @estimatesline = EstimatesLine.where(:estimates_sections_id => section.id).order("line_number ASC") %>
+    <% @estimatesline = EstimatesLine.where(:estimates_sections_id => eitem_section_id).order("line_number ASC") %>
     <a name="listanch"></a>
 
-    <!-- EstimatesSection.find(@estimatesline.first.estimates_sections_id).estimates_sheet_id -->
+    <script>
+      $('#closebtn_<%= @eitem_id %>').click();
+    </script>
 
     <table class="table table-striped pretty">
       <thead>
@@ -86,7 +50,7 @@
                 <div class="modal-content">
                   <%= form_for eitem, :url => url_for(:controller => 'estimatesline', :action => 'update'), :remote => true do |f| %>
                   <%= f.hidden_field :estimate_id, value: eitem.estimate_id %>
-                  <%= f.hidden_field :estimates_sheet_id, value: sheet.id %>
+                  <%= f.hidden_field :estimates_sheet_id, value: eitem_sheet_id %>
                   <%= f.hidden_field :estimate_line_id, value: eitem.id %>
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -95,10 +59,10 @@
                   <div class="modal-body">
                     <fieldset>
                       <div class="form-group">
-                        <%= f.collection_select :estimates_sections_id, @estimatessection.where(:estimates_sheet_id => sheet.id), :id, :title, {:selected => eitem.estimates_sections_id}, {:class => 'form-control'} %>
+                        <%= f.collection_select :estimates_sections_id, EstimatesSection.where(:estimates_sheet_id => eitem_sheet_id), :id, :title, {:selected => eitem.estimates_sections_id}, {:class => 'form-control'} %>
                       </div>
                       <div class="form-group">
-                        <%= f.collection_select :technology_id, @technology, :id, :title, {:selected => eitem.technology_id}, {:class => 'form-control'} %>
+                        <%= f.collection_select :technology_id, Technology.order("title ASC"), :id, :title, {:selected => eitem.technology_id}, {:class => 'form-control'} %>
                       </div>
                       <div class="form-group">
                         <%= f.text_field :line, class: 'form-control', placeholder: t('line'), autofocus: true, value: eitem.line %>
@@ -137,8 +101,8 @@
         <% end %>
         <tr class="info">
           <td colspan="5" align="right"><strong><%= t('total_caps') %></strong></td>
-          <td><strong><%= section.total_min_hours %></strong></td>
-          <td><strong><%= section.total_max_hours %></strong></td>
+          <td><strong><%= EstimatesSection.find_by_id(eitem_section_id).total_min_hours %></strong></td>
+          <td><strong><%= EstimatesSection.find_by_id(eitem_section_id).total_max_hours %></strong></td>
           <td>&nbsp;</td>
         </tr>
         <tr>
@@ -146,7 +110,3 @@
         </tr>
       </tbody>
     </table>
-
-  </div>
-</div>
-<% end %>
