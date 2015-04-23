@@ -63,7 +63,6 @@ class EstimatesController < ApplicationController
         add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
         add_breadcrumb I18n.t('breadcrumbs.estimates_index'), estimates_path
         add_breadcrumb I18n.t('breadcrumbs.new')
-        @estimate = Estimate.new
         @clients = Client.order("title ASC")
         @projects = Project.order("title ASC")
         @users = User.order("first_name ASC, last_name ASC")
@@ -84,7 +83,6 @@ class EstimatesController < ApplicationController
       add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
       add_breadcrumb I18n.t('breadcrumbs.estimates_index'), estimates_path
       add_breadcrumb I18n.t('breadcrumbs.edit')
-      @estimate = Estimate.find(params[:id])
       @clients = Client.order("title ASC")
       @projects = Project.order("title ASC")
       @users = User.order("first_name ASC, last_name ASC")

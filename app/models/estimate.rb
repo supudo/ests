@@ -1,5 +1,7 @@
 class Estimate < ActiveRecord::Base
   validates :title, presence: true
+  validates :client_id, :numericality => { :greater_than => 0 }
+  validates :project_id, presence: true, :numericality => { :greater_than => 0 }
 
   def total_min_hours
     @lines = EstimatesLine.where(:estimate_id => self.id)
