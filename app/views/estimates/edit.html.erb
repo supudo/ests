@@ -48,6 +48,47 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="container-fluid">
+
+    <div class="panel panel-primary">
+      <div class="panel-heading"><strong><%= t('estimate_hours_min_max') %></strong></div>
+      <div class="panel-body">
+        <%= bar_chart [
+          {name: t('hours_min'), data: @chart_hours_min},
+          {name: t('hours_max'), data: @chart_hours_max}
+        ] %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="span6 offset3">
+    <div class="col-md-6">
+
+      <div class="panel panel-primary">
+        <div class="panel-heading"><strong><%= t('estimate_technologies_percent_min') %></strong></div>
+        <div class="panel-body">
+          <%= pie_chart(@estimate_technologies_percent_min, library: { is3D: true, chartArea: {width: '100%', height: '100%'} }) %>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-6">
+
+      <div class="panel panel-primary">
+        <div class="panel-heading"><strong><%= t('estimate_technologies_percent_max') %></strong></div>
+        <div class="panel-body">
+          <%= pie_chart(@estimate_technologies_percent_max, library: { is3D: true, chartArea: {width: '100%', height: '100%'} }) %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <div class="panel panel-default">
   <div class="panel-heading"><strong><%= t('estimate_assumption') %></strong></div>
   <div id="grid-estimateassumption">

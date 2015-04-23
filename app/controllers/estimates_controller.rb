@@ -27,6 +27,10 @@ class EstimatesController < ApplicationController
       @estimatesassumption = EstimatesAssumption.where(:estimate_id => params[:id]).order("title ASC")
       @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
       @technology = Technology.order("title ASC")
+      @chart_hours_min = ActiveRecord::Base.connection.execute("SELECT (SELECT title FROM technologies WHERE id = el.technology_id) AS technology, SUM(el.hours_min) FROM estimates_lines AS el WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY technology")
+      @chart_hours_max = ActiveRecord::Base.connection.execute("SELECT (SELECT title FROM technologies WHERE id = el.technology_id) AS technology, SUM(el.hours_max) FROM estimates_lines AS el WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY technology")
+      @estimate_technologies_percent_min = ActiveRecord::Base.connection.execute("SELECT t.title, SUM(hours_min) AS hours FROM technologies AS t INNER JOIN estimates_lines AS el ON el.technology_id = t.id WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY t.title")
+      @estimate_technologies_percent_max = ActiveRecord::Base.connection.execute("SELECT t.title, SUM(hours_max) AS hours FROM technologies AS t INNER JOIN estimates_lines AS el ON el.technology_id = t.id WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY t.title")
       render 'edit'
     end
   end
@@ -88,6 +92,8 @@ class EstimatesController < ApplicationController
       @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
       @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order(sort_column + " " + sort_direction)
       @technology = Technology.order("title ASC")
+      @chart_hours_min = ActiveRecord::Base.connection.execute("SELECT (SELECT title FROM technologies WHERE id = el.technology_id) AS technology, SUM(el.hours_min) FROM estimates_lines AS el WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY technology")
+      @chart_hours_max = ActiveRecord::Base.connection.execute("SELECT (SELECT title FROM technologies WHERE id = el.technology_id) AS technology, SUM(el.hours_max) FROM estimates_lines AS el WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY technology")
       flash[:error] = t('error_missing_fields')
       render 'new'
     end

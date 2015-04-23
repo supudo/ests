@@ -4,7 +4,7 @@
 
       <div class="panel panel-primary">
         <div class="panel-heading"><strong><%= t('projects_per_clients') %></strong></div>
-        <div class="panel-body"><%= pie_chart @stats_projects_per_clients %></div>
+        <div class="panel-body"><%= pie_chart(@stats_projects_per_clients, library: { is3D: true, chartArea: {width: '100%', height: '100%'} }) %></div>
       </div>
 
     </div>
@@ -12,7 +12,7 @@
 
       <div class="panel panel-primary">
         <div class="panel-heading"><strong><%= t('estimates_per_clients') %></strong></div>
-        <div class="panel-body"><%= pie_chart @estimates_per_clients %></div>
+        <div class="panel-body"><%= pie_chart(@estimates_per_clients, library: { is3D: true, chartArea: {width: '100%', height: '100%'} }) %></div>
       </div>
 
     </div>
@@ -25,7 +25,7 @@
 
       <div class="panel panel-primary">
         <div class="panel-heading"><strong><%= t('technologies_per_projects') %></strong></div>
-        <div class="panel-body"><%= pie_chart @technologies_per_projects %></div>
+        <div class="panel-body"><%= pie_chart(@technologies_per_projects, library: { is3D: true, chartArea: {width: '100%', height: '100%'} }) %></div>
       </div>
 
     </div>
@@ -33,7 +33,28 @@
 
       <div class="panel panel-primary">
         <div class="panel-heading"><strong><%= t('technologies_per_users') %></strong></div>
-        <div class="panel-body"><%= pie_chart @technologies_per_users %></div>
+        <div class="panel-body"><%= pie_chart(@technologies_per_users, library: { is3D: true, chartArea: {width: '100%', height: '100%'} }) %></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span6 offset3">
+    <div class="col-md-6">
+
+      <div class="panel panel-primary">
+        <div class="panel-heading"><strong><%= t('technologies_per_estimates') %></strong></div>
+        <div class="panel-body"><%= pie_chart(@technologies_per_estimates, library: { is3D: true, chartArea: {width: '100%', height: '100%'} }) %></div>
+      </div>
+
+    </div>
+    <div class="col-md-6">
+
+      <div class="panel panel-primary">
+        <div class="panel-heading"><strong><%= t('users_per_estimates') %></strong></div>
+        <div class="panel-body"><%= pie_chart(@users_per_estimates, library: { is3D: true, chartArea: {width: '100%', height: '100%'} }) %></div>
       </div>
 
     </div>

@@ -20,6 +20,8 @@ class DashboardController < ApplicationController
     @estimates_per_clients = ActiveRecord::Base.connection.execute("SELECT c.title AS client, COUNT(e.id) AS estimates FROM clients AS c INNER JOIN projects AS p ON p.client_id = c.id INNER JOIN estimates AS e ON e.project_id = p.id GROUP BY c.id ORDER BY e.created_date DESC LIMIT 0, 10")
     @technologies_per_projects = ActiveRecord::Base.connection.execute("SELECT t.title AS technology, COUNT(DISTINCT pt.project_id) AS projects FROM projects_technologies AS pt INNER JOIN technologies AS t ON t.id = pt.technology_id GROUP BY t.title ORDER BY t.title")
     @technologies_per_users = ActiveRecord::Base.connection.execute("SELECT t.title, count(u.id) FROM technologies AS t INNER JOIN users AS u ON u.technology_id = t.id GROUP BY t.id ORDER BY t.title")
+    @technologies_per_estimates = ActiveRecord::Base.connection.execute("SELECT t.title, count(el.id) FROM technologies AS t INNER JOIN estimates_lines AS el ON el.technology_id = t.id GROUP BY t.id ORDER BY t.title")
+    @users_per_estimates = ActiveRecord::Base.connection.execute("SELECT CONCAT(u.first_name, ' ', u.last_name) AS 'user', count(e.id) FROM users AS u INNER JOIN estimates AS e ON e.created_user_id = u.id GROUP BY u.id ORDER BY u.username")
   end
 
 end

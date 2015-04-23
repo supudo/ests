@@ -32,6 +32,7 @@ class EstimateslineController < ApplicationController
   def update
     eline = EstimatesLine.find_by(:id => params[:estimates_line][:estimate_line_id])
     eline.line = params[:estimates_line][:line]
+    eline.technology_id = params[:estimates_line][:technology_id]
     eline.save
     respond_to do |format|
       @eitem_id = params[:estimates_line][:estimate_line_id]
