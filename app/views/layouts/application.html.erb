@@ -20,13 +20,24 @@
     <script src="/javascripts/bootstrap-colorpicker.min.js"></script>
     <link rel="stylesheet" media="all" href="/stylesheets/bootstrap-colorpicker.min.css" data-turbolinks-track="true" />
 
+    <link rel="stylesheet" media="all" href="/stylesheets/bootstrap-notify.css" data-turbolinks-track="true" />
+    <link rel="stylesheet" media="all" href="/stylesheets/alert-bangtidy.css" data-turbolinks-track="true" />
+    <link rel="stylesheet" media="all" href="/stylesheets/alert-blackgloss.css" data-turbolinks-track="true" />
+
     <%= render 'layouts/shim' %>
   </head>
   <body>
     <%= render 'layouts/header' %>
     <div class="container">
 
+      <!-- Notifications containers -->
+      <div class='notifications top-right'></div>
+      <div class='notifications bottom-right'></div>
+      <div class='notifications top-left'></div>
+      <div class='notifications bottom-left'></div>
+
       <% if signed_in? %>
+      <!-- Breadcrumbs -->
       <ul class="breadcrumb">
         <%= render_breadcrumbs :separator => '<span class="divider">/</span>' %>
       </ul>
@@ -44,13 +55,17 @@
       <% end %>
       -->
 
+      <!-- Content -->
       <%= yield %>
 
+      <!-- Footer -->
       <%= render 'layouts/footer' %>
 
       <%= debug(params) if Rails.env.development? %>
 
     </div>
     <script src="/javascripts/bootstrap-filestyle.min.js"></script>
+    <script src="/javascripts/bootstrap-notify.js"></script>
+    <script src="/javascripts/notifications.js"></script>
   </body>
 </html>

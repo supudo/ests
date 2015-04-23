@@ -91,11 +91,15 @@ class EstimatesController < ApplicationController
     flash.clear()
     if @estimate.update_attributes(estimate_params)
       respond_to do |format|
+        @notif_type = 'success'
+        @notif_message = t('estimate_updated_successfully')
         flash[:success] = t('estimate_updated_successfully')
         format.js
       end
     else
       respond_to do |format|
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
         flash[:error] = t('error_missing_fields')
         format.js
       end
