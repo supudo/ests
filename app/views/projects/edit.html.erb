@@ -8,17 +8,18 @@
       <div class="panel panel-default">
         <div class="panel-heading"><strong><%= t('details') %></strong></div>
         <div class="panel-body">
+          <%= render 'shared/flash_messages', object: f.object %>
           <fieldset>
-            <div class="form-group">
+            <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
               <%= f.text_field :title, class: 'form-control', placeholder: t('title'), autofocus: true %>
             </div>
-            <div class="form-group">
+            <div class="form-group<%= f.object.errors[:project_status_id].any? ? ' has-error has-feedback' : '' %>">
               <%= f.collection_select :project_status_id, @project_statuses, :id, :title, {:include_blank => t('status')}, {:class => 'form-control'} %>
             </div>
-            <div class="form-group">
+            <div class="form-group<%= f.object.errors[:client_id].any? ? ' has-error has-feedback' : '' %>">
               <%= f.collection_select :client_id, @clients, :id, :title, {:include_blank => t('dashes') + ' ' + t('client')}, {:class => 'form-control'} %>
             </div>
-            <div class="form-group">
+            <div class="form-group<%= f.object.errors[:account_manager_user_id].any? ? ' has-error has-feedback' : '' %>">
               <%= f.collection_select :account_manager_user_id, @ams, :id, :full_name, {:include_blank => t('dashes') + ' ' + t('account_manager')}, {:class => 'form-control'} %>
             </div>
             <div class="form-group">

@@ -137,7 +137,6 @@ class ProjectsController < ApplicationController
         add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
         add_breadcrumb I18n.t('breadcrumbs.projects_index'), projects_path
         add_breadcrumb I18n.t('breadcrumbs.edit')
-        @project = Project.find(params[:id])
         @clients = Client.order("title ASC")
         @project_statuses = ProjectStatus.order("title ASC")
         @ams = User.where(:is_am => '1').order("first_name ASC, last_name ASC")
