@@ -7,66 +7,67 @@
 <% end %>
 
 <div class="row">
-    <div class="span6 offset3">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="login-panel panel panel-default">
-                <div class="panel-body">
-                    <%= form_for(@user) do |f| %>
-                    <fieldset>
-                        <div class="form-group">
-                            <%= f.email_field :username, class: 'form-control', placeholder: t('email'), autofocus: true %>
-                        </div>
-                        <div class="form-group">
-                            <%= f.password_field :password, class: 'form-control', placeholder: t('password') %>
-                        </div>
-                        <div class="form-group">
-                            <%= f.password_field :password_confirmation, class: 'form-control', placeholder: t('password_confirm') %>
-                        </div>
-                        <div class="form-group">
-                            <%= f.text_field :first_name, class: 'form-control', placeholder: t('first_name') %>
-                        </div>
-                        <div class="form-group">
-                            <%= f.text_field :last_name, class: 'form-control', placeholder: t('last_name') %>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control" name="user[technology_id]" id="user_technology_id">
-                                <option value="-1" selected disabled><%= t('technology') %></option>
-                                <% @technology.each do |tech| %>
-                                <option value="<%= tech.id %>"><%= tech.title %></option>
-                                <% end %>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control" name="user[position_id]" id="user_position_id">
-                                <option value="-1" selected disabled><%= t('position') %></option>
-                                <% @position.each do |pos| %>
-                                <option value="<%= pos.id %>"><%= pos.title %></option>
-                                <% end %>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control" name="user[client_id]" id="user_client_id">
-                                <option value="-1" selected disabled><%= t('client') %></option>
-                                <% @client.each do |cli| %>
-                                <option value="<%= cli.id %>"><%= cli.title %></option>
-                                <% end %>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label><%= f.check_box :is_am %> <%= t('is_account_manager') %></label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label><%= f.check_box :is_pdm %> <%= t('is_production_manager') %></label>
-                            </div>
-                        </div>
-                        <%= f.submit t('sign_up'), class: "btn btn-lg btn-success btn-block" %>
-                    </fieldset>
-                    <% end %>
-                </div>
+  <div class="span6 offset3">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="login-panel panel panel-default">
+        <div class="panel-body">
+          <%= form_for(@user) do |f| %>
+          <%= render 'shared/flash_messages', object: f.object %>
+          <fieldset>
+            <div class="form-group<%= f.object.errors[:username].any? ? ' has-error has-feedback' : '' %>">
+              <%= f.email_field :username, class: 'form-control', placeholder: t('email'), autofocus: true %>
             </div>
+            <div class="form-group<%= f.object.errors[:username].any? ? ' has-error has-feedback' : '' %>">
+              <%= f.password_field :password, class: 'form-control', placeholder: t('password') %>
+            </div>
+            <div class="form-group<%= f.object.errors[:username].any? ? ' has-error has-feedback' : '' %>">
+              <%= f.password_field :password_confirmation, class: 'form-control', placeholder: t('password_confirm') %>
+            </div>
+            <div class="form-group<%= f.object.errors[:username].any? ? ' has-error has-feedback' : '' %>">
+              <%= f.text_field :first_name, class: 'form-control', placeholder: t('first_name') %>
+            </div>
+            <div class="form-group<%= f.object.errors[:username].any? ? ' has-error has-feedback' : '' %>">
+              <%= f.text_field :last_name, class: 'form-control', placeholder: t('last_name') %>
+            </div>
+            <div class="form-group">
+              <select class="form-control" name="user[technology_id]" id="user_technology_id">
+                <option value="-1" selected disabled><%= t('technology') %></option>
+                <% @technology.each do |tech| %>
+                <option value="<%= tech.id %>"><%= tech.title %></option>
+                <% end %>
+              </select>
+            </div>
+            <div class="form-group">
+              <select class="form-control" name="user[position_id]" id="user_position_id">
+                <option value="-1" selected disabled><%= t('position') %></option>
+                <% @position.each do |pos| %>
+                <option value="<%= pos.id %>"><%= pos.title %></option>
+                <% end %>
+              </select>
+            </div>
+            <div class="form-group">
+              <select class="form-control" name="user[client_id]" id="user_client_id">
+                <option value="-1" selected disabled><%= t('client') %></option>
+                <% @client.each do |cli| %>
+                <option value="<%= cli.id %>"><%= cli.title %></option>
+                <% end %>
+              </select>
+            </div>
+            <div class="form-group">
+              <div class="checkbox">
+                <label><%= f.check_box :is_am %> <%= t('is_account_manager') %></label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="checkbox">
+                <label><%= f.check_box :is_pdm %> <%= t('is_production_manager') %></label>
+              </div>
+            </div>
+            <%= f.submit t('sign_up'), class: "btn btn-lg btn-success btn-block" %>
+          </fieldset>
+          <% end %>
         </div>
+      </div>
     </div>
+  </div>
 </div>

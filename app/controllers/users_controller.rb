@@ -60,6 +60,9 @@ class UsersController < ApplicationController
           redirect_to :dashboard
         end
       else
+        add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+        add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
+        add_breadcrumb I18n.t('breadcrumbs.edit')
         @technology = Technology.all
         @position = Position.all
         @client = Client.all

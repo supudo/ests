@@ -1,0 +1,9 @@
+<% flash.each do |key, value| %>
+  <% if key == 'error' %>
+  <div class="alert alert-danger alert-success">
+    <strong><%= t('error_exclamation') %></strong> <%= value %>
+  </div>
+  <% else %>
+  <div class="alert alert-success"><%= value %></div>
+  <% end %>
+<% end %>
