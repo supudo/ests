@@ -3,21 +3,27 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
+
+    <%= form_tag :url => estimates_path do |f| %>
     <div class="input-group">
+
       <div class="input-group-btn">
         <button type="button" class="btn btn-primary" aria-label="Left Align">
           <%= link_to t('create_estimate'), new_estimate_path, :class => "btn-primary" %>
         </button>
-        <button type="button" class="btn btn-primary" aria-label="Left Align">
+      </div>
+
+      <%= autocomplete_field 'ac_search_estimate', '', autocomplete_estimate_title_estimates_path(:format => :json), { class: 'form-control', autofocus: true, placeholder: t('search') } %>
+
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-primary">
           <%= link_to t('import_estimate'), new_estimate_importer_path, :class => "btn-primary" %>
         </button>
       </div>
-      <div class="form-group">
-        <%= form_tag :url => estimates_path do |f| %>
-          <%= autocomplete_field 'ac_search_estimate', '', autocomplete_estimate_title_estimates_path(:format => :json), { class: 'form-control', autofocus: true, placeholder: t('search') } %>
-        <% end %>
-      </div>
+
     </div>
+    <% end %>
+
   </div>
   <div id="estimates-list">
     <%= render partial: 'estimates/list', locals: { estimates: @estimates } %>
