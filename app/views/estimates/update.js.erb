@@ -1,1 +1,4 @@
 $('#estimate_details').html("<%= escape_javascript(render :partial => 'estimates/edit_details') %>");
+window.setTimeout(function() {
+  $('#estimates_edit_errors').empty();
+}, 3000);
