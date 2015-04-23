@@ -46,6 +46,12 @@ class EstimatesController < ApplicationController
   end
 
   def create
+    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+    add_breadcrumb I18n.t('breadcrumbs.estimates_index'), estimates_path
+    add_breadcrumb I18n.t('breadcrumbs.new')
+    @clients = Client.order("title ASC")
+    @projects = Project.order("title ASC")
+    @users = User.order("first_name ASC, last_name ASC")
     if Estimate.exists?(:title => estimate_params[:title])
       flash[:success] = t('estimate_already_exists')
       redirect_to :new_estimate
@@ -60,12 +66,6 @@ class EstimatesController < ApplicationController
         flash[:success] = t('estimate_created_successfully')
         redirect_to :estimates
       else
-        add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-        add_breadcrumb I18n.t('breadcrumbs.estimates_index'), estimates_path
-        add_breadcrumb I18n.t('breadcrumbs.new')
-        @clients = Client.order("title ASC")
-        @projects = Project.order("title ASC")
-        @users = User.order("first_name ASC, last_name ASC")
         flash[:error] = t('error_missing_fields')
         render 'new'
       end
@@ -73,27 +73,32 @@ class EstimatesController < ApplicationController
   end
 
   def update
+    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+    add_breadcrumb I18n.t('breadcrumbs.estimates_index'), estimates_path
+    add_breadcrumb I18n.t('breadcrumbs.edit')
+    @clients = Client.order("title ASC")
+    @projects = Project.order("title ASC")
+    @users = User.order("first_name ASC, last_name ASC")
+    @estimate_line = EstimatesLine.new
+    @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
+    @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order(sort_column + " " + sort_direction)
+    @technology = Technology.order("title ASC")
+    @chart_hours_min = ActiveRecord::Base.connection.execute("SELECT (SELECT title FROM technologies WHERE id = el.technology_id) AS technology, SUM(el.hours_min) FROM estimates_lines AS el WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY technology")
+    @chart_hours_max = ActiveRecord::Base.connection.execute("SELECT (SELECT title FROM technologies WHERE id = el.technology_id) AS technology, SUM(el.hours_max) FROM estimates_lines AS el WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY technology")
     @estimate = Estimate.find_by_id(params[:id])
     @estimate.modified_user_id = current_user.id
     @estimate.modified_date = DateTime.now
+    flash.clear()
     if @estimate.update_attributes(estimate_params)
-      flash[:success] = t('estimate_updated_successfully')
-      redirect_to :estimates
+      respond_to do |format|
+        flash[:success] = t('estimate_updated_successfully')
+        format.js
+      end
     else
-      add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-      add_breadcrumb I18n.t('breadcrumbs.estimates_index'), estimates_path
-      add_breadcrumb I18n.t('breadcrumbs.edit')
-      @clients = Client.order("title ASC")
-      @projects = Project.order("title ASC")
-      @users = User.order("first_name ASC, last_name ASC")
-      @estimate_line = EstimatesLine.new
-      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
-      @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order(sort_column + " " + sort_direction)
-      @technology = Technology.order("title ASC")
-      @chart_hours_min = ActiveRecord::Base.connection.execute("SELECT (SELECT title FROM technologies WHERE id = el.technology_id) AS technology, SUM(el.hours_min) FROM estimates_lines AS el WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY technology")
-      @chart_hours_max = ActiveRecord::Base.connection.execute("SELECT (SELECT title FROM technologies WHERE id = el.technology_id) AS technology, SUM(el.hours_max) FROM estimates_lines AS el WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY technology")
-      flash[:error] = t('error_missing_fields')
-      render 'new'
+      respond_to do |format|
+        flash[:error] = t('error_missing_fields')
+        format.js
+      end
     end
   end
 

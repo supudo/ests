@@ -20,7 +20,7 @@
               <%= f.collection_select :project_id, @projects, :id, :title, {:include_blank => t('dashes') + ' ' + t('project')}, {:class => 'form-control'} %>
             </div>
             <div class="form-group">
-              <%= f.collection_select :owner_user_id, @users, :id, :full_name, {:include_blank => t('dashes') + ' ' + t('project_owner'), :selected => (params[:estimate] == nil || params[:estimate][:owner_user_id] == nil ? @current_user.id : params[:estimate][:owner_user_id])}, {:class => 'form-control'} %>
+              <%= f.collection_select :owner_user_id, @users, :id, :full_name, {:selected => (params[:estimate] == nil || params[:estimate][:owner_user_id] == nil ? @current_user.id : params[:estimate][:owner_user_id])}, {:class => 'form-control'} %>
             </div>
             <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
           </fieldset>
