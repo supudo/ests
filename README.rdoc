@@ -1,3 +1,3 @@
 == Ests
 
-RoR Ests - "test" app
+Ests - tool for software estimations, based on WBR
