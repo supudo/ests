@@ -1,14 +1,15 @@
 <% provide(:title, t('breadcrumbs.edit')) %>
 <h1><%= t('breadcrumbs.edit') %></h1>
 
+<%= form_for(@position) do |f| %>
 <div class="row">
   <div class="span6 offset3">
     <div class="col-md-4 col-md-offset-4">
       <div class="login-panel panel panel-default">
         <div class="panel-body">
-          <%= form_for(@position) do |f| %>
+          <%= render 'shared/flash_messages', object: f.object %>
           <fieldset>
-            <div class="form-group">
+            <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
               <%= f.text_field :title, class: 'form-control', placeholder: t('position'), autofocus: true %>
             </div>
             <div class="form-group">
@@ -19,9 +20,9 @@
             </div>
             <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
           </fieldset>
-          <% end %>
         </div>
       </div>
     </div>
   </div>
 </div>
+<% end %>

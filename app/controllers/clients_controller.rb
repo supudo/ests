@@ -40,6 +40,9 @@ class ClientsController < ApplicationController
         flash[:success] = t('client_created_successfully')
         redirect_to :clients
       else
+        add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+        add_breadcrumb I18n.t('breadcrumbs.clients_index'), clients_path
+        add_breadcrumb I18n.t('breadcrumbs.new')
         flash[:error] = t('error_missing_fields')
         render 'new'
       end
@@ -52,6 +55,9 @@ class ClientsController < ApplicationController
       flash[:success] = t('client_updated_successfully')
       redirect_to :clients
     else
+      add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+      add_breadcrumb I18n.t('breadcrumbs.clients_index'), clients_path
+      add_breadcrumb I18n.t('breadcrumbs.edit')
       flash[:error] = t('error_missing_fields')
       render 'edit'
     end

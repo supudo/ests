@@ -36,7 +36,6 @@ class TechnologiesController < ApplicationController
           add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
           add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
           add_breadcrumb I18n.t('breadcrumbs.new')
-          @technology = Technology.new
           flash[:error] = t('error_missing_fields')
           render 'new'
         end
@@ -54,7 +53,6 @@ class TechnologiesController < ApplicationController
         add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
         add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
         add_breadcrumb I18n.t('breadcrumbs.edit')
-        @technology = Technology.new
         flash[:error] = t('error_missing_fields')
         render 'edit'
       end
