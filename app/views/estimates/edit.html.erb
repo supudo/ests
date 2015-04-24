@@ -9,20 +9,7 @@
   </div>
   <div class="span6 offset3">
     <div class="col-md-6">
-      <%= form_for :estimate_assumption, :url => estimatesassumption_index_path do |f| %>
-      <%= f.hidden_field :estimate_id, value: params[:id] %>
-      <div class="panel panel-default">
-        <div class="panel-heading"><strong><%= t('assumption') %></strong></div>
-        <div class="panel-body">
-          <fieldset>
-            <div class="form-group">
-              <%= f.text_area :title, class: 'form-control', placeholder: t('title'), autofocus: true, rows: 8 %>
-            </div>
-            <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
-          </fieldset>
-        </div>
-      </div>
-      <% end %>
+      <%= render 'estimatesassumption/create' %>
     </div>
   </div>
 </div>
@@ -73,7 +60,7 @@
 <div class="panel panel-default">
   <div class="panel-heading"><strong><%= t('estimate_assumption') %></strong></div>
   <div id="grid-estimateassumption">
-    <%= render partial: 'estimatesassumption/lines', locals: { estimatesassumption: @estimatesassumption } %>
+    <%= render partial: 'estimatesassumption/lines' %>
   </div>
 </div>
 

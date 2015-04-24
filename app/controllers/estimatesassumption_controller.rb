@@ -2,18 +2,22 @@ class EstimatesassumptionController < ApplicationController
   before_action :signed_in_user
 
   def create
+    @estimatesassumption = EstimatesAssumption.where(:estimate_id => estimates_assumption_params[:estimate_id]).order("title ASC")
     if EstimatesAssumption.exists?(:estimate_id => estimates_assumption_params[:estimate_id], :title => estimates_assumption_params[:title])
-      flash[:success] = t('estimate_assumption_already_exists')
-      redirect_to :new_estimatesassumption
+      @notif_type = 'warning'
+      @notif_message = t('estimate_assumption_already_exists')
     else
-      c = EstimatesAssumption.where("estimate_id = ?", estimates_assumption_params[:estimate_id]).count
       @estimate_assumption = EstimatesAssumption.new(estimates_assumption_params)
       if @estimate_assumption.save
-        flash[:success] = t('estimate_assumption_created_successfully')
-        redirect_to(:back)
+        @notif_type = 'success'
+        @notif_message = t('estimate_assumption_created_successfully')
       else
-        render 'new'
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
       end
+    end
+    respond_to do |format|
+      format.js
     end
   end
 
@@ -23,6 +27,8 @@ class EstimatesassumptionController < ApplicationController
     EstimatesAssumption.find(params[:assumption_id]).destroy
     respond_to do |format|
       @estimatesassumption = EstimatesAssumption.where(:estimate_id => eid).order("title ASC")
+      @notif_type = 'success'
+      @notif_message = t('delete_sucess')
       format.js
     end
   end

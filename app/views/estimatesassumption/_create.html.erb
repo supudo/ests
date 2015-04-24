@@ -1,0 +1,14 @@
+      <%= form_for :estimate_assumption, :url => estimatesassumption_index_path, :id => params[:id], :remote => true do |f| %>
+      <%= f.hidden_field :estimate_id, value: params[:id] %>
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong><%= t('assumption') %></strong></div>
+        <div class="panel-body">
+          <fieldset>
+            <div class="form-group">
+              <%= f.text_area :title, class: 'form-control', placeholder: t('title'), autofocus: true, rows: 8 %>
+            </div>
+            <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
+          </fieldset>
+        </div>
+      </div>
+      <% end %>

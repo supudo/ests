@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   resources :estimates
   resources :estimatessection
   resources :estimatesline
-  resources :estimatesassumption
   resources :clients
   resources :permissions
   resources :commenthistory

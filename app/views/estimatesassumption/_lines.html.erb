@@ -13,9 +13,9 @@
       <td class="vert-align" width="1%" scope="row"><%= eitem.id %></td>
       <td class="vert-align"><%= eitem.title %></td>
       <td width="1%" nowrap>
-        <%= button_to :estimatesassumption, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true  do %>
+        <%= button_to estimatesassumption_path(eitem), method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true  do %>
         <%= hidden_field nil, :assumption_id, value: eitem.id %>
-        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
         <% end %>
       </td>
     </tr>

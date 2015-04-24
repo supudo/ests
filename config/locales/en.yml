@@ -25,6 +25,7 @@ en:
   by: "by"
   delete: "Delete"
   style: "Style"
+  delete_sucess: "Item was deleted."
 
   title_login: "Login"
   welcome_login: "Welcome to Ests"

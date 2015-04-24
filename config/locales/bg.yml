@@ -25,6 +25,7 @@ bg:
   by: "от"
   delete: "Изтрий"
   style: "Стил"
+  delete_sucess: "Елемента е изтрит."
 
   title_login: "Логин"
   welcome_login: "Добре дошли в Ests"
