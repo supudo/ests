@@ -66,7 +66,7 @@
 
 <br />
 
-<%= form_for :estimatessheet, :url => estimatessheet_index_path do |f| %>
+<%= form_for :estimatessheet, :url => estimatessheet_index_path, :remote => true do |f| %>
 <%= f.hidden_field :estimate_id, value: params[:id] %>
 <div class="panel panel-default">
   <div class="panel-heading"><strong><%= t('estimate_sheet') %></strong></div>
@@ -81,23 +81,6 @@
 </div>
 <% end %>
 
-<div class="panel with-nav-tabs panel-primary">
-  <div class="panel-heading">
-    <ul class="nav nav-tabs">
-      <% @estimates_sheets.each do |panel| %>
-        <li<%= panel == @estimates_sheets.first ? " class='active'".html_safe : "" %>><a href="#sh<%= panel.id %>" data-toggle="tab"><%= panel.title %></a></li>
-      <% end %>
-    </ul>
-  </div>
-  <div class="panel-body">
-    <div class="tab-content">
-
-      <% @estimates_sheets.each do |sheet| %>
-      <div class="tab-pane<%= sheet == @estimates_sheets.first ? "  fade in active".html_safe : "" %>" id="sh<%= sheet.id %>">
-        <%= render partial: 'estimates/sheet', locals: { sheet: sheet } %>
-      </div>
-      <% end %>
-
-    </div>
-  </div>
+<div id="pnl-sheets">
+  <%= render partial: 'estimatessheet/sheets' %>
 </div>

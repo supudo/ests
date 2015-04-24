@@ -3,17 +3,23 @@ class EstimatessheetController < ApplicationController
 
   def create
     if EstimatesSheet.exists?(:title => estimatessheet_params[:title], :estimate_id => estimatessheet_params[:estimate_id])
-      flash[:success] = t('estimate_sheet_already_exists')
-      redirect_to(:back)
+      @notif_type = 'danger'
+      @notif_message = t('estimate_sheet_already_exists')
     else
       @estimatessheet = EstimatesSheet.new(estimatessheet_params)
       if @estimatessheet.save
-        flash[:success] = t('estimate_sheet_created_successfully')
-        redirect_to(:back)
+        @notif_type = 'success'
+        @notif_message = t('estimate_sheet_created_successfully')
       else
-        flash[:error] = t('error_missing_fields')
-        render 'new'
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
       end
+    end
+    respond_to do |format|
+      @estimates_sheets = EstimatesSheet.where(:estimate_id => estimatessheet_params[:estimate_id]).order("id ASC")
+      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
+      @technology = Technology.order("title ASC")
+      format.js
     end
   end
 
