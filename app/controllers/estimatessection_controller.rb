@@ -3,22 +3,33 @@ class EstimatessectionController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def show
-    EstimatesLine.where(:estimates_sections_id => esection_technology_params[:sid]).update_all(:technology_id => esection_technology_params[:tid])
+    EstimatesLine.where(:estimates_sections_id => params[:id]).update_all(:technology_id => esection_technology_params[:tid])
     respond_to do |format|
       format.js
     end
   end
 
   def create
-    if EstimatesSection.exists?(:estimates_sheet_id => estimates_section_params[:estimates_sheet_id], :title => estimates_section_params[:title])
-      redirect_to :new_estimatessection
+    @es = EstimatesSection.where(:estimates_sheet_id => estimates_section_params[:estimates_sheet_id], :title => estimates_section_params[:title]).first
+    if @es != nil
+      @notif_type = 'warning'
+      @notif_message = t('section_already_exists')
     else
-      @estimate_section = EstimatesSection.new(estimates_section_params)
-      if @estimate_section.save
-        redirect_to(:back)
+      @es = EstimatesSection.new(estimates_section_params)
+      if @es.save
+        @notif_type = 'success'
+        @notif_message = t('sections_created_successfully')
       else
-        render 'new'
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
       end
+    end
+    #@section_id = @es.id
+    #@sheet_id = @es.estimates_sheet_id
+    @estimatessection = EstimatesSection.where(:estimate_id => @es.estimate_id).order("id ASC")
+    @sheet = EstimatesSheet.find(@es.estimates_sheet_id)
+    respond_to do |format|
+      format.js
     end
   end
 
@@ -29,7 +40,7 @@ class EstimatessectionController < ApplicationController
     respond_to do |format|
       @eitem_id = esection.id
       @new_title = params[:estimates_section][:title]
-      format.js {}
+      format.js
     end
   end
 

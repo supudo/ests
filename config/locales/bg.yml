@@ -141,6 +141,8 @@ bg:
   is_header: "Секция?"
 
   section: "Секция"
+  section_already_exists: "Секцията вече съществува."
+  sections_created_successfully: "Секцията беше създадена суепшно."
   estimate_lines: "WBR Линии"
   line: "Линия"
   complexity: "Комплексност"

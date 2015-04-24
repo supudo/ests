@@ -141,6 +141,8 @@ en:
   is_header: "Is Header?"
 
   section: "Section"
+  section_already_exists: "Section already exists."
+  sections_created_successfully: "Section created successfully."
   estimate_lines: "WBR Lines"
   line: "Line"
   complexity: "Complexity"

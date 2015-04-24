@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   resources :estimatesline do
     member do
-      get :moveup, :movedown, :destroy, :create
+      get :moveup, :movedown, :destroy, :create, :update
     end
     get :autocomplete_estimatesline_line, :on => :collection
   end
@@ -32,6 +32,12 @@ Rails.application.routes.draw do
   end
 
   resources :estimatessheet do
+    member do
+      get :destroy, :create, :show
+    end
+  end
+
+  resources :estimatessection do
     member do
       get :destroy, :create
     end

@@ -1,2 +1,2 @@
-$('#pnl-sheets').html("<%= escape_javascript(render :partial => 'estimatessheet/sheets') %>");
+$('#pnl-sheets').html("<%= escape_javascript(render :partial => 'estimatessheet/sheets', :locals => { :estimatesline => @estimatesline }) %>");
 showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

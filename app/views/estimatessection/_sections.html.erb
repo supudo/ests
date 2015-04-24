@@ -15,7 +15,8 @@
       <div class="modal fade" id="stitlemodal<%= section.id %>" tabindex="-1" role="dialog" aria-labelledby="stitlemodal<%= section.id %>_title" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <%= form_for section, :url => url_for(:controller => 'estimatessection', :action => 'update'), :remote => true do |f| %>
+            <%= form_for :estimatessection, :url => estimatessection_index_path, :id => params[:id], :remote => true do |f| %>
+            <%#= form_for section, :url => url_for(:controller => 'estimatessection', :action => 'update'), :remote => true do |f| %->
             <%= f.hidden_field :section_id, value: section.id %>
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -39,7 +40,8 @@
       </div> <!-- / Modal -->
 
       <div class="btn-group" style="padding-bottom: 4px">
-        <%= button_to :estimatessection, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-danger" do %>
+
+        <%= button_to item, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-danger", :remote => true  do %>
           <span class="btn-danger"><%= t('delete') %></span>
         <% end %>
       </div>
@@ -54,7 +56,7 @@
             {:data => { :remote => true,
                         :url => url_for(:controller => "estimatessection", 
                                         :action => "show",
-                                        "esection_technology[sid]" => section.id)
+                                        "id" => section.id)
                       },
              class: 'form-control'
             }

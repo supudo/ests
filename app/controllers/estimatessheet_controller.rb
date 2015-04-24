@@ -1,5 +1,6 @@
 class EstimatessheetController < ApplicationController
   before_action :signed_in_user
+  helper_method :sort_column, :sort_direction
 
   def create
     if EstimatesSheet.exists?(:title => estimatessheet_params[:title], :estimate_id => estimatessheet_params[:estimate_id])
@@ -16,8 +17,14 @@ class EstimatessheetController < ApplicationController
       end
     end
     respond_to do |format|
+      @estimate = Estimate.find(estimatessheet_params[:estimate_id])
+      @clients = Client.order("title ASC")
+      @projects = Project.order("title ASC")
+      @users = User.order("first_name ASC, last_name ASC")
       @estimates_sheets = EstimatesSheet.where(:estimate_id => estimatessheet_params[:estimate_id]).order("id ASC")
-      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
+      @estimate_line = EstimatesLine.new
+      @estimatesassumption = EstimatesAssumption.where(:estimate_id => estimatessheet_params[:estimate_id]).order("title ASC")
+      @estimatessection = EstimatesSection.where(:estimate_id => estimatessheet_params[:estimate_id]).order("id ASC")
       @technology = Technology.order("title ASC")
       format.js
     end
@@ -31,6 +38,14 @@ class EstimatessheetController < ApplicationController
 
     def estimatessheet_params
       params.require(:estimatessheet).permit(:title, :estimate_id)
+    end
+
+    def sort_column
+      EstimatesLine.column_names.include?(params[:sort]) ? params[:sort] : "line_number"
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 
 end
