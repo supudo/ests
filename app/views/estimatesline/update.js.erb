@@ -1,2 +1,3 @@
 $('#closebtn_<%= @eitem_id %>').click();
 $('#grid-estimatelines<%= @eitem_section_id %>').html("<%= escape_javascript(render :partial => 'estimatessection/section_lines', :locals => { :eitem_section_id => @eitem_section_id, :eitem_sheet_id => @eitem_sheet_id, }) %>");
+showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

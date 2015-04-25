@@ -12,8 +12,8 @@ class EstimateslineController < ApplicationController
 
   def create
     if EstimatesLine.exists?(:estimate_id => estimates_line_params[:estimate_id], :estimates_sections_id => estimates_line_params[:estimates_sections_id], :line => estimates_line_params[:line], :technology_id => estimates_line_params[:technology_id])
-      flash[:success] = t('estimate_line_already_exists')
-      redirect_to(:back)
+      @notif_type = 'warning'
+      @notif_message = t('estimate_line_already_exists')
     else
       c = EstimatesLine.where("estimate_id = ?", estimates_line_params[:estimate_id]).count
       @estimate_line = EstimatesLine.new(estimates_line_params)
@@ -21,24 +21,34 @@ class EstimateslineController < ApplicationController
       @estimate_line.created_date = DateTime.now
       @estimate_line.line_number = c + 1
       if @estimate_line.save
-        flash[:success] = t('estimate_line_created_successfully')
-        redirect_to(:back)
+        @notif_type = 'info'
+        @notif_message = t('estimate_line_created_successfully')
       else
-        render 'new'
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
       end
+    end
+    respond_to do |format|
+      format.js
     end
   end
 
   def update
-    eline = EstimatesLine.find_by(:id => params[:estimates_line][:estimate_line_id])
-    eline.line = params[:estimates_line][:line]
-    eline.technology_id = params[:estimates_line][:technology_id]
-    eline.save
+    eline = EstimatesLine.find_by(:id => params[:estimatesline][:estimate_line_id])
+    eline.line = params[:estimatesline][:line]
+    eline.technology_id = params[:estimatesline][:technology_id]
+    if eline.save
+      @notif_type = 'info'
+      @notif_message = t('estimate_line_updated_successfully')
+    else
+      @notif_type = 'danger'
+      @notif_message = t('error_missing_fields')
+    end
+    @eitem_id = params[:estimatesline][:estimate_line_id]
+    @eitem_section_id = eline.estimates_sections_id
+    @eitem_sheet_id = EstimatesSection.find_by_id(eline.estimates_sections_id).estimates_sheet_id
     respond_to do |format|
-      @eitem_id = params[:estimates_line][:estimate_line_id]
-      @eitem_section_id = eline.estimates_sections_id
-      @eitem_sheet_id = EstimatesSection.find_by_id(eline.estimates_sections_id).estimates_sheet_id
-      format.js {}
+      format.js
     end
   end
 
@@ -86,7 +96,7 @@ class EstimateslineController < ApplicationController
   private
 
     def estimates_line_params
-      params.require(:estimate_line).permit(:estimate_id, :estimates_sections_id, :technology_id, :line_number, :line, :complexity, :hours_min, :hours_max)
+      params.require(:estimatesline).permit(:estimate_id, :estimates_sections_id, :technology_id, :line_number, :line, :complexity, :hours_min, :hours_max)
     end
 
     def sort_column
