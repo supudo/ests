@@ -1,2 +1,2 @@
-$('#stitle_<%= @eitem_id %>').html('<%= escape_javascript(@new_title) %>');
+$('#grid-estimatelines<%= @current.id %>').html("<%= escape_javascript(render :partial => 'estimatessection/section_lines', :locals => { :estimatesline => @estimatesline, :eitem_section_id => @current.id, :eitem_sheet_id => @current.estimates_sheet_id }) %>");
 showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

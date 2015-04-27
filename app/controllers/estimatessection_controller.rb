@@ -4,6 +4,8 @@ class EstimatessectionController < ApplicationController
 
   def show
     EstimatesLine.where(:estimates_sections_id => params[:id]).update_all(:technology_id => esection_technology_params[:tid])
+    @current = EstimatesSection.find(params[:id])
+    @estimatesline = EstimatesLine.where(:estimates_sections_id => @current.id).order("line_number ASC")
     respond_to do |format|
       @notif_type = 'success'
       @notif_message = t('section_technology_changed')
