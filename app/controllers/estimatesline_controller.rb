@@ -71,7 +71,7 @@ class EstimateslineController < ApplicationController
 
   def moveup
     @current = EstimatesLine.find(params[:id])
-    @above = EstimatesLine.where("line_number < ? AND estimates_sections_id = ?", @current.line_number, @current.estimates_sections_id).order("line_number ASC").first
+    @above = EstimatesLine.order("line_number DESC").where("line_number < ? AND estimates_sections_id = ?", @current.line_number, @current.estimates_sections_id).first
     ln = @above.line_number
     @above.line_number = @current.line_number
     @above.save
@@ -87,7 +87,7 @@ class EstimateslineController < ApplicationController
 
   def movedown
     @current = EstimatesLine.find(params[:id])
-    @bellow = EstimatesLine.where("line_number > ? AND estimates_sections_id = ?", @current.line_number, @current.estimates_sections_id).order("line_number ASC").first
+    @bellow = EstimatesLine.order("line_number ASC").where("line_number > ? AND estimates_sections_id = ?", @current.line_number, @current.estimates_sections_id).first
     ln = @bellow.line_number
     @bellow.line_number = @current.line_number
     @bellow.save
