@@ -26,7 +26,7 @@
   </div>
   <div class="span6 offset3">
     <div class="col-md-6">
-      <%= form_for :estimate_line, :url => estimatesline_index_path do |f| %>
+      <%= form_for :estimate_line, :url => estimatesline_index_path, :remote => true do |f| %>
       <%= f.hidden_field :estimate_id, value: params[:id] %>
       <%= f.hidden_field :estimates_sheet_id, value: sheet.id %>
       <div class="panel panel-default">

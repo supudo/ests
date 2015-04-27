@@ -29,14 +29,16 @@ class EstimateslineController < ApplicationController
       end
     end
     respond_to do |format|
+      @estimatessection = EstimatesSection.where(:estimate_id => estimates_line_params[:estimate_id]).order("id ASC")
+      @sheet = EstimatesSheet.find(@estimatessection.first.estimates_sheet_id)
       format.js
     end
   end
 
   def update
-    eline = EstimatesLine.find_by(:id => params[:estimatesline][:estimate_line_id])
-    eline.line = params[:estimatesline][:line]
-    eline.technology_id = params[:estimatesline][:technology_id]
+    eline = EstimatesLine.find_by(:id => params[:estimates_line][:estimate_line_id])
+    eline.line = params[:estimates_line][:line]
+    eline.technology_id = params[:estimates_line][:technology_id]
     if eline.save
       @notif_type = 'info'
       @notif_message = t('estimate_line_updated_successfully')
@@ -44,10 +46,12 @@ class EstimateslineController < ApplicationController
       @notif_type = 'danger'
       @notif_message = t('error_missing_fields')
     end
-    @eitem_id = params[:estimatesline][:estimate_line_id]
+    @eitem_id = params[:estimates_line][:estimate_line_id]
     @eitem_section_id = eline.estimates_sections_id
     @eitem_sheet_id = EstimatesSection.find_by_id(eline.estimates_sections_id).estimates_sheet_id
     respond_to do |format|
+      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
+      @sheet = EstimatesSheet.find(@eitem_sheet_id)
       format.js
     end
   end
@@ -96,7 +100,7 @@ class EstimateslineController < ApplicationController
   private
 
     def estimates_line_params
-      params.require(:estimatesline).permit(:estimate_id, :estimates_sections_id, :technology_id, :line_number, :line, :complexity, :hours_min, :hours_max)
+      params.require(:estimate_line).permit(:estimate_id, :estimates_sections_id, :technology_id, :line_number, :line, :complexity, :hours_min, :hours_max)
     end
 
     def sort_column

@@ -48,7 +48,7 @@
             <div class="modal fade" id="elmodal<%= eitem.id %>" tabindex="-1" role="dialog" aria-labelledby="elmodal<%= eitem.id %>_title" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
-                  <%= form_for edit_estimatesline_path(eitem), :id => params[:id], :remote => true do |f| %>
+                  <%= form_for eitem, :url => estimatesline_path(eitem), :id => params[:id], :remote => true do |f| %>
                   <%= f.hidden_field :estimate_id, value: eitem.estimate_id %>
                   <%= f.hidden_field :estimates_sheet_id, value: eitem_sheet_id %>
                   <%= f.hidden_field :estimate_line_id, value: eitem.id %>
