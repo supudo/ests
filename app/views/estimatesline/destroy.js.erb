@@ -1,1 +1,2 @@
-$('#grid-estimatelines<%= @current.estimates_sections_id %>').html("<%= escape_javascript(render :partial => 'estimatesline/lines', :locals => { :estimatesline => @estimatesline }) %>");
+$('#grid-estimatesections').html("<%= escape_javascript(render  :partial => 'estimatessection/sections', :locals => { :estimatessection => @estimatessection, :sheet => @sheet }) %>");
+showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

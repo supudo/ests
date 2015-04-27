@@ -107,7 +107,8 @@ class EstimatesController < ApplicationController
     Estimate.find(params[:id]).destroy
     respond_to do |format|
       @estimates = Estimate.paginate(page: params[:page], :per_page => 10)
-      flash[:success] = t('estimate_destroyed')
+      @notif_type = 'info'
+      @notif_message = t('destimate_destroyed')
       format.js
     end
   end

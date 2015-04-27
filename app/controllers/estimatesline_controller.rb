@@ -61,8 +61,10 @@ class EstimateslineController < ApplicationController
     eid = @current.estimate_id
     EstimatesLine.find(params[:line_id]).destroy
     respond_to do |format|
-      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
-      @estimatesline = EstimatesLine.where(:estimate_id => @current.estimate_id, :estimates_sections_id => @current.estimates_sections_id).order("line_number ASC")
+      @estimatessection = EstimatesSection.where(:estimate_id => eid).order("id ASC")
+      @sheet = EstimatesSheet.find(@estimatessection.first.estimates_sheet_id)
+      @notif_type = 'success'
+      @notif_message = t('delete_sucess')
       format.js
     end
   end
