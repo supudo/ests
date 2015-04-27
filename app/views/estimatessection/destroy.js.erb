@@ -1,0 +1,2 @@
+$('#grid-estimatesections').html("<%= escape_javascript(render  :partial => 'estimatessection/sections', :locals => { :sheet => @sheet }) %>");
+showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

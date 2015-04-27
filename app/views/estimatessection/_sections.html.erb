@@ -23,7 +23,7 @@ end
       <div class="modal fade" id="stitlemodal<%= section.id %>" tabindex="-1" role="dialog" aria-labelledby="stitlemodal<%= section.id %>_title" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <%= form_for :estimate_section, :url => estimatessection_update_path, :id => section.id, :method => 'update', :remote => true do |f| %>
+            <%= form_for :estimate_section, :url => estimatessection_update_path, :id => section.id, :remote => true do |f| %>
             <%= f.hidden_field :estimate_id, value: section.estimate_id %>
             <%= f.hidden_field :section_id, value: section.id %>
             <%= f.hidden_field :estimates_sheet_id, value: sheet.id %>
@@ -49,7 +49,10 @@ end
       </div> <!-- / Modal -->
 
       <div class="btn-group" style="padding-bottom: 4px">
-        <%= button_to esitem, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-danger", :remote => true  do %>
+        <%= button_to estimatessection_destroy_path, :id => section.id, data: { confirm: t('delete_confirm') }, class: "btn btn-danger", :remote => true  do %>
+          <%= hidden_field_tag :estimate_id, section.estimate_id %>
+          <%= hidden_field_tag :section_id, section.id %>
+          <%= hidden_field_tag :estimates_sheet_id, sheet.id %>
           <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
         <% end %>
       </div>

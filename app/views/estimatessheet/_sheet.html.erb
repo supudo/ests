@@ -62,9 +62,6 @@
 
 <br />
 
-<div class="panel panel-default">
-  <div class="panel-heading"><strong><%= t('estimate_lines') %></strong></div>
-  <div id="grid-estimatesections">
-    <%= render partial: 'estimatessection/sections', locals: { estimatessection: @estimatessection, sheet: sheet } %>
-  </div>
+<div id="grid-estimatesections">
+  <%= render partial: 'estimatessection/sections', locals: { estimatessection: @estimatessection, sheet: sheet } %>
 </div>

@@ -39,16 +39,20 @@ class EstimatessectionController < ApplicationController
       @eitem_id = esection.id
       @new_title = estimates_section_params[:title]
       @notif_type = 'success'
-      @notif_message = t('sections_updated_successfully')
+      @notif_message = t('delete_sucess')
       format.js
     end
   end
 
   def destroy
-    @current = EstimatesSection.find(params[:id])
-    eid = @current.estimate_id
-    EstimatesSection.find(params[:id]).destroy
-    redirect_to(:back)
+    EstimatesSection.find(params[:section_id]).destroy
+    @estimatessection = EstimatesSection.where(:estimate_id => params[:estimate_id]).order("id ASC")
+    @sheet = EstimatesSheet.find(params[:estimates_sheet_id])
+    respond_to do |format|
+      @notif_type = 'success'
+      @notif_message = t('delete_sucess')
+      format.js
+    end
   end
 
   private

@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   get 'collections' => 'collections#index'
 
   post 'estimatessection/update' => 'estimatessection#update'
+  post 'estimatessection/destroy' => 'estimatessection#destroy'
 
   get 'signup' => 'users#new'
   get 'login/index'
