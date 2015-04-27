@@ -1,1 +1,1 @@
-$('#grid-estimatelines<%= @current.estimates_sections_id %>').html("<%= escape_javascript(render :partial => 'estimatesline/lines', :locals => { :estimatesline => @estimatesline }) %>");
+$('#grid-estimatelines<%= @current_section.id %>').html("<%= escape_javascript(render :partial => 'estimatessection/section_lines', :locals => { :estimatesline => @estimatesline, :eitem_section_id => @current_section.id, :eitem_sheet_id => @current_section.estimates_sheet_id }) %>");

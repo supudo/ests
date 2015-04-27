@@ -71,7 +71,7 @@ class EstimateslineController < ApplicationController
 
   def moveup
     @current = EstimatesLine.find(params[:id])
-    @above = EstimatesLine.find_by(:line_number => (@current.line_number - 1), :estimate_id => @current.estimate_id)
+    @above = EstimatesLine.where("line_number < ? AND estimates_sections_id = ?", @current.line_number, @current.estimates_sections_id).order("line_number ASC").first
     ln = @above.line_number
     @above.line_number = @current.line_number
     @above.save
@@ -80,13 +80,14 @@ class EstimateslineController < ApplicationController
     respond_to do |format|
       @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
       @estimatesline = EstimatesLine.where(:estimate_id => @current.estimate_id, :estimates_sections_id => @current.estimates_sections_id).order("line_number ASC")
+      @current_section = EstimatesSection.find(@current.estimates_sections_id)
       format.js
     end
   end
 
   def movedown
     @current = EstimatesLine.find(params[:id])
-    @bellow = EstimatesLine.find_by(:line_number => (@current.line_number + 1), :estimate_id => @current.estimate_id)
+    @bellow = EstimatesLine.where("line_number > ? AND estimates_sections_id = ?", @current.line_number, @current.estimates_sections_id).order("line_number ASC").first
     ln = @bellow.line_number
     @bellow.line_number = @current.line_number
     @bellow.save
@@ -95,6 +96,7 @@ class EstimateslineController < ApplicationController
     respond_to do |format|
       @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
       @estimatesline = EstimatesLine.where(:estimate_id => @current.estimate_id, :estimates_sections_id => @current.estimates_sections_id).order("line_number ASC")
+      @current_section = EstimatesSection.find(@current.estimates_sections_id)
       format.js
     end
   end
