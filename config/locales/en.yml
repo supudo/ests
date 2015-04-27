@@ -53,6 +53,7 @@ en:
   estimate_hours_min_max: "Min/Max Hours"
   estimate_technologies_percent_min: "Technologies Percentage - Min Hours"
   estimate_technologies_percent_max: "Technologies Percentage - Max Hours"
+  estimate_technology_complexity: "Technology - Complexity"
 
   title_edit_user: "Edit user"
   edit_user_header: "Update your profile"

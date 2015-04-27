@@ -39,6 +39,7 @@ class EstimateslineController < ApplicationController
     eline = EstimatesLine.find_by(:id => params[:estimates_line][:estimate_line_id])
     eline.line = params[:estimates_line][:line]
     eline.technology_id = params[:estimates_line][:technology_id]
+    eline.complexity = params[:estimates_line][:complexity]
     if eline.save
       @notif_type = 'info'
       @notif_message = t('estimate_line_updated_successfully')
