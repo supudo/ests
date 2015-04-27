@@ -168,6 +168,7 @@ bg:
   estimate_sheet: "Страница"
   estimate_sheet_already_exists: "Такава страница вече съществува."
   estimate_sheet_created_successfully: "Страницата е направена успешно."
+  delete_sheet: "Изтрий Страницата"
 
   positions: "Позиции"
   position_already_exists: "Позицията вече съществува."

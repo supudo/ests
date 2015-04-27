@@ -158,6 +158,7 @@ en:
   estimate_sheet: "Sheet"
   estimate_sheet_already_exists: "Estimate Sheet already exists."
   estimate_sheet_created_successfully: "Estimates Sheet created successfully."
+  delete_sheet: "Delete Sheet"
 
   positions: "Positions"
   position_already_exists: "Position already exists."
