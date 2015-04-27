@@ -1,9 +1,12 @@
-
 <div class="panel with-nav-tabs panel-primary">
   <div class="panel-heading">
     <ul class="nav nav-tabs">
       <% @estimates_sheets.each do |panel| %>
         <li<%= panel == @estimates_sheets.first ? " class='active'".html_safe : "" %>><a href="#sh<%= panel.id %>" data-toggle="tab"><%= panel.title %></a></li>
+        <%= button_to estimatessheet_path(panel), method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true  do %>
+          <%= hidden_field "estimatessheet", :estimate_id, value: panel.estimate_id %>
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        <% end %>
       <% end %>
     </ul>
   </div>

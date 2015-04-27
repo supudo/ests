@@ -31,7 +31,15 @@ class EstimatessheetController < ApplicationController
   end
 
   def destroy
-    redirect_to(:back)
+    EstimatesSheet.find(params[:id]).destroy
+    respond_to do |format|
+      @estimates_sheets = EstimatesSheet.where(:estimate_id => estimatessheet_params[:estimate_id]).order("id ASC")
+      @estimatessection = EstimatesSection.where(:estimate_id => estimatessheet_params[:estimate_id]).order("id ASC")
+      @technology = Technology.order("title ASC")
+      @notif_type = 'info'
+      @notif_message = t('delete_sucess')
+      format.js
+    end
   end
 
   private
