@@ -58,7 +58,9 @@ end
       </div>
 
       <div style="float: right">
-        <%= form_for :esection_technology do |f| %>
+        <%= form_for :esection_technology, :url => url_for(:controller => "estimatessection", 
+                                        :action => "show",
+                                        "id" => section.id), :id => section.id, :remote => true do |f| %>
         <div class="form-group">
         <%=
           f.collection_select(:tid, 

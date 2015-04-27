@@ -160,6 +160,7 @@ en:
   estimate_sheet_already_exists: "Estimate Sheet already exists."
   estimate_sheet_created_successfully: "Estimates Sheet created successfully."
   delete_sheet: "Delete Sheet"
+  section_technology_changed: "Section Lines Technology updated successfully."
 
   positions: "Positions"
   position_already_exists: "Position already exists."

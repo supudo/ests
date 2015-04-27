@@ -170,6 +170,7 @@ bg:
   estimate_sheet_already_exists: "Такава страница вече съществува."
   estimate_sheet_created_successfully: "Страницата е направена успешно."
   delete_sheet: "Изтрий Страницата"
+  section_technology_changed: "Технологията на линиите в секцията беше променена успешно."
 
   positions: "Позиции"
   position_already_exists: "Позицията вече съществува."
