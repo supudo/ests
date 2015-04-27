@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   resources :users
   resources :projects
   resources :estimates
-  resources :estimatessection
   resources :clients
   resources :permissions
   resources :commenthistory
@@ -38,7 +37,7 @@ Rails.application.routes.draw do
 
   resources :estimatessection do
     member do
-      get :destroy, :create
+      get :show, :create, :update, :destroy
     end
   end
 

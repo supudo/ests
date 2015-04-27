@@ -32,12 +32,12 @@ class EstimatessectionController < ApplicationController
   end
 
   def update
-    esection = EstimatesSection.find_by(:id => params[:estimates_section][:section_id])
-    esection.title = params[:estimates_section][:title]
+    esection = EstimatesSection.find_by(:id => estimates_section_params[:section_id])
+    esection.title = estimates_section_params[:title]
     esection.save
     respond_to do |format|
       @eitem_id = esection.id
-      @new_title = params[:estimates_section][:title]
+      @new_title = estimates_section_params[:title]
       format.js
     end
   end
