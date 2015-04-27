@@ -24,10 +24,8 @@ class EstimatessectionController < ApplicationController
         @notif_message = t('error_missing_fields')
       end
     end
-    #@section_id = @es.id
-    #@sheet_id = @es.estimates_sheet_id
     @estimatessection = EstimatesSection.where(:estimate_id => @es.estimate_id).order("id ASC")
-    @sheet = EstimatesSheet.find(@es.estimates_sheet_id)
+    @sheet = EstimatesSheet.find(estimates_section_params[:estimates_sheet_id])
     respond_to do |format|
       format.js
     end

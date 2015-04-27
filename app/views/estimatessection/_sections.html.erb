@@ -23,8 +23,10 @@ end
       <div class="modal fade" id="stitlemodal<%= section.id %>" tabindex="-1" role="dialog" aria-labelledby="stitlemodal<%= section.id %>_title" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <%= form_for :estimatessection, :url => estimatessection_index_path, :id => params[:id], :remote => true do |f| %>
+            <%= form_for :estimate_section, :url => estimatessection_index_path, :id => params[:id], :remote => true do |f| %>
+            <%= f.hidden_field :estimate_id, value: section.estimate_id %>
             <%= f.hidden_field :section_id, value: section.id %>
+            <%= f.hidden_field :estimates_sheet_id, value: sheet.id %>
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="stitlemodal<%= section.id %>_title" style="color: #000;"><%= t('section') %></h4>
