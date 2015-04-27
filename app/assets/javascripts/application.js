@@ -53,10 +53,11 @@ $(document).ready(function() {
     location.href = EstsRoutes.estimates_path() + '/' + ui.item.id + '?locale=' + QueryString.locale;
   });
 
-  $('#ac_estimate_line').bind('railsAutocomplete.select', function(event, ui) {
-     $("#estimate_line_technology_id").val(ui.item.technology);
-     $("#estimate_line_complexity").val(ui.item.complexity);
-     $("#estimate_line_hours_min").val(ui.item.hours_min);
-     $("#estimate_line_hours_max").val(ui.item.hours_max);
+  $('[id^=ac_estimate_line_]').bind('railsAutocomplete.select', function(event, ui) {
+    var elid = this.id.replace('ac_estimate_line_', '');
+    $("#estimate_line_technology_id_" + elid).val(ui.item.technology);
+    $("#estimate_line_complexity_" + elid).val(ui.item.complexity);
+    $("#estimate_line_hours_min_" + elid).val(ui.item.hours_min);
+    $("#estimate_line_hours_max_" + elid).val(ui.item.hours_max);
   });
 });
