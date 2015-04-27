@@ -40,7 +40,7 @@
               <%= f.collection_select :technology_id, @technology, :id, :title, {:include_blank => t('dashes') + ' ' + t('technology')}, {:class => 'form-control'} %>
             </div>
             <div class="form-group">
-              <%= f.autocomplete_field :line, autocomplete_estimatesline_line_estimatesline_index_path(:format => :json), class: 'form-control', placeholder: t('line'), autofocus: true %>
+              <%= f.autocomplete_field :line, autocomplete_estimatesline_line_estimatesline_index_path(:format => :json), class: 'form-control', placeholder: t('line'), autofocus: true, 'data-delimiter' => '|', :multiple => true, :id => 'ac_estimate_line' %>
             </div>
             <div class="form-group">
               <%= f.select :complexity, options_for_select((1..10).step(1).to_a.map{|s| ["#{s}", s]}), {:include_blank => t('dashes') + ' ' + t('complexity')}, {:class => 'form-control'} %>

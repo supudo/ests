@@ -6,7 +6,16 @@ class EstimateslineController < ApplicationController
   def show
     @estimatesline = EstimatesLine.where("line LIKE (?)", "%#{params[:term]}%").order("line ASC")
     respond_to do |format|
-      format.json {render json: @estimatesline.map { |line| {:id => line.id, :label => line.line, :value => line.line} }}
+      format.json {render json: @estimatesline.map { |line| {:id => line.id,
+                                                             :label => line.line + ' (O = ' + line.complexity.to_s + '; ' + line.technology.title + ')',
+                                                             :value => line.line,
+                                                             :technology => line.technology_id,
+                                                             :complexity => line.complexity,
+                                                             :hours_min => line.hours_min,
+                                                             :hours_max => line.hours_max
+                                                            }
+                                                    }
+                  }
     end
   end
 
