@@ -142,7 +142,8 @@ bg:
 
   section: "Секция"
   section_already_exists: "Секцията вече съществува."
-  sections_created_successfully: "Секцията беше създадена суепшно."
+  sections_created_successfully: "Секцията беше създадена усепшно."
+  sections_updated_successfully: "Секцията беше променена успешно."
   estimate_lines: "WBR Линии"
   line: "Линия"
   complexity: "Комплексност"

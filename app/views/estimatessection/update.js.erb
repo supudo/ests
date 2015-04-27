@@ -1,2 +1,3 @@
 $('#st_closebtn_<%= @eitem_id %>').click();
-$('#stitle_<%= @eitem_id %>').html('<%= escape_javascript(@new_title) %>')
+$('#stitle_<%= @eitem_id %>').html('<%= escape_javascript(@new_title) %>');
+showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

@@ -32,12 +32,14 @@ class EstimatessectionController < ApplicationController
   end
 
   def update
-    esection = EstimatesSection.find_by(:id => estimates_section_params[:section_id])
+    esection = EstimatesSection.find(estimates_section_params[:section_id])
     esection.title = estimates_section_params[:title]
     esection.save
     respond_to do |format|
       @eitem_id = esection.id
       @new_title = estimates_section_params[:title]
+      @notif_type = 'success'
+      @notif_message = t('sections_updated_successfully')
       format.js
     end
   end
@@ -52,7 +54,7 @@ class EstimatessectionController < ApplicationController
   private
 
     def estimates_section_params
-      params.require(:estimate_section).permit(:estimate_id, :estimates_sheet_id, :title)
+      params.require(:estimate_section).permit(:estimate_id, :section_id, :estimates_sheet_id, :title)
     end
 
     def esection_technology_params

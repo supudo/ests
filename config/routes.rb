@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   resources :users
   resources :projects
   resources :estimates
+  resources :estimatessection
+  resources :estimatesassumption
+  resources :estimatessheet
   resources :clients
   resources :permissions
   resources :commenthistory
@@ -12,8 +15,8 @@ Rails.application.routes.draw do
   resources :estimate_importer
   resources :positions
 
-  resources :estimate_importer do
-    collection { post :import }
+  resources :estimates do
+    get :autocomplete_estimate_title, :on => :collection
   end
 
   resources :estimatesline do
@@ -23,22 +26,8 @@ Rails.application.routes.draw do
     get :autocomplete_estimatesline_line, :on => :collection
   end
 
-  resources :estimatesassumption do
-    member do
-      get :destroy, :create
-    end
-  end
-
-  resources :estimatessheet do
-    member do
-      get :destroy, :create, :show
-    end
-  end
-
-  resources :estimatessection do
-    member do
-      get :show, :create, :update, :destroy
-    end
+  resources :estimate_importer do
+    collection { post :import }
   end
 
   resources :clients do
@@ -53,16 +42,14 @@ Rails.application.routes.draw do
     get :autocomplete_user_searchname, :on => :collection
   end
 
-  resources :estimates do
-    get :autocomplete_estimate_title, :on => :collection
-  end
-
   get 'about/new'
   get 'help/new'
   get 'about/new'
   root 'login#index'
 
   get 'collections' => 'collections#index'
+
+  post 'estimatessection/update' => 'estimatessection#update'
 
   get 'signup' => 'users#new'
   get 'login/index'

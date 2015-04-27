@@ -143,6 +143,7 @@ en:
   section: "Section"
   section_already_exists: "Section already exists."
   sections_created_successfully: "Section created successfully."
+  sections_updated_successfully: "Section updated successfully."
   estimate_lines: "WBR Lines"
   line: "Line"
   complexity: "Complexity"
