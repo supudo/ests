@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   resources :estimatesline do
     member do
-      get :moveup, :movedown, :destroy, :create, :update
+      get :show, :moveup, :movedown, :destroy, :create, :update
     end
     get :autocomplete_estimatesline_line, :on => :collection
   end
