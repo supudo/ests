@@ -16,9 +16,11 @@ class EstimateExporterController < ApplicationController
     f_sheet = f_workbook.add_worksheet(:name => t('export_general_sheet'))
 
     # Styles
+    cs_header = f_workbook.styles.add_style :bg_color => "4C", :fg_color => "FF", :alignment => { :horizontal=> :left, :vertical => :center }, :b => true
     cs_black = f_workbook.styles.add_style :bg_color => "4C", :fg_color => "FF", :alignment => { :horizontal=> :left }, :b => true
     cs_black_right = f_workbook.styles.add_style :bg_color => "4C", :fg_color => "FF", :alignment => { :horizontal=> :right }, :b => true
     cs_grey = f_workbook.styles.add_style :bg_color => "CC", :fg_color => "00", :alignment => { :horizontal=> :left }, :b => true
+    cs_grey_dark = f_workbook.styles.add_style :bg_color => "80", :fg_color => "ff", :alignment => { :horizontal=> :left }, :b => true
     cs_bold = f_workbook.styles.add_style :b => true, :alignment => { :horizontal=> :left }
     cs_normal = f_workbook.styles.add_style :alignment => { :horizontal=> :left }
 
@@ -55,17 +57,24 @@ class EstimateExporterController < ApplicationController
     end
     f_sheet.merge_cells("B" + counter_row.to_s + ":G" + counter_row.to_s)
     f_sheet.add_row ['', '', '', '', '', '', ''], :style => [0, borders[:top], borders[:top], borders[:top], borders[:top], borders[:top], borders[:top], borders[:top]]
+    f_sheet.add_row []
+    counter_row += 1
 
     # Header
-    f_sheet.add_row ['', t('estimate_task'), t('estimate_hours_min'), t('estimate_hours_max'), t('estimate_rate'), t('estimate_cost_min'), t('estimate_cost_max')], :style => [nil, cs_black, cs_black, cs_black, cs_black, cs_black, cs_black]
-    f_sheet.add_row [], :style => [nil, cs_black, cs_black, cs_black, cs_black, cs_black, cs_black]
+    f_sheet.add_row ['', t('estimate_task'), t('estimate_hours_min'), t('estimate_hours_max'), t('estimate_rate'), t('estimate_cost_min'), t('estimate_cost_max')], :style => [nil, cs_header, cs_header, cs_header, cs_header, cs_header, cs_header]
+    f_sheet.add_row [''], :style => [nil, cs_header, cs_header, cs_header, cs_header, cs_header, cs_header]
+    counter_row += 2
+    letts = ["B", "C", "D", "E", "F", "G"]
+    letts.each do |letter|
+      f_sheet.merge_cells(letter + counter_row.to_s + ":" + letter + (counter_row + 1).to_s)
+    end
 
     # Sheets
     estimate_total_hours_min = 0
     estimate_total_hours_max = 0
     sheets.each do |sheet|
 
-      f_sheet.add_row ['', sheet.title, '', '', '', '', ''], :style => [nil, cs_black, cs_black, cs_black, cs_black, cs_black, cs_black]
+      f_sheet.add_row ['', sheet.title, '', '', '', '', ''], :style => [nil, cs_grey_dark, cs_grey_dark, cs_grey_dark, cs_grey_dark, cs_grey_dark, cs_grey_dark]
 
       # Sections
       sections = EstimatesSection.where(:estimates_sheet_id => sheet.id).order("id ASC")
