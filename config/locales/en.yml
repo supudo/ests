@@ -30,6 +30,12 @@ en:
   export_general_sheet: "General"
   export_date: "Date"
   export_version: "Version"
+  estimate_task: "Task"
+  estimate_hours_min: "Min Hours"
+  estimate_hours_max: "Max Hours"
+  estimate_rate: "Rate"
+  estimate_cost_min: "Min Cost"
+  estimate_cost_max: "Max Cost"
 
   title_login: "Login"
   welcome_login: "Welcome to Ests"

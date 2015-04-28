@@ -30,6 +30,12 @@ bg:
   export_general_sheet: "Общи"
   export_date: "Дата"
   export_version: "Версия"
+  estimate_task: "Задача"
+  estimate_hours_min: "Мин Часове"
+  estimate_hours_max: "Макс Часове"
+  estimate_rate: "Тарифа"
+  estimate_cost_min: "Мин Цена"
+  estimate_cost_max: "Макс Цена"
 
   title_login: "Логин"
   welcome_login: "Добре дошли в Ests"
