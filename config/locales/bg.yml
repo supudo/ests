@@ -27,6 +27,7 @@ bg:
   style: "Стил"
   delete_sucess: "Елемента е изтрит."
 
+  export_estimate: "Свали Оценката"
   export_general_sheet: "Оценка"
   export_date: "Дата"
   export_version: "Версия"

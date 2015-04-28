@@ -19,7 +19,12 @@
               <%= f.collection_select :owner_user_id, @users, :id, :full_name, {}, {:class => 'form-control'} %>
             </div>
             <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
+            <br />
+      <% end %>
+            <%= button_to estimate_exporter_index_path, :method => 'get', :id => @estimate.id, class: "btn btn-lg btn-warning btn-block" do %>
+              <%= hidden_field_tag :estimate_id, @estimate.id %>
+              <%= t('export_estimate') %>
+            <% end %>
           </fieldset>
         </div>
       </div>
-      <% end %>
