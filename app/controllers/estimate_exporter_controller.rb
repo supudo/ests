@@ -39,13 +39,14 @@ class EstimateExporterController < ApplicationController
       c += 1
     end
     f_sheet.add_row []
-      
+
+    # Header
     f_sheet.add_row ['', t('estimate_task'), t('estimate_hours_min'), t('estimate_hours_max'), t('estimate_rate'), t('estimate_cost_min'), t('estimate_cost_max')], :style => [nil, cs_black, cs_black, cs_black, cs_black, cs_black, cs_black]
     f_sheet.add_row [], :style => [nil, cs_black, cs_black, cs_black, cs_black, cs_black, cs_black]
 
+    # Sheets
     estimate_total_hours_min = 0
     estimate_total_hours_max = 0
-    # Sheets
     sheets.each do |sheet|
 
       f_sheet.add_row ['', sheet.title, '', '', '', '', ''], :style => [nil, cs_black, cs_black, cs_black, cs_black, cs_black, cs_black]
