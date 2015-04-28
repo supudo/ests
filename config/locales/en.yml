@@ -27,7 +27,7 @@ en:
   style: "Style"
   delete_sucess: "Item was deleted."
 
-  export_general_sheet: "General"
+  export_general_sheet: "Estimation"
   export_date: "Date"
   export_version: "Version"
   estimate_task: "Task"
