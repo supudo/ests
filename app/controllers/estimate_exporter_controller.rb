@@ -15,16 +15,18 @@ class EstimateExporterController < ApplicationController
     f_workbook = estimate_file.workbook
     f_sheet = f_workbook.add_worksheet(:name => t('export_general_sheet'))
 
+    # Styles
     cs_black = f_workbook.styles.add_style :bg_color => "4C", :fg_color => "FF", :alignment => { :horizontal=> :left }, :b => true
     cs_black_right = f_workbook.styles.add_style :bg_color => "4C", :fg_color => "FF", :alignment => { :horizontal=> :right }, :b => true
     cs_grey = f_workbook.styles.add_style :bg_color => "CC", :fg_color => "00", :alignment => { :horizontal=> :left }, :b => true
-    cs_bold = f_workbook.styles.add_style :b => true
+    cs_bold = f_workbook.styles.add_style :b => true, :alignment => { :horizontal=> :left }
+    cs_normal = f_workbook.styles.add_style :alignment => { :horizontal=> :left }
 
     #General
     f_sheet.add_row [t('client'), file_client], :style => [cs_bold, nil]
     f_sheet.add_row [t('project'), file_project], :style => [cs_bold, nil]
     f_sheet.add_row [t('export_date'), Time.now.strftime("%d/%m/%Y")], :style => [cs_bold, nil]
-    f_sheet.add_row [t('export_version'), 1], :style => [cs_bold, nil]
+    f_sheet.add_row [t('export_version'), 1], :style => [cs_bold, cs_normal]
     f_sheet.add_row []
 
     # Assumptions
@@ -58,7 +60,7 @@ class EstimateExporterController < ApplicationController
         # Lines
         lines = EstimatesLine.where(:estimates_sections_id => f_section.id).order("line_number ASC")
         lines.each do |f_line|
-          f_sheet.add_row ['', f_line.line, f_line.hours_min, f_line.hours_max, '', '', '']
+          f_sheet.add_row ['', f_line.line, f_line.hours_min, f_line.hours_max, '', '', ''], :style => [nil, cs_normal, cs_normal, cs_normal, cs_normal, cs_normal, cs_normal]
         end
 
       end
