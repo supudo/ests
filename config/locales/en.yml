@@ -27,6 +27,10 @@ en:
   style: "Style"
   delete_sucess: "Item was deleted."
 
+  export_general_sheet: "General"
+  export_date: "Date"
+  export_version: "Version"
+
   title_login: "Login"
   welcome_login: "Welcome to Ests"
   login: "Login"
@@ -137,6 +141,7 @@ en:
   import: "Import"
   upload_file: "Browse File"
   assumption: "Assumption"
+  assumptions: "Assumptions"
   estimate_assumption_already_exists: "Assumption already exists."
   estimate_assumption_created_successfully: "Assumption created successfully."
   is_header: "Is Header?"

@@ -27,6 +27,10 @@ bg:
   style: "Стил"
   delete_sucess: "Елемента е изтрит."
 
+  export_general_sheet: "Общи"
+  export_date: "Дата"
+  export_version: "Версия"
+
   title_login: "Логин"
   welcome_login: "Добре дошли в Ests"
   login: "Логин"
@@ -136,7 +140,8 @@ bg:
   estimate_already_exists: "Такава оценка вече съществува."
   import: "Импорт"
   upload_file: "Качи Файл"
-  assumption: "Предположения"
+  assumption: "Предположение"
+  assumptions: "Предположения"
   estimate_assumption_already_exists: "Предположението вече съществува."
   estimate_assumption_created_successfully: "Оценката беше създадена суепшно."
   is_header: "Секция?"
