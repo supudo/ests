@@ -44,6 +44,11 @@ bg:
   rate_created_successfully: "Ставката беше създадена успешно."
   rate_updated_successfully: "Ставката беше промемена успешно."
 
+  engagement_models: "Модели на Работа"
+  create_engagement_model: "Създай Модел на Работа"
+  engagement_model_created_successfully: "Моделът на Работа беше създаден успешно."
+  engagement_model_updated_successfully: "Моделът на Работа беше променен успешно."
+
   export_estimate: "Свали Оценката"
   export_general_sheet: "Оценка"
   export_date: "Дата"
@@ -251,6 +256,7 @@ bg:
     positions_index: "Позиции"
     collections_index: "Колекции"
     rates_index: "Ставки"
+    engagement_models_index: "Модели на Работа"
 
   defaults: &defaults
     month_names:

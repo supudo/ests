@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :estimate_exporter
   resources :currencies
   resources :rates
+  resources :engagement_models
 
   resources :estimates do
     get :autocomplete_estimate_title, :on => :collection

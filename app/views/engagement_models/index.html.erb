@@ -1,0 +1,21 @@
+<% provide(:title, t('engagement_models')) %>
+<h1><%= t('engagement_models') %></h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+
+    <%= form_tag :url => engagement_models_path do |f| %>
+    <div class="input-group">
+      <button type="button" class="btn btn-primary" aria-label="Left Align">
+        <%= link_to t('create_engagement_model'), new_engagement_model_path, :class => "btn-primary" %>
+      </button>
+    </div>
+    <% end %>
+
+  </div>
+  <div id="engagement_models-list">
+    <%= render partial: 'engagement_models/list', locals: { engagement_models: @engagement_models } %>
+  </div>
+</div>
+
+<%= will_paginate @engagement_models, :renderer => BootstrapPagination::Rails %>

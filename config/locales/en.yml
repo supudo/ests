@@ -44,6 +44,11 @@ en:
   rate_created_successfully: "Rate created successfully."
   rate_updated_successfully: "Rate updated successfully."
 
+  engagement_models: "Engagement Models"
+  create_engagement_model: "Create Engagement Model"
+  engagement_model_created_successfully: "Engagement Model created successfully."
+  engagement_model_updated_successfully: "Engagement Model updated successfully."
+
   export_estimate: "Export Estimate"
   export_general_sheet: "Estimation"
   export_date: "Date"
@@ -251,6 +256,7 @@ en:
     positions_index: "Positions"
     collections_index: "Collections"
     rates_index: "Rates"
+    engagement_models_index: "Engagement Models"
 
   defaults: &defaults
     formats:
