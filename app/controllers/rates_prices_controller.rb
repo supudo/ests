@@ -18,7 +18,7 @@ class RatesPricesController < ApplicationController
       end
     end
     respond_to do |format|
-      @rates_prices = RatesPrice.where(:rate_id => rates_price_params[:rate_id])
+      @rates_prices = RatesPrice.where(:rate_id => rates_price_params[:rate_id]).order("technology_id ASC, profile ASC")
       @rate_id = rates_price_params[:rate_id]
       @rate = Rate.find(@rate_id)
       @technology = Technology.order("title ASC")
@@ -39,7 +39,7 @@ class RatesPricesController < ApplicationController
         @notif_message = t('error_missing_fields')
       end
       respond_to do |format|
-        @rates_prices = RatesPrice.where(:rate_id => rates_price_params[:rate_id])
+        @rates_prices = RatesPrice.where(:rate_id => rates_price_params[:rate_id]).order("technology_id ASC, profile ASC")
         @rate_id = rates_price_params[:rate_id]
         @rate = Rate.find(@rate_id)
         @rate_price_id = params[:rates_price][:rate_price_id]
@@ -56,7 +56,7 @@ class RatesPricesController < ApplicationController
     @engagement_model_id = RatesPrice.find(params[:id]).engagement_model_id
     RatesPrice.find(params[:rp][:rate_price_id]).destroy
     respond_to do |format|
-      @rates_prices = RatesPrice.where(:rate_id => params[:rp][:rate_id])
+      @rates_prices = RatesPrice.where(:rate_id => params[:rp][:rate_id]).order("technology_id ASC, profile ASC")
       @rate_id = params[:rp][:rate_id]
       @rate = Rate.find(@rate_id)
       @technology = Technology.order("title ASC")

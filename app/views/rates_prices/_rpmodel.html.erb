@@ -3,7 +3,7 @@ curr = Currency.find(@rate.currency_id)
 currency_symbol = curr.symbol
 currency_code = curr.code
 %>
-<% rates_prices = RatesPrice.where(:rate_id => rate_id, :engagement_model_id => engagement_model_id).order("profile ASC") %>
+<% rates_prices = RatesPrice.where(:rate_id => rate_id, :engagement_model_id => engagement_model_id).order("technology_id ASC, profile ASC") %>
 <a name="anchratesprices"></a>
 <table class="table table-striped pretty">
   <thead>
