@@ -5,7 +5,7 @@
   <div class="span6 offset3">
     <div class="col-md-6">
 
-      <%= form_for(@rate) do |f| %>
+      <%= form_for(@rate, :remote => true) do |f| %>
       <div class="panel panel-default">
         <div class="panel-heading"><strong><%= t('details') %></strong></div>
         <div class="panel-body">

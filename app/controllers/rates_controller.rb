@@ -54,14 +54,14 @@ class RatesController < ApplicationController
     ActiveRecord::Base.transaction do
       @rate = Rate.find_by_id(params[:id])
       if @rate.update_attributes(rate_params)
-        flash[:success] = t('rate_updated_successfully')
-        redirect_to :rates
+        @notif_type = 'info'
+        @notif_message = t('rate_updated_successfully')
       else
-        add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-        add_breadcrumb I18n.t('breadcrumbs.rates_index'), rates_path
-        add_breadcrumb I18n.t('breadcrumbs.edit')
-        flash[:error] = t('error_missing_fields')
-        render 'edit'
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
+      end
+      respond_to do |format|
+        format.js
       end
     end
   end
