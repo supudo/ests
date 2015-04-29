@@ -27,8 +27,17 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "clients", ["title"], name: "title", unique: true, using: :btree
 
   create_table "currencies", force: :cascade do |t|
+    t.string "code",   limit: 5,   null: false
     t.string "title",  limit: 255, null: false
     t.string "symbol", limit: 10,  null: false
+  end
+
+  create_table "currencies_exchange", force: :cascade do |t|
+    t.integer  "from_currency_id", limit: 4,                          null: false
+    t.integer  "to_currency_id",   limit: 4,                          null: false
+    t.decimal  "rate",                       precision: 13, scale: 4, null: false
+    t.integer  "modified_user_id", limit: 4,                          null: false
+    t.datetime "modified_date",                                       null: false
   end
 
   create_table "estimates", force: :cascade do |t|
