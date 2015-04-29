@@ -61,6 +61,12 @@ class RatesController < ApplicationController
         @notif_message = t('error_missing_fields')
       end
       respond_to do |format|
+        @currency_code = Currency.find(rate_params[:currency_id]).code
+        @rates_prices = RatesPrice.where(:rate_id => @rate.id)
+        @rate_id = @rate.id
+        @technology = Technology.order("title ASC")
+        @engagement_models = EngagementModel.order("title ASC")
+        @currencies = Currency.order("title ASC")
         format.js
       end
     end

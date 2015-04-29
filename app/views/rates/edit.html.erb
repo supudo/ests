@@ -45,14 +45,14 @@
 
             <div class="form-group">
               <div class="input-group">
-                <div class="input-group-addon"><%= Currency.find(@rate.currency_id).code %></div>
+                <div class="input-group-addon" id="rp_daily_rate"><%= Currency.find(@rate.currency_id).code %></div>
                 <%= f.number_field :daily_rate, :step => 'any', class: 'form-control', placeholder: t('daily_rate') %>
               </div>
             </div>
 
             <div class="form-group">
               <div class="input-group">
-                <div class="input-group-addon"><%= Currency.find(@rate.currency_id).code %></div>
+                <div class="input-group-addon" id="rp_hourly_rate"><%= Currency.find(@rate.currency_id).code %></div>
                 <%= f.number_field :hourly_rate, :step => 'any', class: 'form-control', placeholder: t('hourly_rate') %>
               </div>
             </div>

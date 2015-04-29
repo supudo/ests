@@ -1,1 +1,4 @@
+$('#rp_daily_rate').html('<%= escape_javascript(@currency_code) %>');
+$('#rp_hourly_rate').html('<%= escape_javascript(@currency_code) %>');
+$('#ratesprices-list').html("<%= escape_javascript(render :partial => 'rates_prices/list', :locals => { :rates_prices => @rates_prices, :rate_id => @rate_id }) %>");
 showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');
