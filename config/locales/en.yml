@@ -32,6 +32,11 @@ en:
   create_currency: "Create Currency"
   code: "Code"
   symbol: "Symbol"
+  exchange_rates: "Exchange Rates"
+  value: "Value"
+  currency_already_exists: "Currency already exists."
+  currency_created_successfully: "Currency was created successfully."
+  currency_updated_successfully: "Currency was updated successfully."
 
   export_estimate: "Export Estimate"
   export_general_sheet: "Estimation"

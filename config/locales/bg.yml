@@ -32,6 +32,11 @@ bg:
   create_currency: "Създай валута"
   code: "Код"
   symbol: "Символ"
+  exchange_rates: "Обменни курсове"
+  value: "Стойност"
+  currency_already_exists: "Валутата вече съществува."
+  currency_created_successfully: "Валутата беше създадена успешно."
+  currency_updated_successfully: "Валутата беше променена успешно."
 
   export_estimate: "Свали Оценката"
   export_general_sheet: "Оценка"

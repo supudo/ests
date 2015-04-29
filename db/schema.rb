@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "symbol", limit: 10,  null: false
   end
 
-  create_table "currencies_exchange", force: :cascade do |t|
+  create_table "currencies_exchanges", force: :cascade do |t|
     t.integer  "from_currency_id", limit: 4,                          null: false
     t.integer  "to_currency_id",   limit: 4,                          null: false
     t.decimal  "rate",                       precision: 13, scale: 4, null: false

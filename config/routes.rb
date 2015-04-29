@@ -21,6 +21,12 @@ Rails.application.routes.draw do
     get :autocomplete_estimate_title, :on => :collection
   end
 
+  resources :currencies do
+    member do
+      post :update_rates
+    end
+  end
+
   resources :estimatesline do
     member do
       get :show, :moveup, :movedown, :destroy, :create, :update
