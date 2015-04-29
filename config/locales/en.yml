@@ -27,6 +27,12 @@ en:
   style: "Style"
   delete_sucess: "Item was deleted."
 
+  currencies: "Currencies"
+  currency: "Currency"
+  create_currency: "Create Currency"
+  code: "Code"
+  symbol: "Symbol"
+
   export_estimate: "Export Estimate"
   export_general_sheet: "Estimation"
   export_date: "Date"

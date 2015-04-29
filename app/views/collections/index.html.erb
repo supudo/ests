@@ -7,6 +7,7 @@
       <li class="active"><a href="#tab1primary" data-toggle="tab"><%= t('technologies') %></a></li>
       <li><a href="#tab2primary" data-toggle="tab"><%= t('project_statuses') %></a></li>
       <li><a href="#tab3primary" data-toggle="tab"><%= t('positions') %></a></li>
+      <li><a href="#tab4primary" data-toggle="tab"><%= t('currencies') %></a></li>
     </ul>
   </div>
   <div class="panel-body" style="padding: 2px">
@@ -19,6 +20,9 @@
       </div>
       <div class="tab-pane fade" id="tab3primary">
         <%= render partial: 'collections/list_positions', locals: { positions: @positions } %>
+      </div>
+      <div class="tab-pane fade" id="tab4primary">
+        <%= render partial: 'collections/list_currencies', locals: { currencies: @currencies } %>
       </div>
     </div>
   </div>

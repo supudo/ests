@@ -27,6 +27,12 @@ bg:
   style: "Стил"
   delete_sucess: "Елемента е изтрит."
 
+  currencies: "Валути"
+  currency: "Валута"
+  create_currency: "Създай валута"
+  code: "Код"
+  symbol: "Символ"
+
   export_estimate: "Свали Оценката"
   export_general_sheet: "Оценка"
   export_date: "Дата"

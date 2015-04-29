@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="input-group">
+      <button type="button" class="btn btn-primary" aria-label="Left Align">
+        <%= link_to t('create_currency'), new_currency_path, :class => "btn-primary" %>
+      </button>
+    </div>
+  </div>
+  <div id="currencies-list">
+    <%= render partial: 'currencies/list', locals: { currencies: @currencies } %>
+  </div>
+</div>
+
+<%= will_paginate @currencies, :renderer => BootstrapPagination::Rails %>

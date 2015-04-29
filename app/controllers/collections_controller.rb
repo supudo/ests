@@ -7,6 +7,7 @@ class CollectionsController < ApplicationController
     @technologies = Technology.order("title ASC").paginate(page: params[:page], :per_page => 10)
     @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page], :per_page => 10)
     @positions = Position.order("title ASC").paginate(page: params[:page], :per_page => 10)
+    @currencies = Currency.order("title ASC").paginate(page: params[:page], :per_page => 10)
   end
 
 end

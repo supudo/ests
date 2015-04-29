@@ -26,6 +26,11 @@ ActiveRecord::Schema.define(version: 0) do
 
   add_index "clients", ["title"], name: "title", unique: true, using: :btree
 
+  create_table "currencies", force: :cascade do |t|
+    t.string "title",  limit: 255, null: false
+    t.string "symbol", limit: 10,  null: false
+  end
+
   create_table "estimates", force: :cascade do |t|
     t.string   "title",            limit: 255, null: false
     t.integer  "client_id",        limit: 4,   null: false
@@ -152,6 +157,30 @@ ActiveRecord::Schema.define(version: 0) do
 
   add_index "projects_technologies", ["project_id"], name: "project_id", using: :btree
   add_index "projects_technologies", ["technology_id"], name: "technology_id", using: :btree
+
+  create_table "rates", force: :cascade do |t|
+    t.string   "title",            limit: 255, null: false
+    t.integer  "modified_user_id", limit: 4,   null: false
+    t.datetime "modified_date",                null: false
+  end
+
+  create_table "rates_categories", force: :cascade do |t|
+    t.integer "rate_id", limit: 4,   null: false
+    t.string  "title",   limit: 255, null: false
+  end
+
+  add_index "rates_categories", ["rate_id"], name: "rate_id", using: :btree
+
+  create_table "rates_prices", force: :cascade do |t|
+    t.integer "rate_id",          limit: 4,                          null: false
+    t.integer "rate_category_id", limit: 4,                          null: false
+    t.integer "currency_id",      limit: 2,                          null: false
+    t.integer "technology_id",    limit: 4,                          null: false
+    t.decimal "daily_rate",                 precision: 13, scale: 4, null: false
+    t.decimal "hourly_rate",                precision: 13, scale: 4, null: false
+  end
+
+  add_index "rates_prices", ["technology_id"], name: "technology_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string "title", limit: 255, null: false
