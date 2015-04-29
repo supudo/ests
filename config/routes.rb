@@ -18,15 +18,16 @@ Rails.application.routes.draw do
   resources :currencies
   resources :rates
   resources :engagement_models
-
-  resources :estimates do
-    get :autocomplete_estimate_title, :on => :collection
-  end
+  resources :rates_prices
 
   resources :currencies do
     member do
       post :update_rates
     end
+  end
+
+  resources :estimates do
+    get :autocomplete_estimate_title, :on => :collection
   end
 
   resources :estimatesline do
@@ -61,6 +62,7 @@ Rails.application.routes.draw do
 
   post 'estimatessection/update' => 'estimatessection#update'
   post 'estimatessection/destroy' => 'estimatessection#destroy'
+  #post 'ratesprices/create' => 'ratesprices#create'
 
   get 'signup' => 'users#new'
   get 'login/index'

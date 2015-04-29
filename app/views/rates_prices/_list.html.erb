@@ -1,0 +1,18 @@
+<div class="panel with-nav-tabs panel-primary">
+  <div class="panel-heading">
+    <ul class="nav nav-tabs">
+      <% @engagement_models.each do |item| %>
+      <li<%= item == @engagement_models.first ? " class='active'".html_safe : "" %>>
+        <a href="#em<%= item.id %>" data-toggle="tab"><%= item.title %></a>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+    <div class="tab-content">
+    <% @engagement_models.each do |item| %>
+    <div class="tab-pane<%= item == @engagement_models.first ? "  fade in active".html_safe : "" %>" id="em<%= item.id %>">
+      <%= render partial: 'rates_prices/rpmodel', locals: { engagement_model_id: item.id, rate_id: rate_id } %>
+    </div>
+    <% end %>
+    </div>
+</div>

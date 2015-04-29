@@ -181,14 +181,18 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "rates_prices", force: :cascade do |t|
-    t.integer "rate_id",             limit: 4,                          null: false
-    t.integer "engagement_model_id", limit: 4,                          null: false
-    t.integer "currency_id",         limit: 2,                          null: false
-    t.integer "technology_id",       limit: 4,                          null: false
-    t.decimal "daily_rate",                    precision: 13, scale: 4, null: false
-    t.decimal "hourly_rate",                   precision: 13, scale: 4, null: false
+    t.integer  "rate_id",             limit: 4,                            null: false
+    t.integer  "engagement_model_id", limit: 4,                            null: false
+    t.integer  "currency_id",         limit: 2,                            null: false
+    t.integer  "technology_id",       limit: 4,                            null: false
+    t.string   "profile",             limit: 255
+    t.decimal  "daily_rate",                      precision: 13, scale: 4, null: false
+    t.decimal  "hourly_rate",                     precision: 13, scale: 4, null: false
+    t.integer  "modified_user_id",    limit: 4,                            null: false
+    t.datetime "modified_date",                                            null: false
   end
 
+  add_index "rates_prices", ["modified_user_id"], name: "modified_user_id", using: :btree
   add_index "rates_prices", ["technology_id"], name: "technology_id", using: :btree
 
   create_table "roles", force: :cascade do |t|

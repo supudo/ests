@@ -1,0 +1,2 @@
+$('#ratesprices-list').html("<%= escape_javascript(render :partial => 'rates_prices/list', :locals => { :rates_prices => @rates_prices }) %>");
+showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

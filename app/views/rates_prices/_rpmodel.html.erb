@@ -1,0 +1,29 @@
+<% rates_prices = RatesPrice.where(:rate_id => rate_id, :engagement_model_id => engagement_model_id).order("profile ASC") %>
+<a name="anchratesprices"></a>
+<table class="table table-striped pretty">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th><%= t('title') %></th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% rates_prices.each do |item| %>
+    <tr>
+      <td class="vert-align" width="1%" scope="row"><%= item.id %></td>
+      <td class="vert-align">
+        <%= item.profile %>
+      </td>
+      <td width="1%" nowrap>
+        <%= button_to rates_price_path(item), method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true do %>
+          <%= hidden_field :rp, :rate_price_id, value: item.id %>
+          <%= hidden_field :rp, :engagement_model_id, value: engagement_model_id %>
+          <%= hidden_field :rp, :rate_id, value: rate_id %>
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

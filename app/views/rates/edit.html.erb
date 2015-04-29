@@ -1,10 +1,11 @@
 <% provide(:title, t('breadcrumbs.edit')) %>
 <h1><%= t('breadcrumbs.edit') %></h1>
 
-<%= form_for(@rate) do |f| %>
 <div class="row">
   <div class="span6 offset3">
-    <div class="col-md-4 col-md-offset-4">
+    <div class="col-md-6">
+
+      <%= form_for(@rate) do |f| %>
       <div class="panel panel-default">
         <div class="panel-heading"><strong><%= t('details') %></strong></div>
         <div class="panel-body">
@@ -16,7 +17,52 @@
           </fieldset>
         </div>
       </div>
+      <% end %>
+
+    </div>
+  </div>
+  <div class="span6 offset3">
+    <div class="col-md-6">
+
+      <%= form_for :rates_price, :url => rates_prices_path, :remote => true do |f| %>
+      <%= f.hidden_field :rate_id, value: params[:id] %>
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong><%= t('rate_price') %></strong></div>
+        <div class="panel-body">
+          <fieldset>
+            <div class="form-group">
+              <%= f.collection_select :rate_id, @rates, :id, :title, {}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
+              <%= f.collection_select :engagement_model_id, @engagement_models, :id, :title, {:include_blank => t('dashes') + ' ' + t('engagement_model')}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
+              <%= f.collection_select :currency_id, @currencies, :id, :title, {:include_blank => t('dashes') + ' ' + t('currency')}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
+              <%= f.collection_select :technology_id, @technology, :id, :title, {:include_blank => t('dashes') + ' ' + t('technology')}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
+              <%= f.text_field :profile, class: 'form-control', placeholder: t('profile'), autofocus: true %>
+            </div>
+            <div class="form-group">
+              <%= f.number_field :daily_rate, class: 'form-control', placeholder: t('daily_rate') %>
+            </div>
+            <div class="form-group">
+              <%= f.number_field :hourly_rate, class: 'form-control', placeholder: t('hourly_rate') %>
+            </div>
+            <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
+          </fieldset>
+        </div>
+      </div>
+      <% end %>
+
     </div>
   </div>
 </div>
-<% end %>
+
+<br />
+
+<div id="ratesprices-list">
+  <%= render :partial => 'rates_prices/list', :locals => { :rate_id => @rate.id } %>
+</div>

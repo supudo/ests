@@ -18,7 +18,12 @@ class RatesController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.rates_index'), rates_path
     add_breadcrumb I18n.t('breadcrumbs.edit')
-    @rate = Rate.find(params[:id])
+    @rates = Rate.order("title ASC")
+    @rate = @rates.where(:id => params[:id]).first
+    @technology = Technology.order("title ASC")
+    @engagement_models = EngagementModel.order("title ASC")
+    @currencies = Currency.order("title ASC")
+    @rates_prices = RatesPrice.where(:rate_id => params[:id])
     render 'edit'
   end
 
