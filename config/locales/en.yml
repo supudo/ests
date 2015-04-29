@@ -38,6 +38,12 @@ en:
   currency_created_successfully: "Currency was created successfully."
   currency_updated_successfully: "Currency was updated successfully."
 
+  rates: "Rates"
+  create_rate: "Create Rate"
+  rate_already_exists: "Rate already exists."
+  rate_created_successfully: "Rate created successfully."
+  rate_updated_successfully: "Rate updated successfully."
+
   export_estimate: "Export Estimate"
   export_general_sheet: "Estimation"
   export_date: "Date"
@@ -244,6 +250,7 @@ en:
     estimates_importer_index: "Importer"
     positions_index: "Positions"
     collections_index: "Collections"
+    rates_index: "Rates"
 
   defaults: &defaults
     formats:

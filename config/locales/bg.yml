@@ -38,6 +38,12 @@ bg:
   currency_created_successfully: "Валутата беше създадена успешно."
   currency_updated_successfully: "Валутата беше променена успешно."
 
+  rates: "Ставки"
+  create_rate: "Създай Ставка"
+  rate_already_exists: "Ставка беше създадена успешно."
+  rate_created_successfully: "Ставката беше създадена успешно."
+  rate_updated_successfully: "Ставката беше промемена успешно."
+
   export_estimate: "Свали Оценката"
   export_general_sheet: "Оценка"
   export_date: "Дата"
@@ -244,6 +250,7 @@ bg:
     estimates_importer_index: "Импорт"
     positions_index: "Позиции"
     collections_index: "Колекции"
+    rates_index: "Ставки"
 
   defaults: &defaults
     month_names:

@@ -40,6 +40,9 @@ ActiveRecord::Schema.define(version: 0) do
     t.datetime "modified_date",                                       null: false
   end
 
+  add_index "currencies_exchanges", ["from_currency_id"], name: "from_currency_id", using: :btree
+  add_index "currencies_exchanges", ["to_currency_id"], name: "to_currency_id", using: :btree
+
   create_table "estimates", force: :cascade do |t|
     t.string   "title",            limit: 255, null: false
     t.integer  "client_id",        limit: 4,   null: false

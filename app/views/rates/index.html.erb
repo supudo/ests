@@ -1,0 +1,21 @@
+<% provide(:title, t('rates')) %>
+<h1><%= t('rates') %></h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+
+    <%= form_tag :url => rates_path do |f| %>
+    <div class="input-group">
+      <button type="button" class="btn btn-primary" aria-label="Left Align">
+        <%= link_to t('create_rate'), new_rate_path, :class => "btn-primary" %>
+      </button>
+    </div>
+    <% end %>
+
+  </div>
+  <div id="rates-list">
+    <%= render partial: 'rates/list', locals: { rates: @rates } %>
+  </div>
+</div>
+
+<%= will_paginate @rates, :renderer => BootstrapPagination::Rails %>
