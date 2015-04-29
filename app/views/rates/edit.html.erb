@@ -34,9 +34,6 @@
         <div class="panel-body">
           <fieldset>
             <div class="form-group">
-              <%= f.collection_select :rate_id, @rates, :id, :title, {}, {:class => 'form-control'} %>
-            </div>
-            <div class="form-group">
               <%= f.collection_select :engagement_model_id, @engagement_models, :id, :title, {:include_blank => t('dashes') + ' ' + t('engagement_model')}, {:class => 'form-control'} %>
             </div>
             <div class="form-group">
@@ -46,10 +43,10 @@
               <%= f.text_field :profile, class: 'form-control', placeholder: t('profile'), autofocus: true %>
             </div>
             <div class="form-group">
-              <%= f.number_field :daily_rate, class: 'form-control', placeholder: t('daily_rate') %>
+              <%= f.number_field :daily_rate, :step => 'any', class: 'form-control', placeholder: t('daily_rate') %>
             </div>
             <div class="form-group">
-              <%= f.number_field :hourly_rate, class: 'form-control', placeholder: t('hourly_rate') %>
+              <%= f.number_field :hourly_rate, :step => 'any', class: 'form-control', placeholder: t('hourly_rate') %>
             </div>
             <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
           </fieldset>

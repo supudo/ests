@@ -2,7 +2,7 @@ class RatesPricesController < ApplicationController
   before_action :signed_in_user
 
   def create
-    if RatesPrice.exists?(:engagement_model_id => rates_price_params[:engagement_model_id], :currency_id => rates_price_params[:currency_id], :technology_id => rates_price_params[:technology_id], :profile => rates_price_params[:profile])
+    if RatesPrice.exists?(:engagement_model_id => rates_price_params[:engagement_model_id], :technology_id => rates_price_params[:technology_id], :profile => rates_price_params[:profile])
       @notif_type = 'danger'
       @notif_message = t('rateprice_already_exists')
     else
@@ -19,7 +19,36 @@ class RatesPricesController < ApplicationController
     end
     respond_to do |format|
       @rates_prices = RatesPrice.where(:rate_id => rates_price_params[:rate_id])
+      @rate_id = rates_price_params[:rate_id]
+      @rate = Rate.find(@rate_id)
+      @technology = Technology.order("title ASC")
+      @engagement_models = EngagementModel.order("title ASC")
+      @currencies = Currency.order("title ASC")
       format.js
+    end
+  end
+
+  def update
+    ActiveRecord::Base.transaction do
+      rate_price = RatesPrice.find(params[:rates_price][:rate_price_id])
+      if rate_price.update_attributes(rates_price_params)
+        @notif_type = 'success'
+        @notif_message = t('rateprice_created_successfully')
+      else
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
+      end
+      respond_to do |format|
+        @rates_prices = RatesPrice.where(:rate_id => rates_price_params[:rate_id])
+        @rate_id = rates_price_params[:rate_id]
+        @rate = Rate.find(@rate_id)
+        @rate_price_id = params[:rates_price][:rate_price_id]
+        @technology = Technology.order("title ASC")
+        @engagement_models = EngagementModel.order("title ASC")
+        @currencies = Currency.order("title ASC")
+        @engagement_model_id = rate_price.engagement_model_id
+        format.js
+      end
     end
   end
 
@@ -38,6 +67,6 @@ class RatesPricesController < ApplicationController
   private
 
     def rates_price_params
-      params.require(:rates_price).permit(:rate_id, :engagement_model_id, :currency_id, :technology_id, :profile, :hourly_rate, :daily_rate)
+      params.require(:rates_price).permit(:rate_id, :engagement_model_id, :technology_id, :profile, :hourly_rate, :daily_rate)
     end
 end

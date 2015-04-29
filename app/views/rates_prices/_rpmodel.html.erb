@@ -18,7 +18,52 @@
       <td class="vert-align" width="1%" scope="row"><%= item.id %></td>
       <td class="vert-align" width="1%" nowrap><%= Technology.find(item.technology_id).title %></td>
       <td class="vert-align">
-        <%= item.profile %>
+
+        <a data-toggle="modal" data-target="#rpmodal<%= item.id %>">
+          <%= item.profile %>
+        </a>
+
+        <!-- Modal -->
+        <div class="modal fade" id="rpmodal<%= item.id %>" tabindex="-1" role="dialog" aria-labelledby="rpmodal<%= item.id %>_title" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <%= form_for item, :url => rates_prices_update_path, :id => item.id, :remote => true do |f| %>
+              <%= f.hidden_field :rate_id, value: rate_id %>
+              <%= f.hidden_field :engagement_model_id, value: engagement_model_id %>
+              <%= f.hidden_field :rate_price_id, value: item.id %>
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="rpmodal<%= item.id %>_title"><%= t('rate_price') %></h4>
+              </div>
+              <div class="modal-body">
+                <fieldset>
+                  <div class="form-group">
+                    <%= f.collection_select :engagement_model_id, @engagement_models, :id, :title, {:include_blank => t('dashes') + ' ' + t('engagement_model')}, {:class => 'form-control'} %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.collection_select :technology_id, @technology, :id, :title, {:include_blank => t('dashes') + ' ' + t('technology')}, {:class => 'form-control'} %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.text_field :profile, class: 'form-control', placeholder: t('profile'), autofocus: true %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.number_field :daily_rate, :step => 'any', class: 'form-control', placeholder: t('daily_rate') %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.number_field :hourly_rate, :step => 'any', class: 'form-control', placeholder: t('hourly_rate') %>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="modal-footer">
+                <button id="closebtn_<%= item.id %>" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
+                <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
+              </div>
+              <% end %>
+
+            </div>
+          </div>
+        </div> <!-- / Modal -->
+        
       </td>
       <td class="vert-align center" width="1%" nowrap><%= item.daily_rate.to_s + ' ' + currency_str %></td>
       <td class="vert-align center" width="1%" nowrap><%= item.hourly_rate.to_s + ' ' + currency_str %></td>

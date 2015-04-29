@@ -62,7 +62,7 @@ Rails.application.routes.draw do
 
   post 'estimatessection/update' => 'estimatessection#update'
   post 'estimatessection/destroy' => 'estimatessection#destroy'
-  #post 'ratesprices/create' => 'ratesprices#create'
+  patch 'rates_prices/update' => 'rates_prices#update'
 
   get 'signup' => 'users#new'
   get 'login/index'
