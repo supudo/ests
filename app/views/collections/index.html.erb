@@ -4,24 +4,24 @@
 <div class="panel with-nav-tabs panel-primary">
   <div class="panel-heading">
     <ul class="nav nav-tabs">
-      <li class="active"><a href="#tab1primary" data-toggle="tab"><%= t('technologies') %></a></li>
-      <li><a href="#tab2primary" data-toggle="tab"><%= t('project_statuses') %></a></li>
-      <li><a href="#tab3primary" data-toggle="tab"><%= t('positions') %></a></li>
-      <li><a href="#tab4primary" data-toggle="tab"><%= t('currencies') %></a></li>
+      <li class="active"><a href="#tab1" data-toggle="tab"><%= t('technologies') %></a></li>
+      <li><a href="#tab2" data-toggle="tab"><%= t('project_statuses') %></a></li>
+      <li><a href="#tab3" data-toggle="tab"><%= t('positions') %></a></li>
+      <li><a href="#tab4" data-toggle="tab"><%= t('currencies') %></a></li>
     </ul>
   </div>
   <div class="panel-body" style="padding: 2px">
     <div class="tab-content">
-      <div class="tab-pane fade in active" id="tab1primary">
+      <div class="tab-pane fade in active" id="tab1">
         <%= render partial: 'collections/list_technologies', locals: { technologies: @technologies } %>
       </div>
-      <div class="tab-pane fade" id="tab2primary">
+      <div class="tab-pane fade" id="tab2">
         <%= render partial: 'collections/list_project_statuses', locals: { project_statuses: @project_statuses } %>
       </div>
-      <div class="tab-pane fade" id="tab3primary">
+      <div class="tab-pane fade" id="tab3">
         <%= render partial: 'collections/list_positions', locals: { positions: @positions } %>
       </div>
-      <div class="tab-pane fade" id="tab4primary">
+      <div class="tab-pane fade" id="tab4">
         <%= render partial: 'collections/list_currencies', locals: { currencies: @currencies } %>
       </div>
     </div>
