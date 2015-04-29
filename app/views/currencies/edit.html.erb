@@ -39,7 +39,7 @@
           <div class="form-group<%= flash[rate.to_currency_id] != nil ? ' has-error has-feedback' : '' %>">
             <div class="input-group">
               <div class="input-group-addon"><%= Currency.find_by(:id => rate.to_currency_id).code %></div>
-              <%= f.number_field :rate, class: 'form-control', placeholder: t('value'), :value => rate.rate, :name => 'rates[' + rate.to_currency_id.to_s + ']' %>
+              <%= f.number_field :rate, :step => 'any', class: 'form-control', placeholder: t('value'), :value => rate.rate, :name => 'rates[' + rate.to_currency_id.to_s + ']' %>
             </div>
           </div>
           <% end %>

@@ -1,4 +1,8 @@
-<% currency_str = Currency.find(@rate.currency_id).symbol %>
+<%
+curr = Currency.find(@rate.currency_id)
+currency_symbol = curr.symbol
+currency_code = curr.code
+%>
 <% rates_prices = RatesPrice.where(:rate_id => rate_id, :engagement_model_id => engagement_model_id).order("profile ASC") %>
 <a name="anchratesprices"></a>
 <table class="table table-striped pretty">
@@ -46,12 +50,21 @@
                   <div class="form-group">
                     <%= f.text_field :profile, class: 'form-control', placeholder: t('profile'), autofocus: true %>
                   </div>
+
                   <div class="form-group">
-                    <%= f.number_field :daily_rate, :step => 'any', class: 'form-control', placeholder: t('daily_rate') %>
+                    <div class="input-group">
+                      <div class="input-group-addon"><%= currency_code %></div>
+                      <%= f.number_field :daily_rate, :step => 'any', class: 'form-control', placeholder: t('daily_rate') %>
+                    </div>
                   </div>
+
                   <div class="form-group">
-                    <%= f.number_field :hourly_rate, :step => 'any', class: 'form-control', placeholder: t('hourly_rate') %>
+                    <div class="input-group">
+                      <div class="input-group-addon"><%= currency_code %></div>
+                      <%= f.number_field :hourly_rate, :step => 'any', class: 'form-control', placeholder: t('hourly_rate') %>
+                    </div>
                   </div>
+
                 </fieldset>
               </div>
               <div class="modal-footer">
@@ -65,8 +78,8 @@
         </div> <!-- / Modal -->
         
       </td>
-      <td class="vert-align center" width="1%" nowrap><%= item.daily_rate.to_s + ' ' + currency_str %></td>
-      <td class="vert-align center" width="1%" nowrap><%= item.hourly_rate.to_s + ' ' + currency_str %></td>
+      <td class="vert-align center" width="1%" nowrap><%= item.daily_rate.to_s + ' ' + currency_symbol %></td>
+      <td class="vert-align center" width="1%" nowrap><%= item.hourly_rate.to_s + ' ' + currency_symbol %></td>
       <td width="1%" nowrap>
         <%= button_to rates_price_path(item), method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true do %>
           <%= hidden_field :rp, :rate_price_id, value: item.id %>
