@@ -58,6 +58,10 @@ class RatesPricesController < ApplicationController
     respond_to do |format|
       @rates_prices = RatesPrice.where(:rate_id => params[:rp][:rate_id])
       @rate_id = params[:rp][:rate_id]
+      @rate = Rate.find(@rate_id)
+      @technology = Technology.order("title ASC")
+      @engagement_models = EngagementModel.order("title ASC")
+      @currencies = Currency.order("title ASC")
       @notif_type = 'info'
       @notif_message = t('delete_sucess')
       format.js
