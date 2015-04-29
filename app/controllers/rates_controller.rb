@@ -12,6 +12,7 @@ class RatesController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.rates_index'), rates_path
     add_breadcrumb I18n.t('breadcrumbs.new')
     @rate = Rate.new
+    @currencies = Currency.order("title ASC")
   end
 
   def show
@@ -78,7 +79,7 @@ class RatesController < ApplicationController
   private
 
     def rate_params
-      params.require(:rate).permit(:title)
+      params.require(:rate).permit(:title, :currency_id)
     end
 
 end

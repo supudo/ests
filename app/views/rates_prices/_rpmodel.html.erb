@@ -1,10 +1,14 @@
+<% currency_str = Currency.find(@rate.currency_id).symbol %>
 <% rates_prices = RatesPrice.where(:rate_id => rate_id, :engagement_model_id => engagement_model_id).order("profile ASC") %>
 <a name="anchratesprices"></a>
 <table class="table table-striped pretty">
   <thead>
     <tr>
       <th>#</th>
-      <th><%= t('title') %></th>
+      <th><%= t('technology') %></th>
+      <th><%= t('profile') %></th>
+      <th nowrap><%= t('daily_rate') %></th>
+      <th nowrap><%= t('hourly_rate') %></th>
       <th>&nbsp;</th>
     </tr>
   </thead>
@@ -12,9 +16,12 @@
     <% rates_prices.each do |item| %>
     <tr>
       <td class="vert-align" width="1%" scope="row"><%= item.id %></td>
+      <td class="vert-align" width="1%" nowrap><%= Technology.find(item.technology_id).title %></td>
       <td class="vert-align">
         <%= item.profile %>
       </td>
+      <td class="vert-align center" width="1%" nowrap><%= item.daily_rate.to_s + ' ' + currency_str %></td>
+      <td class="vert-align center" width="1%" nowrap><%= item.hourly_rate.to_s + ' ' + currency_str %></td>
       <td width="1%" nowrap>
         <%= button_to rates_price_path(item), method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true do %>
           <%= hidden_field :rp, :rate_price_id, value: item.id %>

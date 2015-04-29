@@ -4,5 +4,4 @@ class Technology < ActiveRecord::Base
   has_many :projects, :through => :project_technologies
 
   validates :title, presence: true
-
 end

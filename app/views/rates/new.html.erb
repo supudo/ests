@@ -12,6 +12,9 @@
             <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
               <%= f.text_field :title, class: 'form-control', placeholder: t('title'), autofocus: true %>
             </div>
+            <div class="form-group">
+              <%= f.collection_select :currency_id, @currencies, :id, :title, {:include_blank => t('dashes') + ' ' + t('currency')}, {:class => 'form-control'} %>
+            </div>
             <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
           </fieldset>
         </div>
