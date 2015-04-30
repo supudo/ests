@@ -116,7 +116,7 @@
           </td>
           <td class="col-md-1 vert-align center"><%= eitem.hours_min %></td>
           <td class="col-md-1 vert-align center"><%= eitem.hours_max %></td>
-          <td class="col-md-1 vert-align center"><%= price %> - <%= (price * eitem.hours_min).to_s + ' ' + currency_symbol %></td>
+          <td class="col-md-1 vert-align center"><%= (price * eitem.hours_min).to_s + ' ' + currency_symbol %></td>
           <td class="col-md-1 vert-align center"><%= (price * eitem.hours_max).to_s + ' ' + currency_symbol %></td>
           <td width="1%" nowrap>
             <%= button_to estimatesline_path(eitem), method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true  do %>
