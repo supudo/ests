@@ -2,6 +2,7 @@
     <thead>
       <tr>
         <th><%= t('id') %></th>
+        <th nowrap><%= t('technology') %></th>
         <th><%= t('title') %></th>
         <th>&nbsp;</th>
       </tr>
@@ -10,6 +11,7 @@
       <% @positions.each do |item| %>
       <tr>
         <td width="2%" scope="row" class="vert-align"><%= item.id %></td>
+        <td width="2%" class="vert-align" nowrap><%= Technology.find(item.technology_id).title %></td>
         <td class="vert-align">
 
           <a data-toggle="modal" data-target="#wmodal<%= item.id %>">
@@ -29,6 +31,9 @@
                   <fieldset>
                     <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
                       <%= f.text_field :title, class: 'form-control', placeholder: t('position'), autofocus: true %>
+                    </div>
+                    <div class="form-group">
+                      <%= f.collection_select :technology_id, @technologies, :id, :title, {}, {:class => 'form-control'} %>
                     </div>
                     <div class="form-group">
                       <div class="checkbox"><label><%= f.check_box :is_am %> <%= t('is_am') %></label></div>

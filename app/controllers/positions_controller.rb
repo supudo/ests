@@ -5,11 +5,12 @@ class PositionsController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.positions_index'), :positions_path
     @position = Position.new
-    @positions = Position.order("title ASC").paginate(page: params[:page], :per_page => 100)
+    @technologies = Technology.order("title ASC")
+    @positions = Position.order("technology_id ASC, title ASC").paginate(page: params[:page], :per_page => 100)
   end
 
   def create
-    if Position.exists?(:title => position_params[:title])
+    if Position.exists?(:title => position_params[:title], :technology_id => position_params[:technology_id])
       @notif_type = 'info'
       @notif_message = t('position_already_exists')
     else
@@ -25,14 +26,18 @@ class PositionsController < ApplicationController
       end
     end
     respond_to do |format|
-      @positions = Position.order("title ASC").paginate(page: params[:page], :per_page => 100)
+      @positions = Position.order("technology_id ASC, title ASC").paginate(page: params[:page], :per_page => 100)
+      @technologies = Technology.order("title ASC")
       format.js
     end
   end
 
   def update
-    ActiveRecord::Base.transaction do
-      @position = Position.find_by_id(params[:id])
+    @position = Position.find_by_id(params[:id])
+    if Position.exists?(:title => position_params[:title], :technology_id => position_params[:technology_id])
+      @notif_type = 'info'
+      @notif_message = t('position_already_exists')
+    else
       if @position.update_attributes(position_params)
         @notif_type = 'success'
         @notif_message = t('position_updated_successfully')
@@ -40,11 +45,12 @@ class PositionsController < ApplicationController
         @notif_type = 'danger'
         @notif_message = t('error_missing_fields')
       end
-      respond_to do |format|
-        @positions = Position.order("title ASC").paginate(page: params[:page], :per_page => 100)
-        @item_id = @position.id
-        format.js
-      end
+    end
+    respond_to do |format|
+      @positions = Position.order("technology_id ASC, title ASC").paginate(page: params[:page], :per_page => 100)
+      @technologies = Technology.order("title ASC")
+      @item_id = @position.id
+      format.js
     end
   end
 
@@ -53,7 +59,8 @@ class PositionsController < ApplicationController
     pid = @current.id
     Position.find(params[:id]).destroy
     respond_to do |format|
-      @positions = Position.order("title ASC").paginate(page: params[:page], :per_page => 100)
+      @positions = Position.order("technology_id ASC, title ASC").paginate(page: params[:page], :per_page => 100)
+      @technologies = Technology.order("title ASC")
       format.js
     end
   end
@@ -61,6 +68,6 @@ class PositionsController < ApplicationController
   private
 
     def position_params
-      params.require(:position).permit(:title, :is_am, :is_pdm, :is_rated)
+      params.require(:position).permit(:technology_id, :title, :is_am, :is_pdm, :is_rated)
     end
 end

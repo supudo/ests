@@ -20,6 +20,9 @@
                 <%= f.text_field :title, class: 'form-control', placeholder: t('position'), autofocus: true %>
               </div>
               <div class="form-group">
+                <%= f.collection_select :technology_id, @technologies, :id, :title, {}, {:class => 'form-control'} %>
+              </div>
+              <div class="form-group">
                 <div class="checkbox"><label><%= f.check_box :is_am %> <%= t('is_am') %></label></div>
               </div>
               <div class="form-group">
