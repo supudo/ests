@@ -21,6 +21,13 @@
   </div>
 </div>
 
+<%= button_to estimate_exporter_index_path, :method => 'get', :id => @estimate.id, class: "btn btn-lg btn-warning btn-block" do %>
+  <%= hidden_field_tag :estimate_id, @estimate.id %>
+  <%= t('export_estimate') %>
+<% end %>
+
+<br />
+
 <!--
 <div class="row">
   <div class="container-fluid">
@@ -93,7 +100,6 @@
 <div id="pnl-sheets">
   <%= render partial: 'estimatessheet/sheets' %>
 </div>
-
 
 <%= button_to estimate_exporter_index_path, :method => 'get', :id => @estimate.id, class: "btn btn-lg btn-warning btn-block" do %>
   <%= hidden_field_tag :estimate_id, @estimate.id %>
