@@ -114,9 +114,10 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "positions", force: :cascade do |t|
-    t.string  "title",  limit: 255,             null: false
-    t.integer "is_am",  limit: 1,   default: 0, null: false
-    t.integer "is_pdm", limit: 1,   default: 0, null: false
+    t.string  "title",    limit: 255,             null: false
+    t.integer "is_am",    limit: 1,   default: 0, null: false
+    t.integer "is_pdm",   limit: 1,   default: 0, null: false
+    t.boolean "is_rated", limit: 1,               null: false
   end
 
   add_index "positions", ["title"], name: "title", unique: true, using: :btree
@@ -190,7 +191,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "engagement_model_id", limit: 4,                            null: false
     t.integer  "technology_id",       limit: 4,                            null: false
     t.string   "profile",             limit: 255
-    t.integer  "complexity",          limit: 1,                            null: false
     t.decimal  "daily_rate",                      precision: 13, scale: 4, null: false
     t.decimal  "hourly_rate",                     precision: 13, scale: 4, null: false
     t.integer  "modified_user_id",    limit: 4,                            null: false
@@ -202,11 +202,6 @@ ActiveRecord::Schema.define(version: 0) do
 
   create_table "roles", force: :cascade do |t|
     t.string "title", limit: 255, null: false
-  end
-
-  create_table "stats_projects_per_clients", id: false, force: :cascade do |t|
-    t.string  "client",   limit: 255,             null: false
-    t.integer "projects", limit: 8,   default: 0, null: false
   end
 
   create_table "technologies", force: :cascade do |t|
