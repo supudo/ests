@@ -204,6 +204,11 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "title", limit: 255, null: false
   end
 
+  create_table "stats_projects_per_clients", id: false, force: :cascade do |t|
+    t.string  "client",   limit: 255,             null: false
+    t.integer "projects", limit: 8,   default: 0, null: false
+  end
+
   create_table "technologies", force: :cascade do |t|
     t.string "title", limit: 255, null: false
     t.string "style", limit: 25

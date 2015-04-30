@@ -196,6 +196,7 @@ en:
   cost_max: "Max Cost"
   hours: "Hours"
   total_caps: "TOTAL"
+  total_budget: "Total Budget"
   estimate_line_already_exists: "Line already exists."
   estimate_line_created_successfully: "Line created successfully."
   estimate_line_updated_successfully: "Line updated successfully."

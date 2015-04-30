@@ -196,6 +196,7 @@ bg:
   cost_max: "Макс Цена"
   hours: "Часове"
   total_caps: "ОБЩО"
+  total_budget: "Общ Бюджет"
   estimate_line_already_exists: "Линията вече съществува."
   estimate_line_created_successfully: "Линията е създадена."
   estimate_line_updated_successfully: "Линията е променена."
