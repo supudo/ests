@@ -4,42 +4,29 @@ class TechnologiesController < ApplicationController
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.technologies_index'), :technologies_path
-    @technologies = Technology.order("title ASC").paginate(page: params[:page], :per_page => 10)
-  end
-
-  def new
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.technologies_index'), :technologies_path
-    add_breadcrumb I18n.t('breadcrumbs.new')
     @technology = Technology.new
-  end
-
-  def show
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.technologies_index'), :technologies_path
-    add_breadcrumb I18n.t('breadcrumbs.edit')
-    @technology = Technology.find(params[:id])
-    render 'edit'
+    @technologies = Technology.order("title ASC").paginate(page: params[:page], :per_page => 100)
   end
 
   def create
     if Technology.exists?(:title => technology_params[:title])
-      flash[:success] = t('technology_already_exists')
-      redirect_to :new_project
+      @notif_type = 'info'
+      @notif_message = t('technology_already_exists')
     else
       ActiveRecord::Base.transaction do
         @technology = Technology.new(technology_params)
         if @technology.save
-          flash[:success] = t('technology_created_successfully')
-          redirect_to :collections
+          @notif_type = 'success'
+          @notif_message = t('technology_created_successfully')
         else
-          add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-          add_breadcrumb I18n.t('breadcrumbs.technologies_index'), :technologies_path
-          add_breadcrumb I18n.t('breadcrumbs.new')
-          flash[:error] = t('error_missing_fields')
-          render 'new'
+          @notif_type = 'danger'
+          @notif_message = t('error_missing_fields')
         end
       end
+    end
+    respond_to do |format|
+      @technologies = Technology.order("title ASC").paginate(page: params[:page], :per_page => 100)
+      format.js
     end
   end
 
@@ -47,14 +34,16 @@ class TechnologiesController < ApplicationController
     ActiveRecord::Base.transaction do
       @technology = Technology.find_by_id(params[:id])
       if @technology.update_attributes(technology_params)
-        flash[:success] = t('technology_updated_successfully')
-        redirect_to :collections
+        @notif_type = 'success'
+        @notif_message = t('technology_updated_successfully')
       else
-        add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-        add_breadcrumb I18n.t('breadcrumbs.technologies_index'), :technologies_path
-        add_breadcrumb I18n.t('breadcrumbs.edit')
-        flash[:error] = t('error_missing_fields')
-        render 'edit'
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
+      end
+      respond_to do |format|
+        @technologies = Technology.order("title ASC").paginate(page: params[:page], :per_page => 100)
+        @item_id = @technology.id
+        format.js
       end
     end
   end
@@ -64,7 +53,7 @@ class TechnologiesController < ApplicationController
     pid = @current.id
     Technology.find(params[:id]).destroy
     respond_to do |format|
-      @technologies = Technology.order("title ASC").paginate(page: params[:page], :per_page => 10)
+      @technologies = Technology.order("title ASC").paginate(page: params[:page], :per_page => 100)
       format.js
     end
   end

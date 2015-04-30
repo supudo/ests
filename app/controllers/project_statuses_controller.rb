@@ -4,42 +4,29 @@ class ProjectStatusesController < ApplicationController
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.project_statuses_index'), :project_statuses_path
-    @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page], :per_page => 10)
-  end
-
-  def new
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.project_statuses_index'), :project_statuses_path
-    add_breadcrumb I18n.t('breadcrumbs.new')
     @project_status = ProjectStatus.new
-  end
-
-  def show
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.project_statuses_index'), :project_statuses_path
-    add_breadcrumb I18n.t('breadcrumbs.edit')
-    @project_status = ProjectStatus.find(params[:id])
-    render 'edit'
+    @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page], :per_page => 100)
   end
 
   def create
     if ProjectStatus.exists?(:title => project_statuses_params[:title])
-      flash[:success] = t('project_status_already_exists')
-      redirect_to :new_project
+      @notif_type = 'info'
+      @notif_message = t('project_status_already_exists')
     else
       ActiveRecord::Base.transaction do
         @project_status = ProjectStatus.new(project_statuses_params)
         if @project_status.save
-          flash[:success] = t('project_status_created_successfully')
-          redirect_to :collections
+          @notif_type = 'success'
+          @notif_message = t('project_status_created_successfully')
         else
-          add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-          add_breadcrumb I18n.t('breadcrumbs.project_statuses_index'), :project_statuses_path
-          add_breadcrumb I18n.t('breadcrumbs.new')
-          flash[:error] = t('error_missing_fields')
-          render 'new'
+          @notif_type = 'danger'
+          @notif_message = t('error_missing_fields')
         end
       end
+    end
+    respond_to do |format|
+      @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page], :per_page => 100)
+      format.js
     end
   end
 
@@ -47,14 +34,16 @@ class ProjectStatusesController < ApplicationController
     ActiveRecord::Base.transaction do
       @project_status = ProjectStatus.find_by_id(params[:id])
       if @project_status.update_attributes(project_statuses_params)
-        flash[:success] = t('project_status_updated_successfully')
-        redirect_to :collections
+        @notif_type = 'success'
+        @notif_message = t('project_status_updated_successfully')
       else
-        add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-        add_breadcrumb I18n.t('breadcrumbs.project_statuses_index'), :project_statuses_path
-        add_breadcrumb I18n.t('breadcrumbs.edit')
-        flash[:error] = t('error_missing_fields')
-        render 'edit'
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
+      end
+      respond_to do |format|
+        @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page], :per_page => 100)
+        @item_id = @project_status.id
+        format.js
       end
     end
   end
@@ -64,7 +53,7 @@ class ProjectStatusesController < ApplicationController
     pid = @current.id
     ProjectStatus.find(params[:id]).destroy
     respond_to do |format|
-      @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page], :per_page => 10)
+      @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page], :per_page => 100)
       format.js
     end
   end

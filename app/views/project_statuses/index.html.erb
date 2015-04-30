@@ -1,10 +1,37 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <div class="input-group">
-      <button type="button" class="btn btn-primary" aria-label="Left Align">
-        <%= link_to t('create_project_status'), new_project_status_path, :class => "btn-primary" %>
-      </button>
-    </div>
+
+    <button type="button" class="btn btn-primary" aria-label="Left Align">
+      <a class="btn-primary" data-toggle="modal" data-target="#wmodal0"><%= t('create_project_status') %></a>
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="wmodal0" tabindex="-1" role="dialog" aria-labelledby="wmodal0_title" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <%= form_for @project_status, :remote => true do |f| %>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="wmodal0_title"><%= t('position') %></h4>
+          </div>
+          <div class="modal-body">
+            <fieldset>
+              <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
+                <%= f.text_field :title, class: 'form-control', placeholder: t('status'), autofocus: true %>
+              </div>
+            </fieldset>
+          </div>
+          <div class="modal-footer">
+            <button id="closebtn_0" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
+            <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
+          </div>
+          <% end %>
+
+        </div>
+      </div>
+    </div> <!-- / Modal -->
+
+
   </div>
   <div id="projects_statuses-list">
     <%= render partial: 'project_statuses/list', locals: { project_statuses: @project_statuses } %>

@@ -8,21 +8,6 @@ class PositionsController < ApplicationController
     @positions = Position.order("title ASC").paginate(page: params[:page], :per_page => 100)
   end
 
-  def new
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.positions_index'), :positions_path
-    add_breadcrumb I18n.t('breadcrumbs.new')
-    @position = Position.new
-  end
-
-  def show
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.positions_index'), :positions_path
-    add_breadcrumb I18n.t('breadcrumbs.edit')
-    @position = Position.find(params[:id])
-    render 'edit'
-  end
-
   def create
     if Position.exists?(:title => position_params[:title])
       @notif_type = 'info'

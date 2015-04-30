@@ -1,0 +1,3 @@
+$('#closebtn_0').click();
+$('#technologies-list').html("<%= escape_javascript(render :partial => 'technologies/list', :locals => { :technologies => @technologies }) %>");
+showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

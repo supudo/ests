@@ -4,7 +4,7 @@ class CurrenciesController < ApplicationController
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.currencies_index'), :currencies_path
-    @currencies = Currency.order("title ASC").paginate(page: params[:page], :per_page => 10)
+    @currencies = Currency.order("title ASC").paginate(page: params[:page], :per_page => 100)
   end
 
   def new
@@ -102,7 +102,7 @@ class CurrenciesController < ApplicationController
   def destroy
     Currency.find(params[:id]).destroy
     respond_to do |format|
-      @currencies = Currency.order("title ASC").paginate(page: params[:page], :per_page => 10)
+      @currencies = Currency.order("title ASC").paginate(page: params[:page], :per_page => 100)
       format.js
     end
   end

@@ -1,0 +1,3 @@
+$('#closebtn_<%= @item_id %>').click();
+$('#projects_statuses-list').html("<%= escape_javascript(render :partial => 'project_statuses/list', :locals => { :project_statuses => @project_statuses }) %>");
+showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');
