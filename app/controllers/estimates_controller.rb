@@ -34,6 +34,7 @@ class EstimatesController < ApplicationController
       @estimate_technologies_percent_min = ActiveRecord::Base.connection.execute("SELECT t.title, SUM(hours_min) AS hours FROM technologies AS t INNER JOIN estimates_lines AS el ON el.technology_id = t.id WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY t.title")
       @estimate_technologies_percent_max = ActiveRecord::Base.connection.execute("SELECT t.title, SUM(hours_max) AS hours FROM technologies AS t INNER JOIN estimates_lines AS el ON el.technology_id = t.id WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY t.title")
       @estimate_technology_complexity = ActiveRecord::Base.connection.execute("SELECT t.title, AVG(el.complexity) AS complexity FROM estimates_lines AS el INNER JOIN technologies AS t ON t.id = el.technology_id WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY t.title")
+      @totals = []
       render 'edit'
     end
   end

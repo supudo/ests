@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "engagement_model_id", limit: 4,                            null: false
     t.integer  "technology_id",       limit: 4,                            null: false
     t.string   "profile",             limit: 255
+    t.integer  "complexity",          limit: 1,                            null: false
     t.decimal  "daily_rate",                      precision: 13, scale: 4, null: false
     t.decimal  "hourly_rate",                     precision: 13, scale: 4, null: false
     t.integer  "modified_user_id",    limit: 4,                            null: false
