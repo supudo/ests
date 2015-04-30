@@ -71,6 +71,6 @@ class RatesPricesController < ApplicationController
   private
 
     def rates_price_params
-      params.require(:rates_price).permit(:rate_id, :engagement_model_id, :technology_id, :profile, :hourly_rate, :daily_rate)
+      params.require(:rates_price).permit(:rate_id, :engagement_model_id, :technology_id, :profile, :complexity, :hourly_rate, :daily_rate)
     end
 end

@@ -28,6 +28,7 @@ class EstimatesController < ApplicationController
       @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
       @technology = Technology.order("title ASC")
       @rates = Rate.order("title ASC")
+      @engagement_models = EngagementModel.order("title ASC")
       @chart_hours_min = ActiveRecord::Base.connection.execute("SELECT (SELECT title FROM technologies WHERE id = el.technology_id) AS technology, SUM(el.hours_min) FROM estimates_lines AS el WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY technology")
       @chart_hours_max = ActiveRecord::Base.connection.execute("SELECT (SELECT title FROM technologies WHERE id = el.technology_id) AS technology, SUM(el.hours_max) FROM estimates_lines AS el WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY technology")
       @estimate_technologies_percent_min = ActiveRecord::Base.connection.execute("SELECT t.title, SUM(hours_min) AS hours FROM technologies AS t INNER JOIN estimates_lines AS el ON el.technology_id = t.id WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY t.title")
@@ -46,6 +47,7 @@ class EstimatesController < ApplicationController
     @projects = Project.order("title ASC")
     @users = User.order("first_name ASC, last_name ASC")
     @rates = Rate.order("title ASC")
+    @engagement_models = EngagementModel.order("title ASC")
   end
 
   def create
@@ -56,6 +58,7 @@ class EstimatesController < ApplicationController
     @projects = Project.order("title ASC")
     @users = User.order("first_name ASC, last_name ASC")
     @rates = Rate.order("title ASC")
+    @engagement_models = EngagementModel.order("title ASC")
     if Estimate.exists?(:title => estimate_params[:title])
       flash[:success] = t('estimate_already_exists')
       redirect_to :new_estimate
@@ -88,6 +91,8 @@ class EstimatesController < ApplicationController
     @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order(sort_column + " " + sort_direction)
     @technology = Technology.order("title ASC")
     @rates = Rate.order("title ASC")
+    @engagement_models = EngagementModel.order("title ASC")
+    @estimates_sheets = EstimatesSheet.where(:estimate_id => params[:id]).order("id ASC")
     @chart_hours_min = ActiveRecord::Base.connection.execute("SELECT (SELECT title FROM technologies WHERE id = el.technology_id) AS technology, SUM(el.hours_min) FROM estimates_lines AS el WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY technology")
     @chart_hours_max = ActiveRecord::Base.connection.execute("SELECT (SELECT title FROM technologies WHERE id = el.technology_id) AS technology, SUM(el.hours_max) FROM estimates_lines AS el WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY technology")
     @estimate = Estimate.find_by_id(params[:id])
@@ -119,7 +124,7 @@ class EstimatesController < ApplicationController
   private
 
     def estimate_params
-      params.require(:estimate).permit(:title, :rate_id, :client_id, :project_id, :owner_user_id)
+      params.require(:estimate).permit(:title, :rate_id, :engagement_model_id, :client_id, :project_id, :owner_user_id)
     end
 
     def sort_column

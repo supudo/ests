@@ -3,4 +3,5 @@
 //  $('#estimates_edit_errors').empty();
 //}, 3000);
 
+$('#pnl-sheets').html("<%= escape_javascript(render :partial => 'estimatessheet/sheets', :locals => { :estimates_sheets => @estimates_sheets }) %>");
 showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

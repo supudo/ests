@@ -48,18 +48,20 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "estimates", force: :cascade do |t|
-    t.string   "title",            limit: 255, null: false
-    t.integer  "rate_id",          limit: 4,   null: false
-    t.integer  "client_id",        limit: 4,   null: false
-    t.integer  "project_id",       limit: 4,   null: false
-    t.integer  "owner_user_id",    limit: 4,   null: false
-    t.integer  "created_user_id",  limit: 4,   null: false
-    t.datetime "created_date",                 null: false
-    t.integer  "modified_user_id", limit: 4,   null: false
-    t.datetime "modified_date",                null: false
+    t.string   "title",               limit: 255, null: false
+    t.integer  "rate_id",             limit: 4,   null: false
+    t.integer  "engagement_model_id", limit: 4,   null: false
+    t.integer  "client_id",           limit: 4,   null: false
+    t.integer  "project_id",          limit: 4,   null: false
+    t.integer  "owner_user_id",       limit: 4,   null: false
+    t.integer  "created_user_id",     limit: 4,   null: false
+    t.datetime "created_date",                    null: false
+    t.integer  "modified_user_id",    limit: 4,   null: false
+    t.datetime "modified_date",                   null: false
   end
 
   add_index "estimates", ["client_id"], name: "client_id", using: :btree
+  add_index "estimates", ["engagement_model_id"], name: "engagement_model_id", using: :btree
   add_index "estimates", ["owner_user_id"], name: "owner_user_id", using: :btree
   add_index "estimates", ["project_id"], name: "project_id", using: :btree
   add_index "estimates", ["rate_id"], name: "rate_id", using: :btree

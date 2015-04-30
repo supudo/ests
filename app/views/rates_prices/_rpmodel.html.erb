@@ -9,6 +9,7 @@ currency_code = curr.code
   <thead>
     <tr>
       <th>#</th>
+      <th><%= t('complexity') %></th>
       <th><%= t('technology') %></th>
       <th><%= t('profile') %></th>
       <th nowrap><%= t('daily_rate') %></th>
@@ -20,6 +21,7 @@ currency_code = curr.code
     <% rates_prices.each do |item| %>
     <tr>
       <td class="vert-align" width="1%" scope="row"><%= item.id %></td>
+      <td class="vert-align" width="1%" nowrap><%= item.complexity %></td>
       <td class="vert-align" width="1%" nowrap><%= Technology.find(item.technology_id).title %></td>
       <td class="vert-align">
 
@@ -49,6 +51,9 @@ currency_code = curr.code
                   </div>
                   <div class="form-group">
                     <%= f.text_field :profile, class: 'form-control', placeholder: t('profile'), autofocus: true %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.select :complexity, options_for_select((1..10).step(1).to_a.map{|s| ["#{s}", s]}, :selected => item.complexity), {}, {:class => 'form-control'} %>
                   </div>
 
                   <div class="form-group">

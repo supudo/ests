@@ -1,4 +1,7 @@
 class Estimate < ActiveRecord::Base
+  belongs_to :rate
+  belongs_to :engagement_model
+
   validates :title, presence: true
   validates :client_id, :numericality => { :greater_than => 0 }
   validates :project_id, presence: true, :numericality => { :greater_than => 0 }

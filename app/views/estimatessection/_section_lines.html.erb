@@ -1,4 +1,13 @@
     <% @estimatesline = EstimatesLine.where(:estimates_sections_id => eitem_section_id).order("line_number ASC") %>
+    <%
+    etemp = @estimatesline.first.estimate
+    rate = etemp.rate
+    enagement_model = etemp.engagement_model
+    rate_prices = RatesPrice.where(:rate_id => rate.id, :engagement_model_id => enagement_model.id)
+    currency = rate.currency
+    currency_code = currency.code
+    currency_symbol = currency.symbol
+    %>
     <a name="listanch"></a>
 
     <script>
@@ -13,13 +22,25 @@
           <th><%= "#" %></th>
           <th><%= t('complexity') %></th>
           <th><%= t('line') %></th>
-          <th><%= t('hours_min') %></th>
-          <th><%= t('hours_max') %></th>
+          <th class="center"><%= t('hours_min') %></th>
+          <th class="center"><%= t('hours_max') %></th>
+          <th class="center"><%= t('cost_min') %></th>
+          <th class="center"><%= t('cost_max') %></th>
           <th>&nbsp;</th>
         </tr>
       </thead>
       <tbody>
-        <% @estimatesline.each do |eitem| %>
+      <%
+      total_min_price = 0
+      total_max_price = 0
+      %>
+      <% @estimatesline.each do |eitem| %>
+        <%
+        price = rate_prices.where(:technology_id => eitem.technology_id).where("complexity > ?", eitem.complexity).order("complexity DESC").first.hourly_rate
+
+        total_min_price += price * eitem.hours_min
+        total_max_price += price * eitem.hours_max
+        %>
         <tr>
           <td width="1%" nowrap>
             <% if eitem != @estimatesline.first %>
@@ -68,7 +89,7 @@
                         <%= f.text_field :line, class: 'form-control', placeholder: t('line'), autofocus: true, value: eitem.line %>
                       </div>
                       <div class="form-group">
-                        <%= f.select :complexity, options_for_select((1..10).step(1).to_a.map{|s| ["#{s}", s]}), {:selected => eitem.complexity}, {:class => 'form-control'} %>
+                        <%= f.select :complexity, options_for_select((1..10).step(1).to_a.map{|s| ["#{s}", s]}, :selected => eitem.complexity), {}, {:class => 'form-control'} %>
                       </div>
                       <div class="form-group">
                         <%= f.number_field :hours_min, class: 'form-control', placeholder: t('hours_min'), value: eitem.hours_min %>
@@ -89,8 +110,10 @@
             </div> <!-- / Modal -->
 
           </td>
-          <td class="col-md-1 vert-align"><%= eitem.hours_min %></td>
-          <td class="col-md-1 vert-align"><%= eitem.hours_max %></td>
+          <td class="col-md-1 vert-align center"><%= eitem.hours_min %></td>
+          <td class="col-md-1 vert-align center"><%= eitem.hours_max %></td>
+          <td class="col-md-1 vert-align center"><%= (price * eitem.hours_min).to_s + ' ' + currency_symbol %></td>
+          <td class="col-md-1 vert-align center"><%= (price * eitem.hours_max).to_s + ' ' + currency_symbol %></td>
           <td width="1%" nowrap>
             <%= button_to estimatesline_path(eitem), method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true  do %>
             <%= hidden_field nil, :line_id, value: eitem.id %>
@@ -101,12 +124,14 @@
         <% end %>
         <tr class="info">
           <td colspan="5" align="right"><strong><%= t('total_caps') %></strong></td>
-          <td><strong><%= EstimatesSection.find_by_id(eitem_section_id).total_min_hours %></strong></td>
-          <td><strong><%= EstimatesSection.find_by_id(eitem_section_id).total_max_hours %></strong></td>
+          <td class="center"><strong><%= EstimatesSection.find_by_id(eitem_section_id).total_min_hours %></strong></td>
+          <td class="center"><strong><%= EstimatesSection.find_by_id(eitem_section_id).total_max_hours %></strong></td>
+          <td class="center"><strong><%= total_min_price.to_s + ' ' + currency_symbol %></strong></td>
+          <td class="center"><strong><%= total_max_price.to_s + ' ' + currency_symbol %></strong></td>
           <td>&nbsp;</td>
         </tr>
         <tr>
-          <td colspan="8"><em><%= t('reordering_needs_line_number') %></em></td>
+          <td colspan="10"><em><%= t('reordering_needs_line_number') %></em></td>
         </tr>
       </tbody>
     </table>

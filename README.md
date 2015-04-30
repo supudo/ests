@@ -5,7 +5,7 @@ Tool for software estimations, based on WBR.
 - Import preview & designer
 - Export designer
 - Export estimate to PDF
-- Rates
+- SQL Optimization !!!
 
 ## License
 
