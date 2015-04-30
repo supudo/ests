@@ -114,6 +114,7 @@ en:
   technology: "Technology"
   is_account_manager: "Is Account Manager?"
   is_production_manager: "Is Production Manager?"
+  is_rated: "Is Rated?"
 
   client: "Client"
   clients: "Clients"
