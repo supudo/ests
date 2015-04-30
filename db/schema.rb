@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 0) do
 
   create_table "estimates", force: :cascade do |t|
     t.string   "title",            limit: 255, null: false
+    t.integer  "rate_id",          limit: 4,   null: false
     t.integer  "client_id",        limit: 4,   null: false
     t.integer  "project_id",       limit: 4,   null: false
     t.integer  "owner_user_id",    limit: 4,   null: false
@@ -61,6 +62,7 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "estimates", ["client_id"], name: "client_id", using: :btree
   add_index "estimates", ["owner_user_id"], name: "owner_user_id", using: :btree
   add_index "estimates", ["project_id"], name: "project_id", using: :btree
+  add_index "estimates", ["rate_id"], name: "rate_id", using: :btree
 
   create_table "estimates_assumptions", force: :cascade do |t|
     t.integer "estimate_id", limit: 4,   null: false
@@ -175,6 +177,7 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "projects_technologies", ["technology_id"], name: "technology_id", using: :btree
 
   create_table "rates", force: :cascade do |t|
+    t.integer  "currency_id",      limit: 4,   null: false
     t.string   "title",            limit: 255, null: false
     t.integer  "modified_user_id", limit: 4,   null: false
     t.datetime "modified_date",                null: false
@@ -183,7 +186,6 @@ ActiveRecord::Schema.define(version: 0) do
   create_table "rates_prices", force: :cascade do |t|
     t.integer  "rate_id",             limit: 4,                            null: false
     t.integer  "engagement_model_id", limit: 4,                            null: false
-    t.integer  "currency_id",         limit: 2,                            null: false
     t.integer  "technology_id",       limit: 4,                            null: false
     t.string   "profile",             limit: 255
     t.decimal  "daily_rate",                      precision: 13, scale: 4, null: false

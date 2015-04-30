@@ -1,7 +1,7 @@
-      <%= form_for(@estimate, remote: true) do |f| %>
       <div class="panel panel-default">
         <div class="panel-heading"><strong><%= t('details') %></strong></div>
         <div class="panel-body">
+          <%= form_for(@estimate, remote: true) do |f| %>
           <div id="estimates_edit_errors">
             <%= render 'shared/flash_messages', object: f.object %>
           </div>
@@ -18,9 +18,12 @@
             <div class="form-group">
               <%= f.collection_select :owner_user_id, @users, :id, :full_name, {}, {:class => 'form-control'} %>
             </div>
+            <div class="form-group">
+              <%= f.collection_select :rate_id, @rates, :id, :title, {}, {:class => 'form-control'} %>
+            </div>
             <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
             <br />
-      <% end %>
+            <% end %>
             <%= button_to estimate_exporter_index_path, :method => 'get', :id => @estimate.id, class: "btn btn-lg btn-warning btn-block" do %>
               <%= hidden_field_tag :estimate_id, @estimate.id %>
               <%= t('export_estimate') %>
