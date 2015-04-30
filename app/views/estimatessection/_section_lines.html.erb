@@ -36,11 +36,7 @@
       %>
       <% @estimatesline.each do |eitem| %>
         <%
-        c = eitem.complexity
-        if c == 10
-          c = 9
-        end
-        price = rate_prices.where(:technology_id => eitem.technology_id).where("complexity > ?", c).first.hourly_rate
+        price = 0#rate_prices.where(:technology_id => eitem.technology_id).where("complexity > ?", c).first.hourly_rate
 
         total_min_price += price * eitem.hours_min
         total_max_price += price * eitem.hours_max
@@ -90,6 +86,9 @@
                         <%= f.collection_select :technology_id, Technology.order("title ASC"), :id, :title, {:selected => eitem.technology_id}, {:class => 'form-control'} %>
                       </div>
                       <div class="form-group">
+                        <%= f.collection_select :position_id, @positions.where(:technology_id => eitem.technology_id), :id, :title, {:include_blank => t('dashes') + ' ' + t('profile')}, {:class => 'form-control'} %>
+                      </div>
+                      <div class="form-group">
                         <%= f.text_field :line, class: 'form-control', placeholder: t('line'), autofocus: true, value: eitem.line %>
                       </div>
                       <div class="form-group">
@@ -116,7 +115,11 @@
           </td>
           <td class="col-md-1 vert-align center"><%= eitem.hours_min %></td>
           <td class="col-md-1 vert-align center"><%= eitem.hours_max %></td>
-          <td class="col-md-1 vert-align center"><%= (price * eitem.hours_min).to_s + ' ' + currency_symbol %></td>
+          <td class="col-md-1 vert-align center">
+            <%#= rate_prices.where(:technology_id => eitem.technology_id, :position_id => eitem.position_id) %->
+            <br />
+            <%= (price * eitem.hours_min).to_s + ' ' + currency_symbol %>
+          </td>
           <td class="col-md-1 vert-align center"><%= (price * eitem.hours_max).to_s + ' ' + currency_symbol %></td>
           <td width="1%" nowrap>
             <%= button_to estimatesline_path(eitem), method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true  do %>

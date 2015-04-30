@@ -26,6 +26,7 @@ class EstimatessheetController < ApplicationController
       @estimatesassumption = EstimatesAssumption.where(:estimate_id => estimatessheet_params[:estimate_id]).order("title ASC")
       @estimatessection = EstimatesSection.where(:estimate_id => estimatessheet_params[:estimate_id]).order("id ASC")
       @technology = Technology.order("title ASC")
+      @positions = Position.order("title ASC")
       format.js
     end
   end
@@ -36,6 +37,7 @@ class EstimatessheetController < ApplicationController
       @estimates_sheets = EstimatesSheet.where(:estimate_id => estimatessheet_params[:estimate_id]).order("id ASC")
       @estimatessection = EstimatesSection.where(:estimate_id => estimatessheet_params[:estimate_id]).order("id ASC")
       @technology = Technology.order("title ASC")
+      @positions = Position.order("title ASC")
       @notif_type = 'info'
       @notif_message = t('delete_sucess')
       format.js

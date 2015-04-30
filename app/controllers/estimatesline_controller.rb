@@ -49,6 +49,9 @@ class EstimateslineController < ApplicationController
     eline.line = params[:estimates_line][:line]
     eline.technology_id = params[:estimates_line][:technology_id]
     eline.complexity = params[:estimates_line][:complexity]
+    eline.position_id = params[:estimates_line][:position_id]
+    eline.hours_min = params[:estimates_line][:hours_min]
+    eline.hours_max = params[:estimates_line][:hours_max]
     if eline.save
       @notif_type = 'info'
       @notif_message = t('estimate_line_updated_successfully')
@@ -56,6 +59,7 @@ class EstimateslineController < ApplicationController
       @notif_type = 'danger'
       @notif_message = t('error_missing_fields')
     end
+    @positions = Position.order("title ASC")
     @eitem_id = params[:estimates_line][:estimate_line_id]
     @eitem_section_id = eline.estimates_sections_id
     @eitem_sheet_id = EstimatesSection.find_by_id(eline.estimates_sections_id).estimates_sheet_id
@@ -114,7 +118,7 @@ class EstimateslineController < ApplicationController
   private
 
     def estimates_line_params
-      params.require(:estimate_line).permit(:estimate_id, :estimates_sections_id, :technology_id, :line_number, :line, :complexity, :hours_min, :hours_max)
+      params.require(:estimate_line).permit(:estimate_id, :estimates_sections_id, :technology_id, :position_id, :line_number, :line, :complexity, :hours_min, :hours_max)
     end
 
     def sort_column

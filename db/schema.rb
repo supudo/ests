@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "estimate_id",           limit: 4,                   null: false
     t.integer  "estimates_sections_id", limit: 4,                   null: false
     t.integer  "technology_id",         limit: 4,     default: 0
+    t.integer  "position_id",           limit: 4,                   null: false
     t.integer  "line_number",           limit: 4,     default: 1,   null: false
     t.text     "line",                  limit: 65535,               null: false
     t.integer  "complexity",            limit: 1,     default: 0
@@ -88,6 +89,7 @@ ActiveRecord::Schema.define(version: 0) do
 
   add_index "estimates_lines", ["estimate_id"], name: "estimate_id", using: :btree
   add_index "estimates_lines", ["estimates_sections_id"], name: "estimates_sections_id", using: :btree
+  add_index "estimates_lines", ["position_id"], name: "position_id", using: :btree
   add_index "estimates_lines", ["technology_id"], name: "technology_id", using: :btree
 
   create_table "estimates_sections", force: :cascade do |t|
@@ -114,13 +116,14 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "positions", force: :cascade do |t|
-    t.string  "title",    limit: 255,             null: false
-    t.integer "is_am",    limit: 1,   default: 0, null: false
-    t.integer "is_pdm",   limit: 1,   default: 0, null: false
-    t.boolean "is_rated", limit: 1,               null: false
+    t.integer "technology_id", limit: 4,               null: false
+    t.string  "title",         limit: 255,             null: false
+    t.integer "is_am",         limit: 1,   default: 0, null: false
+    t.integer "is_pdm",        limit: 1,   default: 0, null: false
+    t.boolean "is_rated",      limit: 1,               null: false
   end
 
-  add_index "positions", ["title"], name: "title", unique: true, using: :btree
+  add_index "positions", ["technology_id"], name: "technology_id", using: :btree
 
   create_table "project_statuses", force: :cascade do |t|
     t.string "title", limit: 50, null: false
@@ -187,17 +190,18 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "rates_prices", force: :cascade do |t|
-    t.integer  "rate_id",             limit: 4,                            null: false
-    t.integer  "engagement_model_id", limit: 4,                            null: false
-    t.integer  "technology_id",       limit: 4,                            null: false
-    t.string   "profile",             limit: 255
-    t.decimal  "daily_rate",                      precision: 13, scale: 4, null: false
-    t.decimal  "hourly_rate",                     precision: 13, scale: 4, null: false
-    t.integer  "modified_user_id",    limit: 4,                            null: false
-    t.datetime "modified_date",                                            null: false
+    t.integer  "rate_id",             limit: 4,                          null: false
+    t.integer  "engagement_model_id", limit: 4,                          null: false
+    t.integer  "technology_id",       limit: 4,                          null: false
+    t.integer  "position_id",         limit: 4,                          null: false
+    t.decimal  "daily_rate",                    precision: 13, scale: 4, null: false
+    t.decimal  "hourly_rate",                   precision: 13, scale: 4, null: false
+    t.integer  "modified_user_id",    limit: 4,                          null: false
+    t.datetime "modified_date",                                          null: false
   end
 
   add_index "rates_prices", ["modified_user_id"], name: "modified_user_id", using: :btree
+  add_index "rates_prices", ["position_id"], name: "position_id", using: :btree
   add_index "rates_prices", ["technology_id"], name: "technology_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
@@ -242,7 +246,4 @@ ActiveRecord::Schema.define(version: 0) do
   add_foreign_key "projects", "clients", name: "fk_projects_clients"
   add_foreign_key "projects", "project_statuses", name: "fk_projects_projects_statuses"
   add_foreign_key "projects", "users", column: "account_manager_user_id", name: "fk_projects_accountmanager"
-  add_foreign_key "users", "clients", name: "fk_users_clients"
-  add_foreign_key "users", "positions", name: "fk_users_positions"
-  add_foreign_key "users", "technologies", name: "fk_users_technologies"
 end
