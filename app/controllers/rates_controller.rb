@@ -24,7 +24,8 @@ class RatesController < ApplicationController
     @technology = Technology.order("title ASC")
     @engagement_models = EngagementModel.order("title ASC")
     @currencies = Currency.order("title ASC")
-    @rates_prices = RatesPrice.where(:rate_id => params[:id]).order("technology_id ASC, profile ASC")
+    @positions = Position.where("is_rated = 1").order("title ASC")
+    @rates_prices = RatesPrice.where(:rate_id => params[:id]).order("technology_id ASC, position_id ASC")
     render 'edit'
   end
 
@@ -62,11 +63,12 @@ class RatesController < ApplicationController
       end
       respond_to do |format|
         @currency_code = Currency.find(rate_params[:currency_id]).code
-        @rates_prices = RatesPrice.where(:rate_id => @rate.id).order("technology_id ASC, profile ASC")
+        @rates_prices = RatesPrice.where(:rate_id => @rate.id).order("technology_id ASC, position_id ASC")
         @rate_id = @rate.id
         @technology = Technology.order("title ASC")
         @engagement_models = EngagementModel.order("title ASC")
         @currencies = Currency.order("title ASC")
+        @positions = Position.where("is_rated = 1").order("title ASC")
         format.js
       end
     end

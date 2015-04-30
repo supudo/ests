@@ -3,7 +3,7 @@ curr = Currency.find(@rate.currency_id)
 currency_symbol = curr.symbol
 currency_code = curr.code
 %>
-<% rates_prices = RatesPrice.where(:rate_id => rate_id, :engagement_model_id => engagement_model_id).order("technology_id ASC, profile ASC") %>
+<% rates_prices = RatesPrice.where(:rate_id => rate_id, :engagement_model_id => engagement_model_id).order("technology_id ASC, position_id ASC") %>
 <a name="anchratesprices"></a>
 <table class="table table-striped pretty">
   <thead>
@@ -24,7 +24,7 @@ currency_code = curr.code
       <td class="vert-align">
 
         <a data-toggle="modal" data-target="#rpmodal<%= item.id %>">
-          <%= item.profile %>
+          <%= item.position.title %>
         </a>
 
         <!-- Modal -->
@@ -48,7 +48,7 @@ currency_code = curr.code
                     <%= f.collection_select :technology_id, @technology, :id, :title, {:include_blank => t('dashes') + ' ' + t('technology')}, {:class => 'form-control'} %>
                   </div>
                   <div class="form-group">
-                    <%= f.text_field :profile, class: 'form-control', placeholder: t('profile'), autofocus: true %>
+                    <%= f.collection_select :position_id, @positions, :id, :title, {:include_blank => t('dashes') + ' ' + t('profile')}, {:class => 'form-control'} %>
                   </div>
 
                   <div class="form-group">

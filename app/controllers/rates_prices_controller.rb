@@ -2,7 +2,7 @@ class RatesPricesController < ApplicationController
   before_action :signed_in_user
 
   def create
-    if RatesPrice.exists?(:engagement_model_id => rates_price_params[:engagement_model_id], :technology_id => rates_price_params[:technology_id], :profile => rates_price_params[:profile])
+    if RatesPrice.exists?(:engagement_model_id => rates_price_params[:engagement_model_id], :technology_id => rates_price_params[:technology_id], :position_id => rates_price_params[:position_id])
       @notif_type = 'danger'
       @notif_message = t('rateprice_already_exists')
     else
@@ -18,7 +18,8 @@ class RatesPricesController < ApplicationController
       end
     end
     respond_to do |format|
-      @rates_prices = RatesPrice.where(:rate_id => rates_price_params[:rate_id]).order("technology_id ASC, profile ASC")
+      @rates_prices = RatesPrice.where(:rate_id => rates_price_params[:rate_id]).order("technology_id ASC, position_id ASC")
+      @positions = Position.where("is_rated = 1").order("title ASC")
       @rate_id = rates_price_params[:rate_id]
       @rate = Rate.find(@rate_id)
       @technology = Technology.order("title ASC")
@@ -39,7 +40,8 @@ class RatesPricesController < ApplicationController
         @notif_message = t('error_missing_fields')
       end
       respond_to do |format|
-        @rates_prices = RatesPrice.where(:rate_id => rates_price_params[:rate_id]).order("technology_id ASC, profile ASC")
+        @rates_prices = RatesPrice.where(:rate_id => rates_price_params[:rate_id]).order("technology_id ASC, position_id ASC")
+        @positions = Position.where("is_rated = 1").order("title ASC")
         @rate_id = rates_price_params[:rate_id]
         @rate = Rate.find(@rate_id)
         @rate_price_id = params[:rates_price][:rate_price_id]
@@ -56,7 +58,8 @@ class RatesPricesController < ApplicationController
     @engagement_model_id = RatesPrice.find(params[:id]).engagement_model_id
     RatesPrice.find(params[:rp][:rate_price_id]).destroy
     respond_to do |format|
-      @rates_prices = RatesPrice.where(:rate_id => params[:rp][:rate_id]).order("technology_id ASC, profile ASC")
+      @rates_prices = RatesPrice.where(:rate_id => params[:rp][:rate_id]).order("technology_id ASC, position_id ASC")
+      @positions = Position.where("is_rated = 1").order("title ASC")
       @rate_id = params[:rp][:rate_id]
       @rate = Rate.find(@rate_id)
       @technology = Technology.order("title ASC")
@@ -71,6 +74,6 @@ class RatesPricesController < ApplicationController
   private
 
     def rates_price_params
-      params.require(:rates_price).permit(:rate_id, :engagement_model_id, :technology_id, :profile, :hourly_rate, :daily_rate)
+      params.require(:rates_price).permit(:rate_id, :engagement_model_id, :technology_id, :position_id, :hourly_rate, :daily_rate)
     end
 end
