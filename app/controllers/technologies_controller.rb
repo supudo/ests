@@ -3,20 +3,20 @@ class TechnologiesController < ApplicationController
 
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
+    add_breadcrumb I18n.t('breadcrumbs.technologies_index'), :technologies_path
     @technologies = Technology.order("title ASC").paginate(page: params[:page], :per_page => 10)
   end
 
   def new
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
+    add_breadcrumb I18n.t('breadcrumbs.technologies_index'), :technologies_path
     add_breadcrumb I18n.t('breadcrumbs.new')
     @technology = Technology.new
   end
 
   def show
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
+    add_breadcrumb I18n.t('breadcrumbs.technologies_index'), :technologies_path
     add_breadcrumb I18n.t('breadcrumbs.edit')
     @technology = Technology.find(params[:id])
     render 'edit'
@@ -34,7 +34,7 @@ class TechnologiesController < ApplicationController
           redirect_to :collections
         else
           add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-          add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
+          add_breadcrumb I18n.t('breadcrumbs.technologies_index'), :technologies_path
           add_breadcrumb I18n.t('breadcrumbs.new')
           flash[:error] = t('error_missing_fields')
           render 'new'
@@ -51,7 +51,7 @@ class TechnologiesController < ApplicationController
         redirect_to :collections
       else
         add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-        add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
+        add_breadcrumb I18n.t('breadcrumbs.technologies_index'), :technologies_path
         add_breadcrumb I18n.t('breadcrumbs.edit')
         flash[:error] = t('error_missing_fields')
         render 'edit'

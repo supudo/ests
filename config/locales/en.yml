@@ -17,8 +17,6 @@ en:
   close: "Close"
   all: "All"
 
-  collections: "Collections"
-
   dashes: "-----"
   at: "at"
   for: "for"
@@ -266,9 +264,9 @@ en:
     project_statuses_index: "Statuses"
     estimates_importer_index: "Importer"
     positions_index: "Positions"
-    collections_index: "Collections"
     rates_index: "Rates"
     engagement_models_index: "Engagement Models"
+    currencies_index: "Currencies"
 
   defaults: &defaults
     formats:

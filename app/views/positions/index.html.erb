@@ -1,0 +1,50 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="input-group">
+      <button type="button" class="btn btn-primary" aria-label="Left Align">
+        <a class="btn-primary" data-toggle="modal" data-target="#wmodal0"><%= t('create_position') %></a>
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="wmodal0" tabindex="-1" role="dialog" aria-labelledby="wmodal0_title" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <%= form_for @position, :remote => true do |f| %>
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="wmodal0_title"><%= t('position') %></h4>
+            </div>
+            <div class="modal-body">
+              <fieldset>
+                <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
+                  <%= f.text_field :title, class: 'form-control', placeholder: t('position'), autofocus: true %>
+                </div>
+                <div class="form-group">
+                  <div class="checkbox"><label><%= f.check_box :is_am %> <%= t('is_am') %></label></div>
+                </div>
+                <div class="form-group">
+                  <div class="checkbox"><label><%= f.check_box :is_pdm %> <%= t('is_pdm') %></label></div>
+                </div>
+                <div class="form-group">
+                  <div class="checkbox"><label><%= f.check_box :is_rated %> <%= t('is_rated') %></label></div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="modal-footer">
+              <button id="closebtn_0" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
+              <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
+            </div>
+            <% end %>
+
+          </div>
+        </div>
+      </div> <!-- / Modal -->
+
+    </div>
+  </div>
+  <div id="positions-list">
+    <%= render partial: 'positions/list', locals: { positions: @positions } %>
+  </div>
+</div>
+
+<%= will_paginate @positions, :renderer => BootstrapPagination::Rails %>

@@ -1,9 +1,15 @@
 class CurrenciesController < ApplicationController
   before_action :signed_in_user
 
+  def index
+    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+    add_breadcrumb I18n.t('breadcrumbs.currencies_index'), :currencies_path
+    @currencies = Currency.order("title ASC").paginate(page: params[:page], :per_page => 10)
+  end
+
   def new
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
+    add_breadcrumb I18n.t('breadcrumbs.currencies_index'), :currencies_path
     add_breadcrumb I18n.t('breadcrumbs.new')
     @currency = Currency.new
     @currencies_exchange = CurrenciesExchange.where(:from_currency_id => params[:id]).where.not(:to_currency_id => params[:id]).order("to_currency_id ASC")
@@ -11,7 +17,7 @@ class CurrenciesController < ApplicationController
 
   def show
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
+    add_breadcrumb I18n.t('breadcrumbs.currencies_index'), :currencies_path
     add_breadcrumb I18n.t('breadcrumbs.edit')
     @currency = Currency.find(params[:id])
     @currencies_exchange = CurrenciesExchange.where(:from_currency_id => params[:id]).where.not(:to_currency_id => params[:id]).order("to_currency_id ASC")
@@ -42,7 +48,7 @@ class CurrenciesController < ApplicationController
           redirect_to :collections
         else
           add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-          add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
+          add_breadcrumb I18n.t('breadcrumbs.currencies_index'), :currencies_path
           add_breadcrumb I18n.t('breadcrumbs.new')
           flash[:error] = t('error_missing_fields')
           render 'new'

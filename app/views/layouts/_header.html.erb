@@ -30,7 +30,11 @@
               <li class="divider"></li>
               <li><%= link_to t('rates'), :rates %></li>
               <li><%= link_to t('engagement_models'), :engagement_models %></li>
-              <li><%= link_to t('collections'), :collections %></li>
+              <li class="divider"></li>
+              <li><%= link_to t('technologies'), :technologies %></li>
+              <li><%= link_to t('project_statuses'), :project_statuses %></li>
+              <li><%= link_to t('positions'), :positions %></li>
+              <li><%= link_to t('currencies'), :currencies %></li>
               <li class="divider"></li>
               <li><%= link_to t('profile'), edit_user_path(current_user) %></li>
               <li><%= link_to t('logout'), logout_path, method: "delete" %></li>

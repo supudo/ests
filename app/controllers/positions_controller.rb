@@ -3,20 +3,21 @@ class PositionsController < ApplicationController
 
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
-    @positions = Position.order("title ASC").paginate(page: params[:page], :per_page => 10)
+    add_breadcrumb I18n.t('breadcrumbs.positions_index'), :positions_path
+    @position = Position.new
+    @positions = Position.order("title ASC").paginate(page: params[:page], :per_page => 100)
   end
 
   def new
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
+    add_breadcrumb I18n.t('breadcrumbs.positions_index'), :positions_path
     add_breadcrumb I18n.t('breadcrumbs.new')
     @position = Position.new
   end
 
   def show
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
+    add_breadcrumb I18n.t('breadcrumbs.positions_index'), :positions_path
     add_breadcrumb I18n.t('breadcrumbs.edit')
     @position = Position.find(params[:id])
     render 'edit'
@@ -24,22 +25,23 @@ class PositionsController < ApplicationController
 
   def create
     if Position.exists?(:title => position_params[:title])
-      flash[:success] = t('position_already_exists')
-      redirect_to :new_project
+      @notif_type = 'info'
+      @notif_message = t('position_already_exists')
     else
       ActiveRecord::Base.transaction do
         @position = Position.new(position_params)
         if @position.save
-          flash[:success] = t('position_created_successfully')
-          redirect_to :collections
+          @notif_type = 'success'
+          @notif_message = t('position_created_successfully')
         else
-          add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-          add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
-          add_breadcrumb I18n.t('breadcrumbs.new')
-          flash[:error] = t('error_missing_fields')
-          render 'new'
+          @notif_type = 'danger'
+          @notif_message = t('error_missing_fields')
         end
       end
+    end
+    respond_to do |format|
+      @positions = Position.order("title ASC").paginate(page: params[:page], :per_page => 100)
+      format.js
     end
   end
 
@@ -47,14 +49,16 @@ class PositionsController < ApplicationController
     ActiveRecord::Base.transaction do
       @position = Position.find_by_id(params[:id])
       if @position.update_attributes(position_params)
-        flash[:success] = t('position_updated_successfully')
-        redirect_to :collections
+        @notif_type = 'success'
+        @notif_message = t('position_updated_successfully')
       else
-        add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-        add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
-        add_breadcrumb I18n.t('breadcrumbs.edit')
-        flash[:error] = t('error_missing_fields')
-        render 'edit'
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
+      end
+      respond_to do |format|
+        @positions = Position.order("title ASC").paginate(page: params[:page], :per_page => 100)
+        @item_id = @position.id
+        format.js
       end
     end
   end
@@ -64,7 +68,7 @@ class PositionsController < ApplicationController
     pid = @current.id
     Position.find(params[:id]).destroy
     respond_to do |format|
-      @positions = Position.order("title ASC").paginate(page: params[:page], :per_page => 10)
+      @positions = Position.order("title ASC").paginate(page: params[:page], :per_page => 100)
       format.js
     end
   end

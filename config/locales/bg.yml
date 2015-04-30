@@ -17,8 +17,6 @@ bg:
   close: "Затвори"
   all: "Всички"
 
-  collections: "Колекции"
-
   dashes: "-----"
   at: "на"
   for: "за"
@@ -266,7 +264,6 @@ bg:
     project_statuses_index: "Статуси"
     estimates_importer_index: "Импорт"
     positions_index: "Позиции"
-    collections_index: "Колекции"
     rates_index: "Ставки"
     engagement_models_index: "Модели на Работа"
 
