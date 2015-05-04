@@ -1,8 +1,43 @@
 <div class="panel panel-danger">
   <div class="panel-heading"><strong><%= t('total_budget') %></strong></div>
-  <div class="panel-body">
-    <fieldset>
-      <%= totals %>
-    </fieldset>
-  </div>
+<%
+total_price_min = 0
+total_price_max = 0
+total_hours_min = 0
+total_hours_max = 0
+
+currency = @estimate.rate.currency.symbol
+
+@estimatesline = EstimatesLine.where(:estimate_id => params[:id])
+rate_prices = RatesPrice.where(:rate_id => @estimate.rate_id, :engagement_model_id => @estimate.engagement_model_id)
+
+@estimatesline.each do |item|
+  total_price_min += rate_prices.where(:technology_id => item.technology_id, :position_id => item.position_id).first.hourly_rate * item.hours_min
+  total_price_max += rate_prices.where(:technology_id => item.technology_id, :position_id => item.position_id).first.hourly_rate * item.hours_max
+
+  total_hours_min += item.hours_min
+  total_hours_max += item.hours_max
+end
+%>
+  <table class="table table-striped pretty">
+    <thead>
+      <tr>
+        <th></th>
+        <th class="text-center"><%= t('min') %></th>
+        <th class="text-center"><%= t('max') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="vert-align text-right" width="1%" scope="row"><strong><%= t('price') %></strong></td>
+        <td class="vert-align text-center" width="1%" scope="row"><%= total_price_min %> <%= currency %></td>
+        <td class="vert-align text-center" width="1%" scope="row"><%= total_price_max %> <%= currency %></td>
+      </tr>
+      <tr>
+        <td class="vert-align text-right" width="1%" scope="row"><strong><%= t('hours') %></strong></td>
+        <td class="vert-align text-center" width="1%" scope="row"><%= total_hours_min %></td>
+        <td class="vert-align text-center" width="1%" scope="row"><%= total_hours_max %></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
