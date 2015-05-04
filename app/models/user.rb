@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :positions
-  has_many :technologies
+  belongs_to :position
+  belongs_to :technology
   has_many :clients
   has_many :permissions
 
