@@ -61,8 +61,6 @@ Rails.application.routes.draw do
   get 'about/new'
   root 'login#index'
 
-  get 'collections' => 'collections#index'
-
   post 'estimatessection/update' => 'estimatessection#update'
   post 'estimatessection/destroy' => 'estimatessection#destroy'
   patch 'rates_prices/update' => 'rates_prices#update'

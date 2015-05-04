@@ -51,7 +51,7 @@ class EngagementModelsController < ApplicationController
         redirect_to :engagement_models
       else
         add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-        add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
+        add_breadcrumb I18n.t('breadcrumbs.engagement_models_index'), :engagement_models_path
         add_breadcrumb I18n.t('breadcrumbs.edit')
         flash[:error] = t('error_missing_fields')
         render 'edit'

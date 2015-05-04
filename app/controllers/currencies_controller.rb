@@ -45,7 +45,7 @@ class CurrenciesController < ApplicationController
           end
 
           flash[:success] = t('currency_created_successfully')
-          redirect_to :collections
+          redirect_to :currencies
         else
           add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
           add_breadcrumb I18n.t('breadcrumbs.currencies_index'), :currencies_path
@@ -88,10 +88,10 @@ class CurrenciesController < ApplicationController
       @currency = Currency.find_by_id(params[:id])
       if @currency.update_attributes(currency_params)
         flash[:success] = t('currency_updated_successfully')
-        redirect_to :collections
+        redirect_to :currencies
       else
         add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-        add_breadcrumb I18n.t('breadcrumbs.collections_index'), :collections_path
+        add_breadcrumb I18n.t('breadcrumbs.currencies_index'), :currencies_path
         add_breadcrumb I18n.t('breadcrumbs.edit')
         flash[:error] = t('error_missing_fields')
         render 'edit'
@@ -110,6 +110,6 @@ class CurrenciesController < ApplicationController
   private
 
     def currency_params
-      params.require(:currency).permit(:title, :code, :symbol)
+      params.require(:currency).permit(:title, :code, :symbol, :is_infront)
     end
 end

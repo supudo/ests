@@ -32,6 +32,7 @@ bg:
   symbol: "Символ"
   exchange_rates: "Обменни курсове"
   value: "Стойност"
+  is_infront: "Символ отпред"
   currency_already_exists: "Валутата вече съществува."
   currency_created_successfully: "Валутата беше създадена успешно."
   currency_updated_successfully: "Валутата беше променена успешно."
