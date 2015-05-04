@@ -35,12 +35,6 @@
       total_max_price = 0
       %>
       <% @estimatesline.each do |eitem| %>
-        <%
-        price = 0#rate_prices.where(:technology_id => eitem.technology_id).where("complexity > ?", c).first.hourly_rate
-
-        total_min_price += price * eitem.hours_min
-        total_max_price += price * eitem.hours_max
-        %>
         <tr>
           <td width="1%" nowrap>
             <% if eitem != @estimatesline.first %>
@@ -116,11 +110,19 @@
           <td class="col-md-1 vert-align center"><%= eitem.hours_min %></td>
           <td class="col-md-1 vert-align center"><%= eitem.hours_max %></td>
           <td class="col-md-1 vert-align center">
-            <%#= rate_prices.where(:technology_id => eitem.technology_id, :position_id => eitem.position_id) %->
-            <br />
-            <%= (price * eitem.hours_min).to_s + ' ' + currency_symbol %>
+            <%
+              price_min = rate_prices.where(:technology_id => eitem.technology_id, :position_id => eitem.position_id).first.hourly_rate * eitem.hours_min
+              total_min_price += price_min
+            %>
+            <%= price_min.to_s + ' ' + currency_symbol %>
           </td>
-          <td class="col-md-1 vert-align center"><%= (price * eitem.hours_max).to_s + ' ' + currency_symbol %></td>
+          <td class="col-md-1 vert-align center">
+            <%
+              price_max = rate_prices.where(:technology_id => eitem.technology_id, :position_id => eitem.position_id).first.hourly_rate * eitem.hours_max
+              total_max_price += price_max
+            %>
+            <%= price_max.to_s + ' ' + currency_symbol %>
+          </td>
           <td width="1%" nowrap>
             <%= button_to estimatesline_path(eitem), method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true  do %>
             <%= hidden_field nil, :line_id, value: eitem.id %>
