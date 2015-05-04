@@ -100,7 +100,6 @@ class EstimatesController < ApplicationController
     @estimate = Estimate.find_by_id(params[:id])
     @estimate.modified_user_id = current_user.id
     @estimate.modified_date = DateTime.now
-    flash.clear()
     if @estimate.update_attributes(estimate_params)
       @notif_type = 'success'
       @notif_message = t('estimate_updated_successfully')
@@ -109,6 +108,7 @@ class EstimatesController < ApplicationController
       @notif_message = t('error_missing_fields')
     end
     respond_to do |format|
+      @iss = estimate_params[:is_signed]
       format.js
     end
   end
@@ -132,7 +132,7 @@ class EstimatesController < ApplicationController
   private
 
     def estimate_params
-      params.require(:estimate).permit(:title, :rate_id, :engagement_model_id, :client_id, :project_id, :owner_user_id)
+      params.require(:estimate).permit(:title, :is_signed, :rate_id, :engagement_model_id, :client_id, :project_id, :owner_user_id)
     end
 
     def sort_column

@@ -24,6 +24,7 @@ bg:
   delete: "Изтрий"
   style: "Стил"
   delete_sucess: "Елемента е изтрит."
+  is_signed: "Подписан?"
 
   currencies: "Валути"
   currency: "Валута"

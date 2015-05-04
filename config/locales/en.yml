@@ -24,6 +24,7 @@ en:
   delete: "Delete"
   style: "Style"
   delete_sucess: "Item was deleted."
+  is_signed: "Is Signed?"
 
   currencies: "Currencies"
   currency: "Currency"
