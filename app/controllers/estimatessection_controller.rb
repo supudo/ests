@@ -3,9 +3,11 @@ class EstimatessectionController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def show
-    EstimatesLine.where(:estimates_sections_id => params[:id]).update_all(:technology_id => esection_technology_params[:tid])
+    pos_id = Position.where(:technology_id => esection_technology_params[:tid]).first.id
+    EstimatesLine.where(:estimates_sections_id => params[:id]).update_all(:technology_id => esection_technology_params[:tid], :position_id => pos_id)
     @current = EstimatesSection.find(params[:id])
     @estimatesline = EstimatesLine.where(:estimates_sections_id => @current.id).order("line_number ASC")
+    @positions = Position.order("title ASC")
     respond_to do |format|
       @notif_type = 'success'
       @notif_message = t('section_technology_changed')
