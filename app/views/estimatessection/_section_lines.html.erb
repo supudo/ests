@@ -118,8 +118,13 @@
                 price_min = 0
               end
               total_min_price += price_min * eitem.hours_min
-            %>
-            <%= (price_min * eitem.hours_min).to_s + ' ' + currency_symbol %> (x<%= price_min %>)
+
+              if currency.is_infront
+                concat currency_symbol + ' ' + (price_min * eitem.hours_min).to_s
+              else
+                concat (price_min * eitem.hours_max).to_s + ' ' + currency_symbol
+              end
+            %> (x<%= price_min %>)
           </td>
           <td class="col-md-1 vert-align center" nowrap>
             <%
@@ -129,8 +134,13 @@
                 price_max = 0
               end
               total_max_price += price_max * eitem.hours_max
-            %>
-            <%= (price_max * eitem.hours_max).to_s + ' ' + currency_symbol %> (x<%= price_min %>)
+
+              if currency.is_infront
+                concat currency_symbol + ' ' + (price_max * eitem.hours_max).to_s
+              else
+                concat (price_max * eitem.hours_max).to_s + ' ' + currency_symbol
+              end
+            %> (x<%= price_min %>)
           </td>
           <td width="1%" nowrap>
             <%= button_to estimatesline_path(eitem), method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true  do %>
