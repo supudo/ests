@@ -93,6 +93,10 @@ bg:
   estimate_technologies_percent_min: "Процент по Технологии - Мин Часове"
   estimate_technologies_percent_max: "Процент по Технологии - Макс Часове"
   estimate_technology_complexity: "Технология - Сложност"
+  time_per_technology_min: "Мин Време по Технология"
+  time_per_technology_max: "Макс Време по Технология"
+  price_per_technology_min: "Мин Цена по Технология"
+  price_per_technology_max: "Макс Цена по Технология"
 
   title_edit_user: "Редактиране на потребител"
   edit_user_header: "Промяна на профила"

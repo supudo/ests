@@ -93,6 +93,10 @@ en:
   estimate_technologies_percent_min: "Technologies Percentage - Min Hours"
   estimate_technologies_percent_max: "Technologies Percentage - Max Hours"
   estimate_technology_complexity: "Technology - Complexity"
+  time_per_technology_min: "Min Time per Technology"
+  time_per_technology_max: "Max Time per Technology"
+  price_per_technology_min: "Min Price per Technology"
+  price_per_technology_max: "Max Price per Technology"
 
   title_edit_user: "Edit user"
   edit_user_header: "Update your profile"
