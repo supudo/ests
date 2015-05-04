@@ -1,0 +1,49 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+
+    <button type="button" class="btn btn-primary" aria-label="Left Align">
+      <a class="btn-primary" data-toggle="modal" data-target="#wmodal0"><%= t('create_currency') %></a>
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="wmodal0" tabindex="-1" role="dialog" aria-labelledby="wmodal0_title" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <%= form_for @currency, :remote => true do |f| %>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="wmodal0_title"><%= t('currency') %></h4>
+          </div>
+          <div class="modal-body">
+            <fieldset>
+              <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
+                <%= f.text_field :title, class: 'form-control', placeholder: t('currency'), autofocus: true %>
+              </div>
+              <div class="form-group<%= f.object.errors[:code].any? ? ' has-error has-feedback' : '' %>">
+                <%= f.text_field :code, class: 'form-control', placeholder: t('code'), autofocus: true %>
+              </div>
+              <div class="form-group<%= f.object.errors[:symbol].any? ? ' has-error has-feedback' : '' %>">
+                <%= f.text_field :symbol, class: 'form-control', placeholder: t('symbol'), autofocus: true %>
+              </div>
+              <div class="form-group">
+                <div class="checkbox"><label><%= f.check_box :is_infront %> <%= t('is_infront') %></label></div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="modal-footer">
+            <button id="closebtn_0" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
+            <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
+          </div>
+          <% end %>
+
+        </div>
+      </div>
+    </div> <!-- / Modal -->
+
+  </div>
+  <div id="currencies-list">
+    <%= render partial: 'currencies/list', locals: { currencies: @currencies } %>
+  </div>
+</div>
+
+<%= will_paginate @currencies, :renderer => BootstrapPagination::Rails %>
