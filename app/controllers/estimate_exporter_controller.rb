@@ -74,6 +74,8 @@ class EstimateExporterController < ApplicationController
     # Sheets
     estimate_total_hours_min = 0
     estimate_total_hours_max = 0
+    estimate_total_price_min_num = 0
+    estimate_total_price_max_num = 0
     sheets.each do |sheet|
 
       f_sheet.add_row ['', sheet.title, '', '', '', '', ''], :style => [nil, cs_grey_dark, cs_grey_dark, cs_grey_dark, cs_grey_dark, cs_grey_dark, cs_grey_dark]
@@ -93,12 +95,16 @@ class EstimateExporterController < ApplicationController
           price_min = (f_line.hours_min * rate_per_hour).to_s + ' ' + currency_symbol
           price_max = (f_line.hours_max * rate_per_hour).to_s + ' ' + currency_symbol
           f_sheet.add_row ['', f_line.line, f_line.hours_min, f_line.hours_max, rate_ph, price_min, price_max], :style => [nil, cs_normal, cs_normal, cs_normal, cs_normal, cs_normal, cs_normal]
+          estimate_total_price_min_num += f_line.hours_min * rate_per_hour
+          estimate_total_price_max_num += f_line.hours_max * rate_per_hour
         end
 
       end
 
     end
-    f_sheet.add_row ['', t('total_caps'), estimate_total_hours_min, estimate_total_hours_max, '', '', ''], :style => [nil, cs_black_right, cs_black, cs_black, cs_black, cs_black, cs_black]
+    estimate_total_price_min = estimate_total_price_min_num.to_s + ' ' + currency_symbol
+    estimate_total_price_max = estimate_total_price_max_num.to_s + ' ' + currency_symbol
+    f_sheet.add_row ['', t('total_caps'), estimate_total_hours_min, estimate_total_hours_max, '', estimate_total_price_min, estimate_total_price_max], :style => [nil, cs_black_right, cs_black, cs_black, cs_black, cs_black, cs_black]
     
     # Options
     estimate_file.use_shared_strings = true
