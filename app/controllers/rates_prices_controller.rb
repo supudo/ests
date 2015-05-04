@@ -6,10 +6,32 @@ class RatesPricesController < ApplicationController
       @notif_type = 'danger'
       @notif_message = t('rateprice_already_exists')
     else
-      @rateprice = RatesPrice.new(rates_price_params)
-      @rateprice.modified_user_id = current_user.id
-      @rateprice.modified_date = DateTime.now
-      if @rateprice.save
+      success = 0
+      if rates_price_params[:position_id] == "" || rates_price_params[:position_id].to_f == 0
+        poss = Position.where(:technology_id => rates_price_params[:technology_id])
+        poss.each do |item|
+          params[:rates_price][:position_id] = item.id
+          rateprice = RatesPrice.new(rates_price_params)
+          rateprice.modified_user_id = current_user.id
+          rateprice.modified_date = DateTime.now
+          if rateprice.save
+            success = 1
+          else
+            success = 0
+          end
+        end
+      else
+        rateprice = RatesPrice.new(rates_price_params)
+        rateprice.modified_user_id = current_user.id
+        rateprice.modified_date = DateTime.now
+        if rateprice.save
+          success = 1
+        else
+          success = 0
+        end
+      end
+
+      if success > 0
         @notif_type = 'success'
         @notif_message = t('rateprice_created_successfully')
       else

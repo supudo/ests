@@ -1,1 +1,1 @@
-$("#positions_select").empty().append("<%= escape_javascript(render(:partial => @positions)) %>")
+$("#positions_select").empty().append("<option value='0'><%= t('all') %></option><%= escape_javascript(render(:partial => @positions)) %>")

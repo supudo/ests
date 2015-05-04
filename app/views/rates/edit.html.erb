@@ -40,7 +40,7 @@
               <%= f.select :technology_id, options_for_select(@technology.collect { |tech| [tech.title, tech.id] }, 1), {}, { id: 'technologies_select', :class => 'form-control'} %>
             </div>
             <div class="form-group">
-              <%= f.select :position_id, options_for_select(@positions.where(:technology_id => @technology.first.id).collect { |pos| [pos.title, pos.id] }, 0), {}, { id: 'positions_select', :class => 'form-control'} %>
+              <%= f.select :position_id, options_for_select(@positions.where(:technology_id => @technology.first.id).collect { |pos| [pos.title, pos.id] }, 0), {:include_blank => t('all')}, { id: 'positions_select', :class => 'form-control'} %>
             </div>
 
             <div class="form-group">
