@@ -1,1 +1,11 @@
-$("#rates_positions_select").empty().append("<option value='0'><%= t('all') %></option><%= escape_javascript(render(:partial => @positions)) %>")
+<%
+if @item_id.to_f > 0
+%>
+$("#rates_positions_select_<%= @item_id %>").empty().append("<%= escape_javascript(render(:partial => @positions)) %>")
+<%
+else
+%>
+$("#rates_positions_select_0").empty().append("<option value='0'><%= t('all') %></option><%= escape_javascript(render(:partial => @positions)) %>")
+<%
+end
+%>

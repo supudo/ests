@@ -86,6 +86,7 @@ class RatesController < ApplicationController
 
   def rates_update_positions
     @positions = Position.where(:technology_id => params[:technology_id])
+    @item_id = params[:item_id]
     respond_to do |format|
       format.js
     end
