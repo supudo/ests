@@ -95,6 +95,7 @@ class EstimateslineController < ApplicationController
       @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
       @estimatesline = EstimatesLine.where(:estimate_id => @current.estimate_id, :estimates_sections_id => @current.estimates_sections_id).order("line_number ASC")
       @current_section = EstimatesSection.find(@current.estimates_sections_id)
+      @positions = Position.order("title ASC")
       format.js
     end
   end
@@ -111,6 +112,7 @@ class EstimateslineController < ApplicationController
       @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
       @estimatesline = EstimatesLine.where(:estimate_id => @current.estimate_id, :estimates_sections_id => @current.estimates_sections_id).order("line_number ASC")
       @current_section = EstimatesSection.find(@current.estimates_sections_id)
+      @positions = Position.order("title ASC")
       format.js
     end
   end
