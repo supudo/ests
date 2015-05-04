@@ -117,6 +117,13 @@ class EstimateslineController < ApplicationController
     end
   end
 
+  def lines_update_positions
+    @positions = Position.where(:technology_id => params[:technology_id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
 
     def estimates_line_params

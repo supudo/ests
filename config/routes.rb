@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :engagement_models
   resources :rates_prices
 
-  get 'rates/update_positions', as: 'update_positions'
+  get 'rates/rates_update_positions', as: 'rates_update_positions'
   resources :rates
 
   resources :currencies do
@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     get :autocomplete_estimate_title, :on => :collection
   end
 
+  get 'estimatesline/lines_update_positions', as: 'lines_update_positions'
   resources :estimatesline do
     member do
       get :show, :moveup, :movedown, :destroy, :create, :update

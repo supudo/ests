@@ -77,10 +77,10 @@
                         <%= f.collection_select :estimates_sections_id, EstimatesSection.where(:estimates_sheet_id => eitem_sheet_id), :id, :title, {:selected => eitem.estimates_sections_id}, {:class => 'form-control'} %>
                       </div>
                       <div class="form-group">
-                        <%= f.select :technology_id, options_for_select(Technology.order("title ASC").collect { |tech| [tech.title, tech.id] }, 1), {:selected => eitem.technology_id}, { id: 'lines_technologies_select_' + eitem.id.to_s, :class => 'form-control'} %>
+                        <%= f.collection_select :technology_id, Technology.order("title ASC"), :id, :title, {:selected => eitem.technology_id}, {:class => 'form-control'} %>
                       </div>
                       <div class="form-group">
-                        <%= f.select :position_id, options_for_select(@positions.where(:technology_id => eitem.technology_id).collect { |pos| [pos.title, pos.id] }, 0), {:selected => eitem.position_id}, { id: 'lines_positions_select_' + eitem.id.to_s, :class => 'form-control'} %>
+                        <%= f.collection_select :position_id, @positions.where(:technology_id => eitem.technology_id), :id, :title, {:include_blank => t('dashes') + ' ' + t('profile')}, {:class => 'form-control'} %>
                       </div>
                       <div class="form-group">
                         <%= f.text_field :line, class: 'form-control', placeholder: t('line'), autofocus: true, value: eitem.line %>
