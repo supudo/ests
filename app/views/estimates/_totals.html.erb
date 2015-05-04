@@ -12,8 +12,11 @@ currency = @estimate.rate.currency.symbol
 rate_prices = RatesPrice.where(:rate_id => @estimate.rate_id, :engagement_model_id => @estimate.engagement_model_id)
 
 @estimatesline.each do |item|
-  total_price_min += rate_prices.where(:technology_id => item.technology_id, :position_id => item.position_id).first.hourly_rate * item.hours_min
-  total_price_max += rate_prices.where(:technology_id => item.technology_id, :position_id => item.position_id).first.hourly_rate * item.hours_max
+  rp = rate_prices.where(:technology_id => item.technology_id, :position_id => item.position_id).first
+  if !rp.nil?
+    total_price_min += rp.hourly_rate * item.hours_min
+    total_price_max += rp.hourly_rate * item.hours_max
+  end
 
   total_hours_min += item.hours_min
   total_hours_max += item.hours_max

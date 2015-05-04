@@ -114,12 +114,18 @@ class EstimatesController < ApplicationController
   end
 
   def destroy
-    Estimate.find(params[:id]).destroy
-    respond_to do |format|
-      @estimates = Estimate.paginate(page: params[:page], :per_page => 10)
-      @notif_type = 'info'
-      @notif_message = t('destimate_destroyed')
-      format.js
+    ActiveRecord::Base.transaction do
+      EstimatesLine.delete_all(:estimate_id => params[:id])
+      EstimatesSection.delete_all(:estimate_id => params[:id])
+      EstimatesSheet.delete_all(:estimate_id => params[:id])
+      EstimatesAssumption.delete_all(:estimate_id => params[:id])
+      Estimate.find(params[:id]).destroy
+      respond_to do |format|
+        @estimates = Estimate.paginate(page: params[:page], :per_page => 10)
+        @notif_type = 'info'
+        @notif_message = t('destimate_destroyed')
+        format.js
+      end
     end
   end
 

@@ -29,7 +29,12 @@ class Estimate < ActiveRecord::Base
     p = 0
     @lines = EstimatesLine.where(:estimate_id => self.id)
     @lines.each do |item|
-      rate_per_hour = rate_prices.where(:technology_id => item.technology_id, :position_id => item.position_id).first.hourly_rate
+      rp = rate_prices.where(:technology_id => item.technology_id, :position_id => item.position_id).first
+      if rp != nil
+        rate_per_hour = rp.hourly_rate
+      else
+        rate_per_hour = 0
+      end
       p += item.hours_min * rate_per_hour
     end
     return p
@@ -40,7 +45,12 @@ class Estimate < ActiveRecord::Base
     p = 0
     @lines = EstimatesLine.where(:estimate_id => self.id)
     @lines.each do |item|
-      rate_per_hour = rate_prices.where(:technology_id => item.technology_id, :position_id => item.position_id).first.hourly_rate
+      rp = rate_prices.where(:technology_id => item.technology_id, :position_id => item.position_id).first
+      if rp != nil
+        rate_per_hour = rp.hourly_rate
+      else
+        rate_per_hour = 0
+      end
       p += item.hours_max * rate_per_hour
     end
     return p

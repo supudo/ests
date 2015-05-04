@@ -110,15 +110,24 @@
           <td class="col-md-1 vert-align center"><%= eitem.hours_min %></td>
           <td class="col-md-1 vert-align center"><%= eitem.hours_max %></td>
           <td class="col-md-1 vert-align center">
+            <% rp = rate_prices.where(:technology_id => eitem.technology_id, :position_id => eitem.position_id).first %>
             <%
-              price_min = rate_prices.where(:technology_id => eitem.technology_id, :position_id => eitem.position_id).first.hourly_rate * eitem.hours_min
+              if !rp.nil?
+                price_min = rp.hourly_rate * eitem.hours_min
+              else
+                price_min = 0
+              end
               total_min_price += price_min
             %>
             <%= price_min.to_s + ' ' + currency_symbol %>
           </td>
           <td class="col-md-1 vert-align center">
             <%
-              price_max = rate_prices.where(:technology_id => eitem.technology_id, :position_id => eitem.position_id).first.hourly_rate * eitem.hours_max
+              if !rp.nil?
+                price_max = rp.hourly_rate * eitem.hours_max
+              else
+                price_max = 0
+              end
               total_max_price += price_max
             %>
             <%= price_max.to_s + ' ' + currency_symbol %>

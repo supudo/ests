@@ -23,8 +23,8 @@
         <td class="col-md-2 vert-align">
           <a href="mailto:<%= User.find_by(:id => estimate.owner_user_id).username %>"><%= User.find_by(:id => estimate.owner_user_id).first_name %> <%= User.find_by(:id => estimate.owner_user_id).last_name %></a>
         </td>
-        <td class="vert-align" nowrap><%= estimate.total_min_hours %> / <%= estimate.total_max_hours %></td>
-        <td class="vert-align" nowrap><%= estimate.total_min_price.to_s + ' ' + estimate.rate.currency.symbol %> / <%= estimate.total_max_price.to_s + ' ' + estimate.rate.currency.symbol %></td>
+        <td class="vert-align"><%= estimate.total_min_hours %> <br /> <%= estimate.total_max_hours %></td>
+        <td class="vert-align" nowrap><%= estimate.total_min_price.to_s + ' ' + estimate.rate.currency.symbol %> <br /> <%= estimate.total_max_price.to_s + ' ' + estimate.rate.currency.symbol %></td>
         <td width="1%" nowrap>
           <%= button_to estimate_exporter_index_path, :method => 'get', :id => estimate.id, class: "btn btn-default btn-sm" do %>
             <%= hidden_field_tag :estimate_id, estimate.id %>
