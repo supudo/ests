@@ -5,12 +5,6 @@ class CurrenciesController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.currencies_index'), :currencies_path
     @currencies = Currency.order("title ASC").paginate(page: params[:page], :per_page => 100)
-  end
-
-  def new
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.currencies_index'), :currencies_path
-    add_breadcrumb I18n.t('breadcrumbs.new')
     @currency = Currency.new
     @currencies_exchange = CurrenciesExchange.where(:from_currency_id => params[:id]).where.not(:to_currency_id => params[:id]).order("to_currency_id ASC")
   end
@@ -26,8 +20,8 @@ class CurrenciesController < ApplicationController
 
   def create
     if Currency.exists?(:title => currency_params[:title])
-      flash[:success] = t('currency_already_exists')
-      redirect_to :new_currency
+      @notif_type = 'warning'
+      @notif_message = t('currency_already_exists')
     else
       ActiveRecord::Base.transaction do
         @currency = Currency.new(currency_params)
@@ -43,17 +37,19 @@ class CurrenciesController < ApplicationController
             r.modified_date = DateTime.now
             r.save
           end
-
-          flash[:success] = t('currency_created_successfully')
-          redirect_to :currencies
+          @notif_type = 'success'
+          @notif_message = t('currency_created_successfully')
         else
-          add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-          add_breadcrumb I18n.t('breadcrumbs.currencies_index'), :currencies_path
-          add_breadcrumb I18n.t('breadcrumbs.new')
-          flash[:error] = t('error_missing_fields')
-          render 'new'
+          @notif_type = 'danger'
+          @notif_message = t('error_missing_fields')
         end
       end
+    end
+    respond_to do |format|
+      @currency = Currency.new
+      @currencies_exchange = CurrenciesExchange.where(:from_currency_id => params[:id]).where.not(:to_currency_id => params[:id]).order("to_currency_id ASC")
+      @currencies = Currency.order("title ASC").paginate(page: params[:page], :per_page => 100)
+      format.js
     end
   end
 

@@ -1,0 +1,3 @@
+$('#closebtn_0').click();
+$('#currencies-list').html("<%= escape_javascript(render :partial => 'currencies/list', :locals => { :currencies => @currencies }) %>");
+showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');
