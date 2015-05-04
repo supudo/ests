@@ -16,9 +16,11 @@ Rails.application.routes.draw do
   resources :positions
   resources :estimate_exporter
   resources :currencies
-  resources :rates
   resources :engagement_models
   resources :rates_prices
+
+  get 'rates/update_positions', as: 'update_positions'
+  resources :rates
 
   resources :currencies do
     member do

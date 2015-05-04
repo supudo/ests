@@ -37,10 +37,10 @@
               <%= f.collection_select :engagement_model_id, @engagement_models, :id, :title, {:include_blank => t('dashes') + ' ' + t('engagement_model')}, {:class => 'form-control'} %>
             </div>
             <div class="form-group">
-              <%= f.select :technology_id, options_for_select(@technology.collect { |tech| [tech.title, tech.id] }, 1), {}, { id: 'technologies_select', :class => 'form-control'} %>
+              <%= f.collection_select :technology_id, @technology, :id, :title, {:include_blank => t('dashes') + ' ' + t('technology')}, {:class => 'form-control'} %>
             </div>
             <div class="form-group">
-              <%= f.select :position_id, options_for_select(@positions.where(:technology_id => @technology.first.id).collect { |pos| [pos.title, pos.id] }, 0), {}, { id: 'positions_select', :class => 'form-control'} %>
+              <%= f.collection_select :position_id, @positions, :id, :title, {:include_blank => t('dashes') + ' ' + t('profile')}, {:class => 'form-control'} %>
             </div>
 
             <div class="form-group">
