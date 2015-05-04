@@ -5,6 +5,8 @@ class EstimateExporterController < ApplicationController
     estimate = Estimate.find(params[:estimate_id])
     sheets = EstimatesSheet.where(:estimate_id => params[:estimate_id]).order("id ASC")
     assumptions = EstimatesAssumption.where(:estimate_id => params[:estimate_id]).order("title ASC")
+    rate_prices = RatesPrice.where(:rate_id => estimate.rate_id, :engagement_model_id => estimate.engagement_model_id)
+    currency_symbol = estimate.rate.currency.symbol
 
     file_client = Client.find(estimate.client_id).title
     file_project = Project.find(estimate.project_id).title
@@ -86,7 +88,11 @@ class EstimateExporterController < ApplicationController
         # Lines
         lines = EstimatesLine.where(:estimates_sections_id => f_section.id).order("line_number ASC")
         lines.each do |f_line|
-          f_sheet.add_row ['', f_line.line, f_line.hours_min, f_line.hours_max, '', '', ''], :style => [nil, cs_normal, cs_normal, cs_normal, cs_normal, cs_normal, cs_normal]
+          rate_per_hour = rate_prices.where(:technology_id => f_line.technology_id, :position_id => f_line.position_id).first.hourly_rate
+          rate_ph = rate_per_hour.to_s + ' ' + currency_symbol
+          price_min = (f_line.hours_min * rate_per_hour).to_s + ' ' + currency_symbol
+          price_max = (f_line.hours_max * rate_per_hour).to_s + ' ' + currency_symbol
+          f_sheet.add_row ['', f_line.line, f_line.hours_min, f_line.hours_max, rate_ph, price_min, price_max], :style => [nil, cs_normal, cs_normal, cs_normal, cs_normal, cs_normal, cs_normal]
         end
 
       end
