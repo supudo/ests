@@ -24,4 +24,26 @@ class Estimate < ActiveRecord::Base
     return hours
   end
 
+  def total_min_price
+    rate_prices = RatesPrice.where(:rate_id => self.rate_id, :engagement_model_id => self.engagement_model_id)
+    p = 0
+    @lines = EstimatesLine.where(:estimate_id => self.id)
+    @lines.each do |item|
+      rate_per_hour = rate_prices.where(:technology_id => item.technology_id, :position_id => item.position_id).first.hourly_rate
+      p += item.hours_min * rate_per_hour
+    end
+    return p
+  end
+
+  def total_max_price
+    rate_prices = RatesPrice.where(:rate_id => self.rate_id, :engagement_model_id => self.engagement_model_id)
+    p = 0
+    @lines = EstimatesLine.where(:estimate_id => self.id)
+    @lines.each do |item|
+      rate_per_hour = rate_prices.where(:technology_id => item.technology_id, :position_id => item.position_id).first.hourly_rate
+      p += item.hours_max * rate_per_hour
+    end
+    return p
+  end
+
 end
