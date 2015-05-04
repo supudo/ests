@@ -4,6 +4,7 @@ class EngagementModelsController < ApplicationController
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.engagement_models_index'), :engagement_models_path
+    @engagement_model = EngagementModel.new
     @engagement_models = EngagementModel.paginate(page: params[:page], :per_page => 10)
   end
 
@@ -30,16 +31,17 @@ class EngagementModelsController < ApplicationController
       ActiveRecord::Base.transaction do
         @engagement_model = EngagementModel.new(engagement_model_params)
         if @engagement_model.save
-          flash[:success] = t('engagement_model_created_successfully')
-          redirect_to :engagement_models
+          @notif_type = 'success'
+          @notif_message = t('engagement_model_created_successfully')
         else
-          add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-          add_breadcrumb I18n.t('breadcrumbs.engagement_models_index'), :engagement_models_path
-          add_breadcrumb I18n.t('breadcrumbs.new')
-          flash[:error] = t('error_missing_fields')
-          render 'new'
+          @notif_type = 'danger'
+          @notif_message = t('error_missing_fields')
         end
       end
+    end
+    respond_to do |format|
+      @engagement_models = EngagementModel.paginate(page: params[:page], :per_page => 10)
+      format.js
     end
   end
 
@@ -47,14 +49,16 @@ class EngagementModelsController < ApplicationController
     ActiveRecord::Base.transaction do
       @engagement_model = EngagementModel.find_by_id(params[:id])
       if @engagement_model.update_attributes(engagement_model_params)
-        flash[:success] = t('engagement_model_updated_successfully')
-        redirect_to :engagement_models
+        @notif_type = 'success'
+        @notif_message = t('engagement_model_updated_successfully')
       else
-        add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-        add_breadcrumb I18n.t('breadcrumbs.engagement_models_index'), :engagement_models_path
-        add_breadcrumb I18n.t('breadcrumbs.edit')
-        flash[:error] = t('error_missing_fields')
-        render 'edit'
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
+      end
+      respond_to do |format|
+        @engagement_models = EngagementModel.paginate(page: params[:page], :per_page => 10)
+        @item_id = @engagement_model.id
+        format.js
       end
     end
   end

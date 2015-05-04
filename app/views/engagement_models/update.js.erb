@@ -1,0 +1,3 @@
+$('#closebtn_<%= @item_id %>').click();
+$('#engagement_models-list').html("<%= escape_javascript(render :partial => 'engagement_models/list', :locals => { :engagement_models => @engagement_models }) %>");
+showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');
