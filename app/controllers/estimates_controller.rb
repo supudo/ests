@@ -5,7 +5,18 @@ class EstimatesController < ApplicationController
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.estimates_index'), estimates_path
-    @estimates = Estimate.paginate(page: params[:page], :per_page => 10)
+    if params.has_key?(:iss)
+      case params[:iss].to_f
+        when 1
+          @estimates = Estimate.where(:is_signed => 1).paginate(page: params[:page], :per_page => 10)
+        when 0
+          @estimates = Estimate.where(:is_signed => 0).paginate(page: params[:page], :per_page => 10)
+        else
+          @estimates = Estimate.paginate(page: params[:page], :per_page => 10)
+      end
+    else
+      @estimates = Estimate.paginate(page: params[:page], :per_page => 10)
+    end
   end
 
   def show
