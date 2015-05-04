@@ -4,15 +4,9 @@ class RatesController < ApplicationController
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.rates_index'), rates_path
-    @rates = Rate.order("title ASC").paginate(page: params[:page], :per_page => 10)
-  end
-
-  def new
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.rates_index'), rates_path
-    add_breadcrumb I18n.t('breadcrumbs.new')
     @rate = Rate.new
     @currencies = Currency.order("title ASC")
+    @rates = Rate.order("title ASC").paginate(page: params[:page], :per_page => 10)
   end
 
   def show
@@ -35,19 +29,24 @@ class RatesController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.new')
     @rates = Rate.order("title ASC").paginate(page: params[:page], :per_page => 10)
     if Rate.exists?(:title => rate_params[:title])
-      flash[:success] = t('rate_already_exists')
-      redirect_to :new_rate
+      @notif_type = 'warning'
+      @notif_message = t('rate_already_exists')
     else
       @rate = Rate.new(rate_params)
       @rate.modified_user_id = current_user.id
       @rate.modified_date = DateTime.now
       if @rate.save
-        flash[:success] = t('rate_created_successfully')
-        redirect_to :rates
+        @notif_type = 'success'
+        @notif_message = t('rate_created_successfully')
       else
-        flash[:error] = t('error_missing_fields')
-        render 'new'
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
       end
+    end
+    respond_to do |format|
+      @currencies = Currency.order("title ASC")
+      @rates = Rate.order("title ASC").paginate(page: params[:page], :per_page => 10)
+      format.js
     end
   end
 

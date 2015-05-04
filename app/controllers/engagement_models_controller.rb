@@ -8,13 +8,6 @@ class EngagementModelsController < ApplicationController
     @engagement_models = EngagementModel.paginate(page: params[:page], :per_page => 10)
   end
 
-  def new
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.engagement_models_index'), :engagement_models_path
-    add_breadcrumb I18n.t('breadcrumbs.new')
-    @engagement_model = EngagementModel.new
-  end
-
   def show
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.engagement_models_index'), :engagement_models_path
@@ -25,8 +18,8 @@ class EngagementModelsController < ApplicationController
 
   def create
     if EngagementModel.exists?(:title => engagement_model_params[:title])
-      flash[:success] = t('engagement_model_already_exists')
-      redirect_to :new_engagement_model
+      @notif_type = 'warning'
+      @notif_message = t('engagement_model_already_exists')
     else
       ActiveRecord::Base.transaction do
         @engagement_model = EngagementModel.new(engagement_model_params)
