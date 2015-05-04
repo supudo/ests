@@ -78,8 +78,24 @@ currency_code = curr.code
         </div> <!-- / Modal -->
         
       </td>
-      <td class="vert-align center" width="1%" nowrap><%= item.daily_rate.to_s + ' ' + currency_symbol %></td>
-      <td class="vert-align center" width="1%" nowrap><%= item.hourly_rate.to_s + ' ' + currency_symbol %></td>
+      <td class="vert-align center" width="1%" nowrap>
+      <%
+      if curr.is_infront > 0
+        concat currency_symbol + ' ' + item.daily_rate.to_s
+      else
+        concat item.daily_rate.to_s + ' ' + currency_symbol
+      end
+      %>
+      </td>
+      <td class="vert-align center" width="1%" nowrap>
+      <%
+      if curr.is_infront > 0
+        concat currency_symbol + ' ' + item.hourly_rate.to_s
+      else
+        concat item.hourly_rate.to_s + ' ' + currency_symbol
+      end
+      %>
+      </td>
       <td width="1%" nowrap>
         <%= button_to rates_price_path(item), method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true do %>
           <%= hidden_field :rp, :rate_price_id, value: item.id %>
