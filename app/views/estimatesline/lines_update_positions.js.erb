@@ -1,1 +1,1 @@
-$("[id^=lines_positions_select_]").empty().append("<%= escape_javascript(render(:partial => @positions)) %>")
+$("#lines_positions_select_<%= @item_id %>").empty().append("<%= escape_javascript(render(:partial => @positions)) %>")

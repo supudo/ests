@@ -4,7 +4,8 @@ $ ->
       type: 'GET'
       dataType: 'script'
       data: {
-        technology_id: $("option:selected", this).val()
+        technology_id: $("option:selected", this).val(),
+        item_id: this.id.replace('lines_technologies_select_', '')
       }
       error: (jqXHR, textStatus, errorThrown) ->
         console.log("AJAX Error: #{textStatus}")
