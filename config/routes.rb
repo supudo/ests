@@ -58,4 +58,7 @@ Rails.application.routes.draw do
 
   get 'dashboard' => 'dashboard#index'
 
+  get 'registration/registration_update_positions', as: 'registration_update_positions'
+  resources :registration
+
 end

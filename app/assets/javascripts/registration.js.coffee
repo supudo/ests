@@ -1,11 +1,10 @@
 $ ->
-  $(document).on 'change', '[id^=users_technologies_select_]', (evt) ->
-    $.ajax '/users/users_update_positions',
+  $(document).on 'change', '#registration_technologies_select', (evt) ->
+    $.ajax 'registration/registration_update_positions',
       type: 'GET'
       dataType: 'script'
       data: {
-        technology_id: $("option:selected", this).val(),
-        item_id: this.id.replace('users_technologies_select_', '')
+        technology_id: $("option:selected", this).val()
       }
       error: (jqXHR, textStatus, errorThrown) ->
         console.log("AJAX Error: #{textStatus}")
