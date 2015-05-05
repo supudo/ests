@@ -67,4 +67,4 @@
     </tbody>
   </table>
 
-  <%= will_paginate @positions, :renderer => BootstrapPagination::Rails %>
+  <div class="center"><%= will_paginate @positions, :renderer => BootstrapPagination::Rails, :remote => true %></div>

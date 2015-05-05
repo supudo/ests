@@ -63,3 +63,5 @@
       <% end %>
     </tbody>
   </table>
+
+  <div class="center"><%= will_paginate @technologies, :renderer => BootstrapPagination::Rails, :remote => true %></div>
