@@ -4,9 +4,23 @@ class PositionsController < ApplicationController
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.positions_index'), :positions_path
+    @filterrific = initialize_filterrific(
+      Position,
+      params[:filterrific],
+      :select_options => {
+        sorted_by: Position.options_for_sorted_by
+      }
+    ) or return
+    @positions = @filterrific.find.page(params[:page])
+    @positions = @positions.order("technology_id ASC, title ASC")
+
     @position = Position.new
     @technologies = Technology.order("title ASC")
-    @positions = Position.order("technology_id ASC, title ASC").paginate(page: params[:page], :per_page => 100)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create
