@@ -43,7 +43,7 @@
               <%= f.select :position_id, options_for_select(@positions.where(:technology_id => Technology.order("title ASC").first.id).collect { |pos| [pos.title, pos.id] }, 0), {}, { id: 'lines_positions_select_0', :class => 'form-control'} %>
             </div>
             <div class="form-group">
-              <%= f.autocomplete_field :line, autocomplete_estimatesline_line_estimatesline_index_path(:format => :json), class: 'form-control', placeholder: t('line'), autofocus: true, :id => 'ac_estimate_line_' + sheet.id.to_s %>
+              <%= f.text_field :line, class: 'form-control', placeholder: t('line'), autofocus: true, :id => 'ac_estimate_line_' + sheet.id.to_s %>
             </div>
             <div class="form-group">
               <%= f.select :complexity, options_for_select((1..10).step(1).to_a.map{|s| ["#{s}", s]}), {:include_blank => t('dashes') + ' ' + t('complexity')}, {:class => 'form-control', :id => 'estimate_line_complexity_' + sheet.id.to_s} %>

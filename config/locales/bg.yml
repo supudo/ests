@@ -288,3 +288,17 @@ bg:
     <<: *defaults
   time:
     <<: *defaults
+
+  will_paginate:
+    page_entries_info:
+      single_page:
+        zero:  "Не са намерени %{model}."
+        one:   "Показване на 1 %{model}"
+        other: "Показване на всички %{count} %{model}"
+      single_page_html:
+        zero:  "Не са намерени %{model}."
+        one:   "Показване на <b>1</b> %{model}"
+        other: "Показване на <b>всички&nbsp;%{count}</b> %{model}"
+
+      multi_page: "Показване на %{model} %{from} - %{to} от %{count} общо"
+      multi_page_html: "Показване на %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> от <b>%{count}</b> общо"

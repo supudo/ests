@@ -28,32 +28,15 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :estimates do
-    get :autocomplete_estimate_title, :on => :collection
-  end
-
   get 'estimatesline/lines_update_positions', as: 'lines_update_positions'
   resources :estimatesline do
     member do
       get :show, :moveup, :movedown, :destroy, :create, :update
     end
-    get :autocomplete_estimatesline_line, :on => :collection
   end
 
   resources :estimate_importer do
     collection { post :import }
-  end
-
-  resources :clients do
-    get :autocomplete_client_title, :on => :collection
-  end
-
-  resources :projects do
-    get :autocomplete_project_title, :on => :collection
-  end
-
-  resources :users do
-    get :autocomplete_user_searchname, :on => :collection
   end
 
   get 'about/new'

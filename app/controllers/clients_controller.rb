@@ -1,12 +1,22 @@
 class ClientsController < ApplicationController
   before_action :signed_in_user
-  autocomplete :client, :title, :full => true
 
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.clients_index'), clients_path
+    @filterrific = initialize_filterrific(
+      Client,
+      params[:filterrific],
+      :select_options => {
+        sorted_by: Client.options_for_sorted_by
+      }
+    ) or return
+    @clients = @filterrific.find.page(params[:page]).order("title ASC")
     @client = Client.new
-    @clients = Client.order("title ASC").paginate(page: params[:page], :per_page => 10)
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show

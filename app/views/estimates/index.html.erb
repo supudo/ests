@@ -4,7 +4,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
 
-    <%= form_tag :url => estimates_path do |f| %>
     <div class="input-group">
 
       <div class="input-group-btn">
@@ -13,7 +12,9 @@
         </button>
       </div>
 
-      <%= autocomplete_field 'ac_search_estimate', '', autocomplete_estimate_title_estimates_path(:format => :json), { class: 'form-control', autofocus: true, placeholder: t('search') } %>
+      <%= form_for_filterrific @filterrific do |f| %>
+        <%= f.text_field(:search_query, class: 'form-control filterrific-periodically-observed', placeholder: t('search')) %>
+      <% end %>
 
       <div class="input-group-btn">
         <button type="button" class="btn btn-primary">
@@ -28,12 +29,9 @@
       </div>
 
     </div>
-    <% end %>
 
   </div>
   <div id="estimates-list">
     <%= render partial: 'estimates/list', locals: { estimates: @estimates } %>
   </div>
 </div>
-
-<%= will_paginate @estimates, :renderer => BootstrapPagination::Rails %>

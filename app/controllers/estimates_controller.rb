@@ -1,21 +1,30 @@
 class EstimatesController < ApplicationController
   before_action :signed_in_user
-  helper_method :sort_column, :sort_direction
 
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.estimates_index'), estimates_path
+    @filterrific = initialize_filterrific(
+      Estimate,
+      params[:filterrific],
+      :select_options => {
+        sorted_by: Estimate.options_for_sorted_by
+      }
+    ) or return
+    @estimates = @filterrific.find.page(params[:page]).order("title ASC")
     if params.has_key?(:iss)
       case params[:iss].to_f
         when 1
-          @estimates = Estimate.where(:is_signed => 1).paginate(page: params[:page], :per_page => 10)
+          @estimates = @estimates.where(:is_signed => 1)
         when 0
-          @estimates = Estimate.where(:is_signed => 0).paginate(page: params[:page], :per_page => 10)
+          @estimates = @estimates.where(:is_signed => 0)
         else
-          @estimates = Estimate.paginate(page: params[:page], :per_page => 10)
+          @estimates = @filterrific.find.page(params[:page]).order("title ASC")
       end
-    else
-      @estimates = Estimate.paginate(page: params[:page], :per_page => 10)
+    end
+    respond_to do |format|
+      format.html
+      format.js
     end
   end
 
@@ -144,14 +153,6 @@ class EstimatesController < ApplicationController
 
     def estimate_params
       params.require(:estimate).permit(:title, :is_signed, :rate_id, :engagement_model_id, :client_id, :project_id, :owner_user_id)
-    end
-
-    def sort_column
-      EstimatesLine.column_names.include?(params[:sort]) ? params[:sort] : "line_number"
-    end
-
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 
 end

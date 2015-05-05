@@ -28,12 +28,59 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def searchname
-    "#{first_name} #{last_name} - #{username}"
-  end
-
   def fullname_email
     "#{first_name} #{last_name} (#{username})"
+  end
+
+  def position_technology
+    "#{position.title} #{technology.title}"
+  end
+
+  filterrific(
+    default_filter_params: { sorted_by: 'full_name ASC' },
+    available_filters: [
+      :sorted_by,
+      :search_query
+    ]
+  )
+
+  scope :search_query, lambda { |query|
+    return nil if query.blank?
+    terms = query.downcase.split(/\s+/)
+    terms = terms.map { |e|
+      (e.gsub('*', '%') + '%').gsub(/%+/, '%')
+    }
+    num_or_conditions = 5
+    where(
+      terms.map {
+        or_clauses = [
+          "LOWER(users.first_name) LIKE CONCAT('%', ?, '%')",
+          "LOWER(users.last_name) LIKE CONCAT('%', ?, '%')",
+          "LOWER(users.username) LIKE CONCAT('%', ?, '%')",
+          "(SELECT 1 FROM positions WHERE id = users.position_id AND LOWER(title) LIKE CONCAT('%', ?, '%'))",
+          "(SELECT 1 FROM technologies WHERE id = users.technology_id AND LOWER(title) LIKE CONCAT('%', ?, '%'))"
+        ].join(' OR ')
+        "(#{ or_clauses })"
+      }.join(' AND '),
+      *terms.map { |e|
+       [e] * num_or_conditions }.flatten
+    )
+  }
+
+  scope :sorted_by, lambda { |sort_option|
+    direction = (sort_option =~ /desc$/) ? 'desc' : 'asc'
+    case sort_option.to_s
+      when /^username_/
+        order("users.username #{ direction }")
+      when /^full_name/
+        order("LOWER(users.first_name) #{ direction }, LOWER(users.last_name) #{ direction }")
+      else
+        raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
+    end
+  }
+
+  def self.options_for_sorted_by
+    [['Name (a-z)', 'full_name_asc']]
   end
 
   private

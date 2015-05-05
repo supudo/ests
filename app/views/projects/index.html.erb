@@ -10,8 +10,8 @@
         </button>
       </div>
       <div class="form-group">
-        <%= form_tag :url => projects_path do |f| %>
-          <%= autocomplete_field 'ac_search_project', '', autocomplete_project_title_projects_path(:format => :json), { class: 'form-control', autofocus: true, placeholder: t('search') } %>
+        <%= form_for_filterrific @filterrific do |f| %>
+          <%= f.text_field(:search_query, class: 'form-control filterrific-periodically-observed', placeholder: t('search')) %>
         <% end %>
       </div>
     </div>
@@ -20,5 +20,3 @@
     <%= render partial: 'projects/list', locals: { projects: @projects } %>
   </div>
 </div>
-
-<%= will_paginate @projects, :renderer => BootstrapPagination::Rails %>

@@ -1,26 +1,40 @@
 class UsersController < ApplicationController
   before_action :signed_in_user
-  autocomplete :user, :searchname, :full => true
 
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
+    @filterrific = initialize_filterrific(
+      User,
+      params[:filterrific],
+      :select_options => {
+        sorted_by: User.options_for_sorted_by
+      }
+    ) or return
+    @users = @filterrific.find.page(params[:page])
+    
     if params[:ftid] != nil && params[:ftid] != '0'
-      @users = User.where("technology_id = ?", params[:ftid]).order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
-    else
-      @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
+      @users = @users.where("technology_id = ?", params[:ftid])
     end
+
+    @users = @users.order("first_name ASC, last_name ASC")
+
     @user = User.new
     @technology = Technology.order("title ASC")
     @position = Position.order("title ASC")
     @client = Client.order("title ASC")
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
     if params.has_key?(:term)
       @users = User.where("username LIKE (?) OR first_name LIKE (?) OR last_name LIKE (?)", "%#{params[:term]}%", "%#{params[:term]}%", "%#{params[:term]}%").order("first_name ASC, last_name")
       respond_to do |format|
-        format.json {render json: @users.map { |user| {:id => user.id, :label => user.searchname, :value => user.searchname} }}
+        format.json {render json: @users.map { |user| {:id => user.id, :label => user.full_name, :value => user.full_name} }}
       end
     else
       add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path

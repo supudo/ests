@@ -1,11 +1,21 @@
 class ProjectsController < ApplicationController
   before_action :signed_in_user
-  autocomplete :project, :title, :full => true
 
   def index
-    @projects = Project.paginate(page: params[:page], :per_page => 10)
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.projects_index'), projects_path
+    @filterrific = initialize_filterrific(
+      Project,
+      params[:filterrific],
+      :select_options => {
+        sorted_by: Project.options_for_sorted_by
+      }
+    ) or return
+    @projects = @filterrific.find.page(params[:page]).order("title ASC")
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
@@ -126,9 +136,11 @@ class ProjectsController < ApplicationController
           end
         end
 
-        ProjectsTechnology.destroy_all(:project_id => params[:id])
-        params[:project][:technology_ids].each do |tech_id|
-          ProjectsTechnology.create(:project_id => params[:id], :technology_id => tech_id)
+        if params[:project].has_key?([:technology_ids])
+          ProjectsTechnology.destroy_all(:project_id => params[:id])
+          params[:project][:technology_ids].each do |tech_id|
+            ProjectsTechnology.create(:project_id => @project.id, :technology_id => tech_id)
+          end
         end
 
         flash[:success] = t('project_updated_successfully')

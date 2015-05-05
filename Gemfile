@@ -44,9 +44,11 @@ gem 'sprockets', '~> 2.12.3'
 gem 'breadcrumbs_on_rails', '~> 2.3.0'
 
 # Autocomplete
-gem 'rails4-autocomplete', '~> 1.1.1'
 gem 'nifty-generators'
 gem 'jquery-ui-rails', '~> 5.0.3'
+
+# List filtering
+gem 'filterrific', '~> 2.0.5'
 
 # Javascript links
 gem 'js-routes', '~> 1.0.0'

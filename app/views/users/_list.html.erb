@@ -1,91 +1,97 @@
-  <table class="table table-striped" style="margin-bottom: 0px;">
-    <thead>
-      <tr>
-        <th><%= t('id') %></th>
-        <th><%= t('name') %></th>
-        <th><%= t('position') %></th>
-        <th><%= t('username') %></th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @users.each do |user| %>
-      <tr>
-        <td scope="row" class="vert-align"><%= user.id %></td>
-        <td class="vert-align"><%= user.first_name %> <%= user.last_name %></td>
-        <td class="vert-align"><strong><%= user.position.title %></strong> @ <%= user.technology.title %></td>
-        <td class="vert-align">
+  <div id="filterrific_results">
 
-          <a data-toggle="modal" data-target="#wmodal<%= user.id %>" id="#lnkmodal<%= user.id %>">
-            <%= user.username %>
-          </a>
+    <table class="table table-striped" style="margin-bottom: 0px;">
+      <thead>
+        <tr>
+          <th><%= t('id') %></th>
+          <th><%= t('name') %></th>
+          <th><%= t('position') %></th>
+          <th><%= t('username') %></th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td scope="row" class="vert-align"><%= user.id %></td>
+            <td class="vert-align"><%= user.first_name %> <%= user.last_name %></td>
+            <td class="vert-align"><strong><%= user.position.title %></strong> @ <%= user.technology.title %></td>
+            <td class="vert-align">
 
-          <!-- Modal -->
-          <div class="modal fade" id="wmodal<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="wmodal<%= user.id %>_title" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <%= form_for user, :remote => true do |f| %>
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="wmodal<%= user.id %>_title"><%= t('user') %></h4>
+              <a data-toggle="modal" data-target="#wmodal<%= user.id %>" id="#lnkmodal<%= user.id %>">
+                <%= user.username %>
+              </a>
+
+              <!-- Modal -->
+              <div class="modal fade" id="wmodal<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="wmodal<%= user.id %>_title" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <%= form_for user, :remote => true do |f| %>
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="wmodal<%= user.id %>_title"><%= t('user') %></h4>
+                    </div>
+                    <div class="modal-body">
+                      <fieldset>
+                        <div class="form-group<%= f.object.errors[:username].any? ? ' has-error has-feedback' : '' %>">
+                          <%= f.email_field :username, class: 'form-control', placeholder: t('email'), autofocus: true %>
+                        </div>
+                        <div class="form-group<%= f.object.errors[:password].any? ? ' has-error has-feedback' : '' %>">
+                          <%= f.password_field :password, class: 'form-control', placeholder: t('password') %>
+                        </div>
+                        <div class="form-group<%= f.object.errors[:password_confirmation].any? ? ' has-error has-feedback' : '' %>">
+                          <%= f.password_field :password_confirmation, class: 'form-control', placeholder: t('password_confirm') %>
+                        </div>
+                        <div class="form-group<%= f.object.errors[:first_name].any? ? ' has-error has-feedback' : '' %>">
+                          <%= f.text_field :first_name, class: 'form-control', placeholder: t('first_name') %>
+                        </div>
+                        <div class="form-group<%= f.object.errors[:last_name].any? ? ' has-error has-feedback' : '' %>">
+                          <%= f.text_field :last_name, class: 'form-control', placeholder: t('last_name') %>
+                        </div>
+                        <div class="form-group">
+                          <%= f.collection_select :technology_id, @technology, :id, :title, {}, {:class => 'form-control'} %>
+                        </div>
+                        <div class="form-group">
+                          <%= f.collection_select :position_id, @position, :id, :title, {}, {:class => 'form-control'} %>
+                        </div>
+                        <div class="form-group">
+                          <%= f.collection_select :client_id, @client, :id, :title, {}, {:class => 'form-control'} %>
+                        </div>
+                        <div class="form-group">
+                          <div class="checkbox">
+                            <label><%= f.check_box :is_am %> <%= t('is_account_manager') %></label>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="checkbox">
+                            <label><%= f.check_box :is_pdm %> <%= t('is_production_manager') %></label>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                      <button id="closebtn_<%= user.id %>" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
+                      <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
+                    </div>
+                    <% end %>
+
+                  </div>
                 </div>
-                <div class="modal-body">
-                  <fieldset>
-                    <div class="form-group<%= f.object.errors[:username].any? ? ' has-error has-feedback' : '' %>">
-                      <%= f.email_field :username, class: 'form-control', placeholder: t('email'), autofocus: true %>
-                    </div>
-                    <div class="form-group<%= f.object.errors[:password].any? ? ' has-error has-feedback' : '' %>">
-                      <%= f.password_field :password, class: 'form-control', placeholder: t('password') %>
-                    </div>
-                    <div class="form-group<%= f.object.errors[:password_confirmation].any? ? ' has-error has-feedback' : '' %>">
-                      <%= f.password_field :password_confirmation, class: 'form-control', placeholder: t('password_confirm') %>
-                    </div>
-                    <div class="form-group<%= f.object.errors[:first_name].any? ? ' has-error has-feedback' : '' %>">
-                      <%= f.text_field :first_name, class: 'form-control', placeholder: t('first_name') %>
-                    </div>
-                    <div class="form-group<%= f.object.errors[:last_name].any? ? ' has-error has-feedback' : '' %>">
-                      <%= f.text_field :last_name, class: 'form-control', placeholder: t('last_name') %>
-                    </div>
-                    <div class="form-group">
-                      <%= f.collection_select :technology_id, @technology, :id, :title, {}, {:class => 'form-control'} %>
-                    </div>
-                    <div class="form-group">
-                      <%= f.collection_select :position_id, @position, :id, :title, {}, {:class => 'form-control'} %>
-                    </div>
-                    <div class="form-group">
-                      <%= f.collection_select :client_id, @client, :id, :title, {}, {:class => 'form-control'} %>
-                    </div>
-                    <div class="form-group">
-                      <div class="checkbox">
-                        <label><%= f.check_box :is_am %> <%= t('is_account_manager') %></label>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="checkbox">
-                        <label><%= f.check_box :is_pdm %> <%= t('is_production_manager') %></label>
-                      </div>
-                    </div>
-                  </fieldset>
-                </div>
-                <div class="modal-footer">
-                  <button id="closebtn_<%= user.id %>" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
-                  <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
-                </div>
-                <% end %>
+              </div> <!-- / Modal -->
 
-              </div>
-            </div>
-          </div> <!-- / Modal -->
+            </td>
+            <td width="1%" nowrap>
+              <% if user.id != current_user.id %>
+              <%= button_to user, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true do %>
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
-        </td>
-        <td width="1%" nowrap>
-          <% if user.id != current_user.id %>
-          <%= button_to user, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true do %>
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-          <% end %>
-          <% end %>
-        </td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+
+<%= will_paginate @users, :renderer => BootstrapPagination::Rails, :remote => true %>
