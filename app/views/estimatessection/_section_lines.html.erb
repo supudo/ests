@@ -19,8 +19,7 @@
         <tr>
           <th>&nbsp;</th>
           <th>&nbsp;</th>
-          <th><%= "#" %></th>
-          <th><%= t('complexity') %></th>
+          <th>#</th>
           <th><%= t('line') %></th>
           <th class="center"><%= t('hours_min') %></th>
           <th class="center"><%= t('hours_max') %></th>
@@ -50,12 +49,11 @@
               <% end %>
             <% end %>
           </td>
-          <td class="col-md-1 vert-align" scope="row"><%= eitem.line_number %></td>
-          <td class="col-md-1 vert-align"><%= eitem.complexity %></td>
+          <td class="vert-align" width="1%"><%= eitem.line_number %></td>
           <td class="col-md-3 vert-align">
 
             <!-- Button trigger modal -->
-            <a data-toggle="modal" data-target="#elmodal<%= eitem.id %>">
+            <a data-toggle="modal" data-target="#elmodal<%= eitem.id %>" title="<%= eitem.id %>">
               <%= eitem.line %>
             </a>
 
@@ -84,9 +82,6 @@
                       </div>
                       <div class="form-group">
                         <%= f.text_field :line, class: 'form-control', placeholder: t('line'), autofocus: true, value: eitem.line %>
-                      </div>
-                      <div class="form-group">
-                        <%= f.select :complexity, options_for_select((1..10).step(1).to_a.map{|s| ["#{s}", s]}, :selected => eitem.complexity), {}, {:class => 'form-control'} %>
                       </div>
                       <div class="form-group">
                         <%= f.number_field :hours_min, class: 'form-control', placeholder: t('hours_min'), value: eitem.hours_min %>
@@ -151,7 +146,7 @@
         </tr>
         <% end %>
         <tr class="info">
-          <td colspan="5" align="right"><strong><%= t('total_caps') %></strong></td>
+          <td colspan="4" align="right"><strong><%= t('total_caps') %></strong></td>
           <td class="center"><strong><%= EstimatesSection.find_by_id(eitem_section_id).total_min_hours %></strong></td>
           <td class="center"><strong><%= EstimatesSection.find_by_id(eitem_section_id).total_max_hours %></strong></td>
           <td class="center"><strong><%= total_min_price.to_s + ' ' + currency_symbol %></strong></td>

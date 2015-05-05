@@ -54,7 +54,7 @@ class EstimatesController < ApplicationController
       @chart_hours_max = ActiveRecord::Base.connection.execute("SELECT (SELECT title FROM technologies WHERE id = el.technology_id) AS technology, SUM(el.hours_max) FROM estimates_lines AS el WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY technology")
       @estimate_technologies_percent_min = ActiveRecord::Base.connection.execute("SELECT t.title, SUM(hours_min) AS hours FROM technologies AS t INNER JOIN estimates_lines AS el ON el.technology_id = t.id WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY t.title")
       @estimate_technologies_percent_max = ActiveRecord::Base.connection.execute("SELECT t.title, SUM(hours_max) AS hours FROM technologies AS t INNER JOIN estimates_lines AS el ON el.technology_id = t.id WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY t.title")
-      @estimate_technology_complexity = ActiveRecord::Base.connection.execute("SELECT t.title, AVG(el.complexity) AS complexity FROM estimates_lines AS el INNER JOIN technologies AS t ON t.id = el.technology_id WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY t.title")
+      @estimate_positions_ratio = ActiveRecord::Base.connection.execute("SELECT p.title, COUNT(el.position_id) AS positions_count FROM estimates_lines AS el INNER JOIN positions AS p ON p.id = el.position_id WHERE el.estimate_id = " + params[:id] + " GROUP BY el.position_id")
       render 'edit'
     end
   end

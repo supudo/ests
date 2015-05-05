@@ -199,7 +199,6 @@ class EstimateImporterController < ApplicationController
                 eline.technology_id = Technology.first.id
                 eline.line_number = eline_counter
                 eline.line = section[:lines][eindex][:line]
-                eline.complexity = 1
                 eline.hours_min = section[:lines][eindex][:hours_min]
                 eline.hours_max = section[:lines][eindex][:hours_max]
                 eline.created_user_id = current_user.id

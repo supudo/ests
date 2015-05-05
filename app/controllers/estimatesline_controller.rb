@@ -4,13 +4,11 @@ class EstimateslineController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def show
-    @estimatesline = EstimatesLine.where("line LIKE (?)", "%#{params[:term]}%").order("line ASC")
+    @estimatesline = EstimatesLine.select(:position_id, :technology_id, :line, :hours_min, :hours_max).where("line LIKE (?)", "%#{params[:term]}%").order("line ASC").distinct
     respond_to do |format|
-      format.json {render json: @estimatesline.map { |line| {:id => line.id,
-                                                             :label => line.line + ' (O = ' + line.complexity.to_s + '; ' + line.technology.title + ')',
+      format.json {render json: @estimatesline.map { |line| {:label => line.line + ' (' + line.position.title + ' @ ' + line.technology.title + ')',
                                                              :value => line.line,
                                                              :technology => line.technology_id,
-                                                             :complexity => line.complexity,
                                                              :hours_min => line.hours_min,
                                                              :hours_max => line.hours_max
                                                             }
@@ -48,7 +46,6 @@ class EstimateslineController < ApplicationController
     eline = EstimatesLine.find_by(:id => params[:estimates_line][:estimate_line_id])
     eline.line = params[:estimates_line][:line]
     eline.technology_id = params[:estimates_line][:technology_id]
-    eline.complexity = params[:estimates_line][:complexity]
     eline.position_id = params[:estimates_line][:position_id]
     eline.hours_min = params[:estimates_line][:hours_min]
     eline.hours_max = params[:estimates_line][:hours_max]
@@ -128,7 +125,7 @@ class EstimateslineController < ApplicationController
   private
 
     def estimates_line_params
-      params.require(:estimate_line).permit(:estimate_id, :estimates_sections_id, :technology_id, :position_id, :line_number, :line, :complexity, :hours_min, :hours_max)
+      params.require(:estimate_line).permit(:estimate_id, :estimates_sections_id, :technology_id, :position_id, :line_number, :line, :hours_min, :hours_max)
     end
 
     def sort_column

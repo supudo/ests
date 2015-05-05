@@ -46,9 +46,6 @@
               <%= f.autocomplete_field :line, autocomplete_estimatesline_line_estimatesline_index_path(:format => :json), class: 'form-control', placeholder: t('line'), autofocus: true, :id => 'ac_estimate_line_' + sheet.id.to_s %>
             </div>
             <div class="form-group">
-              <%= f.select :complexity, options_for_select((1..10).step(1).to_a.map{|s| ["#{s}", s]}), {:include_blank => t('dashes') + ' ' + t('complexity')}, {:class => 'form-control', :id => 'estimate_line_complexity_' + sheet.id.to_s} %>
-            </div>
-            <div class="form-group">
               <%= f.number_field :hours_min, class: 'form-control', placeholder: t('hours_min'), :id => 'estimate_line_hours_min_' + sheet.id.to_s %>
             </div>
             <div class="form-group">

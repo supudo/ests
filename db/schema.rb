@@ -27,9 +27,10 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "clients", ["title"], name: "title", unique: true, using: :btree
 
   create_table "currencies", force: :cascade do |t|
-    t.string "code",   limit: 5,   null: false
-    t.string "title",  limit: 255, null: false
-    t.string "symbol", limit: 10,  null: false
+    t.string  "code",       limit: 5,                   null: false
+    t.string  "title",      limit: 255,                 null: false
+    t.string  "symbol",     limit: 10,                  null: false
+    t.boolean "is_infront", limit: 1,   default: false, null: false
   end
 
   create_table "currencies_exchanges", force: :cascade do |t|
@@ -48,16 +49,17 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "estimates", force: :cascade do |t|
-    t.string   "title",               limit: 255, null: false
-    t.integer  "rate_id",             limit: 4,   null: false
-    t.integer  "engagement_model_id", limit: 4,   null: false
-    t.integer  "client_id",           limit: 4,   null: false
-    t.integer  "project_id",          limit: 4,   null: false
-    t.integer  "owner_user_id",       limit: 4,   null: false
-    t.integer  "created_user_id",     limit: 4,   null: false
-    t.datetime "created_date",                    null: false
-    t.integer  "modified_user_id",    limit: 4,   null: false
-    t.datetime "modified_date",                   null: false
+    t.string   "title",               limit: 255,                 null: false
+    t.boolean  "is_signed",           limit: 1,   default: false, null: false
+    t.integer  "rate_id",             limit: 4,                   null: false
+    t.integer  "engagement_model_id", limit: 4,                   null: false
+    t.integer  "client_id",           limit: 4,                   null: false
+    t.integer  "project_id",          limit: 4,                   null: false
+    t.integer  "owner_user_id",       limit: 4,                   null: false
+    t.integer  "created_user_id",     limit: 4,                   null: false
+    t.datetime "created_date",                                    null: false
+    t.integer  "modified_user_id",    limit: 4,                   null: false
+    t.datetime "modified_date",                                   null: false
   end
 
   add_index "estimates", ["client_id"], name: "client_id", using: :btree
@@ -80,7 +82,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "position_id",           limit: 4,                   null: false
     t.integer  "line_number",           limit: 4,     default: 1,   null: false
     t.text     "line",                  limit: 65535,               null: false
-    t.integer  "complexity",            limit: 1,     default: 0
     t.float    "hours_min",             limit: 24,    default: 0.0
     t.float    "hours_max",             limit: 24,    default: 0.0
     t.integer  "created_user_id",       limit: 4,                   null: false
