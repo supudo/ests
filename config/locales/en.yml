@@ -82,6 +82,7 @@ en:
   login_error_nouser: "User does not exist!"
 
   profile_updated: "Profile updated"
+  passwords_not_matching: "Passwords doesn't match."
   user_destroyed: "User destroyed."
   delete_confirm: "Are you sure?"
 

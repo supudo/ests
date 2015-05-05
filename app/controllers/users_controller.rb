@@ -34,9 +34,9 @@ class UsersController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
     add_breadcrumb I18n.t('profile')
-    @technology = Technology.all
-    @position = Position.all
-    @client = Client.all
+    @technologies = Technology.all
+    @positions = Position.all
+    @clients = Client.all
   end
 
   def show
@@ -50,9 +50,9 @@ class UsersController < ApplicationController
       add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
       add_breadcrumb I18n.t('breadcrumbs.edit')
       @user = User.find(params[:id])
-      @technology = Technology.order("title ASC")
-      @position = Position.order("title ASC")
-      @client = Client.order("title ASC")
+      @technologies = Technology.order("title ASC")
+      @positions = Position.order("title ASC")
+      @clients = Client.order("title ASC")
       render 'edit'
     end
   end
@@ -84,22 +84,41 @@ class UsersController < ApplicationController
         @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
       end
       @user = User.new
-      @technology = Technology.order("title ASC")
-      @position = Position.order("title ASC")
-      @client = Client.order("title ASC")
+      @technologies = Technology.order("title ASC")
+      @positions = Position.order("title ASC")
+      @clients = Client.order("title ASC")
       format.js
     end
   end
 
   def update
     @user = User.find_by_id(params[:id])
-    if @user.update_attributes(user_params)
+    @user.first_name = user_params[:first_name]
+    @user.last_name = user_params[:last_name]
+    @user.username = user_params[:username]
+    @user.technology_id = user_params[:technology_id]
+    @user.position_id = user_params[:position_id]
+    @user.client_id = user_params[:client_id]
+    @user.is_am = user_params[:is_am]
+    @user.is_pdm = user_params[:is_pdm]
+    if !user_params[:password].empty? && !user_params[:password_confirmation].empty?
+      if user_params[:password] != user_params[:password_confirmation]
+        @notif_type = 'danger'
+        @notif_message = t('passwords_not_matching')
+      else
+        @user.password = user_params[:password]
+        @user.password_confirmation = user_params[:password_confirmation]
+      end
+    end
+
+    if @user.save
       @notif_type = 'success'
       @notif_message = t('profile_updated')
     else
       @notif_type = 'danger'
       @notif_message = t('error_missing_fields')
     end
+
     respond_to do |format|
       if params[:ftid] != nil && params[:ftid] != '0'
         @users = User.where("technology_id = ?", params[:ftid]).order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
@@ -107,9 +126,9 @@ class UsersController < ApplicationController
         @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
       end
       @item_id = @user.id
-      @technology = Technology.order("title ASC")
-      @position = Position.order("title ASC")
-      @client = Client.order("title ASC")
+      @technologies = Technology.order("title ASC")
+      @positions = Position.order("title ASC")
+      @clients = Client.order("title ASC")
       format.js
     end
   end

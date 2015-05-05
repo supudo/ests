@@ -82,6 +82,7 @@ bg:
   login_error_nouser: "Такъв потребител не съществува!"
 
   profile_updated: "Профилът е променен."
+  passwords_not_matching: "Паролите не съвпадат."
   user_destroyed: "Потребителя е унищожен."
   delete_confirm: "Сигурни ли сте?"
 
