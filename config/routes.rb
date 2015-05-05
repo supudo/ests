@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     member do
       get :show, :moveup, :movedown, :destroy, :create, :update
     end
+    get :autocomplete_estimatesline_line, :on => :collection
   end
 
   resources :estimate_importer do

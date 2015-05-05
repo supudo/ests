@@ -36,3 +36,13 @@ var QueryString = function () {
   } 
   return query_string;
 } ();
+
+$(document).ready(function() {
+  $('[id^=ac_estimate_line_]').bind('railsAutocomplete.select', function(event, ui) {
+    var elid = this.id.replace('ac_estimate_line_', '');
+    $("#estimate_line_technology_id_" + elid).val(ui.item.technology);
+    $("#estimate_line_complexity_" + elid).val(ui.item.complexity);
+    $("#estimate_line_hours_min_" + elid).val(ui.item.hours_min);
+    $("#estimate_line_hours_max_" + elid).val(ui.item.hours_max);
+  });
+});
