@@ -54,6 +54,8 @@ class ProjectStatusesController < ApplicationController
     ProjectStatus.find(params[:id]).destroy
     respond_to do |format|
       @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page], :per_page => 100)
+      @notif_type = 'info'
+      @notif_message = t('delete_sucess')
       format.js
     end
   end

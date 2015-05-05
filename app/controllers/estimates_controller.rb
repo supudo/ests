@@ -134,7 +134,7 @@ class EstimatesController < ApplicationController
       respond_to do |format|
         @estimates = Estimate.paginate(page: params[:page], :per_page => 10)
         @notif_type = 'info'
-        @notif_message = t('destimate_destroyed')
+        @notif_message = t('estimate_destroyed')
         format.js
       end
     end

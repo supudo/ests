@@ -3,9 +3,10 @@ class ClientsController < ApplicationController
   autocomplete :client, :title, :full => true
 
   def index
-    @clients = Client.order("title ASC").paginate(page: params[:page], :per_page => 10)
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.clients_index'), clients_path
+    @client = Client.new
+    @clients = Client.order("title ASC").paginate(page: params[:page], :per_page => 10)
   end
 
   def show
@@ -23,43 +24,40 @@ class ClientsController < ApplicationController
     end
   end
 
-  def new
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.clients_index'), clients_path
-    add_breadcrumb I18n.t('breadcrumbs.new')
-    @client = Client.new
-  end
-
   def create
     if Client.exists?(:title => client_params[:title])
-      flash[:success] = t('client_already_exists')
-      redirect_to :new_client
+      @notif_type = 'warning'
+      @notif_message = t('client_already_exists')
     else
       @client = Client.new(client_params)
       if @client.save
-        flash[:success] = t('client_created_successfully')
-        redirect_to :clients
+        @notif_type = 'success'
+        @notif_message = t('client_created_successfully')
       else
-        add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-        add_breadcrumb I18n.t('breadcrumbs.clients_index'), clients_path
-        add_breadcrumb I18n.t('breadcrumbs.new')
-        flash[:error] = t('error_missing_fields')
-        render 'new'
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
       end
+    end
+    respond_to do |format|
+      @client = Client.new
+      @clients = Client.order("title ASC").paginate(page: params[:page], :per_page => 10)
+      format.js
     end
   end
 
   def update
     @client = Client.find_by_id(params[:id])
     if @client.update_attributes(client_params)
-      flash[:success] = t('client_updated_successfully')
-      redirect_to :clients
+      @notif_type = 'success'
+      @notif_message = t('client_updated_successfully')
     else
-      add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-      add_breadcrumb I18n.t('breadcrumbs.clients_index'), clients_path
-      add_breadcrumb I18n.t('breadcrumbs.edit')
-      flash[:error] = t('error_missing_fields')
-      render 'edit'
+      @notif_type = 'danger'
+      @notif_message = t('error_missing_fields')
+    end
+    respond_to do |format|
+      @clients = Client.order("title ASC").paginate(page: params[:page], :per_page => 10)
+      @item_id = @client.id
+      format.js
     end
   end
 
@@ -68,6 +66,8 @@ class ClientsController < ApplicationController
     flash[:success] = t('client_destroyed')
     respond_to do |format|
       @clients = Client.order("title ASC").paginate(page: params[:page], :per_page => 10)
+      @notif_type = 'info'
+      @notif_message = t('delete_sucess')
       format.js
     end
   end

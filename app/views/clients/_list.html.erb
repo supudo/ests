@@ -13,7 +13,46 @@
       <% @clients.each do |client| %>
       <tr>
         <th scope="row" class="vert-align"><%= client.id %></th>
-        <td class="vert-align"><%= link_to client.title, client %></td>
+        <td class="vert-align">
+          <a data-toggle="modal" data-target="#wmodal<%= client.id %>">
+            <%= client.title %>
+          </a>
+
+          <!-- Modal -->
+          <div class="modal fade" id="wmodal<%= client.id %>" tabindex="-1" role="dialog" aria-labelledby="wmodal<%= client.id %>_title" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <%= form_for client, :remote => true do |f| %>
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="wmodal<%= client.id %>_title"><%= t('position') %></h4>
+                </div>
+                <div class="modal-body">
+                  <fieldset>
+                    <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
+                      <%= f.text_field :title, class: 'form-control', placeholder: t('client'), autofocus: true %>
+                    </div>
+                    <div class="form-group">
+                      <%= f.email_field :email, class: 'form-control', placeholder: t('email') %>
+                    </div>
+                    <div class="form-group">
+                      <%= f.text_field :url, class: 'form-control', placeholder: t('url') %>
+                    </div>
+                    <div class="form-group">
+                      <%= f.text_field :phone, class: 'form-control', placeholder: t('phone') %>
+                    </div>
+                  </fieldset>
+                </div>
+                <div class="modal-footer">
+                  <button id="closebtn_<%= client.id %>" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
+                  <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
+                </div>
+                <% end %>
+
+              </div>
+            </div>
+          </div> <!-- / Modal -->
+        </td>
         <td class="vert-align"><a href="mailto:<%= client.email %>"><%= client.email %></a></td>
         <td class="vert-align"><a href="<%= client.url %>" target="_blank"><%= client.url %></a></td>
         <td class="vert-align"><a href="tel:<%= client.phone %>"><%= client.phone %></a></td>

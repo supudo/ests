@@ -99,6 +99,8 @@ class CurrenciesController < ApplicationController
     Currency.find(params[:id]).destroy
     respond_to do |format|
       @currencies = Currency.order("title ASC").paginate(page: params[:page], :per_page => 100)
+      @notif_type = 'info'
+      @notif_message = t('delete_sucess')
       format.js
     end
   end

@@ -1,1 +1,2 @@
 $('#estimates-list').html("<%= escape_javascript(render :partial => 'estimates/list', :locals => { :estimates => @estimates }) %>");
+showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

@@ -60,6 +60,8 @@ class EngagementModelsController < ApplicationController
     EngagementModel.find(params[:id]).destroy
     respond_to do |format|
       @engagement_models = EngagementModel.paginate(page: params[:page], :per_page => 10)
+      @notif_type = 'info'
+      @notif_message = t('delete_sucess')
       format.js
     end
   end

@@ -1,2 +1,3 @@
+$('#closebtn_0').click();
 $('#clients-list').html("<%= escape_javascript(render :partial => 'clients/list', :locals => { :clients => @clients }) %>");
 showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');
