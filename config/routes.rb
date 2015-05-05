@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   resources :currencies
   resources :engagement_models
   resources :rates_prices
+  resources :about
+  resources :help
 
   get 'rates/rates_update_positions', as: 'rates_update_positions'
   resources :rates
@@ -42,9 +44,6 @@ Rails.application.routes.draw do
     collection { post :import }
   end
 
-  get 'about/new'
-  get 'help/new'
-  get 'about/new'
   root 'login#index'
 
   post 'estimatessection/update' => 'estimatessection#update'
