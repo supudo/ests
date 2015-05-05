@@ -10,7 +10,10 @@ class UsersController < ApplicationController
     else
       @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
     end
+    @user = User.new
     @technology = Technology.order("title ASC")
+    @position = Position.order("title ASC")
+    @client = Client.order("title ASC")
   end
 
   def show
@@ -31,71 +34,60 @@ class UsersController < ApplicationController
     end
   end
 
-  def new
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
-    add_breadcrumb I18n.t('breadcrumbs.new')
-    @user = User.new
-    @technology = Technology.order("title ASC")
-    @position = Position.order("title ASC")
-    @client = Client.order("title ASC")
-  end
-
   def create
     if User.exists?(:username => user_params[:username])
-      add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-      add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
-      add_breadcrumb I18n.t('breadcrumbs.edit')
-      flash[:success] = t('user_already_exists')
-      redirect_to :new_user
+      @notif_type = 'warning'
+      @notif_message = t('user_already_exists')
     else
       @user = User.new(user_params)
       if @user.save
         if signed_in?
-          flash[:success] = t('user_created_successfully')
-          redirect_to :users
+          @notif_type = 'success'
+          @notif_message = t('user_created_successfully')
         else
           flash[:success] = t('welcome_login')
           sign_in @user
           redirect_to :dashboard
         end
       else
-        add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-        add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
-        add_breadcrumb I18n.t('breadcrumbs.edit')
-        @technology = Technology.all
-        @position = Position.all
-        @client = Client.all
-        flash[:error] = t('error_missing_fields')
-        render 'new'
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
       end
+    end
+    respond_to do |format|
+      if params[:ftid] != nil && params[:ftid] != '0'
+        @users = User.where("technology_id = ?", params[:ftid]).order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
+      else
+        @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
+      end
+      @user = User.new
+      @technology = Technology.order("title ASC")
+      @position = Position.order("title ASC")
+      @client = Client.order("title ASC")
+      format.js
     end
   end
 
-  def edit
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
-    add_breadcrumb I18n.t('breadcrumbs.edit')
-    @user = User.find_by_id(params[:id])
-    @technology = Technology.order("title ASC")
-    @position = Position.order("title ASC")
-    @client = Client.order("title ASC")
-  end
-
   def update
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
-    add_breadcrumb I18n.t('breadcrumbs.edit')
     @user = User.find_by_id(params[:id])
     if @user.update_attributes(user_params)
-      flash[:success] = t('profile_updated')
-      redirect_to :users
+      @notif_type = 'success'
+      @notif_message = t('profile_updated')
     else
-      @technology = Technology.all
-      @position = Position.all
-      @client = Client.all
-      flash[:error] = t('error_missing_fields')
-      render 'edit'
+      @notif_type = 'danger'
+      @notif_message = t('error_missing_fields')
+    end
+    respond_to do |format|
+      if params[:ftid] != nil && params[:ftid] != '0'
+        @users = User.where("technology_id = ?", params[:ftid]).order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
+      else
+        @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 10)
+      end
+      @item_id = @user.id
+      @technology = Technology.order("title ASC")
+      @position = Position.order("title ASC")
+      @client = Client.order("title ASC")
+      format.js
     end
   end
 
