@@ -6,7 +6,7 @@ class EstimateslineController < ApplicationController
   def show
     @estimatesline = EstimatesLine.select(:position_id, :technology_id, :line, :hours_min, :hours_max).where("line LIKE (?)", "%#{params[:term]}%").order("line ASC").distinct
     respond_to do |format|
-      format.json {render json: @estimatesline.map { |line| {:label => line.line + ' (' + line.position.title + ' @ ' + line.technology.title + ')',
+      format.json {render json: @estimatesline.map { |line| {:label => line.line + ' (' + line.position.title + ' @ ' + line.technology.title + '; ' + line.hours_min.to_s + '~' + line.hours_max.to_s + ')',
                                                              :value => line.line,
                                                              :technology => line.technology_id,
                                                              :hours_min => line.hours_min,
