@@ -1,0 +1,108 @@
+<% provide(:title, t('users')) %>
+<h1><%= t('users') %></h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%= form_tag :url => clients_path do |f| %>
+    <div class="input-group">
+
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-primary" aria-label="Left Align">
+          <a class="btn-primary" data-toggle="modal" data-target="#wmodal0"><%= t('create_user') %></a>
+        </button>
+      </div>
+
+      <%= autocomplete_field 'ac_search_user', '', autocomplete_user_searchname_users_path(:format => :json), { class: 'form-control', autofocus: true, placeholder: t('search') } %>
+
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><%= t('technology') %> <span class="caret"></span></button>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+          <li><%= link_to t('all'), controller: "users", action: "index", ftid: 0 %></li>
+          <% @technology.each do |item| %>
+          <li><%= link_to item.title, controller: "users", action: "index", ftid: item.id %></li>
+          <% end %>
+        </ul>
+      </div>
+
+    </div>
+    <% end %>
+  </div>
+  <div id="users-list">
+    <%= render partial: 'users/list', locals: { users: @users } %>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="wmodal0" tabindex="-1" role="dialog" aria-labelledby="wmodal0_title" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_for @user, :remote => true do |f| %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="wmodal0_title"><%= t('currency') %></h4>
+      </div>
+      <div class="modal-body">
+        <fieldset>
+          <div class="form-group<%= f.object.errors[:username].any? ? ' has-error has-feedback' : '' %>">
+            <%= f.email_field :username, class: 'form-control', placeholder: t('email'), autofocus: true %>
+          </div>
+          <div class="form-group<%= f.object.errors[:password].any? ? ' has-error has-feedback' : '' %>">
+            <%= f.password_field :password, class: 'form-control', placeholder: t('password') %>
+          </div>
+          <div class="form-group<%= f.object.errors[:password_confirmation].any? ? ' has-error has-feedback' : '' %>">
+            <%= f.password_field :password_confirmation, class: 'form-control', placeholder: t('password_confirm') %>
+          </div>
+          <div class="form-group<%= f.object.errors[:first_name].any? ? ' has-error has-feedback' : '' %>">
+            <%= f.text_field :first_name, class: 'form-control', placeholder: t('first_name') %>
+          </div>
+          <div class="form-group<%= f.object.errors[:last_name].any? ? ' has-error has-feedback' : '' %>">
+            <%= f.text_field :last_name, class: 'form-control', placeholder: t('last_name') %>
+          </div>
+          <div class="form-group">
+            <select class="form-control" name="user[technology_id]" id="user_technology_id">
+              <option value="-1" selected disabled><%= t('technology') %></option>
+              <% @technology.each do |tech| %>
+              <option value="<%= tech.id %>"><%= tech.title %></option>
+              <% end %>
+            </select>
+          </div>
+          <div class="form-group">
+            <select class="form-control" name="user[position_id]" id="user_position_id">
+              <option value="-1" selected disabled><%= t('position') %></option>
+              <% @position.each do |pos| %>
+              <option value="<%= pos.id %>"><%= pos.title %></option>
+              <% end %>
+            </select>
+          </div>
+          <div class="form-group">
+            <select class="form-control" name="user[client_id]" id="user_client_id">
+              <option value="-1" selected disabled><%= t('client') %></option>
+              <% @client.each do |cli| %>
+              <option value="<%= cli.id %>"><%= cli.title %></option>
+              <% end %>
+            </select>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label><%= f.check_box :is_am %> <%= t('is_account_manager') %></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label><%= f.check_box :is_pdm %> <%= t('is_production_manager') %></label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="modal-footer">
+        <button id="closebtn_0" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
+        <br />
+        <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
+      </div>
+      <% end %>
+
+    </div>
+  </div>
+</div> <!-- / Modal -->
+
+<%= will_paginate @users, :renderer => BootstrapPagination::Rails, :remote => true %>
