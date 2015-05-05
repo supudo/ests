@@ -20,9 +20,9 @@ class UsersController < ApplicationController
     @users = @users.order("first_name ASC, last_name ASC")
 
     @user = User.new
-    @technology = Technology.order("title ASC")
-    @position = Position.order("title ASC")
-    @client = Client.order("title ASC")
+    @technologies = Technology.order("title ASC")
+    @positions = Position.order("title ASC")
+    @clients = Client.order("title ASC")
 
     respond_to do |format|
       format.html
@@ -125,15 +125,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def users_update_positions
+    @positions = Position.where(:technology_id => params[:technology_id])
+    @item_id = params[:item_id]
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
 
-  def user_params
-    params.require(:user).permit(:first_name, :last_name, :username, :password, :password_confirmation,
-                                 :technology_id, :position_id, :client_id, :is_am, :is_pdm)
-  end
+    def user_params
+      params.require(:user).permit(:first_name, :last_name, :username, :password, :password_confirmation, :technology_id, :position_id, :client_id, :is_am, :is_pdm)
+    end
 
-  def self.permission
-    return "Users"
-  end
+    def self.permission
+      return "Users"
+    end
 
 end

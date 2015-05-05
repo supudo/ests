@@ -49,13 +49,13 @@
                           <%= f.text_field :last_name, class: 'form-control', placeholder: t('last_name') %>
                         </div>
                         <div class="form-group">
-                          <%= f.collection_select :technology_id, @technology, :id, :title, {}, {:class => 'form-control'} %>
+                          <%= f.select :technology_id, options_for_select(@technologies.collect { |tech| [tech.title, tech.id] }, user.technology_id), {}, { id: 'users_technologies_select_' + user.id.to_s, :class => 'form-control'} %>
                         </div>
                         <div class="form-group">
-                          <%= f.collection_select :position_id, @position, :id, :title, {}, {:class => 'form-control'} %>
+                          <%= f.select :position_id, options_for_select(@positions.where(:technology_id => user.technology_id).collect { |pos| [pos.title, pos.id] }, 0), {:selected => user.position_id}, {id: 'users_positions_select_' + user.id.to_s, :class => 'form-control'} %>
                         </div>
                         <div class="form-group">
-                          <%= f.collection_select :client_id, @client, :id, :title, {}, {:class => 'form-control'} %>
+                          <%= f.collection_select :client_id, @clients, :id, :title, {}, {:class => 'form-control'} %>
                         </div>
                         <div class="form-group">
                           <div class="checkbox">

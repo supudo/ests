@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :users
   resources :projects
   resources :estimates
   resources :estimatessection
@@ -35,6 +34,9 @@ Rails.application.routes.draw do
     end
     get :autocomplete_estimatesline_line, :on => :collection
   end
+
+  get 'users/users_update_positions', as: 'users_update_positions'
+  resources :users
 
   resources :estimate_importer do
     collection { post :import }
