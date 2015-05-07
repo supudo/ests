@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   end
 
   filterrific(
-    default_filter_params: { sorted_by: 'full_name ASC' },
+    default_filter_params: { sorted_by: '' },
     available_filters: [
       :sorted_by,
       :search_query
@@ -73,15 +73,6 @@ class User < ActiveRecord::Base
   }
 
   scope :sorted_by, lambda { |sort_option|
-    direction = (sort_option =~ /desc$/) ? 'desc' : 'asc'
-    case sort_option.to_s
-      when /^username_/
-        order("users.username #{ direction }")
-      when /^full_name/
-        order("LOWER(users.first_name) #{ direction }, LOWER(users.last_name) #{ direction }")
-      else
-        raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
-    end
   }
 
   def self.options_for_sorted_by

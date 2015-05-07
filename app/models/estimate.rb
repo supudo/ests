@@ -59,7 +59,7 @@ class Estimate < ActiveRecord::Base
   end
 
   filterrific(
-    default_filter_params: { sorted_by: 'title ASC' },
+    default_filter_params: { sorted_by: '' },
     available_filters: [
       :sorted_by,
       :search_query
@@ -88,13 +88,6 @@ class Estimate < ActiveRecord::Base
   }
 
   scope :sorted_by, lambda { |sort_option|
-    direction = (sort_option =~ /desc$/) ? 'desc' : 'asc'
-    case sort_option.to_s
-      when /^title/
-        order("estimates.title #{ direction }")
-      else
-        raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
-    end
   }
 
   def self.options_for_sorted_by
