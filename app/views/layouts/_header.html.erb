@@ -28,20 +28,35 @@
               <li><%= link_to t('estimates'), :estimates %></li>
               <li><%= link_to t('users'), :users %></li>
               <li class="divider"></li>
-              <li><%= link_to t('rates'), :rates %></li>
-              <li><%= link_to t('engagement_models'), :engagement_models %></li>
+              <li class="dropdown-submenu">
+                <a tabindex="-1" href="#">Financial</a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to t('rates'), :rates %></li>
+                  <li><%= link_to t('engagement_models'), :engagement_models %></li>
+                </ul>
+              </li>
               <li class="divider"></li>
-              <li><%= link_to t('technologies'), :technologies %></li>
-              <li><%= link_to t('project_statuses'), :project_statuses %></li>
-              <li><%= link_to t('positions'), :positions %></li>
-              <li><%= link_to t('currencies'), :currencies %></li>
+              <li class="dropdown-submenu">
+                <a tabindex="-1" href="#">Collections</a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to t('technologies'), :technologies %></li>
+                  <li><%= link_to t('project_statuses'), :project_statuses %></li>
+                  <li><%= link_to t('positions'), :positions %></li>
+                  <li><%= link_to t('currencies'), :currencies %></li>
+                </ul>
+              </li>
               <li class="divider"></li>
               <li><%= link_to t('profile'), edit_user_path(current_user) %></li>
               <li><%= link_to t('logout'), logout_path, method: "delete" %></li>
               <li class="divider"></li>
             <% end %>
-            <li><%= link_to t('language_english'), url_for( :locale => 'en' ) %></li>
-            <li><%= link_to t('language_bulgarian'), url_for( :locale => 'bg' ) %></li>
+            <li class="dropdown-submenu">
+              <a tabindex="-1" href="#">Language</a>
+              <ul class="dropdown-menu">
+                <li><%= link_to t('language_english'), url_for( :locale => 'en' ) %></li>
+                <li><%= link_to t('language_bulgarian'), url_for( :locale => 'bg' ) %></li>
+              </ul>
+            </li>
           </ul>
         </li>
       </ul>
