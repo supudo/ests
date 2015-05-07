@@ -30,6 +30,7 @@ class PositionsController < ApplicationController
     else
       ActiveRecord::Base.transaction do
         @position = Position.new(position_params)
+        @position.complexity = Position.where(:technology_id => position_params[:technology_id]).count + 1
         if @position.save
           @notif_type = 'success'
           @notif_message = t('position_created_successfully')
@@ -48,7 +49,7 @@ class PositionsController < ApplicationController
 
   def update
     @position = Position.find_by_id(params[:id])
-    if Position.exists?(:title => position_params[:title], :technology_id => position_params[:technology_id])
+    if Position.where(:title => position_params[:title], :technology_id => position_params[:technology_id]).where.not(:id => params[:id]).count > 0
       @notif_type = 'info'
       @notif_message = t('position_already_exists')
     else
@@ -81,9 +82,23 @@ class PositionsController < ApplicationController
     end
   end
 
+  def positions_update_complexity
+    @item_id = params[:item_id]
+    @complexity = ''
+    @positions = Position.where(:technology_id => params[:technology_id])
+    pos_counter = 1
+    @positions.each do |pos|
+      @complexity += "<option value='" + pos_counter.to_s + "'>" + pos_counter.to_s + "</option>"
+      pos_counter += 1
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
 
     def position_params
-      params.require(:position).permit(:technology_id, :title, :is_am, :is_pdm, :is_rated)
+      params.require(:position).permit(:technology_id, :complexity, :title, :is_am, :is_pdm, :is_rated)
     end
 end

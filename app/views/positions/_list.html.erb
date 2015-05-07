@@ -3,6 +3,7 @@
       <tr>
         <th><%= t('id') %></th>
         <th nowrap><%= t('technology') %></th>
+        <th nowrap><%= t('complexity') %></th>
         <th><%= t('title') %></th>
         <th>&nbsp;</th>
       </tr>
@@ -12,6 +13,7 @@
       <tr>
         <td width="2%" scope="row" class="vert-align"><%= item.id %></td>
         <td width="2%" class="vert-align" nowrap><%= Technology.find(item.technology_id).title %></td>
+        <td width="2%" scope="row" class="vert-align"><%= item.complexity %></td>
         <td class="vert-align">
 
           <a data-toggle="modal" data-target="#wmodal<%= item.id %>">
@@ -33,9 +35,14 @@
                     <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
                       <%= f.text_field :title, class: 'form-control', placeholder: t('position'), autofocus: true %>
                     </div>
+
                     <div class="form-group">
-                      <%= f.collection_select :technology_id, @technologies, :id, :title, {}, {:class => 'form-control'} %>
+                      <%= f.select :technology_id, options_for_select(@technologies.collect { |tech| [tech.title, tech.id] }, item.technology_id), {}, { id: 'positions_technologies_select_0', :class => 'form-control'} %>
                     </div>
+                    <div class="form-group">
+                      <%= f.select :complexity, options_for_select((1..Position.where(:technology_id => item.technology_id).count).step(1).to_a.map{|s| ["#{s}", s]}, 0), {}, {id: 'positions_complexity_select_0', :class => 'form-control'} %>
+                    </div>
+
                     <div class="form-group">
                       <div class="checkbox"><label><%= f.check_box :is_am %> <%= t('is_account_manager') %></label></div>
                     </div>

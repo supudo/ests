@@ -12,13 +12,15 @@ Rails.application.routes.draw do
   resources :technologies
   resources :project_statuses
   resources :estimate_importer
-  resources :positions
   resources :estimate_exporter
   resources :currencies
   resources :engagement_models
   resources :rates_prices
   resources :about
   resources :help
+
+  get 'positions/positions_update_complexity', as: 'positions_update_complexity'
+  resources :positions
 
   get 'rates/rates_update_positions', as: 'rates_update_positions'
   resources :rates

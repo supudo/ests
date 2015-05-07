@@ -33,12 +33,17 @@ class TechnologiesController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       @technology = Technology.find_by_id(params[:id])
-      if @technology.update_attributes(technology_params)
-        @notif_type = 'success'
-        @notif_message = t('technology_updated_successfully')
+      if Technology.where(:title => technology_params[:title]).where.not(:id => params[:id]).count > 0
+        @notif_type = 'info'
+        @notif_message = t('technology_already_exists')
       else
-        @notif_type = 'danger'
-        @notif_message = t('error_missing_fields')
+        if @technology.update_attributes(technology_params)
+          @notif_type = 'success'
+          @notif_message = t('technology_updated_successfully')
+        else
+          @notif_type = 'danger'
+          @notif_message = t('error_missing_fields')
+        end
       end
       respond_to do |format|
         @technologies = Technology.order("title ASC").paginate(page: params[:page])

@@ -41,12 +41,17 @@ class EngagementModelsController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       @engagement_model = EngagementModel.find_by_id(params[:id])
-      if @engagement_model.update_attributes(engagement_model_params)
-        @notif_type = 'success'
-        @notif_message = t('engagement_model_updated_successfully')
+      if EngagementModel.where(:title => engagement_model_params[:title]).where.not(:id => params[:id]).count > 0
+        @notif_type = 'info'
+        @notif_message = t('engagement_model_already_exists')
       else
-        @notif_type = 'danger'
-        @notif_message = t('error_missing_fields')
+        if @engagement_model.update_attributes(engagement_model_params)
+          @notif_type = 'success'
+          @notif_message = t('engagement_model_updated_successfully')
+        else
+          @notif_type = 'danger'
+          @notif_message = t('error_missing_fields')
+        end
       end
       respond_to do |format|
         @engagement_models = EngagementModel.paginate(page: params[:page])

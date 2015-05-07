@@ -53,12 +53,17 @@ class RatesController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       @rate = Rate.find_by_id(params[:id])
-      if @rate.update_attributes(rate_params)
+      if Rate.where(:title => rate_params[:title]).where.not(:id => params[:id]).count > 0
         @notif_type = 'info'
-        @notif_message = t('rate_updated_successfully')
+        @notif_message = t('rate_already_exists')
       else
-        @notif_type = 'danger'
-        @notif_message = t('error_missing_fields')
+        if @rate.update_attributes(rate_params)
+          @notif_type = 'info'
+          @notif_message = t('rate_updated_successfully')
+        else
+          @notif_type = 'danger'
+          @notif_message = t('error_missing_fields')
+        end
       end
       respond_to do |format|
         @currency_code = Currency.find(rate_params[:currency_id]).code

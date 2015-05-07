@@ -109,7 +109,7 @@ class EstimatesController < ApplicationController
     @users = User.order("first_name ASC, last_name ASC")
     @estimate_line = EstimatesLine.new
     @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
-    @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order(sort_column + " " + sort_direction)
+    @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order("line_number ASC")
     @technology = Technology.order("title ASC")
     @rates = Rate.order("title ASC")
     @positions = Position.order("title ASC")
@@ -118,14 +118,19 @@ class EstimatesController < ApplicationController
     @chart_hours_min = ActiveRecord::Base.connection.execute("SELECT (SELECT title FROM technologies WHERE id = el.technology_id) AS technology, SUM(el.hours_min) FROM estimates_lines AS el WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY technology")
     @chart_hours_max = ActiveRecord::Base.connection.execute("SELECT (SELECT title FROM technologies WHERE id = el.technology_id) AS technology, SUM(el.hours_max) FROM estimates_lines AS el WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY technology")
     @estimate = Estimate.find_by_id(params[:id])
-    @estimate.modified_user_id = current_user.id
-    @estimate.modified_date = DateTime.now
-    if @estimate.update_attributes(estimate_params)
-      @notif_type = 'success'
-      @notif_message = t('estimate_updated_successfully')
+    if Estimate.where(:title => estimate_params[:title]).where.not(:id => params[:id]).count > 0
+      @notif_type = 'info'
+      @notif_message = t('estimate_already_exists')
     else
-      @notif_type = 'danger'
-      @notif_message = t('error_missing_fields')
+      if @estimate.update_attributes(estimate_params)
+        @estimate.modified_user_id = current_user.id
+        @estimate.modified_date = DateTime.now
+        @notif_type = 'success'
+        @notif_message = t('estimate_updated_successfully')
+      else
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
+      end
     end
     respond_to do |format|
       @iss = estimate_params[:is_signed]

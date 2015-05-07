@@ -33,12 +33,17 @@ class ProjectStatusesController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       @project_status = ProjectStatus.find_by_id(params[:id])
-      if @project_status.update_attributes(project_statuses_params)
-        @notif_type = 'success'
-        @notif_message = t('project_status_updated_successfully')
+      if ProjectStatus.where(:title => project_statuses_params[:title]).where.not(:id => params[:id]).count > 0
+        @notif_type = 'info'
+        @notif_message = t('project_status_already_exists')
       else
-        @notif_type = 'danger'
-        @notif_message = t('error_missing_fields')
+        if @project_status.update_attributes(project_statuses_params)
+          @notif_type = 'success'
+          @notif_message = t('project_status_updated_successfully')
+        else
+          @notif_type = 'danger'
+          @notif_message = t('error_missing_fields')
+        end
       end
       respond_to do |format|
         @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page])

@@ -26,7 +26,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <%= form_for @position, :remote => true do |f| %>
-      <%= hidden_field_tag :page, (params.has_key?(:page) && params[:page] != '' ? params[:page] : "0") %>
+      <%= hidden_field_tag :page, (params.has_key?(:page) && params[:page] != '' ? params[:page] : "1") %>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="wmodal0_title"><%= t('position') %></h4>
@@ -36,9 +36,11 @@
           <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
             <%= f.text_field :title, class: 'form-control', placeholder: t('position'), autofocus: true %>
           </div>
+
           <div class="form-group">
-            <%= f.collection_select :technology_id, @technologies, :id, :title, {}, {:class => 'form-control'} %>
+            <%= f.select :technology_id, options_for_select(@technologies.collect { |tech| [tech.title, tech.id] }, 1), {}, { id: 'positions_technologies_select_0', :class => 'form-control'} %>
           </div>
+
           <div class="form-group">
             <div class="checkbox"><label><%= f.check_box :is_am %> <%= t('is_account_manager') %></label></div>
           </div>

@@ -57,12 +57,17 @@ class ClientsController < ApplicationController
 
   def update
     @client = Client.find_by_id(params[:id])
-    if @client.update_attributes(client_params)
-      @notif_type = 'success'
-      @notif_message = t('client_updated_successfully')
+    if Client.where(:title => client_params[:title]).where.not(:id => params[:id]).count > 0
+      @notif_type = 'info'
+      @notif_message = t('client_already_exists')
     else
-      @notif_type = 'danger'
-      @notif_message = t('error_missing_fields')
+      if @client.update_attributes(client_params)
+        @notif_type = 'success'
+        @notif_message = t('client_updated_successfully')
+      else
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
+      end
     end
     respond_to do |format|
       @clients = Client.order("title ASC").paginate(page: params[:page], :per_page => 30)

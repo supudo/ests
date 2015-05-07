@@ -111,54 +111,70 @@ class ProjectsController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       @project = Project.find_by_id(params[:id])
-      @project.modified_user_id = @current_user.id
-      @project.modified_date = DateTime.now
-      if @project.update_attributes(project_params)
-        if params[:comment] != ''
-          @pc = ProjectsComment.find_by(:project_id => params[:id], :comment => params[:comment])
-          if @pc.nil?
-            @project_comment = ProjectsComment.new(:project_id => params[:id],
-                                                   :comment => params[:comment],
-                                                   :modified_date => Time.now,
-                                                   :modified_user_id => @current_user.id)
-            @project_comment.save
-          end
-        end
-
-        if params[:request] != ''
-          @pr = ProjectsRequest.find_by(:project_id => params[:id], :request => params[:request])
-          if @pr.nil?
-            @project_request = ProjectsRequest.new(:project_id => params[:id],
-                                                   :request => params[:request],
-                                                   :modified_date => Time.now,
-                                                   :modified_user_id => @current_user.id)
-            @project_request.save
-          end
-        end
-
-        if params[:project].has_key?([:technology_ids])
-          ProjectsTechnology.destroy_all(:project_id => params[:id])
-          params[:project][:technology_ids].each do |tech_id|
-            ProjectsTechnology.create(:project_id => @project.id, :technology_id => tech_id)
-          end
-        end
-
-        flash[:success] = t('project_updated_successfully')
-        redirect_to :projects
+      if Project.where(:title => project_params[:title]).where.not(:id => params[:id]).count > 0
+          add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+          add_breadcrumb I18n.t('breadcrumbs.projects_index'), projects_path
+          add_breadcrumb I18n.t('breadcrumbs.edit')
+          @clients = Client.order("title ASC")
+          @project_statuses = ProjectStatus.order("title ASC")
+          @ams = User.where(:is_am => '1').order("first_name ASC, last_name ASC")
+          @pdms = User.where(:is_pdm => '1').order("first_name ASC, last_name ASC")
+          @users = User.order("first_name ASC, last_name ASC")
+          @technologies = Technology.order("title ASC")
+          @project_comment = ProjectsComment.where(:project_id => @project.id).order("modified_date DESC").first
+          @project_request = ProjectsRequest.where(:project_id => @project.id).order("modified_date DESC").first
+          flash[:error] = t('error_missing_fields')
+          render 'edit'
       else
-        add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-        add_breadcrumb I18n.t('breadcrumbs.projects_index'), projects_path
-        add_breadcrumb I18n.t('breadcrumbs.edit')
-        @clients = Client.order("title ASC")
-        @project_statuses = ProjectStatus.order("title ASC")
-        @ams = User.where(:is_am => '1').order("first_name ASC, last_name ASC")
-        @pdms = User.where(:is_pdm => '1').order("first_name ASC, last_name ASC")
-        @users = User.order("first_name ASC, last_name ASC")
-        @technologies = Technology.order("title ASC")
-        @project_comment = ProjectsComment.where(:project_id => @project.id).order("modified_date DESC").first
-        @project_request = ProjectsRequest.where(:project_id => @project.id).order("modified_date DESC").first
-        flash[:error] = t('error_missing_fields')
-        render 'edit'
+        @project.modified_user_id = @current_user.id
+        @project.modified_date = DateTime.now
+        if @project.update_attributes(project_params)
+          if params[:comment] != ''
+            @pc = ProjectsComment.find_by(:project_id => params[:id], :comment => params[:comment])
+            if @pc.nil?
+              @project_comment = ProjectsComment.new(:project_id => params[:id],
+                                                     :comment => params[:comment],
+                                                     :modified_date => Time.now,
+                                                     :modified_user_id => @current_user.id)
+              @project_comment.save
+            end
+          end
+
+          if params[:request] != ''
+            @pr = ProjectsRequest.find_by(:project_id => params[:id], :request => params[:request])
+            if @pr.nil?
+              @project_request = ProjectsRequest.new(:project_id => params[:id],
+                                                     :request => params[:request],
+                                                     :modified_date => Time.now,
+                                                     :modified_user_id => @current_user.id)
+              @project_request.save
+            end
+          end
+
+          if params[:project].has_key?([:technology_ids])
+            ProjectsTechnology.destroy_all(:project_id => params[:id])
+            params[:project][:technology_ids].each do |tech_id|
+              ProjectsTechnology.create(:project_id => @project.id, :technology_id => tech_id)
+            end
+          end
+
+          flash[:success] = t('project_updated_successfully')
+          redirect_to :projects
+        else
+          add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+          add_breadcrumb I18n.t('breadcrumbs.projects_index'), projects_path
+          add_breadcrumb I18n.t('breadcrumbs.edit')
+          @clients = Client.order("title ASC")
+          @project_statuses = ProjectStatus.order("title ASC")
+          @ams = User.where(:is_am => '1').order("first_name ASC, last_name ASC")
+          @pdms = User.where(:is_pdm => '1').order("first_name ASC, last_name ASC")
+          @users = User.order("first_name ASC, last_name ASC")
+          @technologies = Technology.order("title ASC")
+          @project_comment = ProjectsComment.where(:project_id => @project.id).order("modified_date DESC").first
+          @project_request = ProjectsRequest.where(:project_id => @project.id).order("modified_date DESC").first
+          flash[:error] = t('error_missing_fields')
+          render 'edit'
+        end
       end
     end
   end

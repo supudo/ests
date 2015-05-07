@@ -82,15 +82,20 @@ class CurrenciesController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       @currency = Currency.find_by_id(params[:id])
-      if @currency.update_attributes(currency_params)
-        flash[:success] = t('currency_updated_successfully')
+      if Currency.where(:title => currency_params[:title]).where.not(:id => params[:id]).count > 0
+        flash[:success] = t('currency_already_exists')
         redirect_to :currencies
       else
-        add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-        add_breadcrumb I18n.t('breadcrumbs.currencies_index'), :currencies_path
-        add_breadcrumb I18n.t('breadcrumbs.edit')
-        flash[:error] = t('error_missing_fields')
-        render 'edit'
+        if @currency.update_attributes(currency_params)
+          flash[:success] = t('currency_updated_successfully')
+          redirect_to :currencies
+        else
+          add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+          add_breadcrumb I18n.t('breadcrumbs.currencies_index'), :currencies_path
+          add_breadcrumb I18n.t('breadcrumbs.edit')
+          flash[:error] = t('error_missing_fields')
+          render 'edit'
+        end
       end
     end
   end
