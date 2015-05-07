@@ -29,7 +29,7 @@
               <li><%= link_to t('users'), :users %></li>
               <li class="divider"></li>
               <li class="dropdown-submenu">
-                <a tabindex="-1" href="#">Financial</a>
+                <a tabindex="-1" href="#"><%= t('financial') %></a>
                 <ul class="dropdown-menu">
                   <li><%= link_to t('rates'), :rates %></li>
                   <li><%= link_to t('engagement_models'), :engagement_models %></li>
@@ -37,7 +37,7 @@
               </li>
               <li class="divider"></li>
               <li class="dropdown-submenu">
-                <a tabindex="-1" href="#">Collections</a>
+                <a tabindex="-1" href="#"><%= t('collections') %></a>
                 <ul class="dropdown-menu">
                   <li><%= link_to t('technologies'), :technologies %></li>
                   <li><%= link_to t('project_statuses'), :project_statuses %></li>
@@ -51,7 +51,8 @@
               <li class="divider"></li>
             <% end %>
             <li class="dropdown-submenu">
-              <a tabindex="-1" href="#">Language</a>
+              <a tabindex="-1" href="#"></a>
+              <a tabindex="-1" href="#"><%= t('language') %></a>
               <ul class="dropdown-menu">
                 <li><%= link_to t('language_english'), url_for( :locale => 'en' ) %></li>
                 <li><%= link_to t('language_bulgarian'), url_for( :locale => 'bg' ) %></li>

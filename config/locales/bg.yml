@@ -17,6 +17,10 @@ bg:
   close: "Затвори"
   all: "Всички"
 
+  collections: "Колекции"
+  financial: "Финансови"
+  lanugage: "Език"
+
   dashes: "-----"
   at: "на"
   for: "за"

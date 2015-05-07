@@ -17,6 +17,10 @@ en:
   close: "Close"
   all: "All"
 
+  collections: "Collections"
+  financial: "Financial"
+  lanugage: "Language"
+
   dashes: "-----"
   at: "at"
   for: "for"
