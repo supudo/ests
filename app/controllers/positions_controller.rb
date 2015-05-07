@@ -61,7 +61,6 @@ class PositionsController < ApplicationController
       end
     end
     respond_to do |format|
-      #@positions = Position.order("technology_id ASC, title ASC").paginate(page: ((params.has_key?(:page) && params[:page] != "") ? params[:page] : 1))
       @positions = Position.order("technology_id ASC, title ASC").paginate(page: params[:page])
       @technologies = Technology.order("title ASC")
       @item_id = @position.id
