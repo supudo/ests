@@ -9,7 +9,7 @@ class RequesthistoryController < ApplicationController
     add_breadcrumb @project.title, @project
     add_breadcrumb I18n.t('requests_history')
 
-    @requests = ProjectsRequest.where(:project_id => params[:id]).order("id DESC").paginate(page: params[:page], :per_page => 10)
+    @requests = ProjectsRequest.where(:project_id => params[:id]).order("id DESC").paginate(page: params[:page])
 
     render 'index'
   end

@@ -4,16 +4,16 @@ class DashboardController < ApplicationController
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
 
-    @estimates = Estimate.order("created_date DESC").paginate(page: 1, :per_page => 50)
+    @estimates = Estimate.order("created_date DESC").paginate(page: 1, :per_page => 10)
     @estimates_months = @estimates.group_by { |t| t.created_date.beginning_of_month }
 
-    @projects = Project.order("created_date DESC").paginate(page: 1, :per_page => 50)
+    @projects = Project.order("created_date DESC").paginate(page: 1, :per_page => 10)
     @projects_months = @projects.group_by { |t| t.created_date.beginning_of_month }
 
-    @clients = Client.order("created_date DESC").paginate(page: 1, :per_page => 50)
+    @clients = Client.order("created_date DESC").paginate(page: 1, :per_page => 10)
     @clients_months = @clients.group_by { |t| t.created_date.beginning_of_month }
 
-    @users = User.order("created_date DESC").paginate(page: 1, :per_page => 50)
+    @users = User.order("created_date DESC").paginate(page: 1, :per_page => 10)
     @users_months = @users.group_by { |t| t.created_date.beginning_of_month }
 
     @stats_projects_per_clients = ActiveRecord::Base.connection.execute("SELECT c.title AS client, COUNT(p.id) AS projects FROM clients AS c INNER JOIN projects AS p ON p.client_id = c.id GROUP BY c.id ORDER BY p.created_date DESC LIMIT 0, 10")

@@ -146,7 +146,7 @@ class EstimatesController < ApplicationController
       EstimatesAssumption.delete_all(:estimate_id => params[:id])
       Estimate.find(params[:id]).destroy
       respond_to do |format|
-        @estimates = Estimate.paginate(page: params[:page], :per_page => 10)
+        @estimates = Estimate.paginate(page: params[:page])
         @notif_type = 'info'
         @notif_message = t('estimate_destroyed')
         format.js

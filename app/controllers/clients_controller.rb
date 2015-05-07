@@ -50,7 +50,7 @@ class ClientsController < ApplicationController
     end
     respond_to do |format|
       @client = Client.new
-      @clients = Client.order("title ASC").paginate(page: params[:page], :per_page => 30)
+      @clients = Client.order("title ASC").paginate(page: params[:page])
       format.js
     end
   end
@@ -70,7 +70,7 @@ class ClientsController < ApplicationController
       end
     end
     respond_to do |format|
-      @clients = Client.order("title ASC").paginate(page: params[:page], :per_page => 30)
+      @clients = Client.order("title ASC").paginate(page: params[:page])
       @item_id = @client.id
       format.js
     end
@@ -80,7 +80,7 @@ class ClientsController < ApplicationController
     Client.find(params[:id]).destroy
     flash[:success] = t('client_destroyed')
     respond_to do |format|
-      @clients = Client.order("title ASC").paginate(page: params[:page], :per_page => 10)
+      @clients = Client.order("title ASC").paginate(page: params[:page])
       @notif_type = 'info'
       @notif_message = t('delete_sucess')
       format.js

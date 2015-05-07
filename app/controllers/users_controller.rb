@@ -78,7 +78,7 @@ class UsersController < ApplicationController
       end
     end
     respond_to do |format|
-      @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 30)
+      @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page])
       if params[:ftid] != nil && params[:ftid] != '0'
         @users = @users.where("technology_id = ?", params[:ftid])
       end
@@ -119,7 +119,7 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
-      @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 30)
+      @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page])
       if params[:ftid] != nil && params[:ftid] != '0'
         @users = @users.where("technology_id = ?", params[:ftid])
       end
@@ -135,7 +135,7 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     flash[:success] = t('user_destroyed')
     respond_to do |format|
-      @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page], :per_page => 30)
+      @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page])
       if params[:ftid] != nil && params[:ftid] != '0'
         @users = @users.where("technology_id = ?", params[:ftid])
       end

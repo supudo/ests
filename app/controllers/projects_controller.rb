@@ -184,7 +184,7 @@ class ProjectsController < ApplicationController
     pid = @current.id
     Project.find(params[:id]).destroy
     respond_to do |format|
-      @projects = Project.paginate(page: params[:page], :per_page => 10)
+      @projects = Project.paginate(page: params[:page])
       @notif_type = 'info'
       @notif_message = t('delete_sucess')
       format.js
