@@ -5,7 +5,7 @@ class EngagementModelsController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.engagement_models_index'), :engagement_models_path
     @engagement_model = EngagementModel.new
-    @engagement_models = EngagementModel.paginate(page: params[:page], :per_page => 10)
+    @engagement_models = EngagementModel.paginate(page: params[:page])
   end
 
   def show
@@ -33,7 +33,7 @@ class EngagementModelsController < ApplicationController
       end
     end
     respond_to do |format|
-      @engagement_models = EngagementModel.paginate(page: params[:page], :per_page => 10)
+      @engagement_models = EngagementModel.paginate(page: params[:page])
       format.js
     end
   end
@@ -49,7 +49,7 @@ class EngagementModelsController < ApplicationController
         @notif_message = t('error_missing_fields')
       end
       respond_to do |format|
-        @engagement_models = EngagementModel.paginate(page: params[:page], :per_page => 10)
+        @engagement_models = EngagementModel.paginate(page: params[:page])
         @item_id = @engagement_model.id
         format.js
       end
@@ -59,7 +59,7 @@ class EngagementModelsController < ApplicationController
   def destroy
     EngagementModel.find(params[:id]).destroy
     respond_to do |format|
-      @engagement_models = EngagementModel.paginate(page: params[:page], :per_page => 10)
+      @engagement_models = EngagementModel.paginate(page: params[:page])
       @notif_type = 'info'
       @notif_message = t('delete_sucess')
       format.js
