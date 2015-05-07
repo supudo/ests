@@ -23,7 +23,7 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <%= form_for client, :remote => true do |f| %>
-                <%= hidden_field_tag :page, params[:page] %>
+                <%= hidden_field_tag :page, (params.has_key?(:page) && params[:page] != '' ? params[:page] : "1") %>
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   <h4 class="modal-title" id="wmodal<%= client.id %>_title"><%= t('position') %></h4>
