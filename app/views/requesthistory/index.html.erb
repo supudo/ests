@@ -16,9 +16,7 @@
       <tr>
         <td scope="row" class="vert-align"><%= request.id %></td>
         <td class="vert-align"><%= request.request %></td>
-        <td class="vert-align">
-          <%= User.find_by(:id => request.modified_user_id).first_name %> <%= User.find_by(:id => request.modified_user_id).last_name %>
-        </td>
+        <td class="vert-align"><%= request.user.full_name %></td>
         <td class="vert-align"><%= request.modified_date.strftime("%d %B, %Y @ %H:%M") %></td>
       </tr>
       <% end %>

@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   belongs_to :technology
   has_many :clients
   has_many :permissions
+  has_many :estimates, class_name: 'Estimate', inverse_of: :owner_user
 
   self.per_page = 30
 

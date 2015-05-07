@@ -1,6 +1,9 @@
 class Estimate < ActiveRecord::Base
   belongs_to :rate
   belongs_to :engagement_model
+  belongs_to :client
+  belongs_to :project
+  belongs_to :owner_user, class_name: 'User'
 
   self.per_page = 30
 

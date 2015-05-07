@@ -159,7 +159,7 @@ class ProjectsController < ApplicationController
           end
 
           flash[:success] = t('project_updated_successfully')
-          redirect_to :projects
+          redirect_to(:back)
         else
           add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
           add_breadcrumb I18n.t('breadcrumbs.projects_index'), projects_path

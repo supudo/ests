@@ -16,9 +16,7 @@
       <tr>
         <td scope="row" class="vert-align"><%= comment.id %></td>
         <td class="vert-align"><%= comment.comment %></td>
-        <td class="vert-align">
-          <%= User.find_by(:id => comment.modified_user_id).first_name %> <%= User.find_by(:id => comment.modified_user_id).last_name %>
-        </td>
+        <td class="vert-align"><%= comment.user.full_name %></td>
         <td class="vert-align"><%= comment.modified_date.strftime("%d %B, %Y @ %H:%M") %></td>
       </tr>
       <% end %>

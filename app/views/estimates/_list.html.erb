@@ -18,11 +18,9 @@
       <tr>
         <td class="col-md-1 vert-align<%= estimate.is_signed ? " success" : "" %>" scope="row"><%= estimate.id %></td>
         <td class="vert-align<%= estimate.is_signed ? " success" : "" %>"><%= link_to estimate.title, estimate %></td>
-        <td class="col-md-2 vert-align<%= estimate.is_signed ? " success" : "" %>"><%= Client.find_by(:id => estimate.client_id).title %></td>
-        <td class="col-md-2 vert-align<%= estimate.is_signed ? " success" : "" %>"><%= Project.find_by(:id => estimate.project_id).title %></td>
-        <td class="col-md-2 vert-align<%= estimate.is_signed ? " success" : "" %>">
-          <a href="mailto:<%= User.find_by(:id => estimate.owner_user_id).username %>"><%= User.find_by(:id => estimate.owner_user_id).first_name %> <%= User.find_by(:id => estimate.owner_user_id).last_name %></a>
-        </td>
+        <td class="col-md-2 vert-align<%= estimate.is_signed ? " success" : "" %>"><%= estimate.client.title %></td>
+        <td class="col-md-2 vert-align<%= estimate.is_signed ? " success" : "" %>"><%= estimate.project.title %></td>
+        <td class="col-md-2 vert-align<%= estimate.is_signed ? " success" : "" %>"><%= link_to estimate.owner_user.full_name, estimate.owner_user %></td>
         <td class="vert-align<%= estimate.is_signed ? " success" : "" %>"><%= estimate.total_min_hours %> <br /> <%= estimate.total_max_hours %></td>
         <td class="vert-align<%= estimate.is_signed ? " success" : "" %>" nowrap>
           <%
