@@ -3,6 +3,7 @@
     <table class="table table-striped" style="margin-bottom: 0px;">
       <thead>
         <tr>
+          <th>#</th>
           <th><%= t('id') %></th>
           <th><%= t('name') %></th>
           <th><%= t('position') %></th>
@@ -11,8 +12,13 @@
         </tr>
       </thead>
       <tbody>
+        <% user_counter = 1 %>
         <% @users.each do |user| %>
           <tr>
+            <td scope="row" class="vert-align">
+              <%= user_counter %>
+              <% user_counter += 1 %>
+            </td>
             <td scope="row" class="vert-align"><%= user.id %></td>
             <td class="vert-align">
               <a data-toggle="modal" data-target="#wmodal<%= user.id %>" id="#lnkmodal<%= user.id %>">
