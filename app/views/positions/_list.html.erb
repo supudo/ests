@@ -37,10 +37,10 @@
                       <%= f.collection_select :technology_id, @technologies, :id, :title, {}, {:class => 'form-control'} %>
                     </div>
                     <div class="form-group">
-                      <div class="checkbox"><label><%= f.check_box :is_am %> <%= t('is_am') %></label></div>
+                      <div class="checkbox"><label><%= f.check_box :is_am %> <%= t('is_account_manager') %></label></div>
                     </div>
                     <div class="form-group">
-                      <div class="checkbox"><label><%= f.check_box :is_pdm %> <%= t('is_pdm') %></label></div>
+                      <div class="checkbox"><label><%= f.check_box :is_pdm %> <%= t('is_production_manager') %></label></div>
                     </div>
                     <div class="form-group">
                       <div class="checkbox"><label><%= f.check_box :is_rated %> <%= t('is_rated') %></label></div>

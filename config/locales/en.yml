@@ -19,7 +19,8 @@ en:
 
   collections: "Collections"
   financial: "Financial"
-  lanugage: "Language"
+  language: "Language"
+  project_statuses: "Statuses"
 
   dashes: "-----"
   at: "at"
@@ -61,6 +62,7 @@ en:
   engagement_models: "Engagement Models"
   engagement_model: "Engagement Model"
   create_engagement_model: "Create Engagement Model"
+  engagement_model_already_exists: "Engagement Model already exists."
   engagement_model_created_successfully: "Engagement Model created successfully."
   engagement_model_updated_successfully: "Engagement Model updated successfully."
 
@@ -108,6 +110,7 @@ en:
   price_per_technology_min: "Min Price per Technology"
   price_per_technology_max: "Max Price per Technology"
 
+  user: "User"
   title_edit_user: "Edit user"
   edit_user_header: "Update your profile"
   button_save_changes: "Save changes"
@@ -150,6 +153,7 @@ en:
   client_destroyed: "Client destroyed."
   client_already_exists: "Client already exists."
 
+  create_project: "Create Project"
   project_created_successfully: "Project created."
   project_updated_successfully: "Project updated."
   project_destroyed: "Project destroyed."
@@ -192,6 +196,7 @@ en:
   upload_file: "Browse File"
   assumption: "Assumption"
   assumptions: "Assumptions"
+  estimate_assumption: "Assumption"
   estimate_assumption_already_exists: "Assumption already exists."
   estimate_assumption_created_successfully: "Assumption created successfully."
   is_header: "Is Header?"
@@ -223,6 +228,17 @@ en:
   delete_sheet: "Delete Sheet"
   section_technology_changed: "Section Lines Technology updated successfully."
 
+  create_project_status: "Create Status"
+  create_technology: "Create Technology"
+  projects_statuses: "Project Statuses"
+  technology_already_exists: "Technology already exists."
+  technology_created_successfully: "Technology created successfully."
+  project_status_already_exists: "Project Status already exists."
+  project_status_created_successfully: "Project status created successfully."
+  technology_updated_successfully: "Technology updated successfully."
+  project_status_updated_successfully: "Project status updated successfully."
+
+  create_position: "Create Position"
   positions: "Positions"
   position_already_exists: "Position already exists."
   position_created_successfully: "Position created successfully."
@@ -258,15 +274,12 @@ en:
   perm_modify_estimate: "Estimates - Modify"
   perm_delete_estimate: "Estimates - Delete"
 
-  create_project_status: "Create Status"
-  create_technology: "Create Technology"
-  projects_statuses: "Project Statuses"
-  technology_already_exists: "Technology already exists."
-  technology_created_successfully: "Technology created successfully."
-  project_status_already_exists: "Project Status already exists."
-  project_status_created_successfully: "Project status created successfully."
-  technology_updated_successfully: "Technology updated successfully."
-  project_status_updated_successfully: "Project status updated successfully."
+  error_invalid_fields: "Invalid Fields"
+  error_correct_the_fields: "Correct the following errors and try again."
+  activerecord:
+    errors:
+      header: "Invalid Fields"
+      message: "Correct the following errors and try again."
 
   breadcrumbs:
     dashboard: "Dashboard"
@@ -285,6 +298,7 @@ en:
     currencies_index: "Currencies"
 
   defaults: &defaults
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
     formats:
        default: "%d %B %Y, %H:%M"
        short: "%d.%m.%Y, %H:%M"
@@ -294,6 +308,9 @@ en:
     <<: *defaults
 
   will_paginate:
+    previous_label: "&#8592; Previous"
+    next_label: "Next &#8594;"
+    page_gap: "&hellip;"
     page_entries_info:
       single_page:
         zero:  "No %{model} found."
