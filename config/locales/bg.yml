@@ -9,7 +9,7 @@ bg:
   logout: "Изход"
   about: "Относно"
   help: "Помощ"
-  copyright_text: "<a href='http://ests.kom/'>Ests</a> by Sergey Petrov"
+  copyright_text: "<a href='https://github.com/supudo/ests' target='_blank'>Ests</a> от <a href='http://supudo.net/' target='_blank'>Sergey Petrov</a>"
   language_english: "Английски"
   language_bulgarian: "Български"
   sign_up: "Регистрация"
