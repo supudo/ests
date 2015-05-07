@@ -2,6 +2,8 @@ class Client < ActiveRecord::Base
   has_many :projects
   validates :title, presence: true
 
+  self.per_page = 30
+
   filterrific(
     default_filter_params: { sorted_by: 'title ASC' },
     available_filters: [

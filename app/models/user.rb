@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   has_many :clients
   has_many :permissions
 
+  self.per_page = 30
+
   before_save { self.username = username.to_s.downcase }
   before_create :create_remember_token
 

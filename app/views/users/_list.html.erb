@@ -37,6 +37,7 @@
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <%= form_for user, :remote => true do |f| %>
+                    <%= hidden_field_tag :page, params[:page] %>
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                       <h4 class="modal-title" id="wmodal<%= user.id %>_title"><%= t('user') %></h4>
@@ -102,5 +103,3 @@
       </tbody>
     </table>
   </div>
-
-  <div class="center"><%= will_paginate @users, :renderer => BootstrapPagination::Rails, :remote => true %></div>

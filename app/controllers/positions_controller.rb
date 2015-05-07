@@ -40,7 +40,7 @@ class PositionsController < ApplicationController
       end
     end
     respond_to do |format|
-      @positions = Position.order("technology_id ASC, title ASC").paginate(page: params[:page], :per_page => 100)
+      @positions = Position.order("technology_id ASC, title ASC").paginate(page: params[:page])
       @technologies = Technology.order("title ASC")
       format.js
     end
@@ -61,7 +61,7 @@ class PositionsController < ApplicationController
       end
     end
     respond_to do |format|
-      @positions = Position.order("technology_id ASC, title ASC").paginate(page: params[:page], :per_page => 100)
+      @positions = Position.order("technology_id ASC, title ASC").paginate(page: params[:page])
       @technologies = Technology.order("title ASC")
       @item_id = @position.id
       format.js
@@ -73,7 +73,7 @@ class PositionsController < ApplicationController
     pid = @current.id
     Position.find(params[:id]).destroy
     respond_to do |format|
-      @positions = Position.order("technology_id ASC, title ASC").paginate(page: params[:page], :per_page => 100)
+      @positions = Position.order("technology_id ASC, title ASC").paginate(page: params[:page])
       @technologies = Technology.order("title ASC")
       @notif_type = 'info'
       @notif_message = t('delete_sucess')

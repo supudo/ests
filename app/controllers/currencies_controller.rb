@@ -4,7 +4,7 @@ class CurrenciesController < ApplicationController
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.currencies_index'), :currencies_path
-    @currencies = Currency.order("title ASC").paginate(page: params[:page], :per_page => 100)
+    @currencies = Currency.order("title ASC").paginate(page: params[:page])
     @currency = Currency.new
     @currencies_exchange = CurrenciesExchange.where(:from_currency_id => params[:id]).where.not(:to_currency_id => params[:id]).order("to_currency_id ASC")
   end
@@ -48,7 +48,7 @@ class CurrenciesController < ApplicationController
     respond_to do |format|
       @currency = Currency.new
       @currencies_exchange = CurrenciesExchange.where(:from_currency_id => params[:id]).where.not(:to_currency_id => params[:id]).order("to_currency_id ASC")
-      @currencies = Currency.order("title ASC").paginate(page: params[:page], :per_page => 100)
+      @currencies = Currency.order("title ASC").paginate(page: params[:page])
       format.js
     end
   end
@@ -59,7 +59,7 @@ class CurrenciesController < ApplicationController
       if CurrenciesExchange.exists?(:from_currency_id => params[:id], :to_currency_id => key)
         r = CurrenciesExchange.find_by(:from_currency_id => params[:id], :to_currency_id => key)
         if value == nil || value.to_f <= 0
-           flash[key] = key + ' not valid!'
+           flash[key] = key + t('currency_not_valid')
         else
           r.rate = value
           r.modified_user_id = current_user.id
@@ -98,7 +98,7 @@ class CurrenciesController < ApplicationController
   def destroy
     Currency.find(params[:id]).destroy
     respond_to do |format|
-      @currencies = Currency.order("title ASC").paginate(page: params[:page], :per_page => 100)
+      @currencies = Currency.order("title ASC").paginate(page: params[:page])
       @notif_type = 'info'
       @notif_message = t('delete_sucess')
       format.js

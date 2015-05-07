@@ -39,6 +39,7 @@ en:
   currency_already_exists: "Currency already exists."
   currency_created_successfully: "Currency was created successfully."
   currency_updated_successfully: "Currency was updated successfully."
+  currency_not_valid: " not valid!"
 
   rates: "Rates"
   create_rate: "Create Rate"

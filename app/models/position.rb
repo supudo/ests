@@ -2,6 +2,8 @@ class Position < ActiveRecord::Base
   has_many :users
   belongs_to :technology
 
+  self.per_page = 30
+
   validates :title, presence: true
 
   filterrific(

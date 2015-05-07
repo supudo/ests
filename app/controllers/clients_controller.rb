@@ -50,7 +50,7 @@ class ClientsController < ApplicationController
     end
     respond_to do |format|
       @client = Client.new
-      @clients = Client.order("title ASC").paginate(page: params[:page], :per_page => 10)
+      @clients = Client.order("title ASC").paginate(page: params[:page], :per_page => 30)
       format.js
     end
   end
@@ -65,7 +65,7 @@ class ClientsController < ApplicationController
       @notif_message = t('error_missing_fields')
     end
     respond_to do |format|
-      @clients = Client.order("title ASC").paginate(page: params[:page], :per_page => 10)
+      @clients = Client.order("title ASC").paginate(page: params[:page], :per_page => 30)
       @item_id = @client.id
       format.js
     end

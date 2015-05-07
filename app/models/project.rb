@@ -5,6 +5,8 @@ class Project < ActiveRecord::Base
   has_many :technologies, :through => :project_technologies
   has_one :client, class_name: "Client", foreign_key: "client_id"
 
+  self.per_page = 30
+
   validates :title, presence: true
   validates :client_id, :numericality => { :greater_than => 0 }
   validates :project_status_id, presence: true, :numericality => { :greater_than => 0 }

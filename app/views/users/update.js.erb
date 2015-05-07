@@ -1,3 +1,3 @@
 $('#closebtn_<%= @item_id %>').click();
-$('#users-list').html("<%= escape_javascript(render :partial => 'users/list', :locals => { :users => @users }) %>");
+$('#users-list').html("<%= escape_javascript(render :partial => 'users/list', :locals => { :users => @users, :page => @page }) %>");
 showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

@@ -6,7 +6,7 @@ class RatesController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.rates_index'), rates_path
     @rate = Rate.new
     @currencies = Currency.order("title ASC")
-    @rates = Rate.order("title ASC").paginate(page: params[:page], :per_page => 10)
+    @rates = Rate.order("title ASC").paginate(page: params[:page])
   end
 
   def show
@@ -27,7 +27,7 @@ class RatesController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.rates_index'), rates_path
     add_breadcrumb I18n.t('breadcrumbs.new')
-    @rates = Rate.order("title ASC").paginate(page: params[:page], :per_page => 10)
+    @rates = Rate.order("title ASC").paginate(page: params[:page])
     if Rate.exists?(:title => rate_params[:title])
       @notif_type = 'warning'
       @notif_message = t('rate_already_exists')
@@ -45,7 +45,7 @@ class RatesController < ApplicationController
     end
     respond_to do |format|
       @currencies = Currency.order("title ASC")
-      @rates = Rate.order("title ASC").paginate(page: params[:page], :per_page => 10)
+      @rates = Rate.order("title ASC").paginate(page: params[:page])
       format.js
     end
   end
@@ -76,7 +76,7 @@ class RatesController < ApplicationController
   def destroy
     Rate.find(params[:id]).destroy
     respond_to do |format|
-      @rates = Rate.order("title ASC").paginate(page: params[:page], :per_page => 10)
+      @rates = Rate.order("title ASC").paginate(page: params[:page])
       @notif_type = 'info'
       @notif_message = t('delete_sucess')
       format.js

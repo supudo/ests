@@ -5,7 +5,7 @@ class ProjectStatusesController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.project_statuses_index'), :project_statuses_path
     @project_status = ProjectStatus.new
-    @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page], :per_page => 100)
+    @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page])
   end
 
   def create
@@ -25,7 +25,7 @@ class ProjectStatusesController < ApplicationController
       end
     end
     respond_to do |format|
-      @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page], :per_page => 100)
+      @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page])
       format.js
     end
   end
@@ -41,7 +41,7 @@ class ProjectStatusesController < ApplicationController
         @notif_message = t('error_missing_fields')
       end
       respond_to do |format|
-        @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page], :per_page => 100)
+        @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page])
         @item_id = @project_status.id
         format.js
       end
@@ -53,7 +53,7 @@ class ProjectStatusesController < ApplicationController
     pid = @current.id
     ProjectStatus.find(params[:id]).destroy
     respond_to do |format|
-      @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page], :per_page => 100)
+      @project_statuses = ProjectStatus.order("title ASC").paginate(page: params[:page])
       @notif_type = 'info'
       @notif_message = t('delete_sucess')
       format.js

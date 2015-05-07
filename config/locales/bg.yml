@@ -39,6 +39,7 @@ bg:
   currency_already_exists: "Валутата вече съществува."
   currency_created_successfully: "Валутата беше създадена успешно."
   currency_updated_successfully: "Валутата беше променена успешно."
+  currency_not_valid: " невалиден!"
 
   rates: "Ставки"
   create_rate: "Създай Ставка"
