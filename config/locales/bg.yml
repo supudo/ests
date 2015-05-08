@@ -110,6 +110,8 @@ bg:
   time_per_technology_max: "Макс Време по Технология"
   price_per_technology_min: "Мин Цена по Технология"
   price_per_technology_max: "Макс Цена по Технология"
+  users_per_technology: "Потребители по Технологии"
+  technology_expertise: "Технологична Експертиза"
 
   user: "Потребител"
   title_edit_user: "Редактиране на потребител"

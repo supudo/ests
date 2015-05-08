@@ -1,15 +1,93 @@
-      <% @users_months.each do |month, item| %>
+<% @users_months.each do |month, item| %>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <strong><%= month.strftime('%B, %Y') %></strong>
+  </div>
+  <div class="panel-body">
+    <% for user in item %>
+      <strong><%= link_to user.full_name, user %></strong>
+      - <%= l(user.created_date, format: :shorter) %>
+      (<span style="color: <%= user.technology.style %>"><%= user.technology.title %></span>)
+      <br />
+    <% end %>
+  </div>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="span6 offset3">
+    <div class="col-md-6">
+
       <div class="panel panel-primary">
-        <div class="panel-heading">
-          <strong><%= month.strftime('%B, %Y') %></strong>
-        </div>
+        <div class="panel-heading"><strong><%= t('users_per_technology') %></strong></div>
         <div class="panel-body">
-          <% for user in item %>
-            <strong><%= link_to user.full_name, user %></strong>
-            - <%= l(user.created_date, format: :shorter) %>
-            (<span style="color: <%= Technology.find(user.technology_id).style %>"><%= Technology.find(user.technology_id).title %></span>)
-            <br />
-          <% end %>
+          <%= pie_chart(@users_per_technology, library: { is3D: true, chartArea: {width: '100%', height: '100%'} }) %>
         </div>
       </div>
+
+    </div>
+    <div class="col-md-6">
+
+      ...
+
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-primary">
+  <div class="panel-heading"><strong><%= t('technology_expertise') %></strong></div>
+  <div class="panel-body">
+    <%= column_chart(@technology_expertise) %>
+
+    <ul class="list-group">
+      <% @technology_expertise.each do |exp| %>
+      <% perc = ((exp[1] / exp[3]) * 100).round(2) %>
+      <li class="list-group-item">
+        <strong><%= exp[2] %></strong> employees in <strong><%= exp[0] %></strong>, with max complexity <strong><%= exp[3] %></strong> and average expertise of <strong><%= exp[1] %> (<%= perc %>%)</strong><br />
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="<%= perc %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= perc %>%;">
+            <%= perc %>%
+          </div>
+        </div>
+      </li>
       <% end %>
+    </ul>
+
+  </div>
+</div>
+
+<% counter_total = 1 %>
+<% counter_row = 0 %>
+<% @tech_expertise.each do |item| %>
+
+  <% if counter_row == 0 %>
+
+<div class="row">
+  <div class="span6 offset3">
+    <div class="col-md-6">
+
+  <% end %>
+
+      <div class="panel panel-primary">
+        <div class="panel-heading"><strong><%= item[:title] %></strong></div>
+        <div class="panel-body">
+          <%= pie_chart(item[:data], library: {legend: {position: "right"}, is3D: true, chartArea: {width: '100%', height: '100%'} }) %>
+        </div>
+      </div>
+
+  <!-- <%= counter_total.to_s + ' - ' + counter_row.to_s %> -->
+  <% if counter_row == 1 || counter_total == @tech_expertise.count %>
+  <% counter_row = 0 %>
+    </div>
+  </div>
+</div>
+
+  <% else %>
+  <% counter_row += 1 %>
+
+    </div>
+    <div class="col-md-6">
+
+  <% end %>
+  <% counter_total += 1 %>
+<% end %>

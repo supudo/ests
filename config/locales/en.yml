@@ -110,6 +110,8 @@ en:
   time_per_technology_max: "Max Time per Technology"
   price_per_technology_min: "Min Price per Technology"
   price_per_technology_max: "Max Price per Technology"
+  users_per_technology: "Users pers Technology"
+  technology_expertise: "Technology Expertise"
 
   user: "User"
   title_edit_user: "Edit user"
