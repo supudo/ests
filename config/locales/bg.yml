@@ -112,6 +112,7 @@ bg:
   price_per_technology_max: "Макс Цена по Технология"
   users_per_technology: "Потребители по Технологии"
   technology_expertise: "Технологична Експертиза"
+  users_positions: "Позиции"
   technology_expertise_legend: "<strong>%{employees_number}</strong> служители в <strong>%{technology}</strong>, с макс. комплексност <strong>%{max_complexity}</strong> и средна експертиза от <strong>%{average_expertise} (%{exp_as_percent}%)</strong>"
 
   user: "Потребител"

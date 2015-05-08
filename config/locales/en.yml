@@ -112,6 +112,7 @@ en:
   price_per_technology_max: "Max Price per Technology"
   users_per_technology: "Users pers Technology"
   technology_expertise: "Technology Expertise"
+  users_positions: "Positions"
   technology_expertise_legend: "<strong>%{employees_number}</strong> employees in <strong>%{technology}</strong>, with max complexity <strong>%{max_complexity}</strong> and average expertise of <strong>%{average_expertise} (%{exp_as_percent}%)</strong>"
 
   user: "User"

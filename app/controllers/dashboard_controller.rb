@@ -38,6 +38,7 @@ class DashboardController < ApplicationController
     @price_per_technology_max = ActiveRecord::Base.connection.execute("SELECT t.title, CONCAT(SUM(rp.hourly_rate * el.hours_max), ' ', c.symbol) AS rate FROM rates_prices AS rp INNER JOIN estimates AS e ON e.rate_id = rp.rate_id AND rp.engagement_model_id = e.engagement_model_id INNER JOIN estimates_lines AS el ON el.estimate_id = e.id AND el.position_id = rp.position_id AND el.technology_id = rp.technology_id INNER JOIN technologies AS t ON t.id = rp.technology_id INNER JOIN rates AS r ON r.id = e.rate_id INNER JOIN currencies AS c ON c.id = r.currency_id WHERE t.is_rated = 1 GROUP BY el.technology_id")
 
     @users_per_technology = ActiveRecord::Base.connection.execute("SELECT t.title, COUNT(u.id) AS users_count FROM users AS u INNER JOIN technologies AS t ON t.id = u.technology_id WHERE t.is_rated = 1 GROUP BY u.technology_id")
+    @users_positions = ActiveRecord::Base.connection.execute("SELECT p.title, COUNT(u.position_id) FROM users AS u INNER JOIN positions AS p ON p.id = u.position_id INNER JOIN technologies AS t ON t.id = p.technology_id WHERE t.is_rated = 1 GROUP BY p.title")
     @technology_expertise = ActiveRecord::Base.connection.execute(%{SELECT
   title_technology,
   IFNULL(SUM(coef) / technology_count, 0) AS expertise,
