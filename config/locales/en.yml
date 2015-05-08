@@ -304,6 +304,7 @@ en:
 
   defaults: &defaults
     month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
     formats:
        default: "%d %B %Y, %H:%M"
        short: "%d.%m.%Y, %H:%M"
