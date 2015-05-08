@@ -68,6 +68,6 @@ class TechnologiesController < ApplicationController
   private
 
     def technology_params
-      params.require(:technology).permit(:title, :style)
+      params.require(:technology).permit(:title, :style, :is_rated)
     end
 end
