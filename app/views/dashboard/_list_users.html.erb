@@ -43,7 +43,8 @@
       <% @technology_expertise.each do |exp| %>
       <% perc = ((exp[1] / exp[3]) * 100).round(2) %>
       <li class="list-group-item">
-        <strong><%= exp[2] %></strong> employees in <strong><%= exp[0] %></strong>, with max complexity <strong><%= exp[3] %></strong> and average expertise of <strong><%= exp[1] %> (<%= perc %>%)</strong><br />
+        <%= t('technology_expertise_legend', :employees_number => exp[2], :technology => exp[0], :max_complexity => exp[3], :average_expertise => exp[1], :exp_as_percent => perc).html_safe %>
+        <br />
         <div class="progress">
           <div class="progress-bar" role="progressbar" aria-valuenow="<%= perc %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= perc %>%;">
             <%= perc %>%
