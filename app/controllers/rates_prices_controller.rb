@@ -124,6 +124,7 @@ class RatesPricesController < ApplicationController
     @debug_info[:rps] = rps
 
     respond_to do |format|
+      @rates = Rate.order("title ASC")
       @technology = Technology.order("title ASC")
       @engagement_models = EngagementModel.order("title ASC")
       @currencies = Currency.order("title ASC")
