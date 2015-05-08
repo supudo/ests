@@ -2,7 +2,7 @@ class RatesPricesController < ApplicationController
   before_action :signed_in_user
 
   def create
-    if RatesPrice.exists?(:engagement_model_id => rates_price_params[:engagement_model_id], :technology_id => rates_price_params[:technology_id], :position_id => rates_price_params[:position_id])
+    if RatesPrice.exists?(:rate_id => rates_price_params[:rate_id], :engagement_model_id => rates_price_params[:engagement_model_id], :technology_id => rates_price_params[:technology_id], :position_id => rates_price_params[:position_id])
       @notif_type = 'danger'
       @notif_message = t('rateprice_already_exists')
     else
