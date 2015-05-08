@@ -20,6 +20,7 @@ class RatesController < ApplicationController
     @currencies = Currency.order("title ASC")
     @positions = Position.where("is_rated = 1").order("title ASC")
     @rates_prices = RatesPrice.where(:rate_id => params[:id]).order("technology_id ASC, position_id ASC")
+    @debug_info = {}
     render 'edit'
   end
 

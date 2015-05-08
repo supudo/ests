@@ -1,7 +1,6 @@
 <%
-curr = Currency.find(@rate.currency_id)
-currency_symbol = curr.symbol
-currency_code = curr.code
+currency_symbol = @rate.currency.symbol
+currency_code = @rate.currency.code
 %>
 <% rates_prices = RatesPrice.where(:rate_id => rate_id, :engagement_model_id => engagement_model_id).order("technology_id ASC, position_id ASC") %>
 <a name="anchratesprices"></a>
@@ -20,7 +19,7 @@ currency_code = curr.code
     <% rates_prices.each do |item| %>
     <tr>
       <td class="vert-align" width="1%" scope="row"><%= item.id %></td>
-      <td class="vert-align" width="1%" nowrap><%= Technology.find(item.technology_id).title %></td>
+      <td class="vert-align" width="1%" nowrap><%= item.technology.title %></td>
       <td class="vert-align">
 
         <a data-toggle="modal" data-target="#rpmodal<%= item.id %>">
@@ -53,15 +52,26 @@ currency_code = curr.code
 
                   <div class="form-group">
                     <div class="input-group">
-                      <div class="input-group-addon"><%= currency_code %></div>
-                      <%= f.number_field :daily_rate, :step => 'any', class: 'form-control', placeholder: t('daily_rate') %>
+                      <% if @rate.currency.is_infront %>
+                        <div class="input-group-addon" id="rp_hourly_rate"><%= @rate.currency.symbol %></div>
+                        <%= f.number_field :daily_rate, :step => 'any', class: 'form-control', placeholder: t('daily_rate') %>
+                      <% else %>
+                        <%= f.number_field :daily_rate, :step => 'any', class: 'form-control', placeholder: t('daily_rate') %>
+                        <div class="input-group-addon" id="rp_hourly_rate"><%= @rate.currency.symbol %></div>
+                      <% end %>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <div class="input-group">
-                      <div class="input-group-addon"><%= currency_code %></div>
-                      <%= f.number_field :hourly_rate, :step => 'any', class: 'form-control', placeholder: t('hourly_rate') %>
+                      <% if @rate.currency.is_infront %>
+                        <div class="input-group-addon" id="rp_hourly_rate"><%= @rate.currency.symbol %></div>
+                        <%= f.number_field :hourly_rate, :step => 'any', class: 'form-control', placeholder: t('hourly_rate') %>
+                      <% else %>
+                        <%= f.number_field :hourly_rate, :step => 'any', class: 'form-control', placeholder: t('hourly_rate') %>
+                        <div class="input-group-addon" id="rp_hourly_rate"><%= @rate.currency.symbol %></div>
+                      <% end %>
+                      
                     </div>
                   </div>
 
@@ -80,7 +90,7 @@ currency_code = curr.code
       </td>
       <td class="vert-align center" width="1%" nowrap>
       <%
-      if curr.is_infront
+      if @rate.currency.is_infront
         concat currency_symbol + ' ' + item.daily_rate.to_s
       else
         concat item.daily_rate.to_s + ' ' + currency_symbol
@@ -89,7 +99,7 @@ currency_code = curr.code
       </td>
       <td class="vert-align center" width="1%" nowrap>
       <%
-      if curr.is_infront
+      if @rate.currency.is_infront
         concat currency_symbol + ' ' + item.hourly_rate.to_s
       else
         concat item.hourly_rate.to_s + ' ' + currency_symbol

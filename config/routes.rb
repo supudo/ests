@@ -15,9 +15,11 @@ Rails.application.routes.draw do
   resources :estimate_exporter
   resources :currencies
   resources :engagement_models
-  resources :rates_prices
   resources :about
   resources :help
+
+  post 'rates_prices/complex_add', as: 'complex_add'
+  resources :rates_prices
 
   get 'positions/positions_update_complexity', as: 'positions_update_complexity'
   resources :positions

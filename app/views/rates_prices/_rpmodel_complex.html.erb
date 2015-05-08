@@ -1,0 +1,70 @@
+<%
+currency_symbol = @rate.currency.symbol
+currency_code = @rate.currency.code
+%>
+
+<table class="table pretty">
+  <thead>
+    <tr>
+      <th nowrap><%= t('hourly_rate') %></th>
+      <th nowrap><%= t('daily_rate') %></th>
+      <th><%= t('technology') + ' / ' + t('profile') %></th>
+    </tr>
+  </thead>
+  <tbody>
+
+<%
+@technology.each do |tech|
+  tech_positions = @positions.where(:technology_id => tech.id)
+  if tech_positions.count > 0
+%>
+  
+  <% tech_positions.each do |pos| %>
+    <tr style="background-color: <%= tech.style %>">
+      <td class="vert-align" width="15%">
+        <fieldset>
+          <div class="form-group">
+            <div class="input-group">
+              <% if @rate.currency.is_infront %>
+                <div class="input-group-addon"><%= @rate.currency.symbol %></div>
+                <%= parent_form.number_field :hourly_rate, :step => 'any', class: 'form-control', :id => 'hourly_rates_prices[' + emodel.id.to_s + '][' + tech.id.to_s + '][' + pos.id.to_s + ']', :name => 'hourly_rates_prices[' + emodel.id.to_s + '][' + tech.id.to_s + '][' + pos.id.to_s + ']', :min => 0, :max => 1000 %>
+              <% else %>
+                <%= parent_form.number_field :hourly_rate, :step => 'any', class: 'form-control', :id => 'hourly_rates_prices[' + emodel.id.to_s + '][' + tech.id.to_s + '][' + pos.id.to_s + ']', :name => 'hourly_rates_prices[' + emodel.id.to_s + '][' + tech.id.to_s + '][' + pos.id.to_s + ']', :min => 0, :max => 1000 %>
+                <div class="input-group-addon"><%= @rate.currency.symbol %></div>
+              <% end %>
+            </div>
+          </div>
+        </fieldset>
+      </td>
+      <td class="vert-align" width="15%">
+        <fieldset>
+          <div class="form-group">
+            <div class="input-group">
+              <% if @rate.currency.is_infront %>
+                <div class="input-group-addon"><%= @rate.currency.symbol %></div>
+                <%= parent_form.number_field :daily_rate, :step => 'any', class: 'form-control', :id => 'daily_rates_prices[' + emodel.id.to_s + '][' + tech.id.to_s + '][' + pos.id.to_s + ']', :name => 'daily_rates_prices[' + emodel.id.to_s + '][' + tech.id.to_s + '][' + pos.id.to_s + ']', :min => 0, :max => 1000 %>
+              <% else %>
+                <%= parent_form.number_field :daily_rate, :step => 'any', class: 'form-control', :id => 'daily_rates_prices[' + emodel.id.to_s + '][' + tech.id.to_s + '][' + pos.id.to_s + ']', :name => 'daily_rates_prices[' + emodel.id.to_s + '][' + tech.id.to_s + '][' + pos.id.to_s + ']', :min => 0, :max => 1000 %>
+                <div class="input-group-addon"><%= @rate.currency.symbol %></div>
+              <% end %>
+            </div>
+          </div>
+        </fieldset>
+      </td>
+      <td class="vert-align">
+        <div style="background-color: #fff">
+          <%= pos.title %> / <strong><%= tech.title %></strong>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+
+    <tr><td colspan="3"><hr /></td></tr>
+
+<%
+  end
+end
+%>
+
+  </tbody>
+</table>

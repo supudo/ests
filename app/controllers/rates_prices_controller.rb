@@ -93,6 +93,48 @@ class RatesPricesController < ApplicationController
     end
   end
 
+  def complex_add
+    @debug_info = {}
+    @rate_id = params[:rates_price][:rate_id]
+    @debug_info[:rate_id] = @rate_id
+    @rate = Rate.find(@rate_id)
+
+    @engagement_model_id = 
+    rps = []
+    params[:hourly_rates_prices].each do |model_id, techs|
+      @engagement_model_id = model_id
+      techs.each do |tech_id, poss|
+        poss.each do |pos_id, price_hour|
+
+          rp = RatesPrice.new
+          rp.rate_id = @rate_id
+          rp.engagement_model_id = model_id
+          rp.technology_id = tech_id
+          rp.position_id = pos_id
+          rp.hourly_rate = price_hour
+          rp.daily_rate = params[:daily_rates_prices][model_id][tech_id][pos_id]
+          rp.modified_user_id = @current_user.id
+          rp.modified_date = DateTime.now
+          rp.save
+          rps.push(rp)
+
+        end
+      end
+    end
+    @debug_info[:rps] = rps
+
+    respond_to do |format|
+      @technology = Technology.order("title ASC")
+      @engagement_models = EngagementModel.order("title ASC")
+      @currencies = Currency.order("title ASC")
+      @positions = Position.where("is_rated = 1").order("title ASC")
+      @rates_prices = RatesPrice.where(:rate_id => params[:id]).order("technology_id ASC, position_id ASC")
+      @notif_type = 'success'
+      @notif_message = t('rateprice_created_successfully')
+      format.js
+    end
+  end
+
   private
 
     def rates_price_params

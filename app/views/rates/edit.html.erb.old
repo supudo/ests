@@ -83,30 +83,69 @@
   <%= render :partial => 'rates_prices/list', :locals => { :rate_id => @rate.id } %>
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-info">
   <div class="panel-heading"><strong><%= t('all') %></strong></div>
   <div class="panel-body">
-    <%= form_for :rates_price, :url => {:controller => 'rates_prices', :action => 'complex_add'}, :remote => true do |f| %>
+
+    <%= form_for :rates_price, :url => {:controller => 'rates_prices', :action => 'complex_add'} do |f| %>
     <%= f.hidden_field :rate_id, value: params[:id] %>
-    <div class="panel with-nav-tabs panel-primary">
-      <div class="panel-heading">
-        <ul class="nav nav-tabs">
-          <% @engagement_models.each do |item| %>
-          <li<%= item == @engagement_models.first ? " class='active'".html_safe : "" %>>
-            <a href="#emc<%= item.id %>" data-toggle="tab"><%= item.title %></a>
-          </li>
-          <% end %>
-        </ul>
-      </div>
-        <div class="tab-content">
-        <% @engagement_models.each do |item| %>
-        <div class="tab-pane<%= item == @engagement_models.first ? "  fade in active".html_safe : "" %>" id="emc<%= item.id %>">
-          <%= render partial: 'rates_prices/rpmodel_complex', locals: { :emodel => item, :parent_form => f} %>
+
+    <% @technology.each do |tech| %>
+    <div class="panel panel-info">
+      <div class="panel-heading"><strong><%= tech.title %></strong></div>
+      <div class="panel-body">
+
+        <% @engagement_models.each do |emodel| %>
+        <div class="span6 offset3">
+          <div class="col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading"><strong><%= emodel.title %></strong></div>
+              <div class="panel-body">
+                <fieldset>
+                  <div class="form-group">
+                    <%= f.collection_select :engagement_model_id, @engagement_models, :id, :title, {:selected => emodel.id}, {:class => 'form-control', :disabled => true} %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.select :technology_id, options_for_select(@technology.collect { |tech| [tech.title, tech.id] }, tech.id), {}, {:class => 'form-control', :disabled => true} %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.select :position_id, options_for_select(@positions.where(:technology_id => tech.id).collect { |pos| [pos.title, pos.id] }, 0), {}, {:class => 'form-control', :disabled => true} %>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <% if @rate.currency.is_infront %>
+                        <div class="input-group-addon" id="rp_hourly_rate"><%= @rate.currency.symbol %></div>
+                        <%= f.number_field :daily_rate, :step => 'any', class: 'form-control', placeholder: t('daily_rate') %>
+                      <% else %>
+                        <%= f.number_field :daily_rate, :step => 'any', class: 'form-control', placeholder: t('daily_rate') %>
+                        <div class="input-group-addon" id="rp_hourly_rate"><%= @rate.currency.symbol %></div>
+                      <% end %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <% if @rate.currency.is_infront %>
+                        <div class="input-group-addon" id="rp_hourly_rate"><%= @rate.currency.symbol %></div>
+                        <%= f.number_field :hourly_rate, :step => 'any', class: 'form-control', placeholder: t('hourly_rate') %>
+                      <% else %>
+                        <%= f.number_field :hourly_rate, :step => 'any', class: 'form-control', placeholder: t('hourly_rate') %>
+                        <div class="input-group-addon" id="rp_hourly_rate"><%= @rate.currency.symbol %></div>
+                      <% end %>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
         </div>
         <% end %>
+
       </div>
     </div>
+    <% end %>
+
     <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
     <% end %>
+
   </div>
 </div>
