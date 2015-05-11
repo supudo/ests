@@ -57,6 +57,7 @@ class TechnologiesController < ApplicationController
     @current = Technology.find(params[:id])
     pid = @current.id
     Technology.find(params[:id]).destroy
+    RatesPrice.where(:technology_id => params[:id]).destroy_all
     respond_to do |format|
       @technologies = Technology.order("title ASC").paginate(page: params[:page])
       @notif_type = 'info'

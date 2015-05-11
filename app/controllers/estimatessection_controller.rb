@@ -3,7 +3,7 @@ class EstimatessectionController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def show
-    pos_id = Position.where(:technology_id => esection_technology_params[:tid]).first.id
+    pos_id = Position.where(:technology_id => esection_technology_params[:tid]).order("complexity ASC").first.id
     EstimatesLine.where(:estimates_sections_id => params[:id]).update_all(:technology_id => esection_technology_params[:tid], :position_id => pos_id)
     @current = EstimatesSection.find(params[:id])
     @estimatesline = EstimatesLine.where(:estimates_sections_id => @current.id).order("line_number ASC")
