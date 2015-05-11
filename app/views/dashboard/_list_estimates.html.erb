@@ -1,29 +1,50 @@
-      <% @estimates_months.each do |month, item| %>
+<div class="row">
+  <div class="span6 offset3">
+    <div class="col-md-6">
+
       <div class="panel panel-primary">
-        
-        <div class="panel-heading">
-          <strong><%= month.strftime('%B, %Y') %></strong>
-        </div>
-
-        <div class="panel-body">
-        <% for estimate in item %>
-        <div class="bs-callout bs-callout-primary">
-          
-          <h4><strong><%= link_to estimate.title, estimate %></strong> - <%= l(estimate.created_date, format: :shorter) %></h4>
-          
-          <%= t('for') %> "<%= Project.find_by(:id => estimate.project_id).title %>" - "<em><%= Client.find_by(:id => estimate.client_id).title %></em>"
-          <%= t('by') %> <a href="mailto:<%= User.find_by(:id => estimate.owner_user_id).username %>"><%= User.find_by(:id => estimate.owner_user_id).first_name %> <%= User.find_by(:id => estimate.owner_user_id).last_name %></a>
-
-          <br />
-
-          <% lines = EstimatesLine.select("technology_id").where(:estimate_id => estimate.id).distinct %>
-          <% lines.each do |line| %>
-          <span style="color: <%= line.technology.style %>"><%= line.technology.title %></span><%= line != lines.last ? ',' : '' %>
-          <% end %>
-
-        </div>
-        <% end %>
-        </div>
-        
+        <div class="panel-heading"><strong><%= t('estimates_signed_unsigned') %></strong></div>
+        <div class="panel-body"><%= pie_chart(@estimates_signed_unsigned, library: { is3D: true, chartArea: {width: '100%', height: '100%'} }) %></div>
       </div>
-      <% end %>
+
+    </div>
+    <div class="col-md-6">
+
+      <div class="panel panel-primary">
+        <div class="panel-heading"><strong><%= t('estimates_per_month') %></strong></div>
+        <div class="panel-body"><%= pie_chart(@estimates_per_month, library: { is3D: true, chartArea: {width: '100%', height: '100%'} }) %></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<% @estimates_months.each do |month, item| %>
+<div class="panel panel-primary">
+  
+  <div class="panel-heading">
+    <strong><%= month.strftime('%B, %Y') %></strong>
+  </div>
+
+  <div class="panel-body">
+  <% for estimate in item %>
+  <div class="bs-callout bs-callout-primary">
+    
+    <h4><strong><%= link_to estimate.title, estimate %></strong> - <%= l(estimate.created_date, format: :shorter) %></h4>
+    
+    <%= t('for') %> "<%= Project.find_by(:id => estimate.project_id).title %>" - "<em><%= Client.find_by(:id => estimate.client_id).title %></em>"
+    <%= t('by') %> <a href="mailto:<%= User.find_by(:id => estimate.owner_user_id).username %>"><%= User.find_by(:id => estimate.owner_user_id).first_name %> <%= User.find_by(:id => estimate.owner_user_id).last_name %></a>
+
+    <br />
+
+    <% lines = EstimatesLine.select("technology_id").where(:estimate_id => estimate.id).distinct %>
+    <% lines.each do |line| %>
+    <span style="color: <%= line.technology.style %>"><%= line.technology.title %></span><%= line != lines.last ? ',' : '' %>
+    <% end %>
+
+  </div>
+  <% end %>
+  </div>
+  
+</div>
+<% end %>

@@ -114,6 +114,8 @@ en:
   technology_expertise: "Technology Expertise"
   users_positions: "Positions"
   technology_expertise_legend: "<strong>%{employees_number}</strong> employees in <strong>%{technology}</strong>, with max complexity <strong>%{max_complexity}</strong> and average expertise of <strong>%{average_expertise} (%{exp_as_percent}%)</strong>"
+  estimates_signed_unsigned: "Signed / Unsigned"
+  estimates_per_month: "Estimates per Month"
 
   user: "User"
   title_edit_user: "Edit user"

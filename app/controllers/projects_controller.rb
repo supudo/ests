@@ -82,7 +82,7 @@ class ProjectsController < ApplicationController
             @project_request.save
           end
 
-          if params[:project].has_key?([:technology_ids])
+          if params[:project][:technology_ids].present?
             ProjectsTechnology.destroy_all(:project_id => params[:id])
             params[:project][:technology_ids].each do |tech_id|
               ProjectsTechnology.create(:project_id => @project.id, :technology_id => tech_id)
@@ -151,7 +151,7 @@ class ProjectsController < ApplicationController
             end
           end
 
-          if params[:project].has_key?([:technology_ids])
+          if params[:project][:technology_ids].present?
             ProjectsTechnology.destroy_all(:project_id => params[:id])
             params[:project][:technology_ids].each do |tech_id|
               ProjectsTechnology.create(:project_id => @project.id, :technology_id => tech_id)

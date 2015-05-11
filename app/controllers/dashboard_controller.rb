@@ -73,6 +73,17 @@ FROM
 ) AS t2
 GROUP BY
   title_technology})
+
+    @estimates_signed_unsigned = ActiveRecord::Base.connection.execute("SELECT CASE WHEN is_signed = 0 THEN 'Unsigned' ELSE 'Signed' END AS signed_yn, COUNT(is_signed) AS cond_count FROM estimates GROUP BY is_signed")
+    @estimates_per_month = ActiveRecord::Base.connection.execute(%{SELECT
+  DATE_FORMAT(created_date, '%M, %Y') AS estimate_month,
+  COUNT(id) AS estimates_count
+FROM
+  estimates
+WHERE
+  DATE_SUB(NOW(), INTERVAL 1 YEAR) < created_date
+GROUP BY
+  estimate_month})
   end
 
 end

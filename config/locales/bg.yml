@@ -114,6 +114,8 @@ bg:
   technology_expertise: "Технологична Експертиза"
   users_positions: "Позиции"
   technology_expertise_legend: "<strong>%{employees_number}</strong> служители в <strong>%{technology}</strong>, с макс. комплексност <strong>%{max_complexity}</strong> и средна експертиза от <strong>%{average_expertise} (%{exp_as_percent}%)</strong>"
+  estimates_signed_unsigned: "Подписани / Не-подписани"
+  estimates_per_month: "Оценки за Месец"
 
   user: "Потребител"
   title_edit_user: "Редактиране на потребител"
