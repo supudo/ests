@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 0) do
 
   create_table "positions", force: :cascade do |t|
     t.integer "technology_id", limit: 4,               null: false
+    t.integer "complexity",    limit: 1,   default: 0, null: false
     t.string  "title",         limit: 255,             null: false
     t.integer "is_am",         limit: 1,   default: 0, null: false
     t.integer "is_pdm",        limit: 1,   default: 0, null: false
@@ -210,8 +211,9 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "technologies", force: :cascade do |t|
-    t.string "title", limit: 255, null: false
-    t.string "style", limit: 25
+    t.string  "title",    limit: 255, null: false
+    t.string  "style",    limit: 25
+    t.boolean "is_rated", limit: 1,   null: false
   end
 
   add_index "technologies", ["title"], name: "title", unique: true, using: :btree
