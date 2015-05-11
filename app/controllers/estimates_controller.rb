@@ -54,7 +54,38 @@ class EstimatesController < ApplicationController
       @chart_hours_max = ActiveRecord::Base.connection.execute("SELECT (SELECT title FROM technologies WHERE id = el.technology_id) AS technology, SUM(el.hours_max) FROM estimates_lines AS el WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY technology")
       @estimate_technologies_percent_min = ActiveRecord::Base.connection.execute("SELECT t.title, SUM(hours_min) AS hours FROM technologies AS t INNER JOIN estimates_lines AS el ON el.technology_id = t.id WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY t.title")
       @estimate_technologies_percent_max = ActiveRecord::Base.connection.execute("SELECT t.title, SUM(hours_max) AS hours FROM technologies AS t INNER JOIN estimates_lines AS el ON el.technology_id = t.id WHERE el.estimate_id = " + params[:id] + " GROUP BY el.technology_id ORDER BY t.title")
-      @estimate_positions_ratio = ActiveRecord::Base.connection.execute("SELECT p.title, COUNT(el.position_id) AS positions_count FROM estimates_lines AS el INNER JOIN positions AS p ON p.id = el.position_id WHERE el.estimate_id = " + params[:id] + " GROUP BY el.position_id")
+      @estimate_price_per_technology = ActiveRecord::Base.connection.execute(%{
+SELECT
+  CASE
+    WHEN c.is_infront = 0 THEN CONCAT(t.title, ' (', SUM(el.hours_min * rp.hourly_rate), ' ', c.symbol, ')')
+    ELSE CONCAT(t.title, ' (', c.symbol, ' ', SUM(el.hours_min * rp.hourly_rate), ')')
+  END AS tech,
+  SUM(el.hours_min * rp.hourly_rate) AS technology_total
+FROM
+  estimates_lines AS el
+  INNER JOIN estimates AS e ON e.id = el.estimate_id
+  INNER JOIN technologies AS t ON t.id = el.technology_id
+  INNER JOIN rates_prices AS rp ON rp.rate_id = e.rate_id AND rp.engagement_model_id = e.engagement_model_id
+  INNER JOIN rates AS r ON r.id = rp.rate_id
+  INNER JOIN currencies AS c ON c.id = r.currency_id
+WHERE
+  el.estimate_id = } + params[:id] + %{
+  AND rp.technology_id = el.technology_id
+  AND rp.position_id = el.position_id
+GROUP BY
+  t.title
+        })
+      @estimate_positions_ratio = ActiveRecord::Base.connection.execute(%{SELECT
+  CONCAT(p.title, ' - ', t.title) AS profile,
+  COUNT(el.position_id) AS positions_count
+FROM
+  estimates_lines AS el
+  INNER JOIN positions AS p ON p.id = el.position_id
+  INNER JOIN technologies AS t ON t.id = p.technology_id
+WHERE
+  el.estimate_id = } + params[:id] + %{
+GROUP BY
+  el.position_id})
       render 'edit'
     end
   end

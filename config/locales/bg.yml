@@ -106,6 +106,7 @@ bg:
   estimate_technologies_percent_min: "Технологии - Мин Часове"
   estimate_technologies_percent_max: "Технологии - Макс Часове"
   estimate_positions_ratio: "Профили"
+  estimate_price_per_technology: "Цена по Технология"
   time_per_technology_min: "Мин Време по Технология"
   time_per_technology_max: "Макс Време по Технология"
   price_per_technology_min: "Мин Цена по Технология"

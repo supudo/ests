@@ -106,6 +106,7 @@ en:
   estimate_technologies_percent_min: "Technologies - Min Hours"
   estimate_technologies_percent_max: "Technologies - Max Hours"
   estimate_positions_ratio: "Profiles"
+  estimate_price_per_technology: "Price per Technology"
   time_per_technology_min: "Min Time per Technology"
   time_per_technology_max: "Max Time per Technology"
   price_per_technology_min: "Min Price per Technology"
