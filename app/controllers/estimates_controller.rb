@@ -11,7 +11,7 @@ class EstimatesController < ApplicationController
         sorted_by: Estimate.options_for_sorted_by
       }
     ) or return
-    @estimates = @filterrific.find.page(params[:page]).order("title ASC")
+    @estimates = @filterrific.find.page(params[:page]).order("created_date desc")
     if params.has_key?(:iss)
       case params[:iss].to_f
         when 1
@@ -19,7 +19,7 @@ class EstimatesController < ApplicationController
         when 0
           @estimates = @estimates.where(:is_signed => 0)
         else
-          @estimates = @filterrific.find.page(params[:page]).order("title ASC")
+          @estimates = @filterrific.find.page(params[:page]).order("created_date DESC")
       end
     end
     respond_to do |format|
@@ -177,7 +177,7 @@ GROUP BY
       EstimatesAssumption.delete_all(:estimate_id => params[:id])
       Estimate.find(params[:id]).destroy
       respond_to do |format|
-        @estimates = Estimate.paginate(page: params[:page])
+        @estimates = Estimate.paginate(page: params[:page]).order("created_date DESC")
         @notif_type = 'info'
         @notif_message = t('estimate_destroyed')
         format.js

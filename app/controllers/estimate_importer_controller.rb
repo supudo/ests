@@ -68,14 +68,16 @@ class EstimateImporterController < ApplicationController
 
               line = {}
               line[:line] = sheet.cell(section_row_counter, 2)
-              line[:hours_min] = sheet.cell(section_row_counter, 3)
-              line[:hours_max] = sheet.cell(section_row_counter, 4)
+              hours_min = sheet.cell(section_row_counter, 3)
+              hours_max = sheet.cell(section_row_counter, 4)
+              line[:hours_min] = hours_min.nil? || hours_min == '' ? 0 : hours_min
+              line[:hours_max] = hours_max.nil? || hours_max == '' ? 0 : hours_max
 
               section_single[:lines].push(line)
 
               section_row_counter += 1
 
-              if sheet.cell(section_row_counter, 2) == nil || sheet.cell(section_row_counter, 2) == '' || section_row_counter == 100
+              if sheet.cell(section_row_counter, 2) == nil || sheet.cell(section_row_counter, 2) == ''# || section_row_counter == 100
                 break
               end
             end
