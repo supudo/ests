@@ -1,13 +1,5 @@
     <% @estimatesline = EstimatesLine.where(:estimates_sections_id => eitem_section_id).order("line_number ASC") %>
-    <%
-    etemp = @estimatesline.first.estimate
-    rate = etemp.rate
-    enagement_model = etemp.engagement_model
-    rate_prices = RatesPrice.where(:rate_id => rate.id, :engagement_model_id => enagement_model.id)
-    currency = rate.currency
-    currency_code = currency.code
-    currency_symbol = currency.symbol
-    %>
+
     <a name="listanch"></a>
 
     <script>
@@ -29,11 +21,20 @@
         </tr>
       </thead>
       <tbody>
-      <%
+
+    <%
+    if @estimatesline.count > 0
+      etemp = @estimatesline.first.estimate
+      rate = etemp.rate
+      enagement_model = etemp.engagement_model
+      rate_prices = RatesPrice.where(:rate_id => rate.id, :engagement_model_id => enagement_model.id)
+      currency = rate.currency
+      currency_code = currency.code
+      currency_symbol = currency.symbol
       total_min_price = 0
       total_max_price = 0
-      %>
-      <% @estimatesline.each do |eitem| %>
+      @estimatesline.each do |eitem|
+    %>
         <tr>
           <td width="1%" nowrap>
             <% if eitem != @estimatesline.first %>
@@ -158,5 +159,6 @@
           <td colspan="10"><em><%= t('reordering_needs_line_number') %></em></td>
         </tr>
         -->
+      <% end %>
       </tbody>
     </table>
