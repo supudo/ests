@@ -55,6 +55,7 @@ class EstimatessectionController < ApplicationController
     EstimatesSection.find(params[:section_id]).destroy
     @estimatessection = EstimatesSection.where(:estimate_id => params[:estimate_id]).order("id ASC")
     @sheet = EstimatesSheet.find(params[:estimates_sheet_id])
+    @positions = Position.order("title ASC")
     respond_to do |format|
       @notif_type = 'success'
       @notif_message = t('delete_sucess')
