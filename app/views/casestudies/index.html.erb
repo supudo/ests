@@ -1,5 +1,5 @@
-<% provide(:title, t('clients')) %>
-<h1><%= t('clients') %></h1>
+<% provide(:title, t('case_studies')) %>
+<h1><%= t('case_studies') %></h1>
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -7,7 +7,7 @@
 
       <div class="input-group-btn">
         <button type="button" class="btn btn-primary" aria-label="Left Align">
-          <a class="btn-primary" data-toggle="modal" data-target="#wmodal0"><%= t('create_client') %></a>
+          <a class="btn-primary" data-toggle="modal" data-target="#wmodal0"><%= t('create_casestudy') %></a>
         </button>
       </div>
 
@@ -19,36 +19,30 @@
 
     </div>
   </div>
-  <div id="clients-list">
-    <%= render partial: 'clients/list', locals: { clients: @clients } %>
+  <div id="casestudies-list">
+    <%= render partial: 'casestudies/list', locals: { casestudies: @casestudies } %>
   </div>
 </div>
 
-<div class="center"><%= will_paginate @clients, :renderer => BootstrapPagination::Rails, :remote => true %></div>
+<div class="center"><%= will_paginate @casestudies, :renderer => BootstrapPagination::Rails, :remote => true %></div>
 
 <!-- Modal -->
 <div class="modal fade" id="wmodal0" tabindex="-1" role="dialog" aria-labelledby="wmodal0_title" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <%= form_for @client, :remote => true do |f| %>
+      <%= form_for @casestudy, :remote => true do |f| %>
       <%= hidden_field_tag :page, (params.has_key?(:page) && params[:page] != '' ? params[:page] : "1") %>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="wmodal0_title"><%= t('client') %></h4>
+        <h4 class="modal-title" id="wmodal0_title"><%= t('currency') %></h4>
       </div>
       <div class="modal-body">
         <fieldset>
           <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
             <%= f.text_field :title, class: 'form-control', placeholder: t('client'), autofocus: true %>
           </div>
-          <div class="form-group">
-            <%= f.email_field :email, class: 'form-control', placeholder: t('email') %>
-          </div>
-          <div class="form-group">
-            <%= f.text_field :url, class: 'form-control', placeholder: t('url') %>
-          </div>
-          <div class="form-group">
-            <%= f.text_field :phone, class: 'form-control', placeholder: t('phone') %>
+          <div class="form-group<%= f.object.errors[:project_id].any? ? ' has-error has-feedback' : '' %>">
+            <%= f.collection_select :project_id, @projects, :id, :title, {:include_blank => t('dashes') + ' ' + t('project')}, {:class => 'form-control'} %>
           </div>
         </fieldset>
       </div>

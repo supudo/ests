@@ -1,0 +1,3 @@
+$('#closebtn_0').click();
+$('#casestudies-list').html("<%= escape_javascript(render :partial => 'casestudies/list', :locals => { :casestudies => @casestudies }) %>");
+showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

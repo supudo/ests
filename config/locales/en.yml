@@ -256,6 +256,13 @@ en:
   unknown_file_type: "Unknown file type"
   import_ok: "File was imported successfully."
 
+  case_studies: "Case Studies"
+  case_study: "Case Study"
+  create_casestudy: "Create Case Study"
+  casestudy_already_exists: "Case Study already exists."
+  casestudy_created_successfully: "Case Study created successfully."
+  casestudy_updated_successfully: "Case Study updated successfully."
+
   permissions: "Permissions"
   perm_login: "Login"
   perm_profile: "Profile"
@@ -306,6 +313,7 @@ en:
     rates_index: "Rates"
     engagement_models_index: "Engagement Models"
     currencies_index: "Currencies"
+    casestudies_index: "Case Studies"
 
   defaults: &defaults
     month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]

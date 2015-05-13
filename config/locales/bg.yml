@@ -256,6 +256,13 @@ bg:
   unknown_file_type: "Непознат тип файл"
   import_ok: "Файлът беше импортнат успешно."
 
+  case_studies: "Казуси"
+  case_study: "Казус"
+  create_casestudy: "Създай Казус"
+  casestudy_already_exists: "Казусът вече съществува."
+  casestudy_created_successfully: "Казусът беше създаден успешно."
+  casestudy_updated_successfully: "Казусът беше променен успешно."
+
   permissions: "Привилегии"
   perm_login: "Логин"
   perm_profile: "Профил"
@@ -306,6 +313,7 @@ bg:
     rates_index: "Ставки"
     engagement_models_index: "Модели на Работа"
     currencies_index: "Валути"
+    casestudies_index: "Казуси"
 
   defaults: &defaults
     month_names: [~, Януари, Февруари, Март, Април, Май, Юни, Юли, Август, Септември, Октмоври, Ноември, Декември]

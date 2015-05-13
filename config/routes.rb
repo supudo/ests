@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :engagement_models
   resources :about
   resources :help
+  resources :casestudies
 
   post 'rates_prices/complex_add', as: 'complex_add'
   resources :rates_prices

@@ -1,4 +1,4 @@
-Tool for software estimations, based on WBR.
+Tool for software estimations, based on WBR (including several other functionalities).
 
 ## TODO
 
