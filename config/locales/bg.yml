@@ -66,6 +66,7 @@ bg:
   engagement_model_already_exists: "Моделът на Работа вече съществува."
   engagement_model_created_successfully: "Моделът на Работа беше създаден успешно."
   engagement_model_updated_successfully: "Моделът на Работа беше променен успешно."
+  has_minmax: "Има Мин/Макс Часове?"
 
   export_estimate: "Свали Оценката"
   export_general_sheet: "Оценка"

@@ -66,6 +66,7 @@ en:
   engagement_model_already_exists: "Engagement Model already exists."
   engagement_model_created_successfully: "Engagement Model created successfully."
   engagement_model_updated_successfully: "Engagement Model updated successfully."
+  has_minmax: "Has Min/Max Hours?"
 
   export_estimate: "Export Estimate"
   export_general_sheet: "Estimation"

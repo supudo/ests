@@ -74,6 +74,6 @@ class EngagementModelsController < ApplicationController
   private
 
     def engagement_model_params
-      params.require(:engagement_model).permit(:title)
+      params.require(:engagement_model).permit(:title, :has_minmax)
     end
 end
