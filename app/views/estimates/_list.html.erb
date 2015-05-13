@@ -21,23 +21,30 @@
         <td class="col-md-2 vert-align<%= estimate.is_signed ? " success" : "" %>"><%= estimate.client.title %></td>
         <td class="col-md-2 vert-align<%= estimate.is_signed ? " success" : "" %>"><%= estimate.project.title %></td>
         <td class="col-md-2 vert-align<%= estimate.is_signed ? " success" : "" %>"><%= link_to estimate.owner_user.full_name, estimate.owner_user %></td>
-        <td class="vert-align<%= estimate.is_signed ? " success" : "" %>"><%= estimate.total_min_hours %> <br /> <%= estimate.total_max_hours %></td>
+        <td class="vert-align<%= estimate.is_signed ? " success" : "" %>">
+          <%= estimate.total_min_hours.round(2) %>
+          <% if estimate.engagement_model.has_minmax %>
+          <br /> <%= estimate.total_max_hours.round(2) %>
+          <% end %>
+        </td>
         <td class="vert-align<%= estimate.is_signed ? " success" : "" %>" nowrap>
           <%
           if estimate.rate.currency.is_infront
-            concat estimate.rate.currency.symbol + ' ' + estimate.total_min_price.to_s
+            concat estimate.rate.currency.symbol + ' ' + estimate.total_min_price.round(2).to_s
           else
-            concat estimate.total_min_price.to_s + ' ' + estimate.rate.currency.symbol
+            concat estimate.total_min_price.round(2).to_s + ' ' + estimate.rate.currency.symbol
           end
           %>
+          <% if estimate.engagement_model.has_minmax %>
           <br />
           <%
           if estimate.rate.currency.is_infront
-            concat estimate.rate.currency.symbol + ' ' + estimate.total_max_price.to_s
+            concat estimate.rate.currency.symbol + ' ' + estimate.total_max_price.round(2).to_s
           else
-            concat estimate.total_max_price.to_s + ' ' + estimate.rate.currency.symbol
+            concat estimate.total_max_price.round(2).to_s + ' ' + estimate.rate.currency.symbol
           end
           %>
+          <% end %>
         </td>
         <td width="1%" nowrap<%= estimate.is_signed ? " class=success" : "" %>>
           <%= button_to estimate_exporter_index_path, :method => 'get', :id => estimate.id, class: "btn btn-default btn-sm" do %>
