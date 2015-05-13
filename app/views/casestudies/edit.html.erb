@@ -1,0 +1,18 @@
+<% provide(:title, t('breadcrumbs.edit')) %>
+<h1><%= t('breadcrumbs.edit') %></h1>
+
+<div class="row">
+  <div class="span6 offset3">
+
+<%= form_for @casestudy, :remote => true do |f| %>
+<%= hidden_field_tag :page, (params.has_key?(:page) && params[:page] != '' ? params[:page] : "1") %>
+  <fieldset>
+    <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.text_field :title, class: 'form-control', placeholder: t('client'), autofocus: true %>
+    </div>
+    <div class="form-group<%= f.object.errors[:project_id].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.collection_select :project_id, @projects, :id, :title, {:include_blank => t('dashes') + ' ' + t('project')}, {:class => 'form-control'} %>
+    </div>
+    <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
+  </fieldset>
+<% end %>

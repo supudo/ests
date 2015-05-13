@@ -11,41 +11,7 @@
       <% @casestudies.each do |item| %>
       <tr>
         <th scope="row" class="vert-align"><%= item.id %></th>
-        <td class="vert-align">
-          <a data-toggle="modal" data-target="#wmodal<%= item.id %>">
-            <%= item.title %>
-          </a>
-
-          <!-- Modal -->
-          <div class="modal fade" id="wmodal<%= item.id %>" tabindex="-1" role="dialog" aria-labelledby="wmodal<%= item.id %>_title" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <%= form_for item, :remote => true do |f| %>
-                <%= hidden_field_tag :page, (params.has_key?(:page) && params[:page] != '' ? params[:page] : "1") %>
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="wmodal<%= item.id %>_title"><%= t('case_study') %></h4>
-                </div>
-                <div class="modal-body">
-                  <fieldset>
-                    <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
-                      <%= f.text_field :title, class: 'form-control', placeholder: t('case_study'), autofocus: true %>
-                    </div>
-                    <div class="form-group<%= f.object.errors[:project_id].any? ? ' has-error has-feedback' : '' %>">
-                      <%= f.collection_select :project_id, @projects, :id, :title, {:include_blank => t('dashes') + ' ' + t('project')}, {:class => 'form-control'} %>
-                    </div>
-                  </fieldset>
-                </div>
-                <div class="modal-footer">
-                  <button id="closebtn_<%= item.id %>" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
-                  <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
-                </div>
-                <% end %>
-
-              </div>
-            </div>
-          </div> <!-- / Modal -->
-        </td>
+        <td class="vert-align"><%= link_to item.title, item %></td>
         <td class="vert-align"><%= link_to item.project.title, item.project %></td>
         <td width="1%" nowrap>
           <%= button_to item, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true do %>

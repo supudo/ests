@@ -20,8 +20,17 @@ class CasestudiesController < ApplicationController
     end
   end
 
+  def show
+    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+    add_breadcrumb I18n.t('breadcrumbs.casestudies_index'), :casestudies_path
+    add_breadcrumb I18n.t('breadcrumbs.edit')
+    @casestudy = Casestudy.find(params[:id])
+    @projects = Project.order("title ASC")
+    render 'edit'
+  end
+
   def create
-    if Casestudy.where(:title => casestudy_params[:title], :project_id => casestudy_params[:project_id])
+    if Casestudy.where(:title => casestudy_params[:title], :project_id => casestudy_params[:project_id]).count > 0
       @notif_type = 'warning'
       @notif_message = t('casestudy_already_exists')
     else
