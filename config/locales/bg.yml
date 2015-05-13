@@ -262,6 +262,7 @@ bg:
   casestudy_already_exists: "Казусът вече съществува."
   casestudy_created_successfully: "Казусът беше създаден успешно."
   casestudy_updated_successfully: "Казусът беше променен успешно."
+  casestudy_ratio: "Казус Данни"
 
   permissions: "Привилегии"
   perm_login: "Логин"

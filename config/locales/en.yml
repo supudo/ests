@@ -262,6 +262,7 @@ en:
   casestudy_already_exists: "Case Study already exists."
   casestudy_created_successfully: "Case Study created successfully."
   casestudy_updated_successfully: "Case Study updated successfully."
+  casestudy_ratio: "Case Study Data"
 
   permissions: "Permissions"
   perm_login: "Login"

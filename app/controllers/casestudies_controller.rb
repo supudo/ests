@@ -26,6 +26,19 @@ class CasestudiesController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.edit')
     @casestudy = Casestudy.find(params[:id])
     @projects = Project.order("title ASC")
+    @casestudy_ratio = ActiveRecord::Base.connection.execute(%{SELECT
+  COUNT(csc.id) AS challenges,
+  COUNT(cso.id) AS overviews,
+  COUNT(css.id) AS solutions,
+  COUNT(cst.id) AS technologies
+FROM
+  casestudies AS cs
+  INNER JOIN casestudy_challenges AS csc ON csc.case_study_id = cs.id
+  INNER JOIN casestudy_overviews AS cso ON cso.case_study_id = cs.id
+  INNER JOIN casestudy_solutions AS css ON css.case_study_id = cs.id
+  INNER JOIN casestudy_technologies AS cst ON cst.case_study_id = cs.id
+WHERE
+  cs.id = } + params[:id])
     render 'edit'
   end
 

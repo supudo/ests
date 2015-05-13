@@ -3,16 +3,36 @@
 
 <div class="row">
   <div class="span6 offset3">
+    <div class="col-md-6" id="estimate_details">
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong><%= t('details') %></strong></div>
+        <div class="panel-body">
+          <%= form_for @casestudy, :remote => true do |f| %>
+          <%= hidden_field_tag :page, (params.has_key?(:page) && params[:page] != '' ? params[:page] : "1") %>
+            <fieldset>
+              <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
+                <%= f.text_field :title, class: 'form-control', placeholder: t('client'), autofocus: true %>
+              </div>
+              <div class="form-group<%= f.object.errors[:project_id].any? ? ' has-error has-feedback' : '' %>">
+                <%= f.collection_select :project_id, @projects, :id, :title, {:include_blank => t('dashes') + ' ' + t('project')}, {:class => 'form-control'} %>
+              </div>
+              <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
+            </fieldset>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="span6 offset3">
+    <div class="col-md-6">
 
-<%= form_for @casestudy, :remote => true do |f| %>
-<%= hidden_field_tag :page, (params.has_key?(:page) && params[:page] != '' ? params[:page] : "1") %>
-  <fieldset>
-    <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
-      <%= f.text_field :title, class: 'form-control', placeholder: t('client'), autofocus: true %>
+      <div class="panel panel-primary">
+        <div class="panel-heading"><strong><%= t('casestudy_ratio') %></strong></div>
+        <div class="panel-body">
+          <%= pie_chart(@casestudy_ratio, library: { is3D: true, chartArea: {width: '100%', height: '100%'} }) %>
+        </div>
+      </div>
+
     </div>
-    <div class="form-group<%= f.object.errors[:project_id].any? ? ' has-error has-feedback' : '' %>">
-      <%= f.collection_select :project_id, @projects, :id, :title, {:include_blank => t('dashes') + ' ' + t('project')}, {:class => 'form-control'} %>
-    </div>
-    <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
-  </fieldset>
-<% end %>
+  </div>
+</div>
