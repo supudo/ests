@@ -7,20 +7,6 @@
     </script>
 
     <table class="table table-striped pretty">
-      <thead>
-        <tr>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>#</th>
-          <th><%= t('line') %></th>
-          <th class="center"><%= t('hours_min') %></th>
-          <th class="center"><%= t('hours_max') %></th>
-          <th class="center"><%= t('cost_min') %></th>
-          <th class="center"><%= t('cost_max') %></th>
-          <th>&nbsp;</th>
-        </tr>
-      </thead>
-      <tbody>
 
     <%
     if @estimatesline.count > 0
@@ -33,8 +19,29 @@
       currency_symbol = currency.symbol
       total_min_price = 0
       total_max_price = 0
-      @estimatesline.each do |eitem|
     %>
+
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+          <th>#</th>
+          <th><%= t('line') %></th>
+          <% if enagement_model.has_minmax %>
+          <th class="center"><%= t('hours_min') %></th>
+          <th class="center"><%= t('hours_max') %></th>
+          <th class="center"><%= t('cost_min') %></th>
+          <th class="center"><%= t('cost_max') %></th>
+          <% else %>
+          <th class="center"><%= t('hours') %></th>
+          <th class="center"><%= t('cost') %></th>
+          <% end %>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+
+    <% @estimatesline.each do |eitem| %>
+      <tbody>
         <tr>
           <td width="1%" nowrap>
             <% if eitem != @estimatesline.first %>
@@ -104,7 +111,9 @@
 
           </td>
           <td class="col-md-1 vert-align center"><%= eitem.hours_min %></td>
+          <% if enagement_model.has_minmax %>
           <td class="col-md-1 vert-align center"><%= eitem.hours_max %></td>
+          <% end %>
           <td class="col-md-1 vert-align center" nowrap>
             <% rp = rate_prices.where(:technology_id => eitem.technology_id, :position_id => eitem.position_id).first %>
             <%
@@ -122,6 +131,7 @@
               end
             %> (x<%= price_min %>)
           </td>
+          <% if enagement_model.has_minmax %>
           <td class="col-md-1 vert-align center" nowrap>
             <%
               if !rp.nil?
@@ -138,6 +148,7 @@
               end
             %> (x<%= price_min %>)
           </td>
+          <% end %>
           <td width="1%" nowrap>
             <%= button_to estimatesline_path(eitem), method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true  do %>
             <%= hidden_field nil, :line_id, value: eitem.id %>
@@ -149,9 +160,13 @@
         <tr class="info">
           <td colspan="4" align="right"><strong><%= t('total_caps') %></strong></td>
           <td class="center"><strong><%= EstimatesSection.find_by_id(eitem_section_id).total_min_hours %></strong></td>
+          <% if enagement_model.has_minmax %>
           <td class="center"><strong><%= EstimatesSection.find_by_id(eitem_section_id).total_max_hours %></strong></td>
+          <% end %>
           <td class="center"><strong><%= total_min_price.to_s + ' ' + currency_symbol %></strong></td>
+          <% if enagement_model.has_minmax %>
           <td class="center"><strong><%= total_max_price.to_s + ' ' + currency_symbol %></strong></td>
+          <% end %>
           <td>&nbsp;</td>
         </tr>
         <!--
@@ -159,6 +174,21 @@
           <td colspan="10"><em><%= t('reordering_needs_line_number') %></em></td>
         </tr>
         -->
+      <% else %>
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+          <th>#</th>
+          <th><%= t('line') %></th>
+          <th class="center"><%= t('hours_min') %></th>
+          <th class="center"><%= t('hours_max') %></th>
+          <th class="center"><%= t('cost_min') %></th>
+          <th class="center"><%= t('cost_max') %></th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
       <% end %>
       </tbody>
     </table>

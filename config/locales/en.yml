@@ -220,6 +220,7 @@ en:
   hours_max: "Max Hours"
   cost_min: "Min Cost"
   cost_max: "Max Cost"
+  cost: "Cost"
   min: "Minimum"
   max: "Maximum"
   hours: "Hours"

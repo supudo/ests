@@ -10,6 +10,7 @@ currency = @estimate.rate.currency
 
 @estimatesline = EstimatesLine.where(:estimate_id => params[:id])
 rate_prices = RatesPrice.where(:rate_id => @estimate.rate_id, :engagement_model_id => @estimate.engagement_model_id)
+engagement_model = @estimate.engagement_model
 
 @estimatesline.each do |item|
   rp = rate_prices.where(:technology_id => item.technology_id, :position_id => item.position_id).first
@@ -26,8 +27,12 @@ end
     <thead>
       <tr>
         <th></th>
+        <% if engagement_model.has_minmax %>
         <th class="text-center"><%= t('min') %></th>
         <th class="text-center"><%= t('max') %></th>
+        <% else %>
+        <th class="text-center"><%= t('value') %></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -42,6 +47,7 @@ end
           end
           %>
         </td>
+        <% if engagement_model.has_minmax %>
         <td class="vert-align text-center" width="1%" scope="row">
           <%
           if currency.is_infront
@@ -51,11 +57,14 @@ end
           end
           %>
         </td>
+        <% end %>
       </tr>
       <tr>
         <td class="vert-align text-right" width="1%" scope="row"><strong><%= t('hours') %></strong></td>
         <td class="vert-align text-center" width="1%" scope="row"><%= total_hours_min %></td>
+        <% if engagement_model.has_minmax %>
         <td class="vert-align text-center" width="1%" scope="row"><%= total_hours_max %></td>
+        <% end %>
       </tr>
     </tbody>
   </table>
