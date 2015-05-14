@@ -1,0 +1,3 @@
+$('#lclosebtn_<%= @csl.id %>').click();
+$('#csl-list').html("<%= escape_javascript(render :partial => 'casestudies/links_list', :locals => { :cs_links => @cs_links }) %>");
+showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

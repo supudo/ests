@@ -273,10 +273,12 @@ en:
   casestudies_challenges: "Challenges"
   casestudies_solutions: "Solutions"
   casestudies_technologies: "Technologies"
+  casestudies_links: "Links"
   casestudies_overview: "Overview"
   casestudies_challenge: "Challenge"
   casestudies_solution: "Solution"
   casestudies_technology: "Technology"
+  casestudies_link: "Link"
 
   permissions: "Permissions"
   perm_login: "Login"

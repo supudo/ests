@@ -15,14 +15,14 @@
         <tr>
           <td width="1%" nowrap>
             <% if csitem != @cs_overviews.first %>
-              <%= link_to moveup_overview_path(csitem), :remote => true, class: "btn btn-default btn-sm" do %>
+              <%= link_to url_for(:controller => 'casestudiesitems', :action => 'moveup_overview', :id => csitem.id), :remote => true, class: "btn btn-default btn-sm" do %>
                 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
               <% end %>
             <% end %>
           </td>
           <td width="1%" nowrap>
             <% if csitem != @cs_overviews.last %>
-              <%= link_to movedown_overview_path(csitem), :remote => true, class: "btn btn-default btn-sm" do %>
+              <%= link_to url_for(:controller => 'casestudiesitems', :action => 'movedown_overview', :id => csitem.id), :remote => true, class: "btn btn-default btn-sm" do %>
                 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
               <% end %>
             <% end %>

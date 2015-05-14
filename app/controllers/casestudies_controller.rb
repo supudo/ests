@@ -30,6 +30,7 @@ class CasestudiesController < ApplicationController
     @cs_challenges = CasestudyChallenge.where(:case_study_id => params[:id]).order("position ASC")
     @cs_solutions = CasestudySolution.where(:case_study_id => params[:id]).order("position ASC")
     @cs_technologies = CasestudyTechnology.where(:case_study_id => params[:id]).order("position ASC")
+    @cs_links = CasestudyLink.where(:case_study_id => params[:id]).order("position ASC")
     @casestudy_ratio = ActiveRecord::Base.connection.execute(%{SELECT
   COUNT(csc.id) AS challenges,
   COUNT(cso.id) AS overviews,

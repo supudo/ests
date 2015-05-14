@@ -273,10 +273,12 @@ bg:
   casestudies_challenges: "Предизвикателства"
   casestudies_solutions: "Решения"
   casestudies_technologies: "Технологии"
+  casestudies_links: "Връзки"
   casestudies_overview: "Преглед"
   casestudies_challenge: "Предизвикателство"
   casestudies_solution: "Решение"
   casestudies_technology: "Технология"
+  casestudies_link: "Връзка"
 
   permissions: "Привилегии"
   perm_login: "Логин"

@@ -13,6 +13,55 @@
 
 ActiveRecord::Schema.define(version: 0) do
 
+  create_table "casestudies", force: :cascade do |t|
+    t.string   "title",           limit: 255, null: false
+    t.integer  "project_id",      limit: 4,   null: false
+    t.string   "header_image",    limit: 255
+    t.integer  "created_user_id", limit: 4,   null: false
+    t.datetime "created_date",                null: false
+  end
+
+  add_index "casestudies", ["project_id"], name: "project_id", using: :btree
+
+  create_table "casestudy_challenges", force: :cascade do |t|
+    t.integer "case_study_id", limit: 4,     null: false
+    t.text    "title",         limit: 65535, null: false
+    t.integer "position",      limit: 4
+  end
+
+  add_index "casestudy_challenges", ["case_study_id"], name: "case_study_id", using: :btree
+
+  create_table "casestudy_links", id: false, force: :cascade do |t|
+    t.integer "id",            limit: 4,     null: false
+    t.integer "case_study_id", limit: 4,     null: false
+    t.text    "title",         limit: 65535, null: false
+    t.integer "position",      limit: 4
+  end
+
+  create_table "casestudy_overviews", force: :cascade do |t|
+    t.integer "case_study_id", limit: 4,     null: false
+    t.text    "title",         limit: 65535, null: false
+    t.integer "position",      limit: 4
+  end
+
+  add_index "casestudy_overviews", ["case_study_id"], name: "case_study_id", using: :btree
+
+  create_table "casestudy_solutions", force: :cascade do |t|
+    t.integer "case_study_id", limit: 4,     null: false
+    t.text    "title",         limit: 65535, null: false
+    t.integer "position",      limit: 4
+  end
+
+  add_index "casestudy_solutions", ["case_study_id"], name: "case_study_id", using: :btree
+
+  create_table "casestudy_technologies", force: :cascade do |t|
+    t.integer "case_study_id", limit: 4,     null: false
+    t.text    "title",         limit: 65535, null: false
+    t.integer "position",      limit: 4
+  end
+
+  add_index "casestudy_technologies", ["case_study_id"], name: "case_study_id", using: :btree
+
   create_table "clients", force: :cascade do |t|
     t.string   "title",            limit: 255,             null: false
     t.string   "url",              limit: 255

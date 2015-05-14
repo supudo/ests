@@ -1,7 +1,9 @@
 class CasestudiesitemsController < ApplicationController
   before_action :signed_in_user
 
+# ========================================================================
 # Overviews
+# ========================================================================
   def add_overview
     if CasestudyOverview.where(:title => casestudy_overview_params[:title], :case_study_id => casestudy_overview_params[:case_study_id]).count > 0
       @notif_type = 'warning'
@@ -54,7 +56,37 @@ class CasestudiesitemsController < ApplicationController
     end
   end
 
+  def moveup_overview
+    @current = CasestudyOverview.find(params[:id])
+    @above = CasestudyOverview.order("position DESC").where("position < ? AND case_study_id = ?", @current.position, @current.case_study_id).first
+    pos = @above.position
+    @above.position = @current.position
+    @above.save
+    @current.position = pos
+    @current.save
+    respond_to do |format|
+      @cs_overviews = CasestudyOverview.where(:case_study_id => @current.case_study_id).order("position ASC")
+      format.js
+    end
+  end
+
+  def movedown_overview
+    @current = CasestudyOverview.find(params[:id])
+    @bellow = CasestudyOverview.order("position ASC").where("position > ? AND case_study_id = ?", @current.position, @current.case_study_id).first
+    pos = @bellow.position
+    @bellow.position = @current.position
+    @bellow.save
+    @current.position = pos
+    @current.save
+    respond_to do |format|
+      @cs_overviews = CasestudyOverview.where(:case_study_id => @current.case_study_id).order("position ASC")
+      format.js
+    end
+  end
+
+# ========================================================================
 # Challenges
+# ========================================================================
   def add_challenge
     if CasestudyChallenge.where(:title => casestudy_challenges_params[:title], :case_study_id => casestudy_challenges_params[:case_study_id]).count > 0
       @notif_type = 'warning'
@@ -107,7 +139,37 @@ class CasestudiesitemsController < ApplicationController
     end
   end
 
+  def moveup_challenge
+    @current = CasestudyChallenge.find(params[:id])
+    @above = CasestudyChallenge.order("position DESC").where("position < ? AND case_study_id = ?", @current.position, @current.case_study_id).first
+    pos = @above.position
+    @above.position = @current.position
+    @above.save
+    @current.position = pos
+    @current.save
+    respond_to do |format|
+      @cs_overviews = CasestudyChallenge.where(:case_study_id => @current.case_study_id).order("position ASC")
+      format.js
+    end
+  end
+
+  def movedown_challenge
+    @current = CasestudyChallenge.find(params[:id])
+    @bellow = CasestudyChallenge.order("position ASC").where("position > ? AND case_study_id = ?", @current.position, @current.case_study_id).first
+    pos = @bellow.position
+    @bellow.position = @current.position
+    @bellow.save
+    @current.position = pos
+    @current.save
+    respond_to do |format|
+      @cs_overviews = CasestudyChallenge.where(:case_study_id => @current.case_study_id).order("position ASC")
+      format.js
+    end
+  end
+
+# ========================================================================
 # Solutions
+# ========================================================================
   def add_solution
     if CasestudySolution.where(:title => casestudy_solutions_params[:title], :case_study_id => casestudy_solutions_params[:case_study_id]).count > 0
       @notif_type = 'warning'
@@ -160,7 +222,37 @@ class CasestudiesitemsController < ApplicationController
     end
   end
 
+  def moveup_solution
+    @current = CasestudySolution.find(params[:id])
+    @above = CasestudySolution.order("position DESC").where("position < ? AND case_study_id = ?", @current.position, @current.case_study_id).first
+    pos = @above.position
+    @above.position = @current.position
+    @above.save
+    @current.position = pos
+    @current.save
+    respond_to do |format|
+      @cs_overviews = CasestudySolution.where(:case_study_id => @current.case_study_id).order("position ASC")
+      format.js
+    end
+  end
+
+  def movedown_solution
+    @current = CasestudySolution.find(params[:id])
+    @bellow = CasestudySolution.order("position ASC").where("position > ? AND case_study_id = ?", @current.position, @current.case_study_id).first
+    pos = @bellow.position
+    @bellow.position = @current.position
+    @bellow.save
+    @current.position = pos
+    @current.save
+    respond_to do |format|
+      @cs_overviews = CasestudySolution.where(:case_study_id => @current.case_study_id).order("position ASC")
+      format.js
+    end
+  end
+
+# ========================================================================
 # Technologies
+# ========================================================================
   def add_technology
     if CasestudyTechnology.where(:title => casestudy_technologies_params[:title], :case_study_id => casestudy_technologies_params[:case_study_id]).count > 0
       @notif_type = 'warning'
@@ -213,6 +305,120 @@ class CasestudiesitemsController < ApplicationController
     end
   end
 
+  def moveup_technology
+    @current = CasestudyTechnology.find(params[:id])
+    @above = CasestudyTechnology.order("position DESC").where("position < ? AND case_study_id = ?", @current.position, @current.case_study_id).first
+    pos = @above.position
+    @above.position = @current.position
+    @above.save
+    @current.position = pos
+    @current.save
+    respond_to do |format|
+      @cs_overviews = CasestudyTechnology.where(:case_study_id => @current.case_study_id).order("position ASC")
+      format.js
+    end
+  end
+
+  def movedown_technology
+    @current = CasestudyTechnology.find(params[:id])
+    @bellow = CasestudyTechnology.order("position ASC").where("position > ? AND case_study_id = ?", @current.position, @current.case_study_id).first
+    pos = @bellow.position
+    @bellow.position = @current.position
+    @bellow.save
+    @current.position = pos
+    @current.save
+    respond_to do |format|
+      @cs_overviews = CasestudyTechnology.where(:case_study_id => @current.case_study_id).order("position ASC")
+      format.js
+    end
+  end
+
+# ========================================================================
+# Links
+# ========================================================================
+  def add_link
+    if CasestudyLink.where(:title => casestudy_links_params[:title], :case_study_id => casestudy_links_params[:case_study_id]).count > 0
+      @notif_type = 'warning'
+      @notif_message = t('item_exists')
+    else
+      c = CasestudyLink.where("case_study_id = ?", casestudy_links_params[:case_study_id]).count
+      @csl = CasestudyLink.new(casestudy_links_params)
+      @csl.position = c + 1
+      if @csl.save
+        @notif_type = 'success'
+        @notif_message = t('item_created')
+      else
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
+      end
+    end
+    respond_to do |format|
+      @cs_links = CasestudyLink.where(:case_study_id => casestudy_links_params[:case_study_id]).order("position ASC")
+      format.js
+    end
+  end
+
+  def update_link
+    @csl = CasestudyLink.find_by_id(params[:cso_id])
+    if CasestudyLink.where(:title => casestudy_links_params[:title], :case_study_id => casestudy_links_params[:case_study_id]).where.not(:id => params[:cso_id]).count > 0
+      @notif_type = 'warning'
+      @notif_message = t('item_exists')
+    else
+      if @csl.update_attributes(casestudy_links_params)
+        @notif_type = 'success'
+        @notif_message = t('item_updated')
+      else
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
+      end
+    end
+    respond_to do |format|
+      @cs_links = CasestudyLink.where(:case_study_id => casestudy_links_params[:case_study_id]).order("position ASC")
+      format.js
+    end
+  end
+
+  def destroy_link
+    CasestudyLink.find(params[:cso_id]).destroy
+    respond_to do |format|
+      @cs_links = CasestudyLink.where(:case_study_id => params[:case_study_id]).order("position ASC")
+      @notif_type = 'info'
+      @notif_message = t('delete_sucess')
+      format.js
+    end
+  end
+
+  def moveup_link
+    @current = CasestudyLink.find(params[:id])
+    @above = CasestudyLink.order("position DESC").where("position < ? AND case_study_id = ?", @current.position, @current.case_study_id).first
+    pos = @above.position
+    @above.position = @current.position
+    @above.save
+    @current.position = pos
+    @current.save
+    respond_to do |format|
+      @cs_links = CasestudyLink.where(:case_study_id => @current.case_study_id).order("position ASC")
+      format.js
+    end
+  end
+
+  def movedown_link
+    @current = CasestudyLink.find(params[:id])
+    @bellow = CasestudyLink.order("position ASC").where("position > ? AND case_study_id = ?", @current.position, @current.case_study_id).first
+    pos = @bellow.position
+    @bellow.position = @current.position
+    @bellow.save
+    @current.position = pos
+    @current.save
+    respond_to do |format|
+      @cs_links = CasestudyLink.where(:case_study_id => @current.case_study_id).order("position ASC")
+      format.js
+    end
+  end
+
+# ========================================================================
+# Private
+# ========================================================================
   private
 
     def casestudy_overview_params
@@ -229,5 +435,9 @@ class CasestudiesitemsController < ApplicationController
 
     def casestudy_technologies_params
       params.require(:casestudy_technology).permit(:cso_id, :case_study_id, :title)
+    end
+
+    def casestudy_links_params
+      params.require(:casestudy_link).permit(:cso_id, :case_study_id, :title)
     end
 end
