@@ -1,0 +1,3 @@
+$('#tclosebtn_<%= @cst.id %>').click();
+$('#cst-list').html("<%= escape_javascript(render :partial => 'casestudies/technologies_list', :locals => { :cs_technologies => @cs_technologies }) %>");
+showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

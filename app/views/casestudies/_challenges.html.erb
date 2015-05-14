@@ -1,0 +1,18 @@
+<%= form_for :casestudy_challenge, :url => {:controller => 'casestudiesitems', :action => 'add_challenge', :post => 'post'}, :remote => true do |f| %>
+<%= f.hidden_field :case_study_id, value: params[:id] %>
+<div class="panel panel-default">
+  <div class="panel-heading"><strong><%= t('casestudies_challenge') %></strong></div>
+  <div class="panel-body">
+    <fieldset>
+      <div class="form-group">
+        <%= f.text_field :title, class: 'form-control', placeholder: t('title') %>
+      </div>
+      <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
+    </fieldset>
+  </div>
+</div>
+<% end %>
+
+<div id="csc-list">
+  <%= render partial: 'casestudies/challenges_list', locals: { cs_challenges: @cs_challenges } %>
+</div>

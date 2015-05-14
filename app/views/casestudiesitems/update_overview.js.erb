@@ -1,0 +1,3 @@
+$('#oclosebtn_<%= @cso.id %>').click();
+$('#cso-list').html("<%= escape_javascript(render :partial => 'casestudies/overviews_list', :locals => { :cs_overviews => @cs_overviews }) %>");
+showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

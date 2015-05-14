@@ -10,19 +10,19 @@
         </tr>
       </thead>
 
-    <% @cs_overviews.each do |csitem| %>
+    <% @cs_technologies.each do |csitem| %>
       <tbody>
         <tr>
           <td width="1%" nowrap>
-            <% if csitem != @cs_overviews.first %>
-              <%= link_to moveup_overview_path(csitem), :remote => true, class: "btn btn-default btn-sm" do %>
+            <% if csitem != @cs_technologies.first %>
+              <%= link_to moveup_technology_path(csitem), :remote => true, class: "btn btn-default btn-sm" do %>
                 <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
               <% end %>
             <% end %>
           </td>
           <td width="1%" nowrap>
-            <% if csitem != @cs_overviews.last %>
-              <%= link_to movedown_overview_path(csitem), :remote => true, class: "btn btn-default btn-sm" do %>
+            <% if csitem != @cs_technologies.last %>
+              <%= link_to movedown_technology_path(csitem), :remote => true, class: "btn btn-default btn-sm" do %>
                 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
               <% end %>
             <% end %>
@@ -30,20 +30,20 @@
           <td class="col-md-3 vert-align">
 
             <!-- Button trigger modal -->
-            <a data-toggle="modal" data-target="#csomodal<%= csitem.id %>" title="ttl_<%= csitem.id %>">
+            <a data-toggle="modal" data-target="#tcsmodal<%= csitem.id %>" title="ttl_<%= csitem.id %>">
               <%= csitem.title %>
             </a>
 
             <!-- Modal -->
-            <div class="modal fade" id="csomodal<%= csitem.id %>" tabindex="-1" role="dialog" aria-labelledby="csomodal<%= csitem.id %>_title" aria-hidden="true">
+            <div class="modal fade" id="tcsmodal<%= csitem.id %>" tabindex="-1" role="dialog" aria-labelledby="tcsmodal<%= csitem.id %>_title" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
-                  <%= form_for csitem, :url => {:controller => 'casestudiesitems', :action => 'update_overview', :post => 'post', :id => csitem.id}, :remote => true do |f| %>
+                  <%= form_for csitem, :url => {:controller => 'casestudiesitems', :action => 'update_technology', :post => 'post', :id => csitem.id}, :remote => true do |f| %>
                   <%= f.hidden_field :case_study_id, value: csitem.case_study_id %>
                   <%= hidden_field nil, :cso_id, value: csitem.id.to_s %>
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="csomodal<%= csitem.id %>_title"><%= t('title') %></h4>
+                    <h4 class="modal-title" id="tcsmodal<%= csitem.id %>_title"><%= t('title') %></h4>
                   </div>
                   <div class="modal-body">
                     <fieldset>
@@ -53,7 +53,7 @@
                     </fieldset>
                   </div>
                   <div class="modal-footer">
-                    <button id="oclosebtn_<%= csitem.id %>" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
+                    <button id="tclosebtn_<%= csitem.id %>" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
                     <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
                   </div>
                   <% end %>
@@ -64,7 +64,7 @@
 
           </td>
           <td width="1%" nowrap>
-            <%= button_to destroy_overview_path, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true  do %>
+            <%= button_to destroy_technology_path, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true  do %>
             <%= hidden_field nil, :cso_id, value: csitem.id %>
             <%= hidden_field nil, :case_study_id, value: csitem.case_study_id %>
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>

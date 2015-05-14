@@ -1,0 +1,2 @@
+$('#css-list').html("<%= escape_javascript(render :partial => 'casestudies/solutions_list', :locals => { :cs_solutions => @cs_solutions }) %>");
+showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

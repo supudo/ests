@@ -18,31 +18,31 @@ Rails.application.routes.draw do
   resources :about
   resources :help
 
-  post 'casestudies/add_overview', as: 'add_overview'
-  post 'casestudies/update_overview', as: 'update_overview'
-  post 'casestudies/destroy_overview', as: 'destroy_overview'
-  post 'casestudies/moveup_overview', as: 'moveup_overview'
-  post 'casestudies/movedown_overview', as: 'movedown_overview'
-
-  post 'casestudies/add_challenge', as: 'add_challenge'
-  post 'casestudies/update_challenge', as: 'update_challenge'
-  post 'casestudies/destroy_challenge', as: 'destroy_challenge'
-  post 'casestudies/moveup_challenge', as: 'moveup_challenge'
-  post 'casestudies/movedown_challenge', as: 'movedown_challenge'
-
-  post 'casestudies/add_solution', as: 'add_solution'
-  post 'casestudies/update_solution', as: 'update_solution'
-  post 'casestudies/destroy_solution', as: 'destroy_solution'
-  post 'casestudies/moveup_solution', as: 'moveup_solution'
-  post 'casestudies/movedown_solution', as: 'movedown_solution'
-
-  post 'casestudies/add_technology', as: 'add_technology'
-  post 'casestudies/update_technology', as: 'update_technology'
-  post 'casestudies/destroy_technology', as: 'destroy_technology'
-  post 'casestudies/moveup_technology', as: 'moveup_technology'
-  post 'casestudies/movedown_technology', as: 'movedown_technology'
-
   resources :casestudies
+
+  post 'casestudiesitems/add_overview', as: 'add_overview'
+  patch 'casestudiesitems/update_overview', as: 'update_overview'
+  delete 'casestudiesitems/destroy_overview', as: 'destroy_overview'
+  post 'casestudiesitems/moveup_overview', as: 'moveup_overview'
+  post 'casestudiesitems/movedown_overview', as: 'movedown_overview'
+
+  post 'casestudiesitems/add_challenge', as: 'add_challenge'
+  patch 'casestudiesitems/update_challenge', as: 'update_challenge'
+  delete 'casestudiesitems/destroy_challenge', as: 'destroy_challenge'
+  post 'casestudiesitems/moveup_challenge', as: 'moveup_challenge'
+  post 'casestudiesitems/movedown_challenge', as: 'movedown_challenge'
+
+  post 'casestudiesitems/add_solution', as: 'add_solution'
+  patch 'casestudiesitems/update_solution', as: 'update_solution'
+  delete 'casestudiesitems/destroy_solution', as: 'destroy_solution'
+  post 'casestudiesitems/moveup_solution', as: 'moveup_solution'
+  post 'casestudiesitems/movedown_solution', as: 'movedown_solution'
+
+  post 'casestudiesitems/add_technology', as: 'add_technology'
+  patch 'casestudiesitems/update_technology', as: 'update_technology'
+  delete 'casestudiesitems/destroy_technology', as: 'destroy_technology'
+  post 'casestudiesitems/moveup_technology', as: 'moveup_technology'
+  post 'casestudiesitems/movedown_technology', as: 'movedown_technology'
 
   post 'rates_prices/complex_add', as: 'complex_add'
   resources :rates_prices

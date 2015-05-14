@@ -1,4 +1,4 @@
-<%= form_for :casestudy_overview, :url => {:controller => 'casestudies', :action => 'add_overview'}, :remote => true do |f| %>
+<%= form_for :casestudy_overview, :url => {:controller => 'casestudiesitems', :action => 'add_overview', :post => 'post'}, :remote => true do |f| %>
 <%= f.hidden_field :case_study_id, value: params[:id] %>
 <div class="panel panel-default">
   <div class="panel-heading"><strong><%= t('casestudies_overview') %></strong></div>
