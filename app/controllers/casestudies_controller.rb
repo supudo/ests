@@ -31,19 +31,13 @@ class CasestudiesController < ApplicationController
     @cs_solutions = CasestudySolution.where(:case_study_id => params[:id]).order("position ASC")
     @cs_technologies = CasestudyTechnology.where(:case_study_id => params[:id]).order("position ASC")
     @cs_links = CasestudyLink.where(:case_study_id => params[:id]).order("position ASC")
-    @casestudy_ratio = ActiveRecord::Base.connection.execute(%{SELECT
-  COUNT(csc.id) AS challenges,
-  COUNT(cso.id) AS overviews,
-  COUNT(css.id) AS solutions,
-  COUNT(cst.id) AS technologies
-FROM
-  casestudies AS cs
-  INNER JOIN casestudy_challenges AS csc ON csc.case_study_id = cs.id
-  INNER JOIN casestudy_overviews AS cso ON cso.case_study_id = cs.id
-  INNER JOIN casestudy_solutions AS css ON css.case_study_id = cs.id
-  INNER JOIN casestudy_technologies AS cst ON cst.case_study_id = cs.id
-WHERE
-  cs.id = } + params[:id])
+    @casestudy_ratio = {
+      t('casestudies_overviews') => @cs_overviews.count,
+      t('casestudies_challenges') => @cs_challenges.count,
+      t('casestudies_solutions') => @cs_solutions.count,
+      t('casestudies_technologies') => @cs_technologies.count,
+      t('casestudies_overviews') => @cs_links.count,
+    }
     render 'edit'
   end
 
