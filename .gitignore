@@ -13,6 +13,5 @@
 /tmp
 /public/casestudies/*
 /public/exports/*
-*.sql
 *.xlsx
 *.xls
