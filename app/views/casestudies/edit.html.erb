@@ -17,21 +17,21 @@
                 <%= f.collection_select :project_id, @projects, :id, :title, {:include_blank => t('dashes') + ' ' + t('project')}, {:class => 'form-control'} %>
               </div>
               <div class="form-group">
-                <%= file_field_tag :header_image, class: "filestyle", data: { :buttonText => t('upload_file') } %>
-              </div>
-              <div class="form-group">
-                <div class="input-group technology_style">
+                <div class="input-group casestudy-style">
                   <%= f.text_field :text_color, class: 'form-control', placeholder: t('style') %>
                   <span class="input-group-addon"><i></i></span>
                 </div>
                 <script>
                   $(function(){
-                    $('.technology_style').colorpicker();
+                    $('.casestudy-style').colorpicker();
                   });
                 </script>
               </div>
               <div class="form-group">
                 <%= f.text_area :description, class: 'form-control', rows: '5', placeholder: t('description')  %>
+              </div>
+              <div class="form-group">
+                <%= file_field_tag :header_image, class: "filestyle", data: { :buttonText => t('upload_file') } %>
               </div>
               <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
             </fieldset>
