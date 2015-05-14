@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @cs.title %></title>
+    <link rel="stylesheet" media="all" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+
+    <div class="container">
+
+      <h1 class="text-center" style="color: <%= @cs.text_color %>"><%= @cs.title %></h1>
+
+      <br /><br />
+
+      <img src="<%= @cs_header_image %>" alt="logo" />
+
+      <br /><br /><br />
+
+      <h4><%= @cs.description %></div>
+
+      <br /><br /><br />
+
+      <div class="list-group">
+        <a href="#" class="list-group-item active"><h3><strong><%= t('casestudies_overview') %></strong></h3></a>
+        <% @cs_overviews.each do |item| %>
+        <a href="#" class="list-group-item"><%= item.title %></a>
+        <% end %>
+      </div>
+
+      <br />
+
+      <div class="list-group">
+        <a href="#" class="list-group-item active"><h3><strong><%= t('casestudies_challenges') %></strong></h3></a>
+        <% @cs_challenges.each do |item| %>
+        <a href="#" class="list-group-item"><%= item.title %></a>
+        <% end %>
+      </div>
+
+      <br />
+
+      <div class="list-group">
+        <a href="#" class="list-group-item active"><h3><strong><%= t('casestudies_solutions') %></strong></h3></a>
+        <% @cs_solutions.each do |item| %>
+        <a href="#" class="list-group-item"><%= item.title %></a>
+        <% end %>
+      </div>
+
+      <br />
+
+      <div class="list-group">
+        <a href="#" class="list-group-item active"><h3><strong><%= t('casestudies_technologies') %></strong></h3></a>
+        <% @cs_technologies.each do |item| %>
+        <a href="#" class="list-group-item"><%= item.title %></a>
+        <% end %>
+      </div>
+
+      <br />
+
+      <div class="list-group">
+        <a href="#" class="list-group-item active"><h3><strong><%= t('casestudies_links') %></strong></h3></a>
+        <% @cs_links.each do |item| %>
+        <a href="<%= item.title %>" class="list-group-item" style="text-decoration: underline;"><%= item.title %></a>
+        <% end %>
+      </div>
+
+    </div>
+  </body>
+</html>

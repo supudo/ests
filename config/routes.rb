@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :about
   resources :help
 
+  get 'casestudies/export_casestudy_pdf', as: 'export_casestudy_pdf'
   resources :casestudies
 
   post 'casestudiesitems/add_overview', as: 'add_overview'

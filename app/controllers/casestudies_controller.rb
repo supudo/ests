@@ -136,9 +136,39 @@ class CasestudiesController < ApplicationController
     end
   end
 
+  def export_casestudy_pdf
+    @cs = Casestudy.find_by_id(params[:case_study_id])
+    @cs_header_image = Rails.root.join('public', 'casestudies', @cs.header_image)
+    @cs_overviews = CasestudyOverview.where(:case_study_id => @cs.id).order("position ASC")
+    @cs_challenges = CasestudyChallenge.where(:case_study_id => @cs.id).order("position ASC")
+    @cs_solutions = CasestudySolution.where(:case_study_id => @cs.id).order("position ASC")
+    @cs_technologies = CasestudyTechnology.where(:case_study_id => @cs.id).order("position ASC")
+    @cs_links = CasestudyLink.where(:case_study_id => @cs.id).order("position ASC")
+
+    pdf_file = Rails.root.join('public', 'exports', sanitize_filename(@cs.title) + '.pdf')
+
+    if !File.exist?(pdf_file) || params[:regenerate] == 'true'
+      render :pdf => pdf_file,
+             :template => 'casestudies/pdf_template.html.erb',
+             :save_to_file => pdf_file,
+             :save_only => true,
+             :disposition => 'attachment',
+             :encoding => 'UTF-8'
+    end
+
+    send_file pdf_file
+  end
+
+  def sanitize_filename(filename)
+    return filename.strip do |name|
+      name.gsub!(/^.*(\\|\/)/, '')
+      name.gsub!(/[^0-9A-Za-z.\-]/, '_')
+    end
+  end
+
   private
 
     def casestudy_params
-      params.require(:casestudy).permit(:project_id, :title, :description)
+      params.require(:casestudy).permit(:project_id, :title, :description, :text_color)
     end
 end

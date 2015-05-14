@@ -25,6 +25,7 @@ bg:
   language: "Език"
   project_statuses: "Статуси"
   description: "Описание"
+  export_pdf: "Експорт в PDF"
 
   dashes: "-----"
   at: "на"

@@ -61,7 +61,12 @@ gem 'chartkick', '~> 1.3.2'
 gem 'roo', '~> 1.13.2'
 gem 'axlsx', '~> 2.0.1'
 
+# AJAX file upload
 gem 'remotipart', '~> 1.2.1'
+
+# PDF
+gem 'wicked_pdf', '~> 0.11.0'
+gem 'wkhtmltopdf-binary'
 
 # Permissions & Roles
 #gem 'devise'

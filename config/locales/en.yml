@@ -25,6 +25,7 @@ en:
   language: "Language"
   project_statuses: "Statuses"
   description: "Description"
+  export_pdf: "Export to PDF"
 
   dashes: "-----"
   at: "at"

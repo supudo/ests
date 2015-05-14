@@ -5,6 +5,7 @@
         <th><%= t('title') %></th>
         <th><%= t('project') %></th>
         <th>&nbsp;</th>
+        <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
@@ -13,6 +14,13 @@
         <th scope="row" class="vert-align"><%= item.id %></th>
         <td class="vert-align"><%= link_to item.title, item %></td>
         <td class="vert-align"><%= link_to item.project.title, item.project %></td>
+        <td width="1%" nowrap>
+          <%= button_to export_casestudy_pdf_path, :method => 'get', class: "btn btn-default btn-sm" do %>
+            <%= hidden_field_tag :case_study_id, item.id %>
+            <%= hidden_field_tag :regenerate, false %>
+            <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+          <% end %>
+        </td>
         <td width="1%" nowrap>
           <%= button_to item, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true do %>
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
