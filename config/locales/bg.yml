@@ -17,6 +17,8 @@ bg:
   close: "Затвори"
   all: "Всички"
   complexity: "Комплексност"
+  invalid_image: "Невалидна картинка!"
+  image_required: "Картинката е задължителна!"
 
   collections: "Колекции"
   financial: "Финансови"
@@ -263,6 +265,7 @@ bg:
   casestudy_created_successfully: "Казусът беше създаден успешно."
   casestudy_updated_successfully: "Казусът беше променен успешно."
   casestudy_ratio: "Казус Данни"
+  header_image: "Заглавна картинка"
 
   permissions: "Привилегии"
   perm_login: "Логин"

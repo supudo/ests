@@ -86,7 +86,7 @@ GEM
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (5.0.3)
+    jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     js-routes (1.0.1)
       railties (>= 3.2)
@@ -141,6 +141,7 @@ GEM
     rake (10.4.2)
     rdoc (4.2.0)
       json (~> 1.4)
+    remotipart (1.2.1)
     roo (1.13.2)
       nokogiri
       rubyzip
@@ -166,7 +167,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.3.0)
+    sprockets-rails (2.3.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
@@ -214,6 +215,7 @@ DEPENDENCIES
   pry
   rails (= 4.2.1)
   rails4-autocomplete (~> 1.1.1)
+  remotipart (~> 1.2.1)
   roo (~> 1.13.2)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

@@ -72,13 +72,28 @@ WHERE
       @notif_type = 'info'
       @notif_message = t('casestudy_already_exists')
     else
-      if @casestudy.update_attributes(casestudy_params)
-        @notif_type = 'success'
-        @notif_message = t('casestudy_updated_successfully')
+
+      if request.xhr? || remotipart_submitted?
+        sleep 1 if params[:pause]
+        f = params[:header_image]
+        if File.extname(f.original_filename) == '.png' || File.extname(f.original_filename) == '.jpg' || File.extname(f.original_filename) == '.jpeg'
+          File.open(Rails.root.join('public', 'casestudies', @casestudy.id.to_s + '_' + f.original_filename), 'wb') do |file|
+            file.write(f.read)
+            @casestudy.header_image = @casestudy.id.to_s + '_' + f.original_filename
+            @casestudy.save
+            @himage = '/casestudies/' + @casestudy.id.to_s + '_' + f.original_filename
+            @notif_type = 'success'
+            @notif_message = t('casestudy_updated_successfully')
+          end
+        else
+          @notif_type = 'danger'
+          @notif_message = t('invalid_image')
+        end
       else
         @notif_type = 'danger'
-        @notif_message = t('error_missing_fields')
+        @notif_message = t('image_required')
       end
+
     end
     respond_to do |format|
       @casestudies = Casestudy.order("title ASC").paginate(page: params[:page])
@@ -104,6 +119,6 @@ WHERE
   private
 
     def casestudy_params
-      params.require(:casestudy).permit(:project_id, :title, :header_image)
+      params.require(:casestudy).permit(:project_id, :title)
     end
 end

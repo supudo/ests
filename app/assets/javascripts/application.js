@@ -17,6 +17,7 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require filterrific/filterrific-jquery
+//= require jquery.remotipart
 //= require_tree .
 
 var QueryString = function () {

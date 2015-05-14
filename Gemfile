@@ -61,6 +61,8 @@ gem 'chartkick', '~> 1.3.2'
 gem 'roo', '~> 1.13.2'
 gem 'axlsx', '~> 2.0.1'
 
+gem 'remotipart', '~> 1.2.1'
+
 # Permissions & Roles
 #gem 'devise'
 #gem 'cancan'
