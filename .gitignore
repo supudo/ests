@@ -11,6 +11,8 @@
 /log/*
 !/log/.keep
 /tmp
+/public/casestudies/*
+/public/exports/*
 *.sql
 *.xlsx
 *.xls
