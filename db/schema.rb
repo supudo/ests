@@ -31,8 +31,7 @@ ActiveRecord::Schema.define(version: 0) do
 
   add_index "casestudy_challenges", ["case_study_id"], name: "case_study_id", using: :btree
 
-  create_table "casestudy_links", id: false, force: :cascade do |t|
-    t.integer "id",            limit: 4,     null: false
+  create_table "casestudy_links", force: :cascade do |t|
     t.integer "case_study_id", limit: 4,     null: false
     t.text    "title",         limit: 65535, null: false
     t.integer "position",      limit: 4
