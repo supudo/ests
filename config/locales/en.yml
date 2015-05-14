@@ -24,6 +24,7 @@ en:
   financial: "Financial"
   language: "Language"
   project_statuses: "Statuses"
+  description: "Description"
 
   dashes: "-----"
   at: "at"

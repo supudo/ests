@@ -72,26 +72,44 @@ class CasestudiesController < ApplicationController
       @notif_message = t('casestudy_already_exists')
     else
 
-      if request.xhr? || remotipart_submitted?
-        sleep 1 if params[:pause]
-        f = params[:header_image]
-        if File.extname(f.original_filename) == '.png' || File.extname(f.original_filename) == '.jpg' || File.extname(f.original_filename) == '.jpeg'
-          File.open(Rails.root.join('public', 'casestudies', @casestudy.id.to_s + '_' + f.original_filename), 'wb') do |file|
-            file.write(f.read)
-            @casestudy.header_image = @casestudy.id.to_s + '_' + f.original_filename
-            @casestudy.title = casestudy_params[:title]
-            @casestudy.save
-            @himage = '/casestudies/' + @casestudy.id.to_s + '_' + f.original_filename
-            @notif_type = 'success'
-            @notif_message = t('casestudy_updated_successfully')
+      has_image = false
+      if @casestudy.header_image != '' && !@casestudy.header_image.nil?
+        @casestudy.title = casestudy_params[:title]
+        @casestudy.description = casestudy_params[:description]
+        if @casestudy.save
+          @notif_type = 'success'
+          @notif_message = t('casestudy_updated_successfully')
+        else
+          @notif_type = 'danger'
+          @notif_message = t('error_missing_fields')
+        end
+        @himage = '/casestudies/' + @casestudy.header_image
+      else
+        if request.xhr? || remotipart_submitted?
+          sleep 1 if params[:pause]
+          f = params[:header_image]
+          if !f.nil? && (File.extname(f.original_filename) == '.png' || File.extname(f.original_filename) == '.jpg' || File.extname(f.original_filename) == '.jpeg')
+            File.open(Rails.root.join('public', 'casestudies', @casestudy.id.to_s + '_' + f.original_filename), 'wb') do |file|
+              file.write(f.read)
+              @casestudy.header_image = @casestudy.id.to_s + '_' + f.original_filename
+              @casestudy.title = casestudy_params[:title]
+              if @casestudy.save
+                @himage = '/casestudies/' + @casestudy.id.to_s + '_' + f.original_filename
+                @notif_type = 'success'
+                @notif_message = t('casestudy_updated_successfully')
+              else
+                @notif_type = 'danger'
+                @notif_message = t('error_missing_fields')
+              end
+            end
+          else
+            @notif_type = 'danger'
+            @notif_message = t('invalid_image')
           end
         else
           @notif_type = 'danger'
-          @notif_message = t('invalid_image')
+          @notif_message = t('image_required')
         end
-      else
-        @notif_type = 'danger'
-        @notif_message = t('image_required')
       end
 
     end
@@ -105,6 +123,8 @@ class CasestudiesController < ApplicationController
   end
 
   def destroy
+    cs = Casestudy.find_by_id(params[:id])
+    File.delete(Rails.root.join('public', 'casestudies', cs.header_image))
     Casestudy.find(params[:id]).destroy
     respond_to do |format|
       @casestudies = Casestudy.order("title ASC").paginate(page: params[:page])
@@ -119,6 +139,6 @@ class CasestudiesController < ApplicationController
   private
 
     def casestudy_params
-      params.require(:casestudy).permit(:project_id, :title)
+      params.require(:casestudy).permit(:project_id, :title, :description)
     end
 end

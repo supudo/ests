@@ -24,6 +24,7 @@ bg:
   financial: "Финансови"
   language: "Език"
   project_statuses: "Статуси"
+  description: "Описание"
 
   dashes: "-----"
   at: "на"
