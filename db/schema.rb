@@ -14,11 +14,13 @@
 ActiveRecord::Schema.define(version: 0) do
 
   create_table "casestudies", force: :cascade do |t|
-    t.string   "title",           limit: 255, null: false
-    t.integer  "project_id",      limit: 4,   null: false
+    t.string   "title",           limit: 255,   null: false
+    t.integer  "project_id",      limit: 4,     null: false
     t.string   "header_image",    limit: 255
-    t.integer  "created_user_id", limit: 4,   null: false
-    t.datetime "created_date",                null: false
+    t.text     "description",     limit: 65535
+    t.string   "text_color",      limit: 10
+    t.integer  "created_user_id", limit: 4,     null: false
+    t.datetime "created_date",                  null: false
   end
 
   add_index "casestudies", ["project_id"], name: "project_id", using: :btree
