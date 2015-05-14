@@ -26,6 +26,10 @@ class CasestudiesController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.edit')
     @casestudy = Casestudy.find(params[:id])
     @projects = Project.order("title ASC")
+    @cs_overviews = CasestudyOverview.where(:case_study_id => params[:id]).order("position ASC")
+    @cs_challenges = CasestudyChallenge.where(:case_study_id => params[:id]).order("position ASC")
+    @cs_solutions = CasestudySolution.where(:case_study_id => params[:id]).order("position ASC")
+    @cs_technologies = CasestudyTechnology.where(:case_study_id => params[:id]).order("position ASC")
     @casestudy_ratio = ActiveRecord::Base.connection.execute(%{SELECT
   COUNT(csc.id) AS challenges,
   COUNT(cso.id) AS overviews,
@@ -116,9 +120,54 @@ WHERE
     end
   end
 
+  def add_overview
+    if CasestudyOverview.where(:title => casestudy_overview_params[:title], :case_study_id => casestudy_overview_params[:case_study_id]).count > 0
+      @notif_type = 'warning'
+      @notif_message = t('item_exists')
+    else
+      @cso = CasestudyOverview.new(casestudy_overview_params)
+      if @cso.save
+        @notif_type = 'success'
+        @notif_message = t('item_created')
+      else
+        @notif_type = 'danger'
+        @notif_message = t('error_missing_fields')
+      end
+    end
+    respond_to do |format|
+      @cs_overviews = CasestudyOverview.where(:case_study_id => casestudy_overview_params[:case_study_id]).order("position ASC")
+      format.js
+    end
+  end
+
+  def add_challenge
+    respond_to do |format|
+      @cs_challenges = CasestudyChallenge.where(:case_study_id => casestudy_overview_params[:case_study_id]).order("position ASC")
+      format.js
+    end
+  end
+
+  def add_solution
+    respond_to do |format|
+      @cs_solutions = CasestudySolution.where(:case_study_id => casestudy_overview_params[:case_study_id]).order("position ASC")
+      format.js
+    end
+  end
+
+  def add_technology
+    respond_to do |format|
+      @cs_technologies = CasestudyTechnology.where(:case_study_id => casestudy_overview_params[:case_study_id]).order("position ASC")
+      format.js
+    end
+  end
+
   private
 
     def casestudy_params
       params.require(:casestudy).permit(:project_id, :title)
+    end
+
+    def casestudy_overview_params
+      params.require(:casestudy_overview).permit(:case_study_id, :title)
     end
 end

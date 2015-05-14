@@ -1,0 +1,74 @@
+    <a name="listanch"></a>
+
+    <table class="table table-striped pretty">
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+          <th><%= t('title') %></th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+
+    <% @cs_overviews.each do |csitem| %>
+      <tbody>
+        <tr>
+          <td width="1%" nowrap>
+            <% if csitem != @cs_overviews.first %>
+              <%= link_to moveup_overview_path(csitem), :remote => true, class: "btn btn-default btn-sm" do %>
+                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+              <% end %>
+            <% end %>
+          </td>
+          <td width="1%" nowrap>
+            <% if csitem != @cs_overviews.last %>
+              <%= link_to movedown_overview_path(csitem), :remote => true, class: "btn btn-default btn-sm" do %>
+                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+              <% end %>
+            <% end %>
+          </td>
+          <td class="col-md-3 vert-align">
+
+            <!-- Button trigger modal -->
+            <a data-toggle="modal" data-target="#csmodal<%= csitem.id %>" title="<%= csitem.id %>">
+              <%= csitem.title %>
+            </a>
+
+            <!-- Modal -->
+            <div class="modal fade" id="csmodal<%= csitem.id %>" tabindex="-1" role="dialog" aria-labelledby="csmodal<%= csitem.id %>_title" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <%= form_for :casestudy_overview, :url => {:controller => 'casestudies', :action => 'update_overview'}, :id => params[:id], :remote => true do |f| %>
+                  <%= f.hidden_field :cso_id, value: csitem.id %>
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="csmodal<%= csitem.id %>_title"><%= t('title') %></h4>
+                  </div>
+                  <div class="modal-body">
+                    <fieldset>
+                      <div class="form-group">
+                        <%= f.text_field :title, class: 'form-control', placeholder: t('title') %>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="modal-footer">
+                    <button id="closebtn_<%= csitem.id %>" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
+                    <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
+                  </div>
+                  <% end %>
+
+                </div>
+              </div>
+            </div> <!-- / Modal -->
+
+          </td>
+          <td width="1%" nowrap>
+            <%= button_to destroy_overview_path(csitem), method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true  do %>
+            <%= hidden_field nil, :item_id, value: csitem.id %>
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>

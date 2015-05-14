@@ -46,3 +46,22 @@
     <img src="<%= @casestudy.header_image.nil? ? '/images/spacer.png' : '/casestudies/' + @casestudy.header_image %>" id="headerimage-preview" />
   </div>
 </div>
+
+<div class="panel with-nav-tabs panel-primary">
+  <div class="panel-heading">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#sh1" data-toggle="tab"><%= t('casestudies_overview') %></a></li>
+      <li><a href="#sh2" data-toggle="tab"><%= t('casestudies_challenges') %></a></li>
+      <li><a href="#sh3" data-toggle="tab"><%= t('casestudies_solutions') %></a></li>
+      <li><a href="#sh4" data-toggle="tab"><%= t('casestudies_technologies') %></a></li>
+    </ul>
+  </div>
+  <div class="panel-body">
+    <div class="tab-content">
+      <div class="tab-pane fade in active" id="sh1"><%= render partial: 'casestudies/overviews' %></div>
+      <div class="tab-pane" id="sh2"><%= render partial: 'casestudies/challenges' %></div>
+      <div class="tab-pane" id="sh3"><%= render partial: 'casestudies/solutions' %></div>
+      <div class="tab-pane" id="sh4"><%= render partial: 'casestudies/technologies' %></div>
+    </div>
+  </div>
+</div>
