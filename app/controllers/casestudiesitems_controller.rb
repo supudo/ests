@@ -7,7 +7,9 @@ class CasestudiesitemsController < ApplicationController
       @notif_type = 'warning'
       @notif_message = t('item_exists')
     else
+      c = CasestudyOverview.where("case_study_id = ?", casestudy_overview_params[:case_study_id]).count
       @cso = CasestudyOverview.new(casestudy_overview_params)
+      @cso.position = c + 1
       if @cso.save
         @notif_type = 'success'
         @notif_message = t('item_created')
@@ -58,7 +60,9 @@ class CasestudiesitemsController < ApplicationController
       @notif_type = 'warning'
       @notif_message = t('item_exists')
     else
+      c = CasestudyChallenge.where("case_study_id = ?", casestudy_challenges_params[:case_study_id]).count
       @csc = CasestudyChallenge.new(casestudy_challenges_params)
+      @csc.position = c + 1
       if @csc.save
         @notif_type = 'success'
         @notif_message = t('item_created')
@@ -109,7 +113,9 @@ class CasestudiesitemsController < ApplicationController
       @notif_type = 'warning'
       @notif_message = t('item_exists')
     else
+      c = CasestudySolution.where("case_study_id = ?", casestudy_solutions_params[:case_study_id]).count
       @css = CasestudySolution.new(casestudy_solutions_params)
+      @css.position = c + 1
       if @css.save
         @notif_type = 'success'
         @notif_message = t('item_created')
@@ -160,7 +166,9 @@ class CasestudiesitemsController < ApplicationController
       @notif_type = 'warning'
       @notif_message = t('item_exists')
     else
+      c = CasestudyTechnology.where("case_study_id = ?", casestudy_technologies_params[:case_study_id]).count
       @cst = CasestudyTechnology.new(casestudy_technologies_params)
+      @cst.position = c + 1
       if @cst.save
         @notif_type = 'success'
         @notif_message = t('item_created')
