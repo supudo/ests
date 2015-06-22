@@ -1,5 +1,7 @@
 class EstimatesassumptionController < ApplicationController
-  before_action :signed_in_user
+  before_filter do |controller|
+    controller.signed_in_user_permission("estimates")
+  end
 
   def create
     @estimatesassumption = EstimatesAssumption.where(:estimate_id => estimates_assumption_params[:estimate_id]).order("title ASC")

@@ -77,6 +77,8 @@ Rails.application.routes.draw do
   get 'users/users_update_positions', as: 'users_update_positions'
   resources :users
 
+  resources :users_permission
+
   resources :estimate_importer do
     collection { post :import }
   end

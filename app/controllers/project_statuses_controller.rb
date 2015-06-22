@@ -1,5 +1,7 @@
 class ProjectStatusesController < ApplicationController
-  before_action :signed_in_user
+  before_filter do |controller|
+    controller.signed_in_user_permission("statuses")
+  end
 
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path

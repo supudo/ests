@@ -1,5 +1,8 @@
 class EstimateslineController < ApplicationController
-  before_action :signed_in_user
+  before_filter do |controller|
+    controller.signed_in_user_permission("estimates")
+  end
+
   autocomplete :estimatesline, :line, :full => true
   helper_method :sort_column, :sort_direction
 

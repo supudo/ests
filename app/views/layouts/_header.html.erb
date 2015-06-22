@@ -22,31 +22,104 @@
           <ul class="dropdown-menu" role="menu">
             <% if signed_in? %>
               <li><%= link_to t('dashboard'), :dashboard %></li>
+
+              <!-- Main menu -->
+              <%
+              if @current_user.permissions.where(:code => 'clients').exists? || 
+                 @current_user.permissions.where(:code => 'projects').exists? || 
+                 @current_user.permissions.where(:code => 'estimates').exists? || 
+                 @current_user.permissions.where(:code => 'users').exists?
+              %>
               <li class="divider"></li>
+              <%
+              end
+              %>
+
+              <% if @current_user.permissions.where(:code => 'clients').exists? %>
               <li><%= link_to t('clients'), :clients %></li>
+              <% end %>
+
+              <% if @current_user.permissions.where(:code => 'projects').exists? %>
               <li><%= link_to t('projects'), :projects %></li>
+              <% end %>
+
+              <% if @current_user.permissions.where(:code => 'estimates').exists? %>
               <li><%= link_to t('estimates'), :estimates %></li>
+              <% end %>
+
+              <% if @current_user.permissions.where(:code => 'users').exists? %>
               <li><%= link_to t('users'), :users %></li>
+              <% end %>
+
+              <% if @current_user.permissions.where(:code => 'case_studies').exists? %>
               <li class="divider"></li>
               <li><%= link_to t('case_studies'), :casestudies %></li>
+              <% end %>
+
+              <!-- Financial menu -->
+              <%
+              has_financial_permissions = 0
+              if @current_user.permissions.where(:code => 'rates').exists? || 
+                 @current_user.permissions.where(:code => 'engagement_models').exists?
+                 has_financial_permissions = 1
+              end
+              %>
+
+              <% if has_financial_permissions > 0 %>
               <li class="divider"></li>
               <li class="dropdown-submenu">
                 <a tabindex="-1" href="#"><%= t('financial') %></a>
                 <ul class="dropdown-menu">
+
+                  <% if @current_user.permissions.where(:code => 'rates').exists? %>
                   <li><%= link_to t('rates'), :rates %></li>
+                  <% end %>
+
+                  <% if @current_user.permissions.where(:code => 'engagement_models').exists? %>
                   <li><%= link_to t('engagement_models'), :engagement_models %></li>
+                  <% end %>
+
                 </ul>
               </li>
+              <% end %>
+
+              <!-- Collections menu -->
+              <%
+              has_collection_permissions = 0
+              if @current_user.permissions.where(:code => 'technologies').exists? || 
+                 @current_user.permissions.where(:code => 'project_statuses').exists? || 
+                 @current_user.permissions.where(:code => 'positions').exists? || 
+                 @current_user.permissions.where(:code => 'currencies').exists?
+                 has_collection_permissions = 1
+              end
+              %>
+
+              <% if has_collection_permissions > 0 %>
               <li class="divider"></li>
               <li class="dropdown-submenu">
                 <a tabindex="-1" href="#"><%= t('collections') %></a>
                 <ul class="dropdown-menu">
+
+                  <% if @current_user.permissions.where(:code => 'technologies').exists? %>
                   <li><%= link_to t('technologies'), :technologies %></li>
+                  <% end %>
+
+                  <% if @current_user.permissions.where(:code => 'project_statuses').exists? %>
                   <li><%= link_to t('project_statuses'), :project_statuses %></li>
+                  <% end %>
+
+                  <% if @current_user.permissions.where(:code => 'positions').exists? %>
                   <li><%= link_to t('positions'), :positions %></li>
+                  <% end %>
+
+                  <% if @current_user.permissions.where(:code => 'currencies').exists? %>
                   <li><%= link_to t('currencies'), :currencies %></li>
+                  <% end %>
+
                 </ul>
               </li>
+              <% end %>
+
               <li class="divider"></li>
               <li><%= link_to t('profile'), edit_user_path(current_user) %></li>
               <li><%= link_to t('logout'), logout_path, method: "delete" %></li>

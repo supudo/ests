@@ -1,5 +1,7 @@
 class EstimateExporterController < ApplicationController
-  before_action :signed_in_user
+  before_filter do |controller|
+    controller.signed_in_user_permission("estimates")
+  end
 
   def index
     estimate = Estimate.find(params[:estimate_id])

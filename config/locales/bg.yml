@@ -19,6 +19,7 @@ bg:
   complexity: "Комплексност"
   invalid_image: "Невалидна картинка!"
   image_required: "Картинката е задължителна!"
+  check_all: "-- Избери всички --"
 
   collections: "Колекции"
   financial: "Финансови"
@@ -333,6 +334,7 @@ bg:
     engagement_models_index: "Модели на Работа"
     currencies_index: "Валути"
     casestudies_index: "Казуси"
+    permissions_index: "Привилегии"
 
   defaults: &defaults
     month_names: [~, Януари, Февруари, Март, Април, Май, Юни, Юли, Август, Септември, Октмоври, Ноември, Декември]

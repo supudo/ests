@@ -33,7 +33,7 @@
     <h4><strong><%= link_to estimate.title, estimate %></strong> - <%= l(estimate.created_date, format: :shorter) %></h4>
     
     <%= t('for') %> "<%= Project.find_by(:id => estimate.project_id).title %>" - "<em><%= Client.find_by(:id => estimate.client_id).title %></em>"
-    <%= t('by') %> <a href="mailto:<%= User.find_by(:id => estimate.owner_user_id).username %>"><%= User.find_by(:id => estimate.owner_user_id).first_name %> <%= User.find_by(:id => estimate.owner_user_id).last_name %></a>
+    <%= t('by') %> <a href="mailto:<%= User.find_by(:id => estimate.owner_user_id).email %>"><%= User.find_by(:id => estimate.owner_user_id).first_name %> <%= User.find_by(:id => estimate.owner_user_id).last_name %></a>
 
     <br />
 

@@ -15,7 +15,7 @@
                     <%= form_for(:session, url: login_path) do |f| %>
                     <fieldset>
                         <div class="form-group">
-                            <%= f.email_field :username, class: 'form-control', placeholder: t('email'), autofocus: true %>
+                            <%= f.email_field :email, class: 'form-control', placeholder: t('email'), autofocus: true %>
                         </div>
                         <div class="form-group">
                             <%= f.password_field :password, class: 'form-control', placeholder: t('password') %>

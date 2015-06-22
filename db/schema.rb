@@ -161,10 +161,9 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "estimates_sheets", ["estimate_id"], name: "estimate_id", using: :btree
 
   create_table "permissions", force: :cascade do |t|
-    t.string "subject_class", limit: 50,    null: false
-    t.string "action",        limit: 50,    null: false
-    t.string "name",          limit: 255,   null: false
-    t.text   "description",   limit: 65535, null: false
+    t.integer "parent_id",   limit: 4,     default: 0, null: false
+    t.string  "code",        limit: 255,               null: false
+    t.text    "description", limit: 65535,             null: false
   end
 
   create_table "positions", force: :cascade do |t|
@@ -257,10 +256,6 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "rates_prices", ["position_id"], name: "position_id", using: :btree
   add_index "rates_prices", ["technology_id"], name: "technology_id", using: :btree
 
-  create_table "roles", force: :cascade do |t|
-    t.string "title", limit: 255, null: false
-  end
-
   create_table "technologies", force: :cascade do |t|
     t.string  "title",    limit: 255, null: false
     t.string  "style",    limit: 25
@@ -270,7 +265,7 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "technologies", ["title"], name: "title", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",        limit: 150,             null: false
+    t.string   "email",           limit: 150,             null: false
     t.string   "password_digest", limit: 255,             null: false
     t.string   "first_name",      limit: 150,             null: false
     t.string   "last_name",       limit: 150,             null: false
@@ -285,9 +280,9 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   add_index "users", ["client_id"], name: "client_id", using: :btree
+  add_index "users", ["email"], name: "username", unique: true, using: :btree
   add_index "users", ["position_id"], name: "position_id", using: :btree
   add_index "users", ["technology_id"], name: "technology_id", using: :btree
-  add_index "users", ["username"], name: "username", unique: true, using: :btree
 
   create_table "users_permissions", force: :cascade do |t|
     t.integer "user_id",       limit: 4, null: false

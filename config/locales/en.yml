@@ -19,6 +19,7 @@ en:
   complexity: "Complexity"
   invalid_image: "Invalid image!"
   image_required: "Image is required!"
+  check_all: "-- Check all --"
 
   collections: "Collections"
   financial: "Financial"
@@ -333,6 +334,7 @@ en:
     engagement_models_index: "Engagement Models"
     currencies_index: "Currencies"
     casestudies_index: "Case Studies"
+    permissions_index: "Permissions"
 
   defaults: &defaults
     month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]

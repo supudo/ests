@@ -2,19 +2,20 @@ class User < ActiveRecord::Base
   belongs_to :position
   belongs_to :technology
   has_many :clients
-  has_many :permissions
+  has_many :users_permissions
+  has_many :permissions, :through => :users_permissions
   has_many :estimates, class_name: 'Estimate', inverse_of: :owner_user
 
   self.per_page = 30
 
-  before_save { self.username = username.to_s.downcase }
+  before_save { self.email = email.to_s.downcase }
   before_create :create_remember_token
 
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
-  validates :username, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
 
   validates_presence_of :password, :on => :create
   validates_confirmation_of :password, :allow_blank => true
@@ -35,7 +36,7 @@ class User < ActiveRecord::Base
   end
 
   def fullname_email
-    "#{first_name} #{last_name} (#{username})"
+    "#{first_name} #{last_name} (#{email})"
   end
 
   def position_technology
@@ -62,7 +63,7 @@ class User < ActiveRecord::Base
         or_clauses = [
           "LOWER(users.first_name) LIKE CONCAT('%', ?, '%')",
           "LOWER(users.last_name) LIKE CONCAT('%', ?, '%')",
-          "LOWER(users.username) LIKE CONCAT('%', ?, '%')",
+          "LOWER(users.email) LIKE CONCAT('%', ?, '%')",
           "(SELECT 1 FROM positions WHERE id = users.position_id AND LOWER(title) LIKE CONCAT('%', ?, '%'))",
           "(SELECT 1 FROM technologies WHERE id = users.technology_id AND LOWER(title) LIKE CONCAT('%', ?, '%'))"
         ].join(' OR ')

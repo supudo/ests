@@ -1,5 +1,5 @@
-<% provide(:title, @user.username) %>
-<h1>Edit <%= @user.username %></h1>
+<% provide(:title, @user.email) %>
+<h1>Edit <%= @user.email %></h1>
 
 <div class="row">
   <div class="span6 offset3">
@@ -9,8 +9,8 @@
           <%= form_for(@user) do |f| %>
           <%= render 'shared/flash_messages', object: f.object %>
           <fieldset>
-            <div class="form-group<%= f.object.errors[:username].any? ? ' has-error has-feedback' : '' %>">
-              <%= f.email_field :username, class: 'form-control', placeholder: t('email'), autofocus: true %>
+            <div class="form-group<%= f.object.errors[:email].any? ? ' has-error has-feedback' : '' %>">
+              <%= f.email_field :email, class: 'form-control', placeholder: t('email'), autofocus: true %>
             </div>
             <div class="form-group<%= f.object.errors[:first_name].any? ? ' has-error has-feedback' : '' %>">
               <%= f.text_field :first_name, class: 'form-control', placeholder: t('first_name') %>

@@ -1,5 +1,8 @@
 class EstimateImporterController < ApplicationController
-  before_action :signed_in_user
+  before_filter do |controller|
+    controller.signed_in_user_permission("estimates")
+  end
+
   require 'roo'
 
   def new

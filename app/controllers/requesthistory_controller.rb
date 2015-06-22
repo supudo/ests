@@ -1,5 +1,7 @@
 class RequesthistoryController < ApplicationController
-  before_action :signed_in_user
+  before_filter do |controller|
+    controller.signed_in_user_permission("projects")
+  end
 
   def show
     @project = Project.find_by_id(params[:id])

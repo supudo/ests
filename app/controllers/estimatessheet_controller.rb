@@ -1,5 +1,8 @@
 class EstimatessheetController < ApplicationController
-  before_action :signed_in_user
+  before_filter do |controller|
+    controller.signed_in_user_permission("estimates")
+  end
+
   helper_method :sort_column, :sort_direction
 
   def create

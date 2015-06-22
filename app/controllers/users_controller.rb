@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user
+  before_filter do |controller|
+    controller.signed_in_user_permission("users")
+  end
   
   def index
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
@@ -41,7 +43,7 @@ class UsersController < ApplicationController
 
   def show
     if params.has_key?(:term)
-      @users = User.where("username LIKE (?) OR first_name LIKE (?) OR last_name LIKE (?)", "%#{params[:term]}%", "%#{params[:term]}%", "%#{params[:term]}%").order("first_name ASC, last_name")
+      @users = User.where("email LIKE (?) OR first_name LIKE (?) OR last_name LIKE (?)", "%#{params[:term]}%", "%#{params[:term]}%", "%#{params[:term]}%").order("first_name ASC, last_name")
       respond_to do |format|
         format.json {render json: @users.map { |user| {:id => user.id, :label => user.full_name, :value => user.full_name} }}
       end
@@ -58,7 +60,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    if User.exists?(:username => user_params[:username])
+    if User.exists?(:email => user_params[:email])
       @notif_type = 'warning'
       @notif_message = t('user_already_exists')
     else
@@ -94,7 +96,7 @@ class UsersController < ApplicationController
     @user = User.find_by_id(params[:id])
     @user.first_name = user_params[:first_name]
     @user.last_name = user_params[:last_name]
-    @user.username = user_params[:username]
+    @user.email = user_params[:email]
     @user.technology_id = user_params[:technology_id]
     @user.position_id = user_params[:position_id]
     @user.client_id = user_params[:client_id]
@@ -159,7 +161,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :username, :password, :password_confirmation, :technology_id, :position_id, :client_id, :is_am, :is_pdm)
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :technology_id, :position_id, :client_id, :is_am, :is_pdm)
     end
 
     def self.permission

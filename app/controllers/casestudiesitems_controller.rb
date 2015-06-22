@@ -1,5 +1,7 @@
 class CasestudiesitemsController < ApplicationController
-  before_action :signed_in_user
+  before_filter do |controller|
+    controller.signed_in_user_permission("case_studies")
+  end
 
 # ========================================================================
 # Overviews
