@@ -3,22 +3,24 @@ class UsersPermissionController < ApplicationController
     controller.signed_in_user_permission("users")
   end
 
-  def index
-    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
-    add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
-    add_breadcrumb I18n.t('breadcrumbs.permissions_index')
-    @user = User.find(params[:user_id])
-    @permissions = Permission.order("id ASC")
-    @user_permissions = UsersPermission.where(:user_id => params[:user_id])
-  end
-
   def create
     if params[:permission_ids].present?
       UsersPermission.delete_all(:user_id => params[:user_id])
       params[:permission_ids].each do |key, permission_id|
         UsersPermission.create(:user_id => params[:user_id], :permission_id => permission_id)
       end
-      redirect_to(:back)
+    end
+    respond_to do |format|
+      @users = User.order("first_name ASC, last_name ASC")
+      if params[:ftid] != nil && params[:ftid] != '0'
+        @users = @users.where("technology_id = ?", params[:ftid])
+      end
+
+      @user_id = params[:user_id]
+      @notif_type = 'success'
+      @notif_message = t('permissions_updated')
+      format.html
+      format.js
     end
   end
 

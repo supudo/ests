@@ -26,6 +26,8 @@ class UsersController < ApplicationController
     @positions = Position.order("title ASC")
     @clients = Client.order("title ASC")
 
+    @permissions = Permission.order("id ASC")
+
     respond_to do |format|
       format.html
       format.js

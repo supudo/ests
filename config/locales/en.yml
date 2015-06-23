@@ -160,6 +160,7 @@ en:
   users: "Users"
   create_user: "Create User"
   user_created_successfully: "User created."
+  permissions_updated: "Permissions updated."
 
   create_client: "Create Client"
   client: "Client"
