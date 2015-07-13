@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 22, 2015 at 01:54 PM
--- Server version: 5.6.23
--- PHP Version: 5.5.20
+-- Generation Time: Jul 13, 2015 at 11:21 AM
+-- Server version: 5.6.25
+-- PHP Version: 5.5.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -247,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `estimates_sheets` (
 
 CREATE TABLE IF NOT EXISTS `permissions` (
   `id` int(11) unsigned NOT NULL,
-  `parent_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `parent_id` int(11) NOT NULL,
   `code` varchar(255) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -418,6 +418,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `client_id` int(11) unsigned NOT NULL,
   `is_pdm` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `is_am` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `encrypted_password` varchar(255) NOT NULL DEFAULT '',
+  `reset_password_token` varchar(255) DEFAULT NULL,
+  `reset_password_sent_at` datetime DEFAULT NULL,
+  `remember_created_at` datetime DEFAULT NULL,
+  `sign_in_count` int(11) NOT NULL DEFAULT '0',
+  `current_sign_in_at` datetime DEFAULT NULL,
+  `last_sign_in_at` datetime DEFAULT NULL,
+  `current_sign_in_ip` varchar(255) DEFAULT NULL,
+  `last_sign_in_ip` varchar(255) DEFAULT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
