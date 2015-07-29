@@ -8,9 +8,16 @@ class EstimateImporterController < ApplicationController
   def new
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.estimates_importer_index'), new_estimate_importer_path
+    @rates = Rate.all
+    @engagement_models = EngagementModel.all
+    @project_statuses = ProjectStatus.order("title ASC")
   end
 
   def import
+    @rates = Rate.all
+    @engagement_models = EngagementModel.all
+    @project_statuses = ProjectStatus.order("title ASC")
+
     ActiveRecord::Base.transaction do
       proceed = 1
 
@@ -51,7 +58,7 @@ class EstimateImporterController < ApplicationController
         @info[:assumptions] = assumptions
 
         # Estimation Sheets
-        sheet_counter = 0;
+        sheet_counter = 0
         estimation_sheets = []
         spreadsheet.each_with_pagename do |name, sheet|
           if sheet_counter > 0
@@ -62,7 +69,7 @@ class EstimateImporterController < ApplicationController
             sections = []
             section_row_counter = 1
             while true
-              if sheet.cell(section_row_counter, 1) != nil && sheet.cell(section_row_counter, 1) != ''
+              if sheet.cell(section_row_counter, 2).nil? || sheet.cell(section_row_counter, 2) == ''
                 section_single = {}
                 section_single[:title] = sheet.cell(section_row_counter, 1)
                 section_single[:lines] = []
@@ -70,17 +77,19 @@ class EstimateImporterController < ApplicationController
               end
 
               line = {}
-              line[:line] = sheet.cell(section_row_counter, 2)
-              hours_min = sheet.cell(section_row_counter, 3)
-              hours_max = sheet.cell(section_row_counter, 4)
+              line[:line] = sheet.cell(section_row_counter, 1)
+              hours_min = sheet.cell(section_row_counter, 2)
+              hours_max = sheet.cell(section_row_counter, 3)
               line[:hours_min] = hours_min.nil? || hours_min == '' ? 0 : hours_min
               line[:hours_max] = hours_max.nil? || hours_max == '' ? 0 : hours_max
 
-              section_single[:lines].push(line)
+              if !section_single.nil? && !section_single[:lines].nil? && (hours_min.to_i > 0 || hours_max.to_i > 0)
+                section_single[:lines].push(line)
+              end
 
               section_row_counter += 1
 
-              if sheet.cell(section_row_counter, 2) == nil || sheet.cell(section_row_counter, 2) == ''# || section_row_counter == 100
+              if sheet.cell(section_row_counter, 1) == nil || sheet.cell(section_row_counter, 1) == ''# || section_row_counter == 100
                 break
               end
             end
@@ -120,7 +129,7 @@ class EstimateImporterController < ApplicationController
           project = Project.new()
           project.title = @info[:project]
           project.client_id = client_id
-          project.project_status_id = ProjectStatus.first.id
+          project.project_status_id = params[:esimp][:project_status_id]#ProjectStatus.first.id
           project.account_manager_user_id = @current_user.id
           project.production_manager_user_id = @current_user.id
           project.project_owner_user_id = @current_user.id
@@ -147,8 +156,8 @@ class EstimateImporterController < ApplicationController
           estimate.created_date = DateTime.now
           estimate.modified_user_id = @current_user.id
           estimate.modified_date = DateTime.now
-          estimate.rate_id = Rate.first.id
-          estimate.engagement_model_id = EngagementModel.first.id
+          estimate.rate_id = params[:esimp][:rate_id]#Rate.first.id
+          estimate.engagement_model_id = params[:esimp][:engagement_model_id]#EngagementModel.first.id
           estimate.save
           estimate_id = estimate.id
         end
@@ -163,8 +172,6 @@ class EstimateImporterController < ApplicationController
             estimate_assumption.save
           end
         end
-
-        @info[:qqqqqq] = []
 
         # Sheet
         @info[:sheets].each do |sheet|

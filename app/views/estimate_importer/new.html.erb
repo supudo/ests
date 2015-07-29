@@ -10,6 +10,15 @@
         <div class="panel-body">
           <fieldset>
             <div class="form-group">
+              <%= select "esimp", "rate_id", @rates.collect {|p| [ p.title, p.id ] }, {}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
+              <%= select "esimp", "engagement_model_id", @engagement_models.collect {|p| [ p.title, p.id ] }, {}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
+              <%= select "esimp", "project_status_id", @project_statuses.collect {|p| [ p.title, p.id ] }, {}, {:class => 'form-control'} %>
+            </div>
+            <div class="form-group">
               <%= file_field_tag :imported_file, class: "filestyle", data: { :buttonText => t('upload_file') } %>
             </div>
             <div class="form-group">
