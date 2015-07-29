@@ -115,6 +115,7 @@ class EstimateExporterController < ApplicationController
     file_client = file_client.gsub(' ', '_').gsub('.', '_')
     file_project = file_project.gsub(' ', '_').gsub('.', '_')
     file_name = file_client + '_' + file_project + '_' + Time.now.strftime("%d%m%Y")
+    file_name = file_name.gsub('\\', '_').gsub('/', '_')
     file_name = 'public/exports/' + file_name + '.xlsx'
     estimate_file.serialize(file_name)
 
