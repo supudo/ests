@@ -218,6 +218,7 @@ en:
   estimate_assumption_already_exists: "Assumption already exists."
   estimate_assumption_created_successfully: "Assumption created successfully."
   is_header: "Is Header?"
+  download_example: "Download Example"
 
   section: "Section"
   section_already_exists: "Section already exists."

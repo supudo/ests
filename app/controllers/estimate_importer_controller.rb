@@ -7,6 +7,7 @@ class EstimateImporterController < ApplicationController
 
   def new
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+    add_breadcrumb I18n.t('breadcrumbs.estimates_index'), estimates_path
     add_breadcrumb I18n.t('breadcrumbs.estimates_importer_index'), new_estimate_importer_path
     @rates = Rate.all
     @engagement_models = EngagementModel.all
@@ -14,10 +15,6 @@ class EstimateImporterController < ApplicationController
   end
 
   def import
-    @rates = Rate.all
-    @engagement_models = EngagementModel.all
-    @project_statuses = ProjectStatus.order("title ASC")
-
     ActiveRecord::Base.transaction do
       proceed = 1
 
@@ -227,7 +224,11 @@ class EstimateImporterController < ApplicationController
         end
 
         add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+        add_breadcrumb I18n.t('breadcrumbs.estimates_index'), estimates_path
         add_breadcrumb I18n.t('breadcrumbs.estimates_importer_index'), new_estimate_importer_path
+        @rates = Rate.all
+        @engagement_models = EngagementModel.all
+        @project_statuses = ProjectStatus.order("title ASC")
         flash[:success] = t('import_ok')
         render 'new'
       end

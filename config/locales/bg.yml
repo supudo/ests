@@ -218,6 +218,7 @@ bg:
   estimate_assumption_already_exists: "Предположението вече съществува."
   estimate_assumption_created_successfully: "Оценката беше създадена суепшно."
   is_header: "Секция?"
+  download_example: "Свали пример"
 
   section: "Секция"
   section_already_exists: "Секцията вече съществува."
