@@ -20,6 +20,7 @@ bg:
   invalid_image: "Невалидна картинка!"
   image_required: "Картинката е задължителна!"
   check_all: "-- Избери всички --"
+  rename: "Преименувай"
 
   collections: "Колекции"
   financial: "Финансови"

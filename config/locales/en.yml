@@ -20,6 +20,7 @@ en:
   invalid_image: "Invalid image!"
   image_required: "Image is required!"
   check_all: "-- Check all --"
+  rename: "Rename"
 
   collections: "Collections"
   financial: "Financial"

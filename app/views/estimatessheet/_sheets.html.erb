@@ -4,7 +4,7 @@
 
       <% @estimates_sheets.each do |panel| %>
         <li<%= panel == @estimates_sheets.first ? " class='active'".html_safe : "" %>>
-          <a href="#sh<%= panel.id %>" data-toggle="tab"><%= panel.title %></a>
+          <a href="#sh<%= panel.id %>" data-toggle="tab" id="tab-panel-<%= panel.id %>"><%= panel.title %></a>
         </li>
       <% end %>
 

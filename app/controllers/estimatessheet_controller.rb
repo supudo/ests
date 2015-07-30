@@ -35,6 +35,23 @@ class EstimatessheetController < ApplicationController
     end
   end
 
+  def update
+    sheet = EstimatesSheet.find_by_id(params[:estimatessheet][:estimates_sheet_id])
+    sheet.title = params[:estimatessheet][:title]
+    if sheet.save
+      @notif_type = 'success'
+      @notif_message = t('item_updated')
+    else
+      @notif_type = 'danger'
+      @notif_message = t('error_missing_fields')
+    end
+    respond_to do |format|
+      @panel_id = params[:estimatessheet][:estimates_sheet_id]
+      @new_title = sheet.title
+      format.js
+    end
+  end
+
   def destroy
     EstimatesSheet.find(params[:id]).destroy
     respond_to do |format|
