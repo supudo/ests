@@ -42,6 +42,7 @@ class EstimateslineController < ApplicationController
       @positions = Position.order("title ASC")
       @estimatessection = EstimatesSection.where(:estimate_id => estimates_line_params[:estimate_id]).order("id ASC")
       @sheet = EstimatesSheet.find(EstimatesSection.find_by_id(estimates_line_params[:estimates_sections_id]).estimates_sheet_id)
+      params[:id] = estimates_line_params[:estimate_id]
       format.js
     end
   end
