@@ -9,7 +9,7 @@
               <%= f.collection_select :estimates_sections_id, EstimatesSection.all.where(:estimates_sheet_id => sheet.id), :id, :title, {}, {:class => 'form-control'} %>
             </div>
             <div class="form-group">
-              <%= f.select :technology_id, options_for_select(Technology.order("title ASC").collect { |tech| [tech.title, tech.id] }, 0), {}, {id: 'lines_technologies_select_0', :class => 'form-control'} %>
+              <%= f.select :technology_id, options_for_select(Technology.where("id IN (SELECT technology_id FROM projects_technologies WHERE project_id = ?)", @estimate.project_id).order("title ASC").collect { |tech| [tech.title, tech.id] }, 0), {}, {id: 'lines_technologies_select_0', :class => 'form-control'} %>
             </div>
             <div class="form-group">
               <%= f.select :position_id, options_for_select(@positions.where(:technology_id => Technology.order("title ASC").first.id).collect { |pos| [pos.title, pos.id] }, 0), {}, { id: 'lines_positions_select_0', :class => 'form-control'} %>
