@@ -220,7 +220,7 @@ CREATE TABLE `estimates` (
   KEY `owner_user_id` (`owner_user_id`),
   KEY `rate_id` (`rate_id`),
   KEY `engagement_model_id` (`engagement_model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,7 +263,7 @@ CREATE TABLE `estimates_lines` (
   KEY `technology_id` (`technology_id`),
   KEY `estimates_sections_id` (`estimates_sections_id`),
   KEY `position_id` (`position_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1622 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1631 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -277,11 +277,12 @@ CREATE TABLE `estimates_sections` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `estimate_id` int(11) unsigned NOT NULL,
   `estimates_sheet_id` int(11) unsigned NOT NULL,
+  `section_number` int(11) unsigned NOT NULL,
   `title` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `estimate_id` (`estimate_id`),
   KEY `estimates_sheet_id` (`estimates_sheet_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=320 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=332 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -297,7 +298,7 @@ CREATE TABLE `estimates_sheets` (
   `title` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `estimate_id` (`estimate_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -384,7 +385,7 @@ CREATE TABLE `projects` (
   CONSTRAINT `fk_projects_accountmanager` FOREIGN KEY (`account_manager_user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_projects_clients` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_projects_projects_statuses` FOREIGN KEY (`project_status_id`) REFERENCES `project_statuses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -439,7 +440,7 @@ CREATE TABLE `projects_technologies` (
   PRIMARY KEY (`id`),
   KEY `project_id` (`project_id`),
   KEY `technology_id` (`technology_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -480,7 +481,7 @@ CREATE TABLE `rates_prices` (
   KEY `technology_id` (`technology_id`),
   KEY `modified_user_id` (`modified_user_id`),
   KEY `position_id` (`position_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=508 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=512 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -577,6 +578,6 @@ CREATE TABLE `users_permissions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-29 14:50:37
+-- Dump completed on 2015-07-30 13:39:36
 
 

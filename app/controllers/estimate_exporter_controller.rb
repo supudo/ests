@@ -83,7 +83,7 @@ class EstimateExporterController < ApplicationController
       f_sheet.add_row ['', sheet.title, '', '', '', '', ''], :style => [nil, cs_grey_dark, cs_grey_dark, cs_grey_dark, cs_grey_dark, cs_grey_dark, cs_grey_dark]
 
       # Sections
-      sections = EstimatesSection.where(:estimates_sheet_id => sheet.id).order("id ASC")
+      sections = EstimatesSection.where(:estimates_sheet_id => sheet.id).order("section_number ASC")
       sections.each do |f_section|
         f_sheet.add_row ['', f_section.title, f_section.total_min_hours, f_section.total_max_hours, '', '', ''], :style => [nil, cs_grey, cs_grey, cs_grey, cs_grey, cs_grey, cs_grey]
         estimate_total_hours_min += f_section.total_min_hours

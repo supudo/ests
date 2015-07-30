@@ -40,7 +40,7 @@ class EstimateslineController < ApplicationController
     end
     respond_to do |format|
       @positions = Position.order("title ASC")
-      @estimatessection = EstimatesSection.where(:estimate_id => estimates_line_params[:estimate_id]).order("id ASC")
+      @estimatessection = EstimatesSection.where(:estimate_id => estimates_line_params[:estimate_id]).order("section_number ASC")
       @sheet = EstimatesSheet.find(EstimatesSection.find_by_id(estimates_line_params[:estimates_sections_id]).estimates_sheet_id)
       params[:id] = estimates_line_params[:estimate_id]
       format.js
@@ -66,7 +66,7 @@ class EstimateslineController < ApplicationController
     @eitem_section_id = eline.estimates_sections_id
     @eitem_sheet_id = EstimatesSection.find_by_id(eline.estimates_sections_id).estimates_sheet_id
     respond_to do |format|
-      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
+      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("section_number ASC")
       @sheet = EstimatesSheet.find(@eitem_sheet_id)
       format.js
     end
@@ -77,7 +77,7 @@ class EstimateslineController < ApplicationController
     eid = @current.estimate_id
     EstimatesLine.find(params[:line_id]).destroy
     respond_to do |format|
-      @estimatessection = EstimatesSection.where(:estimate_id => eid).order("id ASC")
+      @estimatessection = EstimatesSection.where(:estimate_id => eid).order("section_number ASC")
       @sheet = EstimatesSheet.find(@estimatessection.first.estimates_sheet_id)
       @notif_type = 'success'
       @notif_message = t('delete_sucess')
@@ -94,7 +94,7 @@ class EstimateslineController < ApplicationController
     @current.line_number = ln
     @current.save
     respond_to do |format|
-      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
+      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("section_number ASC")
       @estimatesline = EstimatesLine.where(:estimate_id => @current.estimate_id, :estimates_sections_id => @current.estimates_sections_id).order("line_number ASC")
       @current_section = EstimatesSection.find(@current.estimates_sections_id)
       @positions = Position.order("title ASC")
@@ -111,7 +111,7 @@ class EstimateslineController < ApplicationController
     @current.line_number = ln
     @current.save
     respond_to do |format|
-      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
+      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("section_number ASC")
       @estimatesline = EstimatesLine.where(:estimate_id => @current.estimate_id, :estimates_sections_id => @current.estimates_sections_id).order("line_number ASC")
       @current_section = EstimatesSection.find(@current.estimates_sections_id)
       @positions = Position.order("title ASC")

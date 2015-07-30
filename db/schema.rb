@@ -147,6 +147,7 @@ ActiveRecord::Schema.define(version: 0) do
   create_table "estimates_sections", force: :cascade do |t|
     t.integer "estimate_id",        limit: 4,     null: false
     t.integer "estimates_sheet_id", limit: 4,     null: false
+    t.integer "section_number",     limit: 4,     null: false
     t.text    "title",              limit: 65535, null: false
   end
 

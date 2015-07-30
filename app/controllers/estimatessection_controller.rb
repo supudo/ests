@@ -34,7 +34,7 @@ class EstimatessectionController < ApplicationController
       end
     end
     respond_to do |format|
-      @estimatessection = EstimatesSection.where(:estimate_id => estimates_section_params[:estimate_id]).order("id ASC")
+      @estimatessection = EstimatesSection.where(:estimate_id => estimates_section_params[:estimate_id]).order("section_number ASC")
       @positions = Position.order("title ASC")
       @sheet = EstimatesSheet.find(estimates_section_params[:estimates_sheet_id])
       params[:id] = estimates_section_params[:estimate_id]
@@ -57,7 +57,7 @@ class EstimatessectionController < ApplicationController
 
   def destroy
     EstimatesSection.find(params[:section_id]).destroy
-    @estimatessection = EstimatesSection.where(:estimate_id => params[:estimate_id]).order("id ASC")
+    @estimatessection = EstimatesSection.where(:estimate_id => params[:estimate_id]).order("section_number ASC")
     @sheet = EstimatesSheet.find(params[:estimates_sheet_id])
     @positions = Position.order("title ASC")
     respond_to do |format|

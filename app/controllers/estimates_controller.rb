@@ -47,7 +47,7 @@ class EstimatesController < ApplicationController
       @estimates_sheets = EstimatesSheet.where(:estimate_id => params[:id]).order("id ASC")
       @estimate_line = EstimatesLine.new
       @estimatesassumption = EstimatesAssumption.where(:estimate_id => params[:id]).order("title ASC")
-      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
+      @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("section_number ASC")
       @technology = Technology.order("title ASC")
       @rates = Rate.order("title ASC")
       @engagement_models = EngagementModel.order("title ASC")
@@ -141,7 +141,7 @@ GROUP BY
     @projects = Project.order("title ASC")
     @users = User.order("first_name ASC, last_name ASC")
     @estimate_line = EstimatesLine.new
-    @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("id ASC")
+    @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("section_number ASC")
     @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order("line_number ASC")
     @technology = Technology.order("title ASC")
     @rates = Rate.order("title ASC")
