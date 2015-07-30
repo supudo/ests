@@ -81,7 +81,7 @@ end
         <div class="form-group">
         <%=
           f.collection_select(:tid, 
-            Technology.all.order("title ASC"), :id, :title,
+            Technology.where("id IN (SELECT technology_id FROM projects_technologies WHERE project_id = ?)", @estimate.project_id).order("title ASC"), :id, :title,
             {:include_blank => t('dashes') + ' ' + t('technology')},
             {:data => { :remote => true,
                         :url => url_for(:controller => "estimatessection", 
