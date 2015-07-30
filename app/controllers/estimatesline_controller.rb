@@ -43,6 +43,7 @@ class EstimateslineController < ApplicationController
       @estimatessection = EstimatesSection.where(:estimate_id => estimates_line_params[:estimate_id]).order("section_number ASC")
       @sheet = EstimatesSheet.find(EstimatesSection.find_by_id(estimates_line_params[:estimates_sections_id]).estimates_sheet_id)
       params[:id] = estimates_line_params[:estimate_id]
+      @estimate = Estimate.find_by_id(estimates_line_params[:estimate_id])
       format.js
     end
   end
@@ -68,6 +69,8 @@ class EstimateslineController < ApplicationController
     respond_to do |format|
       @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("section_number ASC")
       @sheet = EstimatesSheet.find(@eitem_sheet_id)
+      @estimate = Estimate.find_by_id(params[:estimates_line][:estimate_id])
+      @positions = Position.order("title ASC")
       format.js
     end
   end
@@ -79,6 +82,8 @@ class EstimateslineController < ApplicationController
     respond_to do |format|
       @estimatessection = EstimatesSection.where(:estimate_id => eid).order("section_number ASC")
       @sheet = EstimatesSheet.find(@estimatessection.first.estimates_sheet_id)
+      @estimate = Estimate.find_by_id(eid)
+      @positions = Position.order("title ASC")
       @notif_type = 'success'
       @notif_message = t('delete_sucess')
       format.js
