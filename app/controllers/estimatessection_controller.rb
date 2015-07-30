@@ -25,6 +25,9 @@ class EstimatessectionController < ApplicationController
       @notif_message = t('section_already_exists')
     else
       @es = EstimatesSection.new(estimates_section_params)
+      c = EstimatesSection.where("estimate_id = ?", estimates_section_params[:estimate_id]).count
+      @es = EstimatesSection.new(estimates_section_params)
+      @es.section_number = c + 1
       if @es.save
         @notif_type = 'success'
         @notif_message = t('sections_created_successfully')
