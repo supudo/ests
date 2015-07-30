@@ -8,7 +8,8 @@ else
 end
 %>
 
-<% @estimatessection.where(:estimates_sheet_id => obj.id).each do |section, esitem| %>
+<% esections = @estimatessection.where(:estimates_sheet_id => obj.id) %>
+<% esections.each do |section, esitem| %>
 <div class="panel panel-primary" id="pnl_section<%= section.id %>">
 
   <div class="panel-heading">
@@ -48,7 +49,23 @@ end
         </div>
       </div> <!-- / Modal -->
 
-      <div class="btn-group" style="padding-bottom: 4px">
+      <% if section != esections.first %>
+        <div class="btn-group" style="padding-bottom: 4px">
+          <%= link_to moveup_estimatessection_path(section), :remote => true, class: "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if section != esections.last %>
+        <div class="btn-group" style="padding-bottom: 4px">
+          <%= link_to movedown_estimatessection_path(section), :remote => true, class: "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="btn-group" style="padding-bottom: 4px;">
         <%= button_to estimatessection_destroy_path, :id => section.id, data: { confirm: t('delete_confirm') }, class: "btn btn-danger", :remote => true  do %>
           <%= hidden_field_tag :estimate_id, section.estimate_id %>
           <%= hidden_field_tag :section_id, section.id %>

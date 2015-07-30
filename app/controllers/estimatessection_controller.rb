@@ -67,6 +67,38 @@ class EstimatessectionController < ApplicationController
     end
   end
 
+  def moveup
+    @current = EstimatesSection.find(params[:id])
+    @above = EstimatesSection.order("section_number DESC").where("section_number < ? AND estimates_sheet_id = ?", @current.section_number, @current.estimates_sheet_id).first
+    sn = @above.section_number
+    @above.section_number = @current.section_number
+    @above.save
+    @current.section_number = sn
+    @current.save
+    respond_to do |format|
+      @estimatessection = EstimatesSection.where(:estimate_id => @current.estimate_id).order("section_number ASC")
+      @sheet = EstimatesSheet.find(@current.estimates_sheet_id)
+      @positions = Position.order("title ASC")
+      format.js
+    end
+  end
+
+  def movedown
+    @current = EstimatesSection.find(params[:id])
+    @bellow = EstimatesSection.order("section_number ASC").where("section_number > ? AND estimates_sheet_id = ?", @current.section_number, @current.estimates_sheet_id).first
+    sn = @bellow.section_number
+    @bellow.section_number = @current.section_number
+    @bellow.save
+    @current.section_number = sn
+    @current.save
+    respond_to do |format|
+      @estimatessection = EstimatesSection.where(:estimate_id => @current.estimate_id).order("section_number ASC")
+      @sheet = EstimatesSheet.find(@current.estimates_sheet_id)
+      @positions = Position.order("title ASC")
+      format.js
+    end
+  end
+
   private
 
     def estimates_section_params

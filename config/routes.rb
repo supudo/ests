@@ -2,7 +2,6 @@ Rails.application.routes.draw do
 
   resources :projects
   resources :estimates
-  resources :estimatessection
   resources :estimatesassumption
   resources :estimatessheet
   resources :clients
@@ -20,6 +19,12 @@ Rails.application.routes.draw do
 
   get 'casestudies/export_casestudy_pdf', as: 'export_casestudy_pdf'
   resources :casestudies
+
+  resources :estimatessection do
+    member do
+      get :show, :create, :update, :destroy, :moveup, :movedown
+    end
+  end
 
   post 'casestudiesitems/add_overview', as: 'add_overview'
   patch 'casestudiesitems/update_overview', as: 'update_overview'
