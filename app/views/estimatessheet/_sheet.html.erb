@@ -25,37 +25,8 @@
     </div>
   </div>
   <div class="span6 offset3">
-    <div class="col-md-6">
-      <%= form_for :estimate_line, :url => estimatesline_index_path, :remote => true do |f| %>
-      <%= f.hidden_field :estimate_id, value: params[:id] %>
-      <%= f.hidden_field :estimates_sheet_id, value: sheet.id %>
-      <div class="panel panel-default">
-        <div class="panel-heading"><strong><%= t('line') %></strong></div>
-        <div class="panel-body">
-          <fieldset>
-            <div class="form-group">
-              <%= f.collection_select :estimates_sections_id, @estimatessection.where(:estimates_sheet_id => sheet.id), :id, :title, {}, {:class => 'form-control'} %>
-            </div>
-            <div class="form-group">
-              <%= f.select :technology_id, options_for_select(Technology.order("title ASC").collect { |tech| [tech.title, tech.id] }, 0), {}, {id: 'lines_technologies_select_0', :class => 'form-control'} %>
-            </div>
-            <div class="form-group">
-              <%= f.select :position_id, options_for_select(@positions.where(:technology_id => Technology.order("title ASC").first.id).collect { |pos| [pos.title, pos.id] }, 0), {}, { id: 'lines_positions_select_0', :class => 'form-control'} %>
-            </div>
-            <div class="form-group">
-              <%= f.autocomplete_field :line, autocomplete_estimatesline_line_estimatesline_index_path(:format => :json), class: 'form-control', placeholder: t('line'), autofocus: true, :id => 'ac_estimate_line_' + sheet.id.to_s %>
-            </div>
-            <div class="form-group">
-              <%= f.number_field :hours_min, class: 'form-control', placeholder: t('hours_min'), :id => 'estimate_line_hours_min_' + sheet.id.to_s %>
-            </div>
-            <div class="form-group">
-              <%= f.number_field :hours_max, class: 'form-control', placeholder: t('hours_max'), :id => 'estimate_line_hours_max_' + sheet.id.to_s %>
-            </div>
-            <%= f.submit t('button_save_changes'), class: "btn btn-lg btn-success btn-block" %>
-          </fieldset>
-        </div>
-      </div>
-      <% end %>
+    <div class="col-md-6" id="esheet-line">
+      <%= render partial: 'estimatessheet/line', locals: { sheet: sheet } %>
     </div>
   </div>
 </div>
