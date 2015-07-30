@@ -30,6 +30,7 @@ class EstimatessheetController < ApplicationController
       @estimatessection = EstimatesSection.where(:estimate_id => estimatessheet_params[:estimate_id]).order("id ASC")
       @technology = Technology.order("title ASC")
       @positions = Position.order("title ASC")
+      params[:id] = estimatessheet_params[:estimate_id]
       format.js
     end
   end
