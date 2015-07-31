@@ -8,7 +8,7 @@ total_hours_max = 0
 
 currency = @estimate.rate.currency
 
-@estimatesline = EstimatesLine.where(:estimate_id => params[:id])
+@estimatesline = EstimatesLine.where(:estimate_id => @estimate.id)
 rate_prices = RatesPrice.where(:rate_id => @estimate.rate_id, :engagement_model_id => @estimate.engagement_model_id)
 engagement_model = @estimate.engagement_model
 
