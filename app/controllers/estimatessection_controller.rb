@@ -67,6 +67,7 @@ class EstimatessectionController < ApplicationController
 
   def destroy
     EstimatesSection.find(params[:section_id]).destroy
+    EstimatesLine.where(:estimates_sections_id => params[:section_id]).destroy_all
     @estimatessection = EstimatesSection.where(:estimate_id => params[:estimate_id]).order("section_number ASC")
     @sheet = EstimatesSheet.find(params[:estimates_sheet_id])
     @positions = Position.order("title ASC")
