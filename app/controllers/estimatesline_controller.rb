@@ -81,6 +81,7 @@ class EstimateslineController < ApplicationController
     @current = EstimatesLine.find(params[:line_id])
     eid = @current.estimate_id
     @esection_id = @current.estimates_sections_id
+    @esheet_id = EstimatesSection.find_by_id(@esection_id).estimates_sheet_id
     EstimatesLine.find(params[:line_id]).destroy
     respond_to do |format|
       @estimatessection = EstimatesSection.where(:estimate_id => eid).order("section_number ASC")
@@ -107,6 +108,7 @@ class EstimateslineController < ApplicationController
       @estimatesline = EstimatesLine.where(:estimate_id => @current.estimate_id, :estimates_sections_id => @current.estimates_sections_id).order("line_number ASC")
       @current_section = EstimatesSection.find(@current.estimates_sections_id)
       @positions = Position.order("title ASC")
+      @estimate = Estimate.find_by_id(@current.estimate_id)
       format.js
     end
   end
@@ -124,6 +126,7 @@ class EstimateslineController < ApplicationController
       @estimatesline = EstimatesLine.where(:estimate_id => @current.estimate_id, :estimates_sections_id => @current.estimates_sections_id).order("line_number ASC")
       @current_section = EstimatesSection.find(@current.estimates_sections_id)
       @positions = Position.order("title ASC")
+      @estimate = Estimate.find_by_id(@current.estimate_id)
       format.js
     end
   end
