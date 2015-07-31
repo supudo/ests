@@ -44,6 +44,8 @@ class EstimateslineController < ApplicationController
       @sheet = EstimatesSheet.find(EstimatesSection.find_by_id(estimates_line_params[:estimates_sections_id]).estimates_sheet_id)
       params[:id] = estimates_line_params[:estimate_id]
       @estimate = Estimate.find_by_id(estimates_line_params[:estimate_id])
+      @esection_id = estimates_line_params[:estimates_sections_id]
+      @sheet_id = @sheet.id
       format.js
     end
   end
@@ -78,12 +80,14 @@ class EstimateslineController < ApplicationController
   def destroy
     @current = EstimatesLine.find(params[:line_id])
     eid = @current.estimate_id
+    @esection_id = @current.estimates_sections_id
     EstimatesLine.find(params[:line_id]).destroy
     respond_to do |format|
       @estimatessection = EstimatesSection.where(:estimate_id => eid).order("section_number ASC")
       @sheet = EstimatesSheet.find(@estimatessection.first.estimates_sheet_id)
       @estimate = Estimate.find_by_id(eid)
       @positions = Position.order("title ASC")
+      @estimatesline = EstimatesLine.where(:estimate_id => @estimatessection.first.estimate_id, :estimates_sections_id => @estimatessection.first.id).order("line_number ASC")
       @notif_type = 'success'
       @notif_message = t('delete_sucess')
       format.js
