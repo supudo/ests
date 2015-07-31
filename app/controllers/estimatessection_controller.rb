@@ -25,9 +25,12 @@ class EstimatessectionController < ApplicationController
       @notif_message = t('section_already_exists')
     else
       @es = EstimatesSection.new(estimates_section_params)
-      c = EstimatesSection.where("estimate_id = ?", estimates_section_params[:estimate_id]).count
-      @es = EstimatesSection.new(estimates_section_params)
-      @es.section_number = c + 1
+      c = EstimatesSection.where("estimates_sheet_id = ?", estimates_section_params[:estimates_sheet_id]).order("section_number DESC").first
+      if !c.nil?
+        @es.section_number = c.section_number + 1
+      else
+        @es.section_number = 1
+      end
       if @es.save
         @notif_type = 'success'
         @notif_message = t('sections_created_successfully')
@@ -40,7 +43,9 @@ class EstimatessectionController < ApplicationController
       @estimatessection = EstimatesSection.where(:estimate_id => estimates_section_params[:estimate_id]).order("section_number ASC")
       @positions = Position.order("title ASC")
       @sheet = EstimatesSheet.find(estimates_section_params[:estimates_sheet_id])
+      @estimate = Estimate.find_by_id(@sheet.estimate_id)
       params[:id] = estimates_section_params[:estimate_id]
+      @sheet_id = @sheet.id
       format.js
     end
   end
@@ -52,6 +57,7 @@ class EstimatessectionController < ApplicationController
     respond_to do |format|
       @eitem_id = esection.id
       @new_title = estimates_section_params[:title]
+      @estimate = Estimate.find_by_id(esection.estimate_id)
       @notif_type = 'success'
       @notif_message = t('delete_sucess')
       format.js
@@ -63,6 +69,8 @@ class EstimatessectionController < ApplicationController
     @estimatessection = EstimatesSection.where(:estimate_id => params[:estimate_id]).order("section_number ASC")
     @sheet = EstimatesSheet.find(params[:estimates_sheet_id])
     @positions = Position.order("title ASC")
+    @estimate = Estimate.find_by_id(params[:estimate_id])
+    @sheet_id = @sheet.id
     respond_to do |format|
       @notif_type = 'success'
       @notif_message = t('delete_sucess')
@@ -82,6 +90,8 @@ class EstimatessectionController < ApplicationController
       @estimatessection = EstimatesSection.where(:estimate_id => @current.estimate_id).order("section_number ASC")
       @sheet = EstimatesSheet.find(@current.estimates_sheet_id)
       @positions = Position.order("title ASC")
+      @estimate = Estimate.find_by_id(@current.estimate_id)
+      @sheet_id = @current.estimates_sheet_id
       format.js
     end
   end
@@ -98,6 +108,8 @@ class EstimatessectionController < ApplicationController
       @estimatessection = EstimatesSection.where(:estimate_id => @current.estimate_id).order("section_number ASC")
       @sheet = EstimatesSheet.find(@current.estimates_sheet_id)
       @positions = Position.order("title ASC")
+      @estimate = Estimate.find_by_id(@current.estimate_id)
+      @sheet_id = @current.estimates_sheet_id
       format.js
     end
   end

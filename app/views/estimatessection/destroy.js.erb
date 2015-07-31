@@ -1,2 +1,3 @@
-$('#grid-estimatesections').html("<%= escape_javascript(render  :partial => 'estimatessection/sections', :locals => { :sheet => @sheet }) %>");
+$('#grid-estimatesections-<%= @sheet_id %>').html("<%= escape_javascript(render :partial => 'estimatessection/sections', :locals => { :estimatessection => @estimatessection, :sheet => @sheet }) %>");
+$('#esheet-line-<%= @sheet_id %>').html("<%= escape_javascript(render :partial => 'estimatessheet/line', :locals => { :sheet => @sheet }) %>");
 showNotification(null, '<%= escape_javascript(@notif_type) %>', '<%= escape_javascript(@notif_message) %>');

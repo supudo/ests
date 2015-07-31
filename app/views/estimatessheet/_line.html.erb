@@ -6,7 +6,7 @@
         <div class="panel-body">
           <fieldset>
             <div class="form-group">
-              <%= f.collection_select :estimates_sections_id, EstimatesSection.all.where(:estimates_sheet_id => sheet.id), :id, :title, {}, {:class => 'form-control'} %>
+              <%= f.collection_select :estimates_sections_id, EstimatesSection.all.where(:estimates_sheet_id => sheet.id).order("section_number ASC"), :id, :title, {}, {:class => 'form-control'} %>
             </div>
             <div class="form-group">
               <%= f.select :technology_id, options_for_select(Technology.where("id IN (SELECT technology_id FROM projects_technologies WHERE project_id = ?)", @estimate.project_id).order("title ASC").collect { |tech| [tech.title, tech.id] }, 0), {}, {id: 'lines_technologies_select_0', :class => 'form-control'} %>

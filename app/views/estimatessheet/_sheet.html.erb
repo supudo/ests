@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class="span6 offset3">
-    <div class="col-md-6" id="esheet-line">
+    <div class="col-md-6" id="esheet-line-<%= sheet.id %>">
       <%= render partial: 'estimatessheet/line', locals: { sheet: sheet } %>
     </div>
   </div>
@@ -50,6 +50,6 @@
 
 <br />
 
-<div id="grid-estimatesections">
+<div id="grid-estimatesections-<%= sheet.id %>">
   <%= render partial: 'estimatessection/sections', locals: { estimatessection: @estimatessection, sheet: sheet } %>
 </div>

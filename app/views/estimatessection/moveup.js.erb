@@ -1,1 +1,1 @@
-$('#grid-estimatesections').html("<%= escape_javascript(render :partial => 'estimatessection/sections', :locals => { :estimatessection => @estimatessection, :sheet => @sheet }) %>");
+$('#grid-estimatesections-<%= @sheet_id %>').html("<%= escape_javascript(render :partial => 'estimatessection/sections', :locals => { :estimatessection => @estimatessection, :sheet => @sheet }) %>");

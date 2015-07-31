@@ -194,6 +194,8 @@ class EstimateImporterController < ApplicationController
               esection.estimates_sheet_id = sheet_id
               esection.title = section[:title]
               esection.save
+              esection.section_number = esection.id
+              esection.save
               section_id = esection.id
             end
 
