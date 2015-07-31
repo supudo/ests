@@ -11,6 +11,7 @@ class EstimatessectionController < ApplicationController
     @current = EstimatesSection.find(params[:id])
     @estimatesline = EstimatesLine.where(:estimates_sections_id => @current.id).order("line_number ASC")
     @positions = Position.order("title ASC")
+    @estimate = Estimate.find_by_id(@current.estimate_id)
     respond_to do |format|
       @notif_type = 'success'
       @notif_message = t('section_technology_changed')
