@@ -59,6 +59,7 @@ class EstimatessheetController < ApplicationController
       @estimatessection = EstimatesSection.where(:estimate_id => estimatessheet_params[:estimate_id]).order("section_number ASC")
       @technology = Technology.order("title ASC")
       @positions = Position.order("title ASC")
+      @estimate = Estimate.find(estimatessheet_params[:estimate_id])
       @notif_type = 'info'
       @notif_message = t('delete_sucess')
       format.js
