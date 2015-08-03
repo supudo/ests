@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading"><strong><%= t('rename') %></strong></div>
   <div class="panel-body">
-    <%= form_for :estimatessheet, :url => estimatessheet_path, :method => 'put', :id => sheet.id, :remote => true do |f| %>
+    <%= form_for :estimatessheet, :url => estimatessheet_index_path, :method => 'post', :id => sheet.id, :remote => true do |f| %>
     <%= f.hidden_field :estimates_sheet_id, value: sheet.id %>
     <fieldset>
       <div class="form-group">
