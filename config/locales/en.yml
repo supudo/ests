@@ -330,6 +330,7 @@ en:
     projects_index: "Projects"
     estimates_index: "Estimates"
     technologies_index: "Technologies"
+    technologies_tree_index: "Technologies tree"
     project_statuses_index: "Statuses"
     estimates_importer_index: "Importer"
     positions_index: "Positions"

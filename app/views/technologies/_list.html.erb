@@ -4,6 +4,7 @@
         <th><%= t('id') %></th>
         <th><%= t('title') %></th>
         <th>&nbsp;</th>
+        <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
@@ -57,6 +58,12 @@
             </div>
           </div> <!-- / Modal -->
 
+        </td>
+        <td width="1%" nowrap>
+          <%= button_to techtree_path, :method => 'get', class: "btn btn-default btn-sm" do %>
+            <%= hidden_field_tag :tech_id, item.id %>
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+          <% end %>
         </td>
         <td width="1%" nowrap>
           <%= button_to item, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true do %>

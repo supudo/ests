@@ -68,7 +68,49 @@ class TechnologiesController < ApplicationController
     end
   end
 
+  def techtree
+    add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
+    add_breadcrumb I18n.t('breadcrumbs.technologies_index'), :technologies_path
+    add_breadcrumb I18n.t('breadcrumbs.technologies_index')
+
+    @tech_tree = []
+    technologies = Technology.where(:parent_id => 0).order("title")
+    technologies.each do |tech|
+      child = {}
+      child[:text] = tech.title
+      child[:href] = tech.id.to_s
+      children = techTree(child, tech.id)
+      if !children.nil? && children.count > 0
+        child[:nodes] = techTree(child, tech.id)
+      end
+      @tech_tree.push(child)
+    end
+  end
+
+  def techtreedetails
+    respond_to do |format|
+      @technology = Technology.find(params[:tid])
+      format.js
+    end
+  end
+
   private
+
+    def techTree(dataTree, parent_id)
+      technologies = Technology.where(:parent_id => parent_id).order("title")
+      nodes = []
+      technologies.each do |tech|
+        child = {}
+        child[:text] = tech.title
+        child[:href] = tech.id.to_s
+        children = techTree(child, tech.id)
+        if !children.nil? && children.count > 0
+          child[:nodes] = techTree(child, tech.id)
+        end
+        nodes.push(child)
+      end
+      return nodes
+    end
 
     def technology_params
       params.require(:technology).permit(:title, :style, :is_rated)

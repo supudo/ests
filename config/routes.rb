@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   resources :permissions
   resources :commenthistory
   resources :requesthistory
-  resources :technologies
   resources :project_statuses
   resources :estimate_importer
   resources :estimate_exporter
@@ -16,6 +15,11 @@ Rails.application.routes.draw do
   resources :engagement_models
   resources :about
   resources :help
+
+
+  get 'technologies/techtree', as: 'techtree'
+  get 'technologies/techtreedetails', as: 'techtreedetails'
+  resources :technologies
 
   get 'casestudies/export_casestudy_pdf', as: 'export_casestudy_pdf'
   resources :casestudies

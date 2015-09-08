@@ -330,6 +330,7 @@ bg:
     projects_index: "Проекти"
     estimates_index: "Оценки"
     technologies_index: "Технологии"
+    technologies_tree_index: "Дърво на технологиите"
     project_statuses_index: "Статуси"
     estimates_importer_index: "Импорт"
     positions_index: "Позиции"

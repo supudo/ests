@@ -1,0 +1,35 @@
+<script src="/javascripts/bootstrap-treeview.js"></script>
+
+<div id="techtree" class=""></div>
+
+<script type="text/javascript">
+$(function() {
+  var techJsonData = '<% safe_concat @tech_tree.to_json.gsub(/(?:\n\r?|\r\n?)/, '') %>';
+
+  $('#techtree').treeview({
+    color: "#428bca",
+    expandIcon: "glyphicon glyphicon-plus",
+    collapseIcon: "glyphicon glyphicon-minus",
+    highlightSelected: false,
+    data: techJsonData,
+    onNodeSelected: function(event, node) {
+      editTech(node);
+    },
+  });
+
+  function editTech(node) {
+    var modal_url = '<%=  url_for :controller => "technologies", :action => "techtreedetails" %>';
+    if (modal_url.indexOf("?") == -1)
+      modal_url += '?';
+    else
+      modal_url += '&';
+    modal_url += 'tid=' + node.href;
+    $('#wmodal').load(modal_url).ready(function() {
+      jQuery.noConflict();
+      $('#wmodal').modal('toggle');
+    });
+  }
+});
+</script>
+
+<div class="modal fade" id="wmodal" tabindex="-1" role="dialog" aria-labelledby="wmodal_title" aria-hidden="true"></div>
