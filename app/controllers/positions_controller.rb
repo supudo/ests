@@ -17,7 +17,7 @@ class PositionsController < ApplicationController
     @positions = @positions.order("technology_id ASC, complexity ASC, title ASC")
 
     @position = Position.new
-    @technologies = Technology.order("title ASC")
+    @technologies = Technology.where(:parent_id => 0).order("title ASC")
 
     respond_to do |format|
       format.html
@@ -44,7 +44,7 @@ class PositionsController < ApplicationController
     end
     respond_to do |format|
       @positions = Position.order("technology_id ASC, complexity ASC, title ASC").paginate(page: params[:page])
-      @technologies = Technology.order("title ASC")
+      @technologies = Technology.where(:parent_id => 0).order("title ASC")
       format.js
     end
   end
@@ -70,7 +70,7 @@ class PositionsController < ApplicationController
     end
     respond_to do |format|
       @positions = Position.order("technology_id ASC, complexity ASC, title ASC").paginate(page: params[:page])
-      @technologies = Technology.order("title ASC")
+      @technologies = Technology.where(:parent_id => 0).order("title ASC")
       @item_id = @position.id
       format.js
     end
@@ -82,7 +82,7 @@ class PositionsController < ApplicationController
     Position.find(params[:id]).destroy
     respond_to do |format|
       @positions = Position.order("technology_id ASC, complexity ASC, title ASC").paginate(page: params[:page])
-      @technologies = Technology.order("title ASC")
+      @technologies = Technology.where(:parent_id => 0).order("title ASC")
       @notif_type = 'info'
       @notif_message = t('delete_sucess')
       format.js

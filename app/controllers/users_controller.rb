@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     @users = @users.order("first_name ASC, last_name ASC")
 
     @user = User.new
-    @technologies = Technology.order("title ASC")
+    @technologies = Technology.where(:parent_id => 0).order("title ASC")
     @positions = Position.order("title ASC")
     @clients = Client.order("title ASC")
 
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
     add_breadcrumb I18n.t('profile')
-    @technologies = Technology.all
+    @technologies = Technology.where(:parent_id => 0).order("title ASC")
     @positions = Position.all
     @clients = Client.all
   end
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
       add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
       add_breadcrumb I18n.t('breadcrumbs.edit')
       @user = User.find(params[:id])
-      @technologies = Technology.order("title ASC")
+      @technologies = Technology.where(:parent_id => 0).order("title ASC")
       @positions = Position.order("title ASC")
       @clients = Client.order("title ASC")
       render 'edit'
@@ -87,7 +87,7 @@ class UsersController < ApplicationController
         @users = @users.where("technology_id = ?", params[:ftid])
       end
       @user = User.new
-      @technologies = Technology.order("title ASC")
+      @technologies = Technology.where(:parent_id => 0).order("title ASC")
       @positions = Position.order("title ASC")
       @clients = Client.order("title ASC")
       format.js
@@ -128,7 +128,7 @@ class UsersController < ApplicationController
         @users = @users.where("technology_id = ?", params[:ftid])
       end
       @item_id = @user.id
-      @technologies = Technology.order("title ASC")
+      @technologies = Technology.where(:parent_id => 0).order("title ASC")
       @positions = Position.order("title ASC")
       @clients = Client.order("title ASC")
       format.js
@@ -143,7 +143,7 @@ class UsersController < ApplicationController
       if params[:ftid] != nil && params[:ftid] != '0'
         @users = @users.where("technology_id = ?", params[:ftid])
       end
-      @technologies = Technology.order("title ASC")
+      @technologies = Technology.where(:parent_id => 0).order("title ASC")
       @positions = Position.order("title ASC")
       @clients = Client.order("title ASC")
       @notif_type = 'info'

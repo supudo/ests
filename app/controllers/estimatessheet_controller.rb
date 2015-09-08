@@ -28,7 +28,7 @@ class EstimatessheetController < ApplicationController
       @estimate_line = EstimatesLine.new
       @estimatesassumption = EstimatesAssumption.where(:estimate_id => estimatessheet_params[:estimate_id]).order("title ASC")
       @estimatessection = EstimatesSection.where(:estimate_id => estimatessheet_params[:estimate_id]).order("section_number ASC")
-      @technology = Technology.order("title ASC")
+      @technology = Technology.where(:parent_id => 0).order("title ASC")
       @positions = Position.order("title ASC")
       params[:id] = estimatessheet_params[:estimate_id]
       format.js
@@ -57,7 +57,7 @@ class EstimatessheetController < ApplicationController
     respond_to do |format|
       @estimates_sheets = EstimatesSheet.where(:estimate_id => estimatessheet_params[:estimate_id]).order("id ASC")
       @estimatessection = EstimatesSection.where(:estimate_id => estimatessheet_params[:estimate_id]).order("section_number ASC")
-      @technology = Technology.order("title ASC")
+      @technology = Technology.where(:parent_id => 0).order("title ASC")
       @positions = Position.order("title ASC")
       @estimate = Estimate.find(estimatessheet_params[:estimate_id])
       @notif_type = 'info'

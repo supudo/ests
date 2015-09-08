@@ -48,7 +48,7 @@ class EstimatesController < ApplicationController
       @estimate_line = EstimatesLine.new
       @estimatesassumption = EstimatesAssumption.where(:estimate_id => params[:id]).order("title ASC")
       @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("section_number ASC")
-      @technology = Technology.order("title ASC")
+      @technology = Technology.where(:parent_id => 0).order("title ASC")
       @rates = Rate.order("title ASC")
       @engagement_models = EngagementModel.order("title ASC")
       @positions = Position.order("title ASC")
@@ -143,7 +143,7 @@ GROUP BY
     @estimate_line = EstimatesLine.new
     @estimatessection = EstimatesSection.where(:estimate_id => params[:id]).order("section_number ASC")
     @estimatesline = EstimatesLine.where(:estimate_id => params[:id]).order("line_number ASC")
-    @technology = Technology.order("title ASC")
+    @technology = Technology.where(:parent_id => 0).order("title ASC")
     @rates = Rate.order("title ASC")
     @positions = Position.order("title ASC")
     @engagement_models = EngagementModel.order("title ASC")

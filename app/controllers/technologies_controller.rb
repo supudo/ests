@@ -7,7 +7,7 @@ class TechnologiesController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.technologies_index'), :technologies_path
     @technology = Technology.new
-    @technologies = Technology.order("title ASC").paginate(page: params[:page])
+    @technologies = Technology.where(:parent_id => 0).order("title ASC").paginate(page: params[:page])
   end
 
   def create
@@ -27,7 +27,7 @@ class TechnologiesController < ApplicationController
       end
     end
     respond_to do |format|
-      @technologies = Technology.order("title ASC").paginate(page: params[:page])
+      @technologies = Technology.where(:parent_id => 0).order("title ASC").paginate(page: params[:page])
       format.js
     end
   end
@@ -48,7 +48,7 @@ class TechnologiesController < ApplicationController
         end
       end
       respond_to do |format|
-        @technologies = Technology.order("title ASC").paginate(page: params[:page])
+        @technologies = Technology.where(:parent_id => 0).order("title ASC").paginate(page: params[:page])
         @item_id = @technology.id
         format.js
       end
@@ -61,7 +61,7 @@ class TechnologiesController < ApplicationController
     Technology.find(params[:id]).destroy
     RatesPrice.where(:technology_id => params[:id]).destroy_all
     respond_to do |format|
-      @technologies = Technology.order("title ASC").paginate(page: params[:page])
+      @technologies = Technology.where(:parent_id => 0).order("title ASC").paginate(page: params[:page])
       @notif_type = 'info'
       @notif_message = t('delete_sucess')
       format.js

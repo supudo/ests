@@ -46,7 +46,7 @@ class RatesPricesController < ApplicationController
       @positions = Position.where("is_rated = 1").order("title ASC")
       @rate_id = rates_price_params[:rate_id]
       @rate = Rate.find(@rate_id)
-      @technology = Technology.order("title ASC")
+      @technology = Technology.where(:parent_id => 0).order("title ASC")
       @engagement_models = EngagementModel.order("title ASC")
       @currencies = Currency.order("title ASC")
       format.js
@@ -69,7 +69,7 @@ class RatesPricesController < ApplicationController
         @rate_id = rates_price_params[:rate_id]
         @rate = Rate.find(@rate_id)
         @rate_price_id = params[:rates_price][:rate_price_id]
-        @technology = Technology.order("title ASC")
+        @technology = Technology.where(:parent_id => 0).order("title ASC")
         @engagement_models = EngagementModel.order("title ASC")
         @currencies = Currency.order("title ASC")
         @engagement_model_id = rate_price.engagement_model_id
@@ -86,7 +86,7 @@ class RatesPricesController < ApplicationController
       @positions = Position.where("is_rated = 1").order("title ASC")
       @rate_id = params[:rp][:rate_id]
       @rate = Rate.find(@rate_id)
-      @technology = Technology.order("title ASC")
+      @technology = Technology.where(:parent_id => 0).order("title ASC")
       @engagement_models = EngagementModel.order("title ASC")
       @currencies = Currency.order("title ASC")
       @notif_type = 'info'
@@ -127,7 +127,7 @@ class RatesPricesController < ApplicationController
 
     respond_to do |format|
       @rates = Rate.order("title ASC")
-      @technology = Technology.order("title ASC")
+      @technology = Technology.where(:parent_id => 0).order("title ASC")
       @engagement_models = EngagementModel.order("title ASC")
       @currencies = Currency.order("title ASC")
       @positions = Position.where("is_rated = 1").order("title ASC")

@@ -17,7 +17,7 @@ class DashboardController < ApplicationController
     @users_months = @users.group_by { |t| t.created_date.beginning_of_month }
 
     @tech_expertise = []
-    @technologies = Technology.order("title ASC")
+    @technologies = Technology.where(:parent_id => 0).order("title ASC")
     @technologies.each do |tech|
       tdata = ActiveRecord::Base.connection.execute("SELECT title, users_count FROM (SELECT p.title, p.complexity, (SELECT COUNT(id) FROM users WHERE position_id = p.id AND technology_id = t.id) AS users_count FROM technologies AS t INNER JOIN positions AS p ON p.technology_id = t.id WHERE t.id = " + tech.id.to_s + ") AS t WHERE users_count > 0 ORDER BY title, complexity")
       if (tdata.count > 0)

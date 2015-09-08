@@ -17,7 +17,7 @@ class RatesController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.edit')
     @rates = Rate.order("title ASC")
     @rate = @rates.where(:id => params[:id]).first
-    @technology = Technology.order("title ASC")
+    @technology = Technology.where(:parent_id => 0).order("title ASC")
     @engagement_models = EngagementModel.order("title ASC")
     @currencies = Currency.order("title ASC")
     @positions = Position.where("is_rated = 1").order("title ASC")
@@ -72,7 +72,7 @@ class RatesController < ApplicationController
         @currency_code = Currency.find(rate_params[:currency_id]).code
         @rates_prices = RatesPrice.where(:rate_id => @rate.id).order("technology_id ASC, position_id ASC")
         @rate_id = @rate.id
-        @technology = Technology.order("title ASC")
+        @technology = Technology.where(:parent_id => 0).order("title ASC")
         @engagement_models = EngagementModel.order("title ASC")
         @currencies = Currency.order("title ASC")
         @positions = Position.where("is_rated = 1").order("title ASC")

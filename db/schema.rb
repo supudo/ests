@@ -258,9 +258,10 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "rates_prices", ["technology_id"], name: "technology_id", using: :btree
 
   create_table "technologies", force: :cascade do |t|
-    t.string  "title",    limit: 255, null: false
-    t.string  "style",    limit: 25
-    t.boolean "is_rated", limit: 1,   null: false
+    t.string  "title",     limit: 255,             null: false
+    t.string  "style",     limit: 25
+    t.boolean "is_rated",  limit: 1,               null: false
+    t.integer "parent_id", limit: 4,   default: 0, null: false
   end
 
   add_index "technologies", ["title"], name: "title", unique: true, using: :btree

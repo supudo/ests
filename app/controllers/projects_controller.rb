@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController
       @ams = User.where(:is_am => '1').order("first_name ASC, last_name ASC")
       @pdms = User.where(:is_pdm => '1').order("first_name ASC, last_name ASC")
       @users = User.order("first_name ASC, last_name ASC")
-      @technologies = Technology.order("title ASC")
+      @technologies = Technology.where(:parent_id => 0).order("title ASC")
       @project_comment = ProjectsComment.where(:project_id => @project.id).order("modified_date DESC").first
       @project_request = ProjectsRequest.where(:project_id => @project.id).order("modified_date DESC").first
       render 'edit'
@@ -53,7 +53,7 @@ class ProjectsController < ApplicationController
     @ams = User.where(:is_am => '1').order("first_name ASC, last_name ASC")
     @pdms = User.where(:is_pdm => '1').order("first_name ASC, last_name ASC")
     @users = User.order("first_name ASC, last_name ASC")
-    @technologies = Technology.order("title ASC")
+    @technologies = Technology.where(:parent_id => 0).order("title ASC")
   end
 
   def create
@@ -102,7 +102,7 @@ class ProjectsController < ApplicationController
           @ams = User.where(:is_am => '1').order("first_name ASC, last_name ASC")
           @pdms = User.where(:is_pdm => '1').order("first_name ASC, last_name ASC")
           @users = User.order("first_name ASC, last_name ASC")
-          @technologies = Technology.order("title ASC")
+          @technologies = Technology.where(:parent_id => 0).order("title ASC")
           flash[:error] = t('error_missing_fields')
           render 'new'
         end
@@ -122,7 +122,7 @@ class ProjectsController < ApplicationController
           @ams = User.where(:is_am => '1').order("first_name ASC, last_name ASC")
           @pdms = User.where(:is_pdm => '1').order("first_name ASC, last_name ASC")
           @users = User.order("first_name ASC, last_name ASC")
-          @technologies = Technology.order("title ASC")
+          @technologies = Technology.where(:parent_id => 0).order("title ASC")
           @project_comment = ProjectsComment.where(:project_id => @project.id).order("modified_date DESC").first
           @project_request = ProjectsRequest.where(:project_id => @project.id).order("modified_date DESC").first
           flash[:error] = t('error_missing_fields')
@@ -171,7 +171,7 @@ class ProjectsController < ApplicationController
           @ams = User.where(:is_am => '1').order("first_name ASC, last_name ASC")
           @pdms = User.where(:is_pdm => '1').order("first_name ASC, last_name ASC")
           @users = User.order("first_name ASC, last_name ASC")
-          @technologies = Technology.order("title ASC")
+          @technologies = Technology.where(:parent_id => 0).order("title ASC")
           @project_comment = ProjectsComment.where(:project_id => @project.id).order("modified_date DESC").first
           @project_request = ProjectsRequest.where(:project_id => @project.id).order("modified_date DESC").first
           flash[:error] = t('error_missing_fields')

@@ -2,7 +2,7 @@ class RegistrationController < ApplicationController
 
   def index
     @user = User.new
-    @technologies = Technology.order("title ASC")
+    @technologies = Technology.where(:parent_id => 0).order("title ASC")
     @positions = Position.order("title ASC")
     @clients = Client.order("title ASC")
   end
@@ -21,7 +21,7 @@ class RegistrationController < ApplicationController
     if saved_ok == 1
       redirect_to :login_index
     else
-      @technologies = Technology.order("title ASC")
+      @technologies = Technology.where(:parent_id => 0).order("title ASC")
       @positions = Position.order("title ASC")
       @clients = Client.order("title ASC")
       render 'index'
