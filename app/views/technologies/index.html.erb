@@ -2,55 +2,68 @@
 <h1><%= t('technologies') %></h1>
 
 <div class="panel panel-default">
+
   <div class="panel-heading">
+    <div class="input-group">
 
-    <button type="button" class="btn btn-primary" aria-label="Left Align">
-      <a class="btn-primary" data-toggle="modal" data-target="#wmodal0"><%= t('create_technology') %></a>
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="wmodal0" tabindex="-1" role="dialog" aria-labelledby="wmodal0_title" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <%= form_for @technology, :remote => true do |f| %>
-          <%= hidden_field_tag :page, (params.has_key?(:page) && params[:page] != '' ? params[:page] : "1") %>
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="wmodal0_title"><%= t('technology') %></h4>
-          </div>
-          <div class="modal-body">
-            <fieldset>
-              <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
-                <%= f.text_field :title, class: 'form-control', placeholder: t('technology'), autofocus: true %>
-              </div>
-              <div class="form-group">
-                <div class="input-group technology_style">
-                  <%= f.text_field :style, class: 'form-control', placeholder: t('style') %>
-                  <span class="input-group-addon"><i></i></span>
-                </div>
-                <script>
-                  $(function(){
-                    $('.technology_style').colorpicker();
-                  });
-                </script>
-              </div>
-              <div class="form-group">
-                <div class="checkbox"><label><%= f.check_box :is_rated %> <%= t('is_rated') %></label></div>
-              </div>
-            </fieldset>
-          </div>
-          <div class="modal-footer">
-            <button id="closebtn_0" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
-            <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
-          </div>
-          <% end %>
-
-        </div>
+      <div class="pull-left">
+        <button type="button" class="btn btn-primary" aria-label="Left Align">
+          <a class="btn-primary" data-toggle="modal" data-target="#wmodal0"><%= t('create_technology') %></a>
+        </button>
       </div>
-    </div> <!-- / Modal -->
 
+      <div class="pull-right">
+        <button type="button" class="btn btn-primary">
+          <%= link_to t('tech_tree'), techtree_path, :class => "btn-primary" %>
+        </button>
+      </div>
+
+    </div>
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="wmodal0" tabindex="-1" role="dialog" aria-labelledby="wmodal0_title" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <%= form_for @technology, :remote => true do |f| %>
+        <%= hidden_field_tag :page, (params.has_key?(:page) && params[:page] != '' ? params[:page] : "1") %>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="wmodal0_title"><%= t('technology') %></h4>
+        </div>
+        <div class="modal-body">
+          <fieldset>
+            <div class="form-group<%= f.object.errors[:title].any? ? ' has-error has-feedback' : '' %>">
+              <%= f.text_field :title, class: 'form-control', placeholder: t('technology'), autofocus: true %>
+            </div>
+            <div class="form-group">
+              <div class="input-group technology_style">
+                <%= f.text_field :style, class: 'form-control', placeholder: t('style') %>
+                <span class="input-group-addon"><i></i></span>
+              </div>
+              <script>
+                $(function(){
+                  $('.technology_style').colorpicker();
+                });
+              </script>
+            </div>
+            <div class="form-group">
+              <div class="checkbox"><label><%= f.check_box :is_rated %> <%= t('is_rated') %></label></div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button id="closebtn_0" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
+          <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
+        </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div> <!-- / Modal -->
+
   <div id="technologies-list">
     <%= render partial: 'technologies/list', locals: { technologies: @technologies } %>
   </div>
+
 </div>

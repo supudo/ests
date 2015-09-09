@@ -1,35 +1,100 @@
-<script src="/javascripts/bootstrap-treeview.js"></script>
+<link rel="stylesheet" media="all" href="/stylesheets/bootstrap-gtreetable.css" data-turbolinks-track="true" />
+<script src="/javascripts/bootstrap-gtreetable.js"></script>
 
-<div id="techtree" class=""></div>
+<table class="table gtreetable" id="techtreetbl"><thead><tr><th><%= t('technology') %></th></tr></thead></table>
 
-<script type="text/javascript">
+<script>
 $(function() {
-  var techJsonData = '<% safe_concat @tech_tree.to_json.gsub(/(?:\n\r?|\r\n?)/, '') %>';
-
-  $('#techtree').treeview({
-    color: "#428bca",
-    expandIcon: "glyphicon glyphicon-plus",
-    collapseIcon: "glyphicon glyphicon-minus",
-    highlightSelected: false,
-    data: techJsonData,
-    onNodeSelected: function(event, node) {
-      editTech(node);
+  jQuery('#techtreetbl').gtreetable({
+    'source': function(id) {
+      return {
+        type: 'GET',
+        url: 'techtreegrid',
+        data: { 'id': id },
+        dataType: 'json',
+        error: function(XMLHttpRequest) {
+          alert(XMLHttpRequest.status + ': ' + XMLHttpRequest.responseText);
+        }
+      }
     },
+    selectLimit: 0,
+    defaultActions: null,
+    actions: [
+      {
+        name: '${update}',
+        event: function (oNode, oManager) {
+          oNode.makeEditable();
+        }
+      },
+      {
+        name: '${delete}',
+        event: function (oNode, oManager) {
+          if (confirm(oManager.language.messages.onDelete)) {
+            oNode.remove();
+          }
+        }
+      },
+      {
+          divider: true
+      },
+      {
+        name: '${createAfter}',
+        event: function (oNode, oManager) {
+          oNode.add('after', 'default');
+        }
+      },
+      {
+        name: '${createFirstChild}',
+        event: function (oNode, oManager) {
+          oNode.add('firstChild', 'default');
+        }
+      },
+    ],
+    languages: {
+      'en-US': {
+        save: "<%= t('button_save') %>",
+        cancel: "<%= t('button_cancel') %>",
+        action: "<%= t('button_action') %>",
+        actions: {
+          createAfter: "<%= t('button_create_after') %>",
+          createFirstChild: "<%= t('button_create_first_child') %>",
+          update: "<%= t('button_update') %>",
+          'delete': "<%= t('delete') %>"
+        },
+        messages: {
+          onDelete: "<%= t('delete_confirm') %>",
+        }                
+      }
+    },
+    'onSave': function(oNode) {
+      return {
+        type: 'POST',
+        url: !oNode.isSaved() ? '/technologies/createtechnode' : '/technologies/updatetechnode?tid=' + oNode.getId(),
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        data: {
+          id: oNode.getId(),
+          parent: oNode.getParent(),
+          name: oNode.getName(),
+          position: oNode.getInsertPosition(),
+          related: oNode.getRelatedNodeId()
+        },
+        dataType: 'json',
+        error: function(XMLHttpRequest) {
+          alert(XMLHttpRequest.status + ': ' + XMLHttpRequest.responseText);
+        }
+      };
+    },
+    'onDelete': function(oNode) {
+      return {
+        type: 'GET',
+        url: "/technologies/deletetechnode?tid=" + oNode.getId(),
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        dataType: 'json',
+        error: function(XMLHttpRequest) {
+          alert(XMLHttpRequest.status + ': ' + XMLHttpRequest.responseText);
+        }
+      };
+    }
   });
-
-  function editTech(node) {
-    var modal_url = '<%=  url_for :controller => "technologies", :action => "techtreedetails" %>';
-    if (modal_url.indexOf("?") == -1)
-      modal_url += '?';
-    else
-      modal_url += '&';
-    modal_url += 'tid=' + node.href;
-    $('#wmodal').load(modal_url).ready(function() {
-      jQuery.noConflict();
-      $('#wmodal').modal('toggle');
-    });
-  }
 });
 </script>
-
-<div class="modal fade" id="wmodal" tabindex="-1" role="dialog" aria-labelledby="wmodal_title" aria-hidden="true"></div>

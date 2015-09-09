@@ -16,9 +16,12 @@ Rails.application.routes.draw do
   resources :about
   resources :help
 
-
   get 'technologies/techtree', as: 'techtree'
+  get 'technologies/techtreegrid', as: 'techtreegrid'
   get 'technologies/techtreedetails', as: 'techtreedetails'
+  post 'technologies/updatetechnode', as: 'updatetechnode'
+  get 'technologies/deletetechnode', as: 'deletetechnode'
+  post 'technologies/createtechnode', as: 'createtechnode'
   resources :technologies
 
   get 'casestudies/export_casestudy_pdf', as: 'export_casestudy_pdf'

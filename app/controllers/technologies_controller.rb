@@ -68,22 +68,87 @@ class TechnologiesController < ApplicationController
     end
   end
 
+  # --------------------------------
+  # Tree
+  # --------------------------------
+
   def techtree
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.technologies_index'), :technologies_path
     add_breadcrumb I18n.t('breadcrumbs.technologies_index')
+  end
 
-    @tech_tree = []
-    technologies = Technology.where(:parent_id => 0).order("title")
-    technologies.each do |tech|
-      child = {}
-      child[:text] = tech.title
-      child[:href] = tech.id.to_s
-      children = techTree(child, tech.id)
-      if !children.nil? && children.count > 0
-        child[:nodes] = techTree(child, tech.id)
+  def deletetechnode
+    @current = Technology.find(params[:tid])
+    pid = @current.id
+    Technology.find(params[:tid]).destroy
+    RatesPrice.where(:technology_id => params[:tid]).destroy_all
+    tech_nodes = getTechTree()
+    respond_to do |format|
+      format.html
+      format.json { render :json => tech_nodes.to_json }
+    end
+  end
+
+  def updatetechnode
+    technology = Technology.find_by_id(params[:tid])
+    ActiveRecord::Base.transaction do
+      if Technology.where(:title => params[:name]).where.not(:id => params[:tid]).count == 0
+        technology.title = params[:name]
+        technology.save
       end
-      @tech_tree.push(child)
+    end
+    child = {}
+    child[:id] = technology.id
+    child[:name] = technology.title
+    child[:level] = getNodeLevel(technology, 0)
+    child[:type] = "default"
+    respond_to do |format|
+      format.html
+      format.json { render :json => child.to_json }
+    end
+  end
+
+  def deletefromtree
+    @current = Technology.find(params[:tid])
+    pid = @current.id
+    Technology.find(params[:tid]).destroy
+    RatesPrice.where(:technology_id => params[:tid]).destroy_all
+    params[:id] = params[:tid]
+    tech_nodes = getTechTree()
+    respond_to do |format|
+      format.html
+      format.json { render :json => tech_nodes.to_json }
+    end
+  end
+
+  def createtechnode
+    if Technology.exists?(:title => params[:name])
+      @notif_type = 'info'
+      @notif_message = t('technology_already_exists')
+    else
+      technology = Technology.new
+      technology.title = params[:name]
+      technology.parent_id = params[:parent]
+      technology.is_rated = 0
+      technology.save
+    end
+    child = {}
+    child[:id] = technology.id
+    child[:name] = technology.title
+    child[:level] = getNodeLevel(technology, 0)
+    child[:type] = "default"
+    respond_to do |format|
+      format.html
+      format.json { render :json => child.to_json }
+    end
+  end
+
+  def techtreegrid
+    tech_nodes = getTechTree()
+    respond_to do |format|
+      format.html
+      format.json { render :json => tech_nodes.to_json }
     end
   end
 
@@ -96,20 +161,50 @@ class TechnologiesController < ApplicationController
 
   private
 
-    def techTree(dataTree, parent_id)
+    def getTechTree
+      tech_tree = []
+      technologies = Technology.where(:parent_id => params[:id]).order("title")
+      technologies.each do |tech|
+        child = {}
+        child[:id] = tech.id
+        child[:name] = tech.title
+        child[:level] = getNodeLevel(tech, 0)
+        child[:type] = "default"
+        children = techTreeGrid(child, tech.id, 1)
+        if !children.nil? && children.count > 0
+          child[:nodes] = children
+        end
+        tech_tree.push(child)
+      end
+      tech_nodes = {}
+      tech_nodes[:nodes] = tech_tree
+      return tech_nodes
+    end
+
+    def techTreeGrid(dataTree, parent_id, level)
       technologies = Technology.where(:parent_id => parent_id).order("title")
       nodes = []
       technologies.each do |tech|
         child = {}
-        child[:text] = tech.title
-        child[:href] = tech.id.to_s
-        children = techTree(child, tech.id)
+        child[:id] = tech.id
+        child[:name] = tech.title
+        child[:level] = getNodeLevel(tech, 0)
+        child[:type] = "default"
+        children = techTreeGrid(child, tech.id, (level + 1))
         if !children.nil? && children.count > 0
-          child[:nodes] = techTree(child, tech.id)
+          child[:nodes] = children
         end
         nodes.push(child)
       end
       return nodes
+    end
+
+    def getNodeLevel(node, level)
+      if node.parent.nil?
+        return level
+      else
+        return getNodeLevel(node.parent, (level + 1))
+      end
     end
 
     def technology_params

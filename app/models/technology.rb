@@ -3,6 +3,8 @@ class Technology < ActiveRecord::Base
   has_many :projects_technology, :dependent => :destroy
   has_many :projects, :through => :project_technologies
   has_many :positions
+  has_many :children, class_name: "Technology", foreign_key: "parent_id", :dependent => :destroy
+  belongs_to :parent, class_name: "Technology"
 
   self.per_page = 30
 
