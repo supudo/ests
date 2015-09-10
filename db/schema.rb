@@ -264,7 +264,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "parent_id", limit: 4,   default: 0, null: false
   end
 
-  add_index "technologies", ["title"], name: "title", unique: true, using: :btree
+  add_index "technologies", ["title", "parent_id"], name: "title_parent", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 150,              null: false
@@ -294,6 +294,13 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "users", ["email"], name: "username", unique: true, using: :btree
   add_index "users", ["position_id"], name: "position_id", using: :btree
   add_index "users", ["technology_id"], name: "technology_id", using: :btree
+
+  create_table "users_competencies", force: :cascade do |t|
+    t.integer "user_id",       limit: 4, null: false
+    t.integer "technology_id", limit: 4, null: false
+  end
+
+  add_index "users_competencies", ["user_id", "technology_id"], name: "user_tech", unique: true, using: :btree
 
   create_table "users_permissions", force: :cascade do |t|
     t.integer "user_id",       limit: 4, null: false

@@ -220,7 +220,7 @@ CREATE TABLE `estimates` (
   KEY `owner_user_id` (`owner_user_id`),
   KEY `rate_id` (`rate_id`),
   KEY `engagement_model_id` (`engagement_model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,7 +263,7 @@ CREATE TABLE `estimates_lines` (
   KEY `technology_id` (`technology_id`),
   KEY `estimates_sections_id` (`estimates_sections_id`),
   KEY `position_id` (`position_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1631 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1636 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -282,7 +282,7 @@ CREATE TABLE `estimates_sections` (
   PRIMARY KEY (`id`),
   KEY `estimate_id` (`estimate_id`),
   KEY `estimates_sheet_id` (`estimates_sheet_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=332 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=354 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -298,7 +298,7 @@ CREATE TABLE `estimates_sheets` (
   `title` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `estimate_id` (`estimate_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -509,9 +509,10 @@ CREATE TABLE `technologies` (
   `title` varchar(255) NOT NULL,
   `style` varchar(25) DEFAULT NULL,
   `is_rated` tinyint(1) NOT NULL,
+  `parent_id` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `title_parent` (`title`,`parent_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=227 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -553,6 +554,22 @@ CREATE TABLE `users` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `users_competencies`
+--
+
+DROP TABLE IF EXISTS `users_competencies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users_competencies` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL,
+  `technology_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_tech` (`user_id`,`technology_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `users_permissions`
 --
 
@@ -578,6 +595,6 @@ CREATE TABLE `users_permissions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-30 13:39:36
+-- Dump completed on 2015-09-10 15:55:28
 
 
