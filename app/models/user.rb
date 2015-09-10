@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :users_permissions
   has_many :permissions, :through => :users_permissions
   has_many :estimates, class_name: 'Estimate', inverse_of: :owner_user
+  has_many :competencies, :through => :users_competencies
 
   self.per_page = 30
 

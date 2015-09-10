@@ -154,6 +154,7 @@ en:
   is_account_manager: "Is Account Manager?"
   is_production_manager: "Is Production Manager?"
   is_rated: "Is Rated?"
+  token_technologies: "Specify technologies"
 
   client: "Client"
   clients: "Clients"

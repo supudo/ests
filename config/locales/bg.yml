@@ -154,6 +154,7 @@ bg:
   is_account_manager: "Мениджър Акаунт?"
   is_production_manager: "Мениджър Продукция?"
   is_rated: "Участва в Ставки?"
+  token_technologies: "Спеифицирай технологии"
 
   client: "Клиент"
   clients: "Клиенти"

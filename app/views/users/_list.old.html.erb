@@ -1,0 +1,178 @@
+  <div id="filterrific_results">
+
+    <script>
+    <%
+    techs_str = ''
+    techs = Technology.all#.where(:is_rated => 0).order("title ASC")
+    techs.each do |tech|
+      techs_str += "{value: '" + tech.id.to_s + "', label: '" + tech.title + "'},";
+    end
+    techs_str = techs_str[0, techs_str.size - 1]
+    %>
+    var technologies_tokens = [<% safe_concat techs_str %>];
+    </script>
+
+    <table class="table table-striped" style="margin-bottom: 0px;">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th><%= t('id') %></th>
+          <th><%= t('name') %></th>
+          <th><%= t('position') %></th>
+          <th><%= t('username') %></th>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% user_counter = 1 %>
+        <% @users.each do |user| %>
+        <tr>
+          <td scope="row" class="vert-align">
+            <%= user_counter %>
+            <% user_counter += 1 %>
+          </td>
+          <td scope="row" class="vert-align"><%= user.id %></td>
+          <td class="vert-align">
+            <a data-toggle="modal" data-target="#wmodal<%= user.id %>" id="#lnkmodal<%= user.id %>">
+              <%= user.first_name %> <%= user.last_name %>
+            </a>
+          </td>
+          <td class="vert-align"><strong><%= user.position.title %></strong> @ <%= user.technology.title %></td>
+          <td class="vert-align">
+
+            <a data-toggle="modal" data-target="#wmodal<%= user.id %>" id="#lnkmodal<%= user.id %>">
+              <%= user.email %>
+            </a>
+
+            <!-- Modal -->
+            <div class="modal fade" id="wmodal<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="wmodal<%= user.id %>_title" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <%= form_for user, :remote => true do |f| %>
+                  <%= hidden_field_tag :page, (params.has_key?(:page) && params[:page] != '' ? params[:page] : "1") %>
+                  <%= hidden_field_tag :ftid, (params.has_key?(:ftid) && params[:ftid] != '' ? params[:ftid] : "") %>
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="wmodal<%= user.id %>_title"><%= t('user') %></h4>
+                  </div>
+                  <div class="modal-body">
+                    <fieldset>
+                      <div class="form-group<%= f.object.errors[:email].any? ? ' has-error has-feedback' : '' %>">
+                        <%= f.email_field :email, class: 'form-control', placeholder: t('email'), autofocus: true %>
+                      </div>
+                      <div class="form-group<%= f.object.errors[:password].any? ? ' has-error has-feedback' : '' %>">
+                        <%= f.password_field :password, class: 'form-control', placeholder: t('password') %>
+                      </div>
+                      <div class="form-group<%= f.object.errors[:password_confirmation].any? ? ' has-error has-feedback' : '' %>">
+                        <%= f.password_field :password_confirmation, class: 'form-control', placeholder: t('password_confirm') %>
+                      </div>
+                      <div class="form-group<%= f.object.errors[:first_name].any? ? ' has-error has-feedback' : '' %>">
+                        <%= f.text_field :first_name, class: 'form-control', placeholder: t('first_name') %>
+                      </div>
+                      <div class="form-group<%= f.object.errors[:last_name].any? ? ' has-error has-feedback' : '' %>">
+                        <%= f.text_field :last_name, class: 'form-control', placeholder: t('last_name') %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.select :technology_id, options_for_select(@technologies.collect { |tech| [tech.title, tech.id] }, user.technology_id), {}, { id: 'users_technologies_select_' + user.id.to_s, :class => 'form-control'} %>
+                      </div>
+                      <div class="form-group">
+                        <input id="user_tech_<%= user.id %>" type="text" class="form-control tokenize" placeholder="Specify technologies">
+                        <script>
+                          $(function(){
+                            jQuery.noConflict();
+                            $('#user_tech_<%= user.id %>').tokenfield({
+                              autocomplete: { source: technologies_tokens, delay: 100 },
+                              showAutocompleteOnFocus: true
+                            });
+                            //$(".ui-autocomplete .ui-front .ui-menu .ui-widget .ui-widget-content").css("z-index", "11001");
+                            $(".ui-autocomplete .ui-front .ui-menu .ui-widget .ui-widget-content").zIndex(11001);
+                          });
+                        </script>
+                      </div>
+                      <div class="form-group">
+                        <%= f.select :position_id, options_for_select(@positions.where(:technology_id => user.technology_id).collect { |pos| [pos.title, pos.id] }, user.position_id), {:selected => user.position_id}, {id: 'users_positions_select_' + user.id.to_s, :class => 'form-control'} %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.collection_select :client_id, @clients, :id, :title, {}, {:class => 'form-control'} %>
+                      </div>
+                      <div class="form-group">
+                        <div class="checkbox">
+                          <label><%= f.check_box :is_am %> <%= t('is_account_manager') %></label>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="checkbox">
+                          <label><%= f.check_box :is_pdm %> <%= t('is_production_manager') %></label>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="modal-footer">
+                    <button id="closebtn_<%= user.id %>" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button>
+                    <%= f.submit t('button_save_changes'), class: "btn btn-primary" %>
+                  </div>
+                  <% end %>
+
+                </div>
+              </div>
+            </div> <!-- / Modal -->
+
+          </td>
+          <td width="1%" nowrap>
+
+            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#pmodal<%= user.id %>">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="pmodal<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="pmodal<%= user.id %>_title" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <%= form_tag users_permission_index_path, :remote => true do |f| %>
+                  <%= hidden_field_tag :user_id, user.id %>
+                  <%= hidden_field_tag :page, (params.has_key?(:page) && params[:page] != '' ? params[:page] : "1") %>
+                  <%= hidden_field_tag :ftid, (params.has_key?(:ftid) && params[:ftid] != '' ? params[:ftid] : "") %>
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="wmodal<%= user.id %>_title"><%= t('user') %></h4>
+                  </div>
+                  <div class="modal-body">
+                    <fieldset>
+                      <div class="form-group">
+
+                        <div class="checkbox">
+                          <label><input type="checkbox" id="up_selectall"><%= t('check_all') %></label>
+                        </div>
+                        <% @permissions.each do |item| %>
+                        <div class="checkbox">
+                          <label><%= check_box_tag :permission_ids, item.id, user.permissions.include?(item), :name => 'permission_ids[' + item.id.to_s + ']' %> <%= item.description %></label>
+                        </div>
+                        <% end %>
+
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="modal-footer">
+                    <button id="pclosebtn_<%= user.id %>" type="button" class="btn btn-default" data-dismiss="modal" style="visibility: hidden"></button><br />
+                    <%= submit_tag t('button_save_changes'), class: "btn btn-primary" %>
+                  </div>
+                  <% end %>
+
+                </div>
+              </div>
+            </div> <!-- / Modal -->
+
+          </td>
+          <td width="1%" nowrap>
+            <% if user.id != current_user.id %>
+            <%= button_to user, method: :delete, data: { confirm: t('delete_confirm') }, class: "btn btn-default btn-sm", :remote => true do %>
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            <% end %>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>

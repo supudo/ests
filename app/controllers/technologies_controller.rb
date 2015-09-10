@@ -11,7 +11,7 @@ class TechnologiesController < ApplicationController
   end
 
   def create
-    if Technology.exists?(:title => technology_params[:title])
+    if Technology.exists?(:title => technology_params[:title], :parent_id => 0)
       @notif_type = 'info'
       @notif_message = t('technology_already_exists')
     else
@@ -35,7 +35,7 @@ class TechnologiesController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       @technology = Technology.find_by_id(params[:id])
-      if Technology.where(:title => technology_params[:title]).where.not(:id => params[:id]).count > 0
+      if Technology.where(:title => technology_params[:title], :parent_id => 0).where.not(:id => params[:id]).count > 0
         @notif_type = 'info'
         @notif_message = t('technology_already_exists')
       else
@@ -93,7 +93,7 @@ class TechnologiesController < ApplicationController
   def updatetechnode
     technology = Technology.find_by_id(params[:tid])
     ActiveRecord::Base.transaction do
-      if Technology.where(:title => params[:name]).where.not(:id => params[:tid]).count == 0
+      if Technology.where(:title => params[:name], :parent_id => params[:parent]).where.not(:id => params[:tid]).count == 0
         technology.title = params[:name]
         technology.save
       end
@@ -123,7 +123,7 @@ class TechnologiesController < ApplicationController
   end
 
   def createtechnode
-    if Technology.exists?(:title => params[:name])
+    if Technology.exists?(:title => params[:name], :parent_id => [:parent])
       @notif_type = 'info'
       @notif_message = t('technology_already_exists')
     else

@@ -22,4 +22,21 @@ class Technology < ActiveRecord::Base
     end
     children_array
   end
+
+  def tree_title
+    return get_tree_title(self, self.title)
+  end
+
+  def get_tree_title(node, title)
+    if node.parent_id == 0
+      return title
+    else
+      title = node.parent.title + ' / ' + title
+      if !node.parent.nil?
+        return get_tree_title(node.parent, title)
+      else
+        return title
+      end
+    end
+  end
 end

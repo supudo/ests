@@ -38,9 +38,18 @@ class UsersController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
     add_breadcrumb I18n.t('profile')
+    @user = @current_user
     @technologies = Technology.where(:parent_id => 0).order("title ASC")
     @positions = Position.all
     @clients = Client.all
+    @utechnologies_ids = ','
+    @utechnologies_titles = ''
+    ucomps = UsersCompetency.where(:user_id => @user.id)
+    ucomps.each do |uc|
+      @utechnologies_ids += uc.technology_id.to_s + ','
+      @utechnologies_titles += "{value: '" + uc.technology_id.to_s + "', label: '" + uc.technology.tree_title + "'},"
+    end
+    @utechnologies_titles = @utechnologies_titles[0, @utechnologies_titles.size]
   end
 
   def show
@@ -57,6 +66,14 @@ class UsersController < ApplicationController
       @technologies = Technology.where(:parent_id => 0).order("title ASC")
       @positions = Position.order("title ASC")
       @clients = Client.order("title ASC")
+      @utechnologies_ids = ','
+      @utechnologies_titles = ''
+      ucomps = UsersCompetency.where(:user_id => @user.id)
+      ucomps.each do |uc|
+        @utechnologies_ids += uc.technology_id.to_s + ','
+        @utechnologies_titles += "{value: '" + uc.technology_id.to_s + "', label: '" + uc.technology.tree_title + "'},"
+      end
+      @utechnologies_titles = @utechnologies_titles[0, @utechnologies_titles.size]
       render 'edit'
     end
   end
@@ -95,6 +112,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    has_errors = false
     @user = User.find_by_id(params[:id])
     @user.first_name = user_params[:first_name]
     @user.last_name = user_params[:last_name]
@@ -106,32 +124,30 @@ class UsersController < ApplicationController
     @user.is_pdm = user_params[:is_pdm]
     if !user_params[:password].empty? && !user_params[:password_confirmation].empty?
       if user_params[:password] != user_params[:password_confirmation]
-        @notif_type = 'danger'
+        has_errors = true
         @notif_message = t('passwords_not_matching')
       else
         @user.password = user_params[:password]
         @user.password_confirmation = user_params[:password_confirmation]
       end
     end
-
-    if @user.save
-      @notif_type = 'success'
-      @notif_message = t('profile_updated')
-    else
-      @notif_type = 'danger'
-      @notif_message = t('error_missing_fields')
-    end
-
-    respond_to do |format|
-      @users = User.order("first_name ASC, last_name ASC").paginate(page: params[:page])
-      if params[:ftid] != nil && params[:ftid] != '0'
-        @users = @users.where("technology_id = ?", params[:ftid])
+    UsersCompetency.delete_all(:user_id => @user.id)
+    ActiveRecord::Base.transaction do
+      tc = user_params[:tech_competencies].split(',')
+      tc.uniq.each do |tech|
+        if tech != ''
+          uc = UsersCompetency.new
+          uc.user_id = @user.id
+          uc.technology_id = tech
+          uc.save
+        end
       end
-      @item_id = @user.id
-      @technologies = Technology.where(:parent_id => 0).order("title ASC")
-      @positions = Position.order("title ASC")
-      @clients = Client.order("title ASC")
-      format.js
+    end
+    if has_errors == true
+      @current_user = @user
+      render 'edit'
+    else
+      redirect_to :users
     end
   end
 
@@ -163,7 +179,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :technology_id, :position_id, :client_id, :is_am, :is_pdm)
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :technology_id, :position_id, :client_id, :is_am, :is_pdm, :tech_competencies)
     end
 
     def self.permission

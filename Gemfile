@@ -68,6 +68,9 @@ gem 'remotipart', '~> 1.2.1'
 gem 'wicked_pdf', '~> 0.11.0'
 gem 'wkhtmltopdf-binary'
 
+# Tokenfield
+gem 'bootstrap_tokenfield_rails', '~> 0.0.9'
+
 # Permissions & Roles
 #gem 'devise'
 #gem 'cancan'
