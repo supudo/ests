@@ -254,6 +254,7 @@ bg:
   create_project_status: "Създай Статус"
   create_technology: "Създай Технология"
   tech_tree: "Технологично Дърво"
+  expertise_matrix: "Експертизна Матрица"
   projects_statuses: "Статуси на Проекти"
   technology_already_exists: "Технологията вече съществува."
   technology_created_successfully: "Технологията беше създадена успешно."
@@ -347,6 +348,7 @@ bg:
     currencies_index: "Валути"
     casestudies_index: "Казуси"
     permissions_index: "Привилегии"
+    expertise_matrix_index: "Технологична Експертиза"
 
   defaults: &defaults
     month_names: [~, Януари, Февруари, Март, Април, Май, Юни, Юли, Август, Септември, Октмоври, Ноември, Декември]

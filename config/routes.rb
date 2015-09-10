@@ -24,6 +24,10 @@ Rails.application.routes.draw do
   post 'technologies/createtechnode', as: 'createtechnode'
   resources :technologies
 
+  get 'expertisematrix/emtechtree', as: 'emtechtree'
+  get 'expertisematrix/emtechtreegrid', as: 'emtechtreegrid'
+  resources :expertisematrix
+
   get 'casestudies/export_casestudy_pdf', as: 'export_casestudy_pdf'
   resources :casestudies
 

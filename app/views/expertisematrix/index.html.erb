@@ -1,0 +1,29 @@
+<% provide(:title, t('expertise_matrix')) %>
+<h1><%= t('expertise_matrix') %></h1>
+
+<link rel="stylesheet" media="all" href="/stylesheets/bootstrap-gtreetable.css" data-turbolinks-track="true" />
+<script src="/javascripts/bootstrap-gtreetable.js"></script>
+
+<table class="table gtreetable" id="emtechtreetbl"><thead><tr><th><%= t('technology') %></th></tr></thead></table>
+
+<script>
+$(function() {
+  jQuery('#emtechtreetbl').gtreetable({
+    'source': function(id) {
+      return {
+        type: 'GET',
+        url: 'expertisematrix/emtechtreegrid',
+        data: { 'id': id },
+        dataType: 'json',
+        error: function(XMLHttpRequest) {
+          alert(XMLHttpRequest.status + ': ' + XMLHttpRequest.responseText);
+        }
+      }
+    },
+    selectLimit: 0,
+    defaultActions: null,
+    actions: null,
+    readonly: true
+  });
+});
+</script>

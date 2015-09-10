@@ -16,7 +16,7 @@ var technologies_tokens = [<% safe_concat techs_str %>];
 
 <div class="login-panel panel panel-default">
   <div class="panel-body">
-    <%= form_for(@current_user) do |f| %>
+    <%= form_for(@user) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
     <fieldset>
       <div class="form-group<%= f.object.errors[:email].any? ? ' has-error has-feedback' : '' %>">
@@ -35,15 +35,15 @@ var technologies_tokens = [<% safe_concat techs_str %>];
         <%= f.text_field :last_name, class: 'form-control', placeholder: t('last_name') %>
       </div>
       <div class="form-group">
-        <%= f.select :technology_id, options_for_select(@technologies.collect { |tech| [tech.title, tech.id] }, @current_user.technology_id), {}, { id: 'users_technologies_select_' + @current_user.id.to_s, :class => 'form-control'} %>
+        <%= f.select :technology_id, options_for_select(@technologies.collect { |tech| [tech.title, tech.id] }, @user.technology_id), {}, { id: 'users_technologies_select_' + @user.id.to_s, :class => 'form-control'} %>
       </div>
       <div class="form-group">
-        <input type="hidden" id="iduser_<%= @current_user.id %>_tech_competencies" name="user[tech_competencies]" value="" />
-        <input id="user_tech_<%= @current_user.id %>" type="text" class="form-control tokenize" placeholder="<%= t('token_technologies') %>" value="" />
+        <input type="hidden" id="iduser_<%= @user.id %>_tech_competencies" name="user[tech_competencies]" value="" />
+        <input id="user_tech_<%= @user.id %>" type="text" class="form-control tokenize" placeholder="<%= t('token_technologies') %>" value="" />
         <script>
           $(function() {
             jQuery.noConflict();
-            $('#user_tech_<%= @current_user.id %>')
+            $('#user_tech_<%= @user.id %>')
             .tokenfield({
               autocomplete: { source: technologies_tokens, delay: 100 },
               showAutocompleteOnFocus: true,
@@ -56,23 +56,23 @@ var technologies_tokens = [<% safe_concat techs_str %>];
               });
             })
             .on('tokenfield:createdtoken', function (e) {
-              var v = $('#iduser_<%= @current_user.id %>_tech_competencies').val();
+              var v = $('#iduser_<%= @user.id %>_tech_competencies').val();
               if (v == '')
                 v = ',';
               v +=  e.attrs.value + ',';
-              $('#iduser_<%= @current_user.id %>_tech_competencies').val(v);
+              $('#iduser_<%= @user.id %>_tech_competencies').val(v);
             })
             .on('tokenfield:removedtoken', function (e) {
-              v = $('#iduser_<%= @current_user.id %>_tech_competencies').val();
+              v = $('#iduser_<%= @user.id %>_tech_competencies').val();
               v = v.replace(',' + e.attrs.value + ',', ',');
-              $('#iduser_<%= @current_user.id %>_tech_competencies').val(v);
+              $('#iduser_<%= @user.id %>_tech_competencies').val(v);
             });
-            $('#user_tech_<%= @current_user.id %>').tokenfield('setTokens', [<% safe_concat @utechnologies_titles %>]);
+            $('#user_tech_<%= @user.id %>').tokenfield('setTokens', [<% safe_concat @utechnologies_titles %>]);
           });
         </script>
       </div>
       <div class="form-group">
-        <%= f.select :position_id, options_for_select(@positions.where(:technology_id => @current_user.technology_id).collect { |pos| [pos.title, pos.id] }, @current_user.position_id), {:selected => @current_user.position_id}, {id: 'users_positions_select_' + @current_user.id.to_s, :class => 'form-control'} %>
+        <%= f.select :position_id, options_for_select(@positions.where(:technology_id => @user.technology_id).collect { |pos| [pos.title, pos.id] }, @user.position_id), {:selected => @user.position_id}, {id: 'users_positions_select_' + @user.id.to_s, :class => 'form-control'} %>
       </div>
       <div class="form-group">
         <%= f.collection_select :client_id, @clients, :id, :title, {}, {:class => 'form-control'} %>

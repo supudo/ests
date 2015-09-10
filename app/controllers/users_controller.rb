@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     add_breadcrumb I18n.t('breadcrumbs.dashboard'), :dashboard_path
     add_breadcrumb I18n.t('breadcrumbs.users_index'), users_path
     add_breadcrumb I18n.t('profile')
-    @user = @current_user
+    @user = User.find(params[:id])
     @technologies = Technology.where(:parent_id => 0).order("title ASC")
     @positions = Position.all
     @clients = Client.all

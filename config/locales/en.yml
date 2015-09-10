@@ -259,6 +259,7 @@ en:
   create_project_status: "Create Status"
   create_technology: "Create Technology"
   tech_tree: "Technology Tree"
+  expertise_matrix: "Expertise Matrix"
   projects_statuses: "Project Statuses"
   technology_already_exists: "Technology already exists."
   technology_created_successfully: "Technology created successfully."
@@ -347,6 +348,7 @@ en:
     currencies_index: "Currencies"
     casestudies_index: "Case Studies"
     permissions_index: "Permissions"
+    expertise_matrix_index: "Expertise Matrix"
 
   defaults: &defaults
     month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
