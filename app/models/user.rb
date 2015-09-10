@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
     terms = terms.map { |e|
       (e.gsub('*', '%') + '%').gsub(/%+/, '%')
     }
-    num_or_conditions = 5
+    num_or_conditions = 6
     where(
       terms.map {
         or_clauses = [
@@ -66,7 +66,8 @@ class User < ActiveRecord::Base
           "LOWER(users.last_name) LIKE CONCAT('%', ?, '%')",
           "LOWER(users.email) LIKE CONCAT('%', ?, '%')",
           "(SELECT 1 FROM positions WHERE id = users.position_id AND LOWER(title) LIKE CONCAT('%', ?, '%'))",
-          "(SELECT 1 FROM technologies WHERE id = users.technology_id AND LOWER(title) LIKE CONCAT('%', ?, '%'))"
+          "(SELECT 1 FROM technologies WHERE id = users.technology_id AND LOWER(title) LIKE CONCAT('%', ?, '%'))",
+          "(SELECT 1 FROM technologies WHERE LOWER(title) LIKE CONCAT('%', ?, '%') AND id IN (SELECT technology_id FROM users_competencies WHERE user_id = users.id))"
         ].join(' OR ')
         "(#{ or_clauses })"
       }.join(' AND '),

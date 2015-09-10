@@ -162,6 +162,7 @@ class UsersController < ApplicationController
       @technologies = Technology.where(:parent_id => 0).order("title ASC")
       @positions = Position.order("title ASC")
       @clients = Client.order("title ASC")
+      @permissions = Permission.order("id ASC")
       @notif_type = 'info'
       @notif_message = t('delete_sucess')
       format.js
