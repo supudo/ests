@@ -33,7 +33,8 @@ class ExpertisematrixController < ApplicationController
         users_string = ''
         users_per_tech = ActiveRecord::Base.connection.execute("SELECT u.id, u.first_name, u.last_name FROM users_competencies AS uc INNER JOIN users AS u ON u.id = uc.user_id WHERE uc.technology_id = " + tech.id.to_s)
         users_per_tech.each do |u|
-          users_string += '<a href="/users/' + u[0].to_s + '">' + u[1] + ' ' + u[2] + '</a>, '
+          user_skills = ""
+          users_string += '<a href="/users/' + u[0].to_s + '" data-toggle="tooltip" data-placement="bottom" data-content="' + user_skills + '" title="' + user_skills + '">' + u[1] + ' ' + u[2] + '</a>, '
         end
         if users_string.size > 2
           users_string = users_string[0, users_string.size - 2]
