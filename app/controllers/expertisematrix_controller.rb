@@ -42,12 +42,20 @@ class ExpertisematrixController < ApplicationController
         child = {}
         child[:id] = tech.id
         if users_per_tech.count > 0
-          child[:name] = tech.title + ' - ' + users_per_tech.count.to_s + ' (' + users_string + ')'
+          child[:name] = tech.title + ' - <u><b>' + users_per_tech.count.to_s + '</b></u> (' + users_string + ')'
         else
           child[:name] = tech.title
         end
         child[:level] = getNodeLevel(tech, 0)
-        child[:type] = "default"
+        tech_type = 'default'
+        if tech.parent_id == 0
+          tech_type = 'default'
+        elsif !tech.children.nil? && tech.children.count > 0
+          tech_type = 'category'
+        else
+          tech_type = 'tech'
+        end
+        child[:type] = tech_type
         children = techTreeGrid(child, tech.id, 1)
         if !children.nil? && children.count > 0
           child[:nodes] = children
