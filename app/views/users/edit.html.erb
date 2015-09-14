@@ -7,7 +7,7 @@ techs_str = ''
 techs = Technology.where(:is_rated => 0).order("title ASC")
 techs = techs.sort_by &:tree_title
 techs.each do |tech|
-  techs_str += "{value: '" + tech.id.to_s + "', label: '" + tech.tree_title + "'},";
+  techs_str += "{\"value\": \"" + tech.id.to_s + "\", \"label\": \"" + tech.tree_title + "\"},";
 end
 techs_str = techs_str[0, techs_str.size - 1]
 %>

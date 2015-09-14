@@ -31,10 +31,21 @@ class ExpertisematrixController < ApplicationController
       technologies = Technology.where(:parent_id => params[:id]).order("title")
       technologies.each do |tech|
         users_string = ''
-        users_per_tech = ActiveRecord::Base.connection.execute("SELECT u.id, u.first_name, u.last_name FROM users_competencies AS uc INNER JOIN users AS u ON u.id = uc.user_id WHERE uc.technology_id = " + tech.id.to_s)
+        users_per_tech = ActiveRecord::Base.connection.execute(%{SELECT
+  u.id, u.first_name, u.last_name,
+  (
+    SELECT GROUP_CONCAT(t.title)
+    FROM
+      technologies AS t
+      INNER JOIN users_competencies AS uc2 ON uc2.technology_id = t.id
+    WHERE uc2.user_id = u.id
+  ) AS user_skills
+FROM
+  users_competencies AS uc
+  INNER JOIN users AS u ON u.id = uc.user_id
+WHERE uc.technology_id = } + tech.id.to_s)
         users_per_tech.each do |u|
-          user_skills = ""
-          users_string += '<a href="/users/' + u[0].to_s + '" data-toggle="tooltip" data-placement="bottom" data-content="' + user_skills + '" title="' + user_skills + '">' + u[1] + ' ' + u[2] + '</a>, '
+          users_string += '<a href="/users/' + u[0].to_s + '" data-toggle="tooltip" data-placement="bottom" data-content="' + u[3] + '" title="' + u[3] + '">' + u[1] + ' ' + u[2] + '</a>, '
         end
         if users_string.size > 2
           users_string = users_string[0, users_string.size - 2]
