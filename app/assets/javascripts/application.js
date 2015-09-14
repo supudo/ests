@@ -17,7 +17,6 @@
 //= require bootstrap-sprockets
 //= require filterrific/filterrific-jquery
 //= require jquery.remotipart
-//= require bootstrap-tokenfield
 //= require_tree .
 
 var QueryString = function () {

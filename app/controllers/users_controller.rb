@@ -71,7 +71,7 @@ class UsersController < ApplicationController
       ucomps = UsersCompetency.where(:user_id => @user.id)
       ucomps.each do |uc|
         @utechnologies_ids += uc.technology_id.to_s + ','
-        @utechnologies_titles += "{value: \"" + uc.technology_id.to_s + "\", label: \"" + uc.technology.tree_title + "\"},"
+        @utechnologies_titles += "{\"value\": \"" + uc.technology_id.to_s + "\", \"label\": \"" + uc.technology.tree_title + "\"},"
       end
       if @utechnologies_titles.size > 1
         @utechnologies_titles = @utechnologies_titles[0, @utechnologies_titles.size - 1]

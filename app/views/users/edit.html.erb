@@ -41,7 +41,7 @@ var technologies_tokens = [<% safe_concat techs_str %>];
         <input type="hidden" id="iduser_<%= @user.id %>_tech_competencies" name="user[tech_competencies]" value="" />
         <input id="user_tech_<%= @user.id %>" type="text" class="form-control tokenize" placeholder="<%= t('token_technologies') %>" value="" />
         <script>
-          $(function() {
+          jQuery(document).ready(function($) {
             jQuery.noConflict();
             $('#user_tech_<%= @user.id %>')
             .tokenfield({
