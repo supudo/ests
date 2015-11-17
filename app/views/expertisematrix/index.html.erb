@@ -4,6 +4,9 @@
 <link rel="stylesheet" media="all" href="/stylesheets/bootstrap-gtreetable.css" data-turbolinks-track="true" />
 <script src="/javascripts/bootstrap-gtreetable.js"></script>
 
+<a href="#" data-toggle="tooltip" data-placement="bottom" title="Umbraco CMS,Kentico CMS,Sitecore">Metodi Erdelski</a>
+<br />
+
 <table class="table gtreetable" id="emtechtreetbl"><thead><tr><th><%= t('technology') %></th></tr></thead></table>
 
 <script>
@@ -30,5 +33,6 @@ $(function() {
       'tech' : 'glyphicon glyphicon-star'
     }
   });
+  $('[data-toggle="tooltip"]').tooltip('show');
 });
 </script>

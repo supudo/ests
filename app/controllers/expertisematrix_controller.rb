@@ -45,7 +45,7 @@ FROM
   INNER JOIN users AS u ON u.id = uc.user_id
 WHERE uc.technology_id = } + tech.id.to_s)
         users_per_tech.each do |u|
-          users_string += '<a href="/users/' + u[0].to_s + '" data-toggle="tooltip" data-placement="bottom" data-content="' + u[3] + '" title="' + u[3] + '">' + u[1] + ' ' + u[2] + '</a>, '
+          users_string += '<a href="/users/' + u[0].to_s + '" data-toggle="tooltip" data-placement="bottom" title="' + u[3] + '">' + u[1] + ' ' + u[2] + '</a>, '
         end
         if users_string.size > 2
           users_string = users_string[0, users_string.size - 2]
